@@ -1,0 +1,36 @@
+@import '../../styles/abstracts/variables.scss';
+.text {
+  color: $color-black-2;
+  margin-bottom: 20px;
+  &.white {
+    color: $color-white;
+  }
+  &.black-3 {
+    color: lightblue;
+  }
+  &.xs {
+    font-size: 12px;
+  }
+  &.sm {
+    font-size: 16px;
+  }
+  &.md {
+    font-size: 20px;
+  }
+  &.lg {
+    font-size: 24px;;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.right {
+    text-align: right;
+  }
+  &.left {
+    text-align: left;
+  }
+}
+.dark {
+  color: $color-white-2;
+}
+

@@ -1,0 +1,14 @@
+@import '../../styles/abstracts/variables.scss';
+.divide {
+  width: 64px;
+  background-color: $color-white;
+  height: 3px;
+  display: block;
+  margin-bottom: 45px;
+}
+.pink {
+  background-color: $color-pink;
+}
+.dark {
+  background-color: $color-white-3;
+}

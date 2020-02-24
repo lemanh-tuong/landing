@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
+import styles from './Button.module.scss';
 
-interface Props {
-  children: React.ReactNode;
-  className: string;
-  style: React.CSSProperties;
+interface ButtonProps extends PropsComponent {
+  color: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
+  dark: boolean;
+  darkClassName?: string;
+  onClick?: () => void;
 }
 
-type DefaultProps = Pick<Props, 'style' | 'className'>;
-
-export default class Button extends Component<Props> {
-  static defaultProps: DefaultProps = {
-    style: {},
+export default class Button extends Component<ButtonProps> {
+  static defaultProps: ButtonProps = {
+    color: 'white',
     className: '',
+    dark: false,
   };
 
   render() {
-    const { children, className, style } = this.props;
+    const { children, className, style, color, dark, onClick } = this.props;
+    const darkMode = dark ? styles['dark'] : '';
     return (
-      <div className={className} style={style}>
-        <button>{children}</button>
-      </div>
+      <div className={className} style={style} onClick={onClick && onClick}>
+        <a href="###" className={`${styles.button} ${styles[color]}  ${darkMode} ${className}`}>
+          {children}
+        </a>
+      </div >
     );
   }
 }

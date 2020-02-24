@@ -1,23 +1,52 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import Nav from 'components/Nav/Nav';
+import NavMobile from 'components/NavMobile/NavMobile';
 import HomePage from 'pages/HomePage/HomePage';
-import AboutPage from 'pages/AboutPage/AboutPage';
 import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const Routes = () => {
+  const [show, setShow] = useState(false);
+  const [active, setActive] = useState(false);
+
+  const handleShow = () => {
+    setShow(!show);
+  };
+
+  const handleClose = () => {
+    if (show) {
+      setShow(false);
+    }
+  };
+
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  };
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener('click', handleClose);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('click', handleClose);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
+
   return (
     <BrowserRouter>
       <header>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
+        <Nav onClick={handleShow} active={active} />
+        <NavMobile show={show} />
       </header>
       <main>
         <Switch>
           <Route path="/" exact>
             <HomePage />
-          </Route>
-          <Route path="/about">
-            <AboutPage />
           </Route>
           <Route>
             <NotFoundPage />

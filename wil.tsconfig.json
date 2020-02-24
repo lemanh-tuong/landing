@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "isolatedModules": false,
     "jsx": "react",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   }
 }

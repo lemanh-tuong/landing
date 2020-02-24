@@ -15,4 +15,16 @@ declare global {
   declare type ValueOf<T> = T[keyof T];
 
   declare type Timeout = NodeJS.Timeout;
+  
+  declare interface ReducerState<TData> {
+    status?: ReducerStatus;
+    message?: string;
+    data: TData;
+    [key: string]: any;
+  }
+  declare interface PropsComponent {
+    children?: React.ReactNode,
+    className?: string;
+    style?: React.CSSProperties
+  }
 }

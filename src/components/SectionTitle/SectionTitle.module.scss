@@ -1,0 +1,52 @@
+@import '../../styles/abstracts/variables.scss';
+.sectionTitle {
+  font-size: 18px;
+  color: $color-black;
+  font-weight: $font-light;
+  margin-bottom: 20px;
+  @media (min-width: 320px) {
+    font-size: 20px;
+  }
+  @media (min-width: 500px) {
+    font-size: 24px;
+  }
+  @media (min-width: 768px) {
+    font-size: 30px;
+  }
+  @media (min-width: 992px) {
+    font-size: $title-lg;
+  }
+  &.white {
+    color: $color-white;
+  }
+  &.black-3 {
+    color: lightblue;
+  }
+  &.xs {
+    font-size: 16px;
+  }
+  &.sm {
+    font-size: 20px;
+  }
+  &.md {
+    font-size: 24px;
+  }
+  &.lg {
+    font-size: 28px;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.right {
+    text-align: right;
+  }
+  &.left {
+    text-align: left;
+  }
+}
+
+.sectionTitle.dark {
+  &.black-3 {
+    color: rgb(244, 244, 244);
+  }
+}
