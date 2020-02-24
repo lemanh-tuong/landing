@@ -1,12 +1,16 @@
 import React, { FC } from 'react';
 import styles from './ImageVideo.module.scss';
 
-const ImageVideo: FC = () => {
+export interface ImageVideoProps {
+  videoUrl: string;
+}
+
+const ImageVideo: FC<ImageVideoProps> = ({ videoUrl }) => {
   return (
-    <div className={`${styles.imageVideo} ${className}`}>
+    <div className={`${styles.imageVideo}`}>
       <div className={styles.iframeVideo}>
         <iframe
-          src="https://www.youtube.com/embed/tgbNymZ7vqY">
+          src={videoUrl}>
         </iframe>
       </div>
     </div>

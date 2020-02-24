@@ -1,4 +1,3 @@
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Divide, { DividerProps } from 'components/Divide/Divide';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
@@ -39,11 +38,17 @@ export interface Section1Props extends MainTitleProps, TextProps, DividerProps, 
 const Section1: FC<Section1Props> = ({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider, dividerColor,
-  typeMockUp, imgMockUpContent, hasVideo, slider, bgColor,
-  reverse, darkMode, renderLeft, renderRight, renderProps }) => {
+  typeMockUp, data, slider, bgColor,
+  classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp,
+  margin, itemShow, responsive,
+  reverse, darkMode, renderLeft, renderRight }) => {
 
   const _renderMockUp = () => {
-    return <MockUp slider={slider} typeMockUp={typeMockUp} imgMockUpContent={imgMockUpContent} hasVideo={hasVideo} />;
+    return <MockUp
+      styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
+      data={data} slider={slider} margin={margin} itemShow={itemShow} responsive={responsive}
+      navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots}
+    />;
   };
 
   const _renderDivider = () => {
@@ -92,14 +97,6 @@ const Section1: FC<Section1Props> = ({ mainTitle, colorMainTitle, fontSizeMainTi
     );
   };
 
-  const _renderButtonGroup = () => {
-    return (
-      <ButtonGroup scroll>
-        {renderProps?.()}
-      </ButtonGroup>
-    );
-  };
-
   return (
     <Section bgColor={!!bgColor ? bgColor : undefined}>
       <Row>
@@ -111,9 +108,8 @@ const Section1: FC<Section1Props> = ({ mainTitle, colorMainTitle, fontSizeMainTi
           }) : _renderLeftDefault()}
         </Col>
         <Col style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }} cols={[12, 6, 6]} className={reverse ? 'order-1' : ''}>
-          {renderRight ? renderRight({ typeMockUp, imgMockUpContent, hasVideo, slider }) : _renderRightDefault()}
+          {renderRight ? renderRight({ typeMockUp, data, slider }) : _renderRightDefault()}
         </Col>
-        {renderProps && _renderButtonGroup()}
       </Row>
     </Section>
   );

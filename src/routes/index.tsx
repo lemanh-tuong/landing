@@ -1,5 +1,3 @@
-import Nav from 'components/Nav/Nav';
-import NavMobile from 'components/NavMobile/NavMobile';
 import HomePage from 'pages/HomePage/HomePage';
 import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
 import React, { useEffect, useState } from 'react';
@@ -40,8 +38,6 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <header>
-        <Nav onClick={handleShow} active={active} />
-        <NavMobile show={show} />
       </header>
       <main>
         <Switch>

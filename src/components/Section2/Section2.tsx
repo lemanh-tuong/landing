@@ -1,5 +1,5 @@
 import Card, { CardProps } from 'components/Card/Card';
-import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
+import Carousel, { CarouselOptions } from 'components/Carousel/Carousel';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section from 'components/Grid/Section/Section';
@@ -7,7 +7,7 @@ import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTit
 import React, { FC, ReactNode } from 'react';
 import styles from './Section2.module.scss';
 
-interface Section2Props extends MainTitleProps, CardProps, Omit<CarouselProps, 'data'> {
+interface Section2Props extends MainTitleProps, CardProps, Omit<CarouselOptions, 'data'> {
   data: CardProps | CardProps[];
   slider?: boolean;
   renderItem?: (item: CardProps) => ReactNode;
@@ -15,7 +15,7 @@ interface Section2Props extends MainTitleProps, CardProps, Omit<CarouselProps, '
 
 const Section2: FC<Section2Props> = ({
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, classMainTitle, styleMainTitle,
-  data, slider, hasDots, hasNav, dotClass, navClass,
+  data, slider, hasDots, hasNav, dotClass, navClass, itemShow, responsive,
   renderItem,
   darkMode }) => {
   const _renderCardDefault = ({ titleCard, alignTitleCard, colorTitleCard, fontSizeTitleCard, classNameTitleCard, styleTitleCard,
@@ -68,6 +68,8 @@ const Section2: FC<Section2Props> = ({
         hasDots={hasDots}
         data={data}
         renderItem={(arg: CardProps) => renderItem ? renderItem(arg) : <Card {...arg} />}
+        itemShow={itemShow}
+        responsive={responsive}
       />;
   };
 

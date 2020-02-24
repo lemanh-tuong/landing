@@ -1,4 +1,3 @@
-import PopUp from 'components/PopUp/PopUp';
 import React, { CSSProperties, FC, Fragment } from 'react';
 import styles from './Image.module.scss';
 export interface ImageProps {
@@ -28,12 +27,6 @@ const Image: FC<ImageProps> = ({ srcImg, type, aspectRatio, zoom, parallax, clas
     return (
       <div className={`${styles.imageWrap} ${aspectRatioStyle}`}>
         <div className={`${styles.image}`} style={{ backgroundImage: `url(${srcImg})`, backgroundAttachment: `${parallax ? 'fixed' : ''}` }}>{children}</div>
-        <PopUp>
-          <div className={`${styles.background} ${className}`}
-            style={{ ...style, backgroundImage: `url(${srcImg})` }}
-            onClick={zoom ? PopUp.hide : undefined}
-          />
-        </PopUp>
       </div>
     );
   };
@@ -42,7 +35,7 @@ const Image: FC<ImageProps> = ({ srcImg, type, aspectRatio, zoom, parallax, clas
     return (
       <Fragment>
         <div className={`${styles.image} ${className}`}>
-          <img src={srcImg} alt="" />
+          <img src={srcImg} alt="" onDrag={(e) => e.preventDefault()} />
           {children}
         </div>
       </Fragment>

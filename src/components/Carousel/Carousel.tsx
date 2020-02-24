@@ -1,11 +1,22 @@
-import Image from 'components/Image/Image';
+import { ImageProps } from 'components/Image/Image';
 import useSlide from 'hooks/useSlide';
-import React, { CSSProperties, FC, ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import styles from './Carousel.module.scss';
 
 // const caculatedWidth = (ammountItems: number) => {
 //   return 100 / ammountItems;
 // };
+
+export interface breakpoint {
+  '576px'?: number;
+  '768px'?: number;
+  '992px'?: number;
+  '1200px'?: number;
+}
+
+type ItemType<T> = T;
+
+type RenderType<T> = (arg: T) => ReactNode;
 
 
 export interface CarouselOptions {
@@ -13,17 +24,18 @@ export interface CarouselOptions {
   hasDots?: boolean;
   dotClass?: string;
   navClass?: string;
-  items?: number;
   margin?: number;
+  responsive?: breakpoint;
+  itemShow?: number;
 }
 
-export interface CarouselProps extends CarouselOptions {
-  renderItem?: <ItemT>(arg: ItemT) => ReactNode;
-  data: any[];
+export interface CarouselProps<T> extends CarouselOptions, Omit<ImageProps, 'srcImg'> {
+  renderItem?: RenderType<T>;
+  data: ItemType<T>[];
 }
 
-const Carousel: FC<CarouselProps> = ({ data, renderItem, hasNav, hasDots, dotClass, navClass, items = 3, margin = 30 }) => {
-  const { currentSlide, nextSlide, prevSlide, pickSlide } = useSlide(data.length, items);
+const Carousel = <T extends any>({ data, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow }: CarouselProps<T>) => {
+  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(data.length, responsive && responsive, itemShow);
 
   const _renderNavSlide = () => {
     return (
@@ -44,28 +56,28 @@ const Carousel: FC<CarouselProps> = ({ data, renderItem, hasNav, hasDots, dotCla
   };
 
   const _renderDots = () => {
-    return <div className={styles.dots}>{data.map((index) => _renderDot(index))}</div>;
+    return <div className={styles.dots}>{data.map((_item, index) => _renderDot(index))}</div>;
   };
 
   const _renderSlide = () => {
     return data.map(item => {
       return (
-        <div className={styles.slideItem} style={{ width: `${(100 / items)}%`, padding: `0px ${margin}px` }}>
-          {renderItem ? renderItem(item) : <Image srcImg={item} />}
+        <div className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
+          {renderItem?.(item)}
         </div>
       );
     });
   };
-
   const position: CSSProperties = {
-    transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${margin}px), 0, 0)`,
+    transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${margin - nowPosition + startPosition}px), 0, 0)`,
   };
 
+  console.log(position);
 
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow}`}>
-        <div className={`${styles.slides} `} style={position} >
+      <div className={`${styles.slideShow} `} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>
+        <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
           {_renderSlide()}
         </div>
       </div>

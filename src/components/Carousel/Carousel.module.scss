@@ -15,10 +15,10 @@
   display: flex;
   flex-wrap: nowrap;
   height: 100%;
-  transition: 0.3s;
   & .slideItem {
       flex: none;
-      height: 100%
+      height: 100%;
+      position: relative;
   }
   & img {
     user-select: none;
@@ -26,34 +26,30 @@
 }
 
 .navCarousel {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  z-index: 123;
-  display: flex;
-  justify-content: space-between;
+  & .slideBtn {
+    position: absolute;
+    top: 40%;
+    outline: none;
+    border: none;
+    background: white;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.next {
+      right: 10px
+    }
+    &.prev {
+      left: 10px;
+    }
+  }
 }
 
-.slideBtn {
-  outline: none;
-  border: none;
-  background: white;
-  width: 50px;
-  height: 50px;
-  font-size: 18px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &.next {
-    margin-right: 10px;
-  }
-  &.prev {
-    margin-left: 10px;
-  }
-}
+
 
 .dots {
   display: flex;
@@ -74,4 +70,8 @@
   &.active {
     background-color: $color-pink;
   }
+}
+
+.animated {
+  transition: 0.3s all;
 }

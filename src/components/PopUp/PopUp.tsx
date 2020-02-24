@@ -1,4 +1,3 @@
-/* eslint-disable react/sort-comp */
 import React, { Component, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './PopUp.module.scss';
@@ -91,5 +90,3 @@ class PopUp extends Component<PopUpProps> {
 
 
 export default PopUp;
-
-

@@ -1,4 +1,4 @@
-import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
+import Carousel, { CarouselOptions } from 'components/Carousel/Carousel';
 import Icon from 'components/Icon/Icon';
 import ImageVideo from 'components/ImageVideo/ImageVideo';
 import PopUp from 'components/PopUp/PopUp';
@@ -9,27 +9,32 @@ import styles from './MockUp.module.scss';
 
 export interface MockUpOption {
   typeMockUp?: 'Mac' | 'Iphone';
-  hasVideo?: boolean;
   classMockUp?: string;
   styleMockUp?: CSSProperties;
   slider?: boolean;
 }
 
-export interface MockUpProps extends Omit<CarouselProps, 'data'>, MockUpOption {
-  imgMockUpContent: string | string[];
+export interface DataType {
+  imgMockUpContent: string;
+  hasVideo?: boolean;
+  videoUrl?: string;
 }
 
-const MockUp: FC<MockUpProps> = ({ typeMockUp = 'Mac', imgMockUpContent = '', hasVideo = false, classMockUp, styleMockUp, slider, hasDots, hasNav, dotClass, navClass, items, margin, children }) => {
+export interface MockUpProps extends MockUpOption, Omit<CarouselOptions, 'responsive, itemShow'> {
+  data: DataType | DataType[];
+}
 
-  const _renderPlayBtn = (srcImg: string) => {
+const MockUp: FC<MockUpProps> = ({ data, typeMockUp = 'Mac', classMockUp, styleMockUp, dotClass, navClass, hasDots, hasNav, margin, children }) => {
+
+  const _renderPlayBtn = (videoUrl: string) => {
     return (
       <div className={styles.playBtn}>
         <div className="pos-a-center">
-          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show}>
+          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show} styleIcon={{ zIndex: 1000 }}>
             <i className="fas fa-play" style={{ color: 'white' }}></i>
           </Icon>
           <PopUp>
-            <ImageVideo href="#" srcImg={srcImg} />
+            <ImageVideo videoUrl={videoUrl} />
           </PopUp>
         </div>
       </div>
@@ -37,15 +42,34 @@ const MockUp: FC<MockUpProps> = ({ typeMockUp = 'Mac', imgMockUpContent = '', ha
   };
 
   const _renderMockUpContent = () => {
-    if (imgMockUpContent instanceof Array) {
-      return <Carousel items={1} margin={0} hasDots={false} hasNav={false} data={imgMockUpContent} />;
+    if (data instanceof Array) {
+      return <Carousel
+        margin={margin}
+        dotClass={dotClass}
+        navClass={navClass}
+        hasDots={hasDots}
+        hasNav={hasNav}
+        data={data}
+        itemShow={1}
+        renderItem={({ imgMockUpContent, videoUrl, hasVideo }) => {
+          return (
+            <Fragment>
+              <div className={styles.video} style={{ backgroundImage: `url(${imgMockUpContent})` }}>
+                {children}
+              </div>
+              {hasVideo && _renderPlayBtn(videoUrl ? videoUrl : '')}
+            </Fragment>
+          );
+        }}
+      />;
+
     }
     return (
       <Fragment>
-        <div className={styles.video} style={{ backgroundImage: `url(${imgMockUpContent})` }}>
+        <div className={styles.video} style={{ backgroundImage: `url(${data.imgMockUpContent})` }}>
           {children}
         </div>
-        {hasVideo && _renderPlayBtn(imgMockUpContent)}
+        {_renderPlayBtn(data.videoUrl ? data.videoUrl : '')}
       </Fragment>
     );
   };
@@ -56,7 +80,7 @@ const MockUp: FC<MockUpProps> = ({ typeMockUp = 'Mac', imgMockUpContent = '', ha
 
   return (
     <div className={`${styles.mockUp} ${classMockup}`} style={style}>
-      <img src={device} alt="" />
+      <img src={device} alt="" draggable='false' onDrag={(e) => e.preventDefault()} />
       <div className={`${styles.mockUpContent} ${styles[typeMockUp]}`}>
         {_renderMockUpContent()}
       </div>
