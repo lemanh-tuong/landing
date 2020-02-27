@@ -35,7 +35,7 @@ const Image: FC<ImageProps> = ({ srcImg, type, aspectRatio, zoom, parallax, clas
     return (
       <Fragment>
         <div className={`${styles.image} ${className}`}>
-          <img src={srcImg} alt="" onDrag={(e) => e.preventDefault()} />
+          <img src={srcImg} alt="" onDragStart={(e) => e.preventDefault()} />
           {children}
         </div>
       </Fragment>

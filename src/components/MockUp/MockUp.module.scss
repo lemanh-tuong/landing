@@ -12,10 +12,13 @@
 }
 .mockUpContent {
   position: absolute;
-  overflow: hidden;
   z-index: 1;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  &.fluid {
+    overflow: initial;
+  }
   &.Iphone {
     width: 86.7%;
     height: 75%;

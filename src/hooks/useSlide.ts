@@ -49,7 +49,7 @@ const useSlide = (imgsLength: number, responsive?: breakpoint, itemShow?: number
       setAnimated(true);
       if (space < -50 && currentSlide < imgsLength - items) {
         nextSlide();
-      } else if (space > 50 && currentSlide > items - 1) {
+      } else if (space > 50 && currentSlide > 0) {
         setCurrentSlide(currentSlide - 1);
       }
       setIsDragging(false);

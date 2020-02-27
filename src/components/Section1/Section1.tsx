@@ -5,7 +5,7 @@ import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
 import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
 import Text, { TextProps } from 'components/Text/Text';
-import React, { FC, Fragment, ReactNode } from 'react';
+import React, { Fragment } from 'react';
 
 interface Section1Option {
   bgColor?: SectionPatternBase['bgColor'];
@@ -14,34 +14,20 @@ interface Section1Option {
   slider?: boolean;
 }
 
-interface RenderLeftType extends MainTitleProps, TextProps, DividerProps {
 
-}
-
-interface RenderRightType extends MockUpProps, Pick<Section1Option, 'slider'> {
-
-}
-
-export interface Section1Props extends MainTitleProps, TextProps, DividerProps, MockUpProps, Section1Option {
-  renderLeft?: (arg: RenderLeftType) => ReactNode;
-  renderRight?: (arg: RenderRightType) => ReactNode;
-  renderProps?: () => ReactNode;
+export interface Section1Props<T> extends MainTitleProps, TextProps, DividerProps, MockUpProps<T>, Section1Option {
+  renderLeft?: any;
+  renderRight?: any;
 }
 
 
-// const defaultSectionPattern = {
-//   darkMode: false,
-//   bgColor: undefined,
-//   reverse: false,
-// };
-
-const Section1: FC<Section1Props> = ({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
+const Section1 = <DataType extends any>({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider, dividerColor,
   typeMockUp, data, slider, bgColor,
   classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp,
   margin, itemShow, responsive,
-  reverse, darkMode, renderLeft, renderRight }) => {
+  reverse, darkMode, renderLeft, renderRight }: Section1Props<DataType>) => {
 
   const _renderMockUp = () => {
     return <MockUp

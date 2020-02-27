@@ -1,29 +1,88 @@
-// import PopUp from 'components/PopUp/PopUp';
-// import Section1 from 'components/Section1/Section1';
-// import SideBar from 'components/SideBar/SideBar';
-import React from 'react';
-// import styles from './SettingsPage.module.scss';
+import { Section1Props } from 'components/Section1/Section1';
+import React, { PureComponent } from 'react';
+const pattern = [
+  {
+    name: 'Section 1',
+  },
+  {
+    name: 'Section 2',
+  },
+  {
+    name: 'Section 3',
+  },
+];
 
-// const SettingsPage = () => {
-//   return (
-//     <div className="SettingsPage">
-//       <PopUp>
-//         <Section1 />
-//       </PopUp>
-//       <div className={styles.wrapper}>
-//         <SideBar className={styles.sideBar} />
-//         <div className={styles.mainContent}>
-//           <Section1 />
-//           <div className={styles.footer}>
-//             <button className={styles.btn} onClick={() => PopUp.show()}>
-//               Click
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+interface Options extends Section1Props<any> {
+}
+class SettingsPage extends PureComponent<{}, Options> {
+  constructor() {
+    super({}, null);
+    this.state = {
+      mainTitle: '',
+      alignMainTitle: undefined,
+      fontSizeMainTitle: undefined,
+      colorMainTitle: undefined,
+      classMainTitle: '',
+      styleMainTitle: {},
+      text: '',
+      alignText: undefined,
+      colorText: undefined,
+      fontSizeText: undefined,
+      classText: '',
+      styleText: {},
+      hasDivider: false,
+      dividerColor: 'white',
+      data: [],
+      slider: false,
+      hasDots: false,
+      hasNav: true,
+      navClass: '',
+      dotClass: '',
+      margin: 0,
+      itemShow: undefined,
+      responsive: undefined,
+      renderItem: undefined,
+      fluid: false,
+      typeMockUp: 'Mac',
+      classMockUp: '',
+      styleMockUp: {},
+      className: '',
+      aspectRatio: 'aspectRatio-11',
+      darkMode: false,
+      bgColor: undefined,
+      reverse: false,
+    };
+  }
 
-const SettingsPage = () => <div>H!</div>;
+  handleInput = (type: 'title' | 'text') => {
+    return (e: any) => {
+      this.setState((state: any) => {
+        if (type === 'title') {
+          return {
+            ...state,
+            text: state.text,
+            mainTitle: e.target.value
+          };
+        }
+        if (type === 'text') {
+          return {
+            ...state,
+            mainTitle: state.mainTitle,
+            text: e.target.value,
+          };
+        }
+      });
+    };
+  };
+
+  render() {
+    return (
+      <div className="SettingsPage">
+        <input onChange={this.handleInput('title')} placeholder="Title" />
+        <input onChange={this.handleInput('text')} placeholder="Text" />
+      </div>
+    );
+  }
+}
+
 export default SettingsPage;

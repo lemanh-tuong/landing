@@ -1,10 +1,36 @@
-import React from 'react';
-import { hydrate, render } from 'react-dom';
 import App from 'App';
+import i18n from 'i18next';
+import React from 'react';
+import ReactDOM, { hydrate, render } from 'react-dom';
 import * as serviceWorker from 'serviceWorker';
 import 'styles/styles.scss';
 const isDev = process.env.NODE_ENV === 'development';
 const rootElement = document.getElementById('root') as HTMLElement;
+
+const resources = {
+  en: {
+    translation: {
+      'Welcome to React': 'Welcome to React and react-i18next'
+    }
+  }
+};
+
+i18n
+  .use({
+    type: 'i18nFormat',
+  }) // passes i18n down to react-i18next
+  .init({
+    resources,
+    lng: 'en',
+
+    keySeparator: false, // we do not use keys in form messages.welcome
+
+    interpolation: {
+      escapeValue: false // react already safes from xss
+    }
+  });
+
+export default i18n;
 
 if (rootElement.hasChildNodes()) {
   hydrate(<App />, rootElement);
@@ -23,3 +49,7 @@ if (isDev) {
 } else {
   serviceWorker.unregister();
 }
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);

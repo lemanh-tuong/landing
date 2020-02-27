@@ -1,8 +1,8 @@
-import Carousel, { CarouselOptions } from 'components/Carousel/Carousel';
+import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
 import Icon from 'components/Icon/Icon';
 import ImageVideo from 'components/ImageVideo/ImageVideo';
 import PopUp from 'components/PopUp/PopUp';
-import React, { CSSProperties, FC, Fragment } from 'react';
+import React, { CSSProperties, Fragment } from 'react';
 import imgMac from '../../assets/img/macbook.png';
 import imgIphone from '../../assets/img/phones/0.png';
 import styles from './MockUp.module.scss';
@@ -20,11 +20,13 @@ export interface DataType {
   videoUrl?: string;
 }
 
-export interface MockUpProps extends MockUpOption, Omit<CarouselOptions, 'responsive, itemShow'> {
-  data: DataType | DataType[];
+export interface MockUpProps<DataType> extends MockUpOption, Omit<CarouselProps<DataType>, 'responsive, itemShow'> {
 }
 
-const MockUp: FC<MockUpProps> = ({ data, typeMockUp = 'Mac', classMockUp, styleMockUp, dotClass, navClass, hasDots, hasNav, margin, children }) => {
+const MockUp = <DataType extends any>({
+  data, typeMockUp = 'Mac', classMockUp, styleMockUp,
+  dotClass, navClass, hasDots, hasNav, margin, fluid }: MockUpProps<DataType>
+) => {
 
   const _renderPlayBtn = (videoUrl: string) => {
     return (
@@ -51,11 +53,11 @@ const MockUp: FC<MockUpProps> = ({ data, typeMockUp = 'Mac', classMockUp, styleM
         hasNav={hasNav}
         data={data}
         itemShow={1}
+        fluid={fluid}
         renderItem={({ imgMockUpContent, videoUrl, hasVideo }) => {
           return (
             <Fragment>
               <div className={styles.video} style={{ backgroundImage: `url(${imgMockUpContent})` }}>
-                {children}
               </div>
               {hasVideo && _renderPlayBtn(videoUrl ? videoUrl : '')}
             </Fragment>
@@ -66,10 +68,9 @@ const MockUp: FC<MockUpProps> = ({ data, typeMockUp = 'Mac', classMockUp, styleM
     }
     return (
       <Fragment>
-        <div className={styles.video} style={{ backgroundImage: `url(${data.imgMockUpContent})` }}>
-          {children}
+        <div className={styles.video} style={{ backgroundImage: `url(${data})` }}>
         </div>
-        {_renderPlayBtn(data.videoUrl ? data.videoUrl : '')}
+        {_renderPlayBtn(data ? data : '')}
       </Fragment>
     );
   };
@@ -81,7 +82,7 @@ const MockUp: FC<MockUpProps> = ({ data, typeMockUp = 'Mac', classMockUp, styleM
   return (
     <div className={`${styles.mockUp} ${classMockup}`} style={style}>
       <img src={device} alt="" draggable='false' onDrag={(e) => e.preventDefault()} />
-      <div className={`${styles.mockUpContent} ${styles[typeMockUp]}`}>
+      <div className={`${styles.mockUpContent} ${fluid ? styles.fluid : ''} ${styles[typeMockUp]}`}>
         {_renderMockUpContent()}
       </div>
     </div >

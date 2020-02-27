@@ -1,10 +1,9 @@
-import { Middleware, createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import reducerSettingPage from 'pages/SettingsPage/reducers/reducers';
+import { applyMiddleware, combineReducers, compose, createStore, Middleware } from 'redux';
 import logger from 'redux-logger';
-import thunk from 'redux-thunk';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { persistStore, persistReducer } from 'redux-persist';
-import rootReducers from 'store/rootReducers';
-
+import thunk from 'redux-thunk';
 const isDev = process.env.NODE_ENV === 'development';
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,7 +14,7 @@ const persistConfig = {
 };
 
 const _combineReducers = combineReducers({
-  ...rootReducers,
+  reducerSettingPage,
 });
 
 const reducers = persistReducer(persistConfig, _combineReducers);
@@ -31,3 +30,4 @@ const persistor = persistStore(store as any);
 export type Reducers = ReturnType<typeof _combineReducers>;
 
 export { store, persistor };
+

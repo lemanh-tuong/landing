@@ -6,9 +6,12 @@
 }
 
 .slideShow {
-  overflow: hidden;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  &.fluid {
+    overflow: initial;
+  }
 }
 
 .slides {
@@ -28,7 +31,8 @@
 .navCarousel {
   & .slideBtn {
     position: absolute;
-    top: 40%;
+    top: 50%;
+    transform: translateY(-50%);
     outline: none;
     border: none;
     background: white;
