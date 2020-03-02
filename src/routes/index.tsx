@@ -1,5 +1,6 @@
 import HomePage from 'pages/HomePage/HomePage';
-import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
+import PreviewPage from 'pages/PreviewPage/PreviewPage';
+import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -41,11 +42,14 @@ const Routes = () => {
       </header>
       <main>
         <Switch>
-          <Route path="/" exact>
-            <HomePage />
+          <Route path="/preview" exact>
+            <PreviewPage />
           </Route>
-          <Route>
-            <NotFoundPage />
+          <Route path="/settings">
+            <SettingsPage />
+          </Route>
+          <Route path="/">
+            <HomePage />
           </Route>
         </Switch>
       </main>

@@ -4,6 +4,7 @@ import styles from './PopUp.module.scss';
 
 interface PopUpProps {
   children: ReactNode;
+  id: string;
 }
 
 interface PopUpState {
@@ -46,18 +47,21 @@ class PopUp extends Component<PopUpProps> {
   };
 
   componentDidMount() {
-    controller.add('show', this.handleShow);
-    controller.add('hide', this.handleHide);
+    const { id } = this.props;
+    controller.add(`show-${id}`, this.handleShow);
+    controller.add(`hide-${id}`, this.handleHide);
   }
   componentWillUnmount() {
-    controller.remove('show', this.handleShow);
-    controller.remove('hide', this.handleHide);
+    const { id } = this.props;
+    controller.remove(`show-${id}`, this.handleShow);
+    controller.remove(`hide-${id}`, this.handleHide);
   }
 
   handleShow = () => {
     this.setState({
       visible: true
     });
+
   };
 
   handleHide = () => {
@@ -66,23 +70,27 @@ class PopUp extends Component<PopUpProps> {
     });
   };
 
-  static show() {
-    controller.emit('show');
+  static show(id: string) {
+    return () => {
+      controller.emit(`show-${id}`);
+    };
   }
 
-  static hide() {
-    controller.emit('hide');
+  static hide(id: string) {
+    return () => {
+      controller.emit(`hide-${id}`);
+    };
   }
 
   render() {
-    const { children } = this.props;
+    const { children, id } = this.props;
     const { visible } = this.state;
 
     if (!visible) {
       return null;
     }
     return createPortal(<div className={styles.popUp}>
-      <div className={styles.overlay} onClick={() => PopUp.hide()} />
+      <div className={styles.overlay} onClick={this.handleHide} />
       <div className={styles.content}>{children}</div>
     </div>, body as Element);
   }

@@ -11,9 +11,10 @@ export interface Section3Props extends MainTitleProps, DividerProps, Omit<TextPr
   renderLeft?: () => Component;
   renderRight?: () => Component;
   text?: string | string[];
+  reverse?: boolean;
 }
 
-const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider, dividerColor, srcImg, type, zoom, aspectRatio, className, style, darkMode, renderLeft, renderRight }) => {
+const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider, dividerColor, srcImg, type, zoom, aspectRatio, className, style, reverse, darkMode, renderLeft, renderRight }) => {
   const dark = darkMode ? 'dark' : '';
 
   const _renderLeftDefault = () => {
@@ -22,7 +23,7 @@ const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, color
 
   const _renderText = () => {
     if (text instanceof Array) {
-      return text.map(content => <Text text={content} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} classText={classText} styleText={styleText} darkMode={darkMode} />);
+      return text.map((content, index) => <Text key={index} text={content} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} classText={classText} styleText={styleText} darkMode={darkMode} />);
     } else {
       return <Text text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} classText={classText} styleText={styleText} darkMode={darkMode} />;
     }
@@ -39,10 +40,10 @@ const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, color
   return (
     <Section className={`section3 ${dark}`} bgColor={bgColor}>
       <Row>
-        <Col cols={[12, 12, 6]}>
+        <Col cols={[12, 12, 6]} className={`${reverse ? 'order-last' : ''}`}>
           {renderLeft ? renderLeft() : _renderLeftDefault()}
         </Col>
-        <Col cols={[12, 12, 5]} offsets={[0, 0, 1]}>
+        <Col cols={[12, 12, 5]} offsets={[0, 0, 1]} className={`${reverse ? 'order-first' : ''}`} >
           {renderRight ? renderRight() : _renderRightDefault()}
         </Col>
       </Row>

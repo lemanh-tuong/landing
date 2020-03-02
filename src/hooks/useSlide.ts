@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 const useSlide = (imgsLength: number, responsive?: breakpoint, itemShow?: number) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [items, setItems] = useState(itemShow ?? 1);
+  const [items, setItems] = useState(itemShow ?? 2);
   const [animated, setAnimated] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [startPosition, setStartMousePosition] = useState(0);
@@ -58,29 +58,28 @@ const useSlide = (imgsLength: number, responsive?: breakpoint, itemShow?: number
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleResize = () => {
-    if (responsive) {
-      if(responsive['576px'] && window.innerWidth >= 576 && window.innerWidth < 768) {
-        setItems(responsive?.['576px']);
-      } else if(responsive['768px'] && window.innerWidth >= 768 && window.innerWidth < 992) {
-        setItems(responsive?.['768px']);
-      } else if(responsive['992px'] && window.innerWidth >= 992 && window.innerWidth < 1200) {
-        setItems(responsive?.['992px']);
-      } else if(responsive['1200px'] && window.innerWidth >= 1200) {
-        setItems(responsive?.['1200px']);
-      }
-}
-  };
+
 
   useEffect(() => {
-    responsive && handleResize();
+    const handleResize = () => {
+      if (responsive) {
+        if(responsive['576px'] && window.innerWidth >= 576 && window.innerWidth < 768) {
+          setItems(responsive?.['576px']);
+        } else if(responsive['768px'] && window.innerWidth >= 768 && window.innerWidth < 992) {
+          setItems(responsive?.['768px']);
+        } else if(responsive['992px'] && window.innerWidth >= 992 && window.innerWidth < 1200) {
+          setItems(responsive?.['992px']);
+        } else if(responsive['1200px'] && window.innerWidth >= 1200) {
+          setItems(responsive?.['1200px']);
+        }
+      }
+    };
     const interval = setInterval(nextSlide, 10000);
     window.addEventListener('resize', handleResize);
     return () => {
       clearInterval(interval);
     };
-  }, [handleResize, items, animated, currentSlide, nextSlide, responsive]);
+  }, [items, animated, currentSlide, nextSlide, responsive]);
 
   return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
 };

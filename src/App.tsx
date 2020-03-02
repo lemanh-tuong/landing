@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import Routes from 'routes';
 import { persistor, store } from './configureStore';
 
-
 axios.defaults.baseURL = configureApp.baseUrl;
 axios.defaults.timeout = configureApp.timeout;
 
@@ -20,5 +19,7 @@ function App() {
     </Provider>
   );
 }
+
+
 
 export default App;

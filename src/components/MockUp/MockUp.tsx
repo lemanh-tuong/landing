@@ -32,10 +32,10 @@ const MockUp = <DataType extends any>({
     return (
       <div className={styles.playBtn}>
         <div className="pos-a-center">
-          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show} styleIcon={{ zIndex: 1000 }}>
+          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show(videoUrl)} styleIcon={{ zIndex: 1000 }}>
             <i className="fas fa-play" style={{ color: 'white' }}></i>
           </Icon>
-          <PopUp>
+          <PopUp id={videoUrl}>
             <ImageVideo videoUrl={videoUrl} />
           </PopUp>
         </div>

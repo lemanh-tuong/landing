@@ -2,6 +2,24 @@
   background: lightgrey;
   height: 100vh;
   width: 20%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 123;
+}
+
+.menuGroup {
+  padding: 0px 10px;
+}
+
+.menuName {
+  text-transform: uppercase;
+  font-size: .8rem;
+  margin: .75rem 0;
+  font-weight: bold;
+  color: #3f6ad8;
+  white-space: nowrap;
+  position: relative;
 }
 
 .nav {
@@ -9,12 +27,21 @@
 }
 
 .link {
-  padding: 10px 20px;
-  list-style-type: none;
+  display: block;
+  line-height: 2.4rem;
+  height: 2.4rem;
+  padding: 0 1.5rem 0 45px;
+  position: relative;
+  border-radius: .25rem;
+  color: #343a40;
+  white-space: nowrap;
+  transition: all .2s;
+  margin: .1rem 0;
   transition: 0.3s all;
   cursor: pointer;
   &:hover {
-    background: black;
-    color: white;
+    color: #343a40;
+    background: #e0f3ff;
+    font-weight: bold;
   }
 }

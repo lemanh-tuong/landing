@@ -1,11 +1,7 @@
-import { ImageProps } from 'components/Image/Image';
+import Image, { ImageProps } from 'components/Image/Image';
 import useSlide from 'hooks/useSlide';
 import React, { CSSProperties, ReactNode } from 'react';
 import styles from './Carousel.module.scss';
-
-// const caculatedWidth = (ammountItems: number) => {
-//   return 100 / ammountItems;
-// };
 
 const createArrayEnum = (length: number) => {
   const arr = [];
@@ -42,9 +38,7 @@ export interface CarouselProps<DataType> extends CarouselOptions, Omit<ImageProp
   data: ItemType<DataType>[];
 }
 
-const Carousel = <DataType extends any>({
-  data, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid,
-}: CarouselProps<DataType>) => {
+const Carousel = <DataType extends any>({ data, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<DataType>) => {
 
   const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(data.length, responsive && responsive, itemShow);
 
@@ -70,15 +64,20 @@ const Carousel = <DataType extends any>({
     return <div className={styles.dots}>{createArrayEnum(data.length - items + 1).map((_item, index) => _renderDot(index))}</div>;
   };
 
+  const _renderDefault = (srcImg: string) => {
+    return <Image srcImg={srcImg} />;
+  };
+
   const _renderSlide = () => {
-    return data.map(item => {
+    return data.map((item, index) => {
       return (
-        <div className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
-          {renderItem?.(item)}
+        <div key={index} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
+          {renderItem ? renderItem(item) : _renderDefault(item.srcImg)}
         </div>
       );
     });
   };
+
   const position: CSSProperties = {
     transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${margin - nowPosition + startPosition}px), 0, 0)`,
   };
@@ -95,4 +94,5 @@ const Carousel = <DataType extends any>({
     </div>
   );
 };
+
 export default Carousel;

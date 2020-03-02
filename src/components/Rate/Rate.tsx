@@ -1,5 +1,7 @@
 import imgIcon from 'assets/img/web_icons/envato.svg';
-import { FC } from 'react';
+import Icon from 'components/Icon/Icon';
+import React, { FC } from 'react';
+import styles from './Rate.module.scss';
 
 interface RateProps extends PropsComponent {
   authorAvatar: string;
@@ -18,40 +20,39 @@ const defaultProps: RateProps = {
 };
 
 const Rate: FC<RateProps> = ({ authorName, authorAvatar, purpose, rateContent, stars, className, style } = { ...defaultProps }) => {
-  return null;
-  // return (
-  //   <div className={`${styles.rate} ${className}`} style={style}>
-  //     <Icon color="gradient" sizeIcon="md" srcImg={authorAvatar} className={styles.rateIcon} />
-  //     <div className={styles.rateContent}>
-  //       <div className={styles.contentHeader}>
-  //         <div className={styles.stars} data-src={stars}>
-  //           <i className="fa fa-star"></i>
-  //           <i className="fa fa-star"></i>
-  //           <i className="fa fa-star"></i>
-  //           <i className="fa fa-star"></i>
-  //           <i className="fa fa-star"></i>
-  //         </div>
-  //         <div className={styles.contentTitle}>
-  //           for&nbsp;
-  //           <span>
-  //             {purpose}
-  //           </span>
-  //         </div>
-  //       </div>
-  //       <div className={styles.contentBody}>
-  //         <div className={styles.paragraph}>
-  //           {rateContent}
-  //         </div>
-  //         <div className={styles.author}>
-  //           by&nbsp;
-  //           <span>
-  //             {authorName}
-  //           </span>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+  return (
+    <div className={`${styles.rate} ${className}`} style={style}>
+      <Icon bgColorIcon='gradient-pink-orange' sizeIcon="xs" iconImg={authorAvatar} classNameIcon={styles.rateIcon} />
+      <div className={styles.rateContent}>
+        <div className={styles.contentHeader}>
+          <div className={styles.stars} data-src={stars}>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+          </div>
+          <div className={styles.contentTitle}>
+            for&nbsp;
+            <span>
+              {purpose}
+            </span>
+          </div>
+        </div>
+        <div className={styles.contentBody}>
+          <div className={styles.paragraph}>
+            {rateContent}
+          </div>
+          <div className={styles.author}>
+            by&nbsp;
+            <span>
+              {authorName}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Rate;

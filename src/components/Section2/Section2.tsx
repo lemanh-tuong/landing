@@ -7,7 +7,7 @@ import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTit
 import React, { FC, ReactNode } from 'react';
 import styles from './Section2.module.scss';
 
-interface Section2Props extends MainTitleProps, CardProps, Omit<CarouselOptions, 'data'> {
+export interface Section2Props extends MainTitleProps, CardProps, Omit<CarouselOptions, 'data'> {
   data: CardProps | CardProps[];
   slider?: boolean;
   renderItem?: (item: CardProps) => ReactNode;
@@ -75,7 +75,7 @@ const Section2: FC<Section2Props> = ({
 
   const _renderColumnContent = () => {
     if (data instanceof Array) {
-      return data.map(item => <Col cols={[12, 6, 12 / data.length >= 3 ? Math.floor(12 / data.length) : 3]}>{renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}</Col>);
+      return data.map((item, index) => <Col key={index} cols={[12, 6, 12 / data.length >= 3 ? Math.floor(12 / data.length) : 3]}>{renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}</Col>);
     }
     return _renderCardDefault({ ...data });
   };

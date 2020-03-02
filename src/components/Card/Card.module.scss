@@ -29,9 +29,12 @@
 }
 
 .cardTitle {
-  font-size: $title-md;
+  font-size: $font-size-15;
   color: $color-black-4;
   margin-bottom: 20px;
+  @media (min-width: 768px) {
+  font-size: $title-md;
+  }
   &.light-grey {
     color: #70778b;
   }

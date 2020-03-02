@@ -5,7 +5,7 @@ import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
 import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
 import Text, { TextProps } from 'components/Text/Text';
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 
 interface Section1Option {
   bgColor?: SectionPatternBase['bgColor'];
@@ -16,8 +16,8 @@ interface Section1Option {
 
 
 export interface Section1Props<T> extends MainTitleProps, TextProps, DividerProps, MockUpProps<T>, Section1Option {
-  renderLeft?: any;
-  renderRight?: any;
+  renderLeft?: () => ReactNode;
+  renderRight?: () => ReactNode;
 }
 
 
@@ -71,6 +71,7 @@ const Section1 = <DataType extends any>({ mainTitle, colorMainTitle, fontSizeMai
         {mainTitle && _renderMainTitle()}
         {hasDivider && _renderDivider()}
         {text && _renderText()}
+        {renderLeft?.()}
       </Fragment>
     );
   };
@@ -79,6 +80,7 @@ const Section1 = <DataType extends any>({ mainTitle, colorMainTitle, fontSizeMai
     return (
       <Fragment>
         {_renderMockUp()}
+        {renderRight?.()}
       </Fragment>
     );
   };
@@ -87,14 +89,10 @@ const Section1 = <DataType extends any>({ mainTitle, colorMainTitle, fontSizeMai
     <Section bgColor={!!bgColor ? bgColor : undefined}>
       <Row>
         <Col cols={[12, 6, 6]} className={reverse ? 'order-2' : ''}>
-          {renderLeft ? renderLeft({
-            mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
-            text, colorText, fontSizeText, alignText, styleText, classText,
-            hasDivider, dividerColor: 'white'
-          }) : _renderLeftDefault()}
+          {_renderLeftDefault()}
         </Col>
         <Col style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }} cols={[12, 6, 6]} className={reverse ? 'order-1' : ''}>
-          {renderRight ? renderRight({ typeMockUp, data, slider }) : _renderRightDefault()}
+          {_renderRightDefault()}
         </Col>
       </Row>
     </Section>

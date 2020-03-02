@@ -2,12 +2,11 @@ import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
-import Image, { ImageProps } from 'components/Image/Image';
 import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React from 'react';
 
-export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<ImageProps, 'srcImg'>, Omit<CarouselProps<ItemT>, 'data'> {
+export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<CarouselProps<ItemT>, 'data'> {
   data?: ItemT[];
   srcImg?: string;
   slider?: boolean;
@@ -15,18 +14,9 @@ export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps
 
 const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  srcImg, aspectRatio, type, zoom, parallax,
   slider, data, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
   bgColor, style, className, darkMode, renderItem,
 }: Section4Props<ItemT>) => {
-
-  const _renderImage = () => {
-    return (
-      <Col cols={[12]}>
-        {srcImg && <Image srcImg={srcImg} aspectRatio={aspectRatio} type={type} zoom={zoom} parallax={parallax} />}
-      </Col>
-    );
-  };
 
   const _renderColumn = () => {
     if (data instanceof Array) {
@@ -41,7 +31,6 @@ const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle
           <SectionTitle darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />
           <Text darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />
         </Col>
-        {_renderImage()}
         {slider && data ? <Carousel navClass={navClass} dotClass={dotClass} fluid={fluid} data={data} hasDots={hasDots} hasNav={hasNav} renderItem={renderItem} margin={margin} responsive={responsive} itemShow={itemShow} /> : _renderColumn()}
       </Row>
     </Section>
