@@ -5,7 +5,7 @@ interface ButtonProps extends PropsComponent {
   color: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
   dark: boolean;
   darkClassName?: string;
-  onClick?: (arg?: any) => void;
+  onClick?: <T>(arg?: T) => void;
 }
 
 export default class Button extends Component<ButtonProps> {

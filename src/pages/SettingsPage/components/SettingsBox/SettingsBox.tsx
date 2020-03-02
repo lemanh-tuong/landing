@@ -1,44 +1,27 @@
-import Button from 'components/Button/Button';
-import React, { FC, useRef, useState } from 'react';
-import CheckBox from '../CheckBox/CheckBox';
-import Input from '../Input/Input';
+import Form, { FieldCheckbox, FieldInput, FieldsRadio, FormProps } from 'components/Form/Form';
+import React, { FC } from 'react';
 import styles from './SettingsBox.module.scss';
 
 
-export interface SettingsBoxProps {
-  mainTitle?: string;
-  text?: string;
-  onSubmit: () => void;
+export interface SettingsBoxProps extends FormProps<FieldInput, FieldCheckbox, FieldsRadio> {
+  // mainTitle?: string;
+  // text?: string;
+  // onSubmit: ((arg: object) => () => void);
 }
 
-const SettingsBox: FC<SettingsBoxProps> = ({ mainTitle, text, onSubmit }) => {
-  const [hasSlide, setHasSlide] = useState(false);
-
-  const mainTitleInput = useRef<HTMLInputElement>(null);
-  const textInput = useRef<any>(null);
-
-  const _handleCheckBox = () => {
-    setHasSlide(!hasSlide);
-  };
-
-  // const _handleSubmit = (arg: { mainTitle: string; text: string; hasSlide: boolean }) => {
-  //   return () => {
-  //     console.log(arg);
-  //   };
-  // };
-
-  const _handleSubmit = () => {
-    console.log(mainTitleInput);
-  };
+const SettingsBox: FC<SettingsBoxProps> = ({ fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, onSubmit }) => {
 
   return (
     <div className={styles.settingsBox}>
-      <Input ref={mainTitleInput} value={mainTitle} />
-      <Input ref={textInput} value={text} />
-      <CheckBox checked={hasSlide} onEvent={_handleCheckBox} />
-      <Button color='border' onClick={onSubmit}>
-        Done!
-      </Button>
+      <Form
+        fieldsInput={fieldsInput}
+        renderItemInput={renderItemInput}
+        fieldsCheckBox={fieldsCheckBox}
+        renderItemCheckBox={renderItemCheckBox}
+        fieldsRadio={fieldsRadio}
+        renderItemRadio={renderItemRadio}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };

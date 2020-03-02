@@ -1,6 +1,10 @@
 .checkBoxComponent {
   margin: 10px 0;
 }
+.checkBoxName {
+  text-transform: capitalize;
+}
+
 .checkBox {
   cursor: pointer;
   border: none;

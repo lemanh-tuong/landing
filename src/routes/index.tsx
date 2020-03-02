@@ -46,7 +46,7 @@ const Routes = () => {
             <PreviewPage />
           </Route>
           <Route path="/settings">
-            <SettingsPage />
+            <SettingsPage elements={[]} pageName="" />
           </Route>
           <Route path="/">
             <HomePage />

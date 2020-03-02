@@ -9,20 +9,22 @@ import Section2 from 'components/Section2/Section2';
 import Section3 from 'components/Section3/Section3';
 import Section4 from 'components/Section4/Section4';
 import React, { Fragment } from 'react';
-import styles from './RenderSection.module.scss';
+import { align } from 'types/types';
 
 // const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
-const RenderSection = ({ sectionName, settingMode }: { sectionName: string; settingMode?: boolean }) => {
+const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText }: { sectionName: string; mainTitle: string; text: string; alignMainTitle: align; alignText: align }) => {
 
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
         return <Section1
-          mainTitle="Build any type of directory with the fastest and easiest for wordpress"
+          mainTitle={mainTitle}
+          alignMainTitle={alignMainTitle}
           colorMainTitle='white'
-          text="Create unlimited directory types, our tool also lest you design functionality and features for each of them."
+          text={text}
+          alignText={alignText}
           colorText='white'
           fontSizeText='sm'
           bgColor="gradient-orange-pink"
@@ -82,7 +84,6 @@ const RenderSection = ({ sectionName, settingMode }: { sectionName: string; sett
   };
   return (
     <Fragment>
-      {settingMode ? <div className={styles.settingBtn}></div> : null}
       {_renderContent()}
     </Fragment>
   );

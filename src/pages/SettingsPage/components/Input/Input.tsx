@@ -1,18 +1,38 @@
-import React, { FC, memo, RefObject } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import styles from './Input.module.scss';
 
-export interface Input {
-  ref?: string | ((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined;
-  value?: string;
+export interface InputProps {
+  value: string;
+  type: 'text' | 'checkbox' | 'radio';
+  label: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: FC<Input> = ({ ref, value }) => {
+const Input: FC<InputProps> = ({ label, type, value, onChange }) => {
   return (
     <div className={styles.inputBox}>
-      <label className={styles.inputName}>MainTitle</label>
-      <input className={styles.input} value={value} type="text" ref={ref} />
+      <label className={styles.inputName}>{label}</label>
+      <input type={type} className={styles.input} defaultValue={value} onChange={onChange} />
     </div>
   );
 };
 
-export default memo(Input);
+// class Input extends PureComponent<InputProps> {
+//   componentDidMount() {
+//     const { ref } = this.props;
+//     console.log(ref);
+//   }
+
+//   render() {
+//     const { value, ref } = this.props;
+
+//     return (
+//       <div className={styles.inputBox}>
+//         <label className={styles.inputName}>MainTitle</label>
+//         <input className={styles.input} value={value} type="text" ref={ref} />
+//       </div>
+//     );
+//   }
+// }
+
+export default Input;

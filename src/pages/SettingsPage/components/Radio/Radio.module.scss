@@ -1,0 +1,54 @@
+.radioForm {
+  display: flex;
+  margin: 10px 0;
+}
+
+.radioName {
+  margin-right: 10px;
+  text-transform: capitalize;
+}
+
+.radioGroup {
+  display: flex;
+}
+
+.radioItem {
+  margin: 0px 5px;
+  position: relative;
+}
+
+label {
+  text-transform: capitalize;
+  margin-right: 10px;
+}
+
+input[type="radio"] {
+  display: inline-block;
+  position: relative;
+  &:before {
+    content: '';
+    padding: 10px;
+    background: lightgrey;
+    border-radius: 100%;
+    position: absolute;
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+  // &:after {
+  //   content: '';
+  //   border-radius: 50%;
+  //   position: absolute;
+  //   width: 0;
+  //   height: 0;
+  //   padding: 5px;
+  //   background: red;
+  //   top: 5px;
+  //   left: -1.5px;
+  // }
+  &:checked:before {
+    background: lightblue;
+  }
+}
