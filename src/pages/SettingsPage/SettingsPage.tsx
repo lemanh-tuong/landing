@@ -8,12 +8,13 @@ import { TextProps } from 'components/Text/Text';
 import writeFireBase from 'firebase/writeFireBase';
 import React, { PureComponent } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import SettingsBox from './components/SettingsBox/SettingsBox';
 import RenderSection from './RenderSection/RenderSection';
 import styles from './SettingsPage.module.scss';
 
 export interface Option extends MainTitleProps, TextProps {
   sectionName: string;
-  id: string;
+  sectionId: string;
 }
 
 export interface PageProps {
@@ -45,12 +46,15 @@ const defaultOption: PageProps = {
 class SettingsPage extends PureComponent {
   option: Option = {
     sectionName: '',
-    id: '0'
+    sectionId: ''
   };
   state = { ...defaultOption };
   handleDragStart = (arg: Option) => {
     return () => {
-      this.option = arg;
+      this.option = {
+        ...arg,
+        sectionId: `${this.state.elements.length + 1}`
+      };
     };
   };
 
@@ -59,8 +63,7 @@ class SettingsPage extends PureComponent {
       ...this.state,
       elements: this.state.elements.concat(this.option)
     }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements] }));
-
-    this.option = { sectionName: '', id: `${this.state.elements.length + 1}`, ...defaultOption };
+    this.option = { sectionName: '', sectionId: '', ...defaultOption };
   };
 
   handleDelete = (element: Option) => {
@@ -80,25 +83,21 @@ class SettingsPage extends PureComponent {
     };
   };
 
-  // _renderSettingsBox = (element: Option) => {
-  //   // console.log(id);
-  //   console.log(element);
-  //   return () => {
-  //     return (
-  //       <PopUp id={element.id}>
-  //         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-  //           <SettingsBox mainTitle={element.mainTitle} text={element.text} onSubmit={this.handleChange(element.id)} />
-  //         </div>
-  //       </PopUp>
-  //     );
-  //   };
-  // };
+  _renderSettingsBox = ({ sectionId, mainTitle, text }: Option) => {
+    return (
+      <PopUp id={sectionId}>
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          <SettingsBox mainTitle={mainTitle} text={text} onSubmit={this.handleChange(sectionId)} />
+        </div>
+      </PopUp>
+    );
+  };
 
   _render = (element: Option) => (
     <div className={styles.section}>
       <div className={styles.sectionTop}>
         <ButtonGroup style={{ display: 'flex' }} align='right'>
-          <Button onClick={PopUp.show('1')}>
+          <Button onClick={PopUp.show(element.sectionId)}>
             <i className="fas fa-cog"></i>
           </Button>
           <Button onClick={this.handleDelete(element)}>
@@ -107,12 +106,11 @@ class SettingsPage extends PureComponent {
         </ButtonGroup>
       </div>
       {RenderSection(element)}
-      {/* {this._renderSettingsBox(element)()} */}
+      {this._renderSettingsBox(element)}
     </div>
   );
 
   render() {
-    console.log(this.state);
     return (
       <DragDropContext onDragEnd={this.handleDragEnd}>
         <SideBar onEvent={this.handleDragStart} />

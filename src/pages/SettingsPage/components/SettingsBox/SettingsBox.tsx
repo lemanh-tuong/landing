@@ -12,7 +12,6 @@ export interface SettingsBoxProps {
 }
 
 const SettingsBox: FC<SettingsBoxProps> = ({ mainTitle, text, onSubmit }) => {
-
   const [hasSlide, setHasSlide] = useState(false);
 
   const mainTitleInput = useRef<HTMLInputElement>(null);

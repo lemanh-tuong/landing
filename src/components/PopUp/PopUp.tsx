@@ -83,7 +83,7 @@ class PopUp extends Component<PopUpProps> {
   }
 
   render() {
-    const { children, id } = this.props;
+    const { children } = this.props;
     const { visible } = this.state;
 
     if (!visible) {
@@ -95,6 +95,5 @@ class PopUp extends Component<PopUpProps> {
     </div>, body as Element);
   }
 }
-
 
 export default PopUp;

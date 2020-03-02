@@ -10,7 +10,11 @@ export interface SideBarProps {
   style?: CSSProperties;
 }
 
-const data: (Option & { id: string })[] = [
+interface DataSideBar extends Omit<Option, 'sectionId'> {
+  id: string;
+}
+
+const data: DataSideBar[] = [
   {
     sectionName: 'Section 1',
     mainTitle: 'Title 1',
@@ -83,7 +87,8 @@ const data: (Option & { id: string })[] = [
 
 
 const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
-  const _renderItem = (property: Option & { id: string }, key: any) => {
+
+  const _renderItem = (property: DataSideBar, key: any) => {
     return (
       <Draggable draggableId={property.id} index={key} key={key}>
         {provided => (
@@ -112,7 +117,6 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
       )}
     </Droppable>
   );
-
 };
 
 export default SideBar;
