@@ -77,7 +77,9 @@ import React from 'react';
 // };
 
 const PreviewPage = () => {
-  return <div>ASDASD</div>;
+  return <div>
+    <div />
+  </div>;
 };
 
 export default (PreviewPage);

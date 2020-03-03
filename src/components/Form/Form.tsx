@@ -1,10 +1,12 @@
 import Button from 'components/Button/Button';
+import ColorPicker from 'pages/SettingsPage/components/ColorPicker/ColorPicker';
+import Select from 'pages/SettingsPage/components/Select/Select';
 import React, { ChangeEvent, ReactNode } from 'react';
 import styles from './Form.module.scss';
 
 export type Item<ItemT> = ItemT;
 
-export type RenderItem<ItemT> = (arg: Item<ItemT>, key?: any) => ReactNode;
+export type RenderItem<ItemT> = (arg: Item<ItemT>, key?: any, onClick?: () => void) => ReactNode;
 
 export interface FieldInput {
   name: string;
@@ -34,17 +36,29 @@ export interface FieldsRadio {
   data: TypeRadio[];
 }
 
-export interface FormProps<TItemInput, TItemCheckBox, TItemRadio> {
+export interface Color {
+  name: string;
+  color: string;
+}
+
+export interface FieldsColor {
+  data: Color[];
+  defaultValue: Color;
+}
+
+export interface FormProps<TItemInput, TItemCheckBox, TItemRadio, TItemColor> {
   fieldsInput: Item<TItemInput>[] | Item<TItemInput>;
   renderItemInput: RenderItem<TItemInput>;
   fieldsCheckBox: Item<TItemCheckBox>[] | Item<TItemCheckBox>;
   renderItemCheckBox: RenderItem<TItemCheckBox>;
   fieldsRadio: Item<TItemRadio>[] | Item<TItemRadio>;
   renderItemRadio: RenderItem<TItemRadio>;
+  fieldsColor: Item<TItemColor>[] | Item<TItemColor>;
+  renderItemColor: RenderItem<TItemColor>;
   onSubmit?: () => void;
 }
 
-const Form = <TItemInput extends FieldInput, TItemCheckBox extends FieldCheckbox, TItemRadio extends FieldsRadio>({ fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, onSubmit }: FormProps<TItemInput, TItemCheckBox, TItemRadio>) => {
+const Form = <TItemInput extends FieldInput, TItemCheckBox extends FieldCheckbox, TItemRadio extends FieldsRadio, TItemColor extends FieldsColor>({ fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, onSubmit, fieldsColor, renderItemColor }: FormProps<TItemInput, TItemCheckBox, TItemRadio, TItemColor>) => {
 
   const _renderInput = () => {
     if (fieldsInput instanceof Array) {
@@ -66,11 +80,19 @@ const Form = <TItemInput extends FieldInput, TItemCheckBox extends FieldCheckbox
     } else renderItemRadio(fieldsRadio);
   };
 
+  const _renderSelect = () => {
+    if (fieldsColor instanceof Array) {
+      return fieldsColor.map(field => <Select renderItem={({ color, name }) => <ColorPicker onClick={() => console.log()} name={name} color={color} />} data={field.data} defaultValue={field.defaultValue} />);
+    }
+    return <Select data={fieldsColor.data} defaultValue={fieldsColor.defaultValue} renderItem={({ color, name }) => <ColorPicker color={color} name={name} />} />;
+  };
+
   return (
     <div className={styles.form}>
       {_renderInput()}
       {_renderCheckBox()}
       {_renderRadio()}
+      {_renderSelect()}
       <Button color='border' onClick={onSubmit}>
         Done!
       </Button>

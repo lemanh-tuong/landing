@@ -1,0 +1,12 @@
+.input {
+  border: 1px solid;
+}
+.selectList {
+  height: 0;
+  overflow: auto;
+  transition: 0.3s all;
+}
+
+.open {
+  height: 500px;
+}

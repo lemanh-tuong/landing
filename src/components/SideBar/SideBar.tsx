@@ -13,17 +13,19 @@ export interface SideBarProps {
 interface ItemSideBar extends Omit<Option, 'sectionId'> {
   id: string;
 }
+const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
+const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
 
 const data: ItemSideBar[] = [
   {
     sectionName: 'Section 1',
-    mainTitle: 'Title 1',
+    mainTitle: defaultTitle,
     alignMainTitle: 'left',
     colorMainTitle: 'black-3',
     classMainTitle: '',
     fontSizeMainTitle: 'md',
     styleMainTitle: {},
-    text: 'Text',
+    text: defaultText,
     alignText: 'left',
     colorText: 'black-3',
     fontSizeText: 'md',

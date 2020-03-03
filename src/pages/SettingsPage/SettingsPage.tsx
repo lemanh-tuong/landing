@@ -10,8 +10,10 @@ import writeFireBase from 'firebase/writeFireBase';
 import React, { ChangeEvent, PureComponent } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import CheckBox from './components/CheckBox/CheckBox';
+import ColorPicker from './components/ColorPicker/ColorPicker';
 import Input from './components/Input/Input';
 import Radio from './components/Radio/Radio';
+import Select from './components/Select/Select';
 import SettingsBox from './components/SettingsBox/SettingsBox';
 import RenderSection from './RenderSection/RenderSection';
 import styles from './SettingsPage.module.scss';
@@ -23,22 +25,26 @@ const defaultText = 'Create unlimited directory types, our tool also lest you de
 export interface Option extends Partial<MainTitleProps>, Partial<TextProps>, Partial<CarouselProps<any>> {
   sectionName: string;
   sectionId: string;
+  slider?: boolean;
 }
 
-export interface PageProps {
+export interface PageProps extends Pick<Option, 'slider'> {
   pageName: string;
   elements: Option[];
 }
 
 const defaultOption: PageProps = {
   pageName: '',
-  elements: []
+  elements: [],
+  slider: false,
+
 };
 
 class SettingsPage extends PureComponent<PageProps, PageProps> {
   option: Option = {
     sectionName: '',
-    sectionId: ''
+    sectionId: '',
+    slider: false
   };
 
   state = { ...defaultOption };
@@ -56,7 +62,7 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
     this.setState({
       ...this.state,
       elements: this.state.elements.concat(this.option)
-    }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements] }));
+    }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
     this.option = { sectionName: '', sectionId: '', ...defaultOption };
   };
 
@@ -67,7 +73,7 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
       this.setState(state => ({
         ...state,
         elements: [...newElements]
-      }), () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements] }));
+      }), () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
     };
   };
 
@@ -108,12 +114,23 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
     };
   };
 
+  handleCheck = (type: string) => {
+    if (type === 'slider') {
+      this.setState(state => ({
+        ...state,
+        slider: !state.slider
+      }));
+    }
+  };
+
   handleSubmit = (id: string) => {
     return () => {
       PopUp.hide(id)();
-      writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements] });
+      writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider });
     };
   };
+
+
 
   _renderSettingsBox = ({ sectionId }: Option) => {
     return (
@@ -139,9 +156,9 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
             renderItemInput={({ name, defaultValue, key, type, onChange }) => <Input key={key} onChange={onChange} label={name} value={defaultValue} type={type} />}
             fieldsCheckBox={[
               {
-                checked: true,
+                checked: this.state?.slider ?? false,
                 label: 'Slider',
-                onClick: () => console.log('click'),
+                onClick: () => this.handleCheck('slider'),
               }
             ]}
             renderItemCheckBox={({ checked, label, onClick }) => <CheckBox label={label} checked={checked} onClick={onClick} />}
@@ -152,15 +169,15 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
                 data: [
                   {
                     label: 'center',
-                    name: 'align text'
+                    name: 'align title'
                   },
                   {
                     label: 'left',
-                    name: 'align text'
+                    name: 'align title'
                   },
                   {
                     label: 'right',
-                    name: 'align text'
+                    name: 'align title'
                   },
                 ]
               },
@@ -184,6 +201,45 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
               }
             ]}
             renderItemRadio={({ label, data, onClick }) => <Radio onClick={onClick} label={label} data={data} />}
+            fieldsColor={[
+              {
+                data: [
+                  {
+                    name: 'black',
+                    color: '#252c41'
+                  },
+                  {
+                    name: 'black2',
+                    color: 'rgba(0,0,0,.7)'
+                  },
+                  {
+                    name: 'black3',
+                    color: 'rgba(0,0,0,.8)'
+                  },
+                  {
+                    name: 'black4',
+                    color: 'rgba(0,0,0,.9)'
+                  },
+                  {
+                    name: 'darkblue',
+                    color: 'rgb(0, 27, 68)'
+                  },
+                  {
+                    name: 'green',
+                    color: '#3ece7e'
+                  },
+                  {
+                    name: 'pink',
+                    color: 'f06292'
+                  }
+                ],
+                defaultValue: {
+                  color: 'red',
+                  name: 'red'
+                }
+              }
+            ]}
+            renderItemColor={({ data, defaultValue }) => <Select renderItem={({ color, name }) => <ColorPicker color={color} name={name} />} data={data} defaultValue={defaultValue} />}
             onSubmit={this.handleSubmit(sectionId)}
           />
         </div>

@@ -15,7 +15,7 @@ const Radio: FC<FieldsRadio> = ({ label, data, onClick }) => {
     return (
       <div className={styles.radioItem} key={key}>
         <label htmlFor={label}>{label}</label>
-        <input type="radio" name={name} value={label.toString()} id={label.toString()} checked={checked} onClick={handleClick(label)} />
+        <input type="radio" name={name} value={label.toString()} id={name} checked={checked} onClick={handleClick(label)} />
       </div>
     );
   };
