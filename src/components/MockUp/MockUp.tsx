@@ -64,7 +64,6 @@ const MockUp = <DataType extends any>({
           );
         }}
       />;
-
     }
     return (
       <Fragment>

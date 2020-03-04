@@ -14,7 +14,7 @@ import { align } from 'types/types';
 // const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
-const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText }: { sectionName: string; mainTitle: string; text: string; alignMainTitle: align; alignText: align }) => {
+const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, slider }: { sectionName: string; mainTitle: string; text: string; alignMainTitle: align; alignText: align; colorText: string; colorMainTitle: string; slider: boolean }) => {
 
   const _renderContent = () => {
     switch (sectionName) {
@@ -22,13 +22,13 @@ const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText
         return <Section1
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
-          colorMainTitle='white'
+          colorMainTitle={colorMainTitle}
           text={text}
           alignText={alignText}
-          colorText='white'
+          colorText={colorText}
           fontSizeText='sm'
           bgColor="gradient-orange-pink"
-          slider
+          slider={slider}
           data={[
             {
               imgMockUpContent: mockUpMacContent1,
@@ -54,8 +54,8 @@ const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText
         />;
       case 'Section 2':
         return <Section2
-          mainTitle="Section 2"
-          alignMainTitle='center'
+          mainTitle={mainTitle}
+          alignMainTitle={alignMainTitle}
           data={
             [
               { titleCard: 'Paid listings', textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
@@ -67,16 +67,16 @@ const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText
         return <Section3
           srcImg={sectionImg1}
           mainTitle='Create unlimited directory'
-          text={['Comes with power of Wiloke Tools, you can add unlimited directory types to your site. The tool also lets you design functionality and features.', 'That’s why we give you our promise: Quisque amet consectetur, egestas nulla at nisi cursus, sed iaculis est commodo, nulla lacus aliquet.']}
+          text={text}
           hasDivider
           dividerColor='pink'
         />;
       case 'Section 4':
         return <Section4
-          mainTitle='Perfect customer dashboard'
-          alignMainTitle='center'
-          text='The listing owners can take full control of their business from Customer Dashboard. Here they can upgrade plans, run promotion campains, reply to messages, track the statistics of views, favorites, shares, reviews.'
-          alignText='center'
+          mainTitle={mainTitle}
+          alignMainTitle={alignMainTitle}
+          text={text}
+          alignText={alignMainTitle}
           srcImg={sectionImg1}
           type='tagImg'
         />;

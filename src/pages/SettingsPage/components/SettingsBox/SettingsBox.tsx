@@ -1,15 +1,15 @@
-import Form, { FieldCheckbox, FieldInput, FieldsColor, FieldsRadio, FormProps } from 'components/Form/Form';
+import Form, { FieldCheckbox, FieldInput, FieldsSelect, FieldsRadio, FormProps } from 'components/Form/Form';
 import React, { FC } from 'react';
 import styles from './SettingsBox.module.scss';
 
 
-export interface SettingsBoxProps extends FormProps<FieldInput, FieldCheckbox, FieldsRadio, FieldsColor> {
+export interface SettingsBoxProps extends FormProps<FieldInput, FieldCheckbox, FieldsRadio, FieldsSelect> {
   // mainTitle?: string;
   // text?: string;
   // onSubmit: ((arg: object) => () => void);
 }
 
-const SettingsBox: FC<SettingsBoxProps> = ({ fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, fieldsColor, renderItemColor, onSubmit }) => {
+const SettingsBox: FC<SettingsBoxProps> = ({ fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, fieldsSelect, renderSelect, onSubmit }) => {
 
   return (
     <div className={styles.settingsBox}>
@@ -20,8 +20,8 @@ const SettingsBox: FC<SettingsBoxProps> = ({ fieldsInput, renderItemInput, field
         renderItemCheckBox={renderItemCheckBox}
         fieldsRadio={fieldsRadio}
         renderItemRadio={renderItemRadio}
-        fieldsColor={fieldsColor}
-        renderItemColor={renderItemColor}
+        fieldsSelect={fieldsSelect}
+        renderSelect={renderSelect}
         onSubmit={onSubmit}
       />
     </div>

@@ -3,7 +3,7 @@ import { align, size } from 'types/types';
 import styles from './SectionTitle.module.scss';
 
 export interface MainTitleOption {
-  colorMainTitle?: 'white' | 'black-3';
+  colorMainTitle?: string;
   fontSizeMainTitle?: size;
   styleMainTitle?: CSSProperties;
   classMainTitle?: string;
@@ -31,7 +31,7 @@ const SectionTitle: FC<MainTitleProps> = ({ mainTitle, colorMainTitle, fontSizeM
   const classM = !!classMainTitle ? classMainTitle : '';
   const dark = darkMode ? styles.dark : '';
   return (
-    <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={style}>
+    <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{...styleMainTitle, color: colorMainTitle}}>
       {mainTitle}
       {children}
     </div>

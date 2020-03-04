@@ -87,11 +87,11 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
         mainTitle: value
       } : {
           ...elementChange,
-          text: value
+          text: value 
         };
       this.setState(state => ({
         ...state,
-        elements: [...state.elements.slice(0, Id - 1), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
+        elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
       }));
     };
   };
@@ -109,7 +109,7 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
         };
       this.setState(state => ({
         ...state,
-        elements: [...state.elements.slice(0, Id - 1), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
+        elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
       }));
     };
   };
@@ -130,9 +130,27 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
     };
   };
 
+  handleSelect = (id: string, type: string) => {
+    return ({name, value}: {name: string; value: string}) => {
+      const Id = parseInt(id) - 1;
+      const elementChange = Object.assign({}, this.state.elements[Id]);
+      const newElement = type ==='title' ? {
+        ...elementChange,
+        colorMainTitle: value
+      } : {
+        ...elementChange,
+        colorText: value
+      }
+      this.setState(state => ({
+        ...state,
+        elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
+      }))
+    } 
+  }
 
 
   _renderSettingsBox = ({ sectionId }: Option) => {
+    console.log(sectionId)
     return (
       <PopUp id={sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -201,45 +219,99 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
               }
             ]}
             renderItemRadio={({ label, data, onClick }) => <Radio onClick={onClick} label={label} data={data} />}
-            fieldsColor={[
+            fieldsSelect={[
               {
                 data: [
                   {
                     name: 'black',
-                    color: '#252c41'
+                    value: '#252c41'
+                  },
+                  {
+                    name: 'white',
+                    value: 'white',
                   },
                   {
                     name: 'black2',
-                    color: 'rgba(0,0,0,.7)'
+                    value: 'rgba(0,0,0,.7)'
                   },
                   {
                     name: 'black3',
-                    color: 'rgba(0,0,0,.8)'
+                    value: 'rgba(0,0,0,.8)'
                   },
                   {
                     name: 'black4',
-                    color: 'rgba(0,0,0,.9)'
+                    value: 'rgba(0,0,0,.9)'
                   },
                   {
                     name: 'darkblue',
-                    color: 'rgb(0, 27, 68)'
+                    value: 'rgb(0, 27, 68)'
                   },
                   {
                     name: 'green',
-                    color: '#3ece7e'
+                    value: '#3ece7e'
                   },
                   {
                     name: 'pink',
-                    color: 'f06292'
+                    value: '#f06292'
                   }
                 ],
                 defaultValue: {
-                  color: 'red',
+                  value: 'red',
                   name: 'red'
-                }
+                },
+                renderInput: ({value, name}) => <ColorPicker color={name} name={name} />,
+                renderItem: ({value, name}) => <ColorPicker color={value} name={name} />,
+                onChange: this.handleSelect(sectionId, 'title')
+              },
+              {
+                data: [
+                  {
+                    name: 'black',
+                    value: '#252c41'
+                  },
+                  {
+                    name: 'white',
+                    value: 'white',
+                  },
+                  {
+                    name: 'black2',
+                    value: 'rgba(0,0,0,.7)'
+                  },
+                  {
+                    name: 'black3',
+                    value: 'rgba(0,0,0,.8)'
+                  },
+                  {
+                    name: 'black4',
+                    value: 'rgba(0,0,0,.9)'
+                  },
+                  {
+                    name: 'darkblue',
+                    value: 'rgb(0, 27, 68)'
+                  },
+                  {
+                    name: 'green',
+                    value: '#3ece7e'
+                  },
+                  {
+                    name: 'pink',
+                    value: '#f06292'
+                  }
+                ],
+                defaultValue: {
+                  value: 'red',
+                  name: 'red'
+                },
+                renderInput: ({value, name}) => <ColorPicker color={name} name={name} />,
+                renderItem: ({value, name}) => <ColorPicker color={value} name={name} />,
+                onChange: this.handleSelect(sectionId, 'text')
               }
             ]}
-            renderItemColor={({ data, defaultValue }) => <Select renderItem={({ color, name }) => <ColorPicker color={color} name={name} />} data={data} defaultValue={defaultValue} />}
+
+            renderSelect={({defaultValue, data, renderInput, renderItem, onChange}) => <Select onChange={onChange}  data={data} defaultValue={defaultValue} 
+            renderItem={!!renderItem ? renderItem : ({value, name}) => <div>{value}{name}</div>} // WTF did I write?
+            renderInput={!!renderInput ? renderInput : ({value, name}) => <ColorPicker color={value} name={name} />} // WTF did I write?
+            />}
             onSubmit={this.handleSubmit(sectionId)}
           />
         </div>
@@ -259,7 +331,16 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
           </Button>
         </ButtonGroup>
       </div>
-      {RenderSection({ mainTitle: !!element.mainTitle ? element.mainTitle : defaultTitle, sectionName: element.sectionName, text: !!element.text ? element.text : defaultText, alignMainTitle: !!element.alignMainTitle ? element.alignMainTitle : 'left', alignText: !!element.alignText ? element.alignText : 'left' })}
+      {RenderSection({
+         mainTitle: !!element.mainTitle ? element.mainTitle : defaultTitle, 
+         sectionName: element.sectionName, 
+         text: !!element.text ? element.text : defaultText, 
+         alignMainTitle: !!element.alignMainTitle ? element.alignMainTitle : 'left', 
+         alignText: !!element.alignText ? element.alignText : 'left', 
+         colorMainTitle: element.colorMainTitle ? element.colorMainTitle : 'white',
+         colorText: element.colorText ? element.colorText : 'white',
+         slider: element.slider ? element.slider : false,
+         })}
       {this._renderSettingsBox(element)}
     </div>
   );

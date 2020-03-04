@@ -1,5 +1,5 @@
 import { RenderItem } from 'components/Form/Form';
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import styles from './Select.module.scss';
 
 // const data = [
@@ -13,23 +13,26 @@ import styles from './Select.module.scss';
 //   },
 // ];
 
+
 export interface SelectProps<T> {
   data: T[];
   defaultValue: T;
   renderItem: RenderItem<T>;
+  renderInput?: RenderItem<T>;
+  onChange: (arg: T) => void;
 }
 
-const Select = <T extends any>({ defaultValue, data, renderItem }: SelectProps<T>) => {
-
-  const [value, setValue] = useState<T>(defaultValue);
+const Select = <T extends any>({ defaultValue, data, renderItem, renderInput, onChange }: SelectProps<T>) => {
+  const [value, setValue] = useState(defaultValue);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  const handleChange = <T extends any>(selectValue: T) => {
+  const handleChange = (selectValue: T) => {
     return () => {
+      onChange?.(selectValue);
       setValue(selectValue);
       handleOpen();
     };
@@ -47,7 +50,7 @@ const Select = <T extends any>({ defaultValue, data, renderItem }: SelectProps<T
   return (
     <div className={styles.select}>
       <div className={styles.input} onClick={handleOpen}>
-        {value}
+        {renderItem(value)}
       </div>
       <div className={`${styles.selectList} ${open ? styles.open : ''}`}>
         {data.map(item => _renderSelect(item))}

@@ -3,7 +3,7 @@ import { align, size } from 'types/types';
 import styles from './Text.module.scss';
 
 export interface TextOption {
-  colorText?: 'white' | 'black-3';
+  colorText?: string;
   fontSizeText?: size;
   styleText?: CSSProperties;
   classText?: string;
@@ -30,7 +30,7 @@ const Text: FC<TextProps> = ({ text, colorText, fontSizeText, alignText, classTe
   const classT = !!classText ? classText : '';
   const dark = darkMode ? styles.dark : '';
   return (
-    <div className={`${styles.text} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classT} ${dark} `} style={style}>
+    <div className={`${styles.text} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classT} ${dark} `} style={{...style, color: colorText}}>
       {text}
       {children}
     </div>
