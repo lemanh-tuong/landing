@@ -1,16 +1,33 @@
-import { Section3Props } from 'components/Section3/Section3';
+import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
+import { getData } from '../actions/actionGetData';
+import { PageProps } from '../SettingsPage';
 
-const initialState: Section3Props = {
-  srcImg: '',
-
-};
-const reducers = (state = initialState, action: {type: string; payload: Section3Props}) => {
-  switch (action.type) {
-    case 'SUBMIT_DATA':
-      return {...action.payload};
-    default:
-      return state;
-  }
+const initialState: PageProps & { message: string; status: 'loading' | 'success' | 'failure'} = {
+  pageName: '',
+  elements: [],
+  slider: false,
+  status: 'success',
+  message: ''
 };
 
-export default reducers;
+const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData>>(initialState, [
+  handleAction('@getDataRequest', (state) => ({
+    ...state,
+    status: 'loading'
+  })),
+  handleAction('@getDataSuccess', (state, action) => ({
+    ...state,
+    elements: [...action.payload.elements],
+    pageName: action.payload.pageName,
+    slider: action.payload.slider,
+    status: 'success'
+  })),
+  handleAction('@getDataFailure', (state) => ({
+    ...state,
+    status: 'failure',
+    message: 'Error'
+  }))
+]);
+
+export { settingsReducers };
+

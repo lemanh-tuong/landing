@@ -1,7 +1,9 @@
 import { todolist } from 'pages/HomePage/reducers/reducerTodolist';
+import { settingsReducers } from '../pages/SettingsPage/reducers/reducers';
 
-const reducers = {
+const rootReducers = {
   todolist,
+  settingsReducers,
 };
 
-export default reducers;
+export default rootReducers;

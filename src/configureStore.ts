@@ -1,4 +1,4 @@
-import reducerSettingPage from 'pages/SettingsPage/reducers/reducers';
+import { settingsReducers } from 'pages/SettingsPage/reducers/reducers';
 import { applyMiddleware, combineReducers, compose, createStore, Middleware } from 'redux';
 import logger from 'redux-logger';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -14,7 +14,7 @@ const persistConfig = {
 };
 
 const _combineReducers = combineReducers({
-  reducerSettingPage,
+  settingsReducers,
 });
 
 const reducers = persistReducer(persistConfig, _combineReducers);

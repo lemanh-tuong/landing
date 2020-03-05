@@ -1,25 +1,51 @@
+/* eslint-disable react/sort-comp */
+/* eslint-disable @typescript-eslint/semi */
 /* eslint-disable react/destructuring-assignment */
 import Button from 'components/Button/Button';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import { CarouselProps } from 'components/Carousel/Carousel';
+import Form from 'components/Form/Form';
 import PopUp from 'components/PopUp/PopUp';
 import { MainTitleProps } from 'components/SectionTitle/SectionTitle';
 import SideBar from 'components/SideBar/SideBar';
 import { TextProps } from 'components/Text/Text';
 import writeFireBase from 'firebase/writeFireBase';
-import React, { ChangeEvent, PureComponent } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import React, { ChangeEvent, CSSProperties, PureComponent } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { connect } from 'react-redux';
 import CheckBox from './components/CheckBox/CheckBox';
 import ColorPicker from './components/ColorPicker/ColorPicker';
 import Input from './components/Input/Input';
 import Radio from './components/Radio/Radio';
 import Select from './components/Select/Select';
-import SettingsBox from './components/SettingsBox/SettingsBox';
 import RenderSection from './RenderSection/RenderSection';
 import styles from './SettingsPage.module.scss';
+import thunkGetData from './thunks/thunkGetData';
 
 const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
 const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
+
+// a little function to help us with reordering the result
+const reorder = (list: Option[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const getItemStyle = (isDragging: boolean, draggableStyle: CSSProperties): CSSProperties => ({
+  userSelect: 'none',
+  padding: 20,
+  margin: `0 0 20px 0`,
+
+  // change background colour if dragging
+  background: isDragging ? 'lightgreen' : 'grey',
+
+  // styles we need to apply on draggables
+  ...draggableStyle
+});
+
 
 
 export interface Option extends Partial<MainTitleProps>, Partial<TextProps>, Partial<CarouselProps<any>> {
@@ -40,7 +66,16 @@ const defaultOption: PageProps = {
 
 };
 
-class SettingsPage extends PureComponent<PageProps, PageProps> {
+class SettingsPage extends PureComponent<any, PageProps> {
+  // constructor(props: any) {
+  //   super(props);
+  //   this.state = {
+  //     pageName: this.props.pageName,
+  //     elements: [...this.props.elements],
+  //     slider: this.props.slider || false,
+  //   }
+  // }
+
   option: Option = {
     sectionName: '',
     sectionId: '',
@@ -58,12 +93,30 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
     };
   };
 
-  handleDragEnd = () => {
+  handleAdd = () => {
+    if (this.option.sectionName) {
+      this.setState({
+        ...this.state,
+        elements: [...this.state.elements.concat(this.option)]
+      }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
+      this.option = { sectionName: '', sectionId: '', ...defaultOption };
+    }
+  };
+
+  handleDragEnd = (result: any) => {
+    if (!result.destination) {
+      return;
+    }
+    const elements = reorder(
+      this.state.elements,
+      result.source.index,
+      result.destination.index
+    );
+
     this.setState({
       ...this.state,
-      elements: this.state.elements.concat(this.option)
+      elements: [...elements]
     }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
-    this.option = { sectionName: '', sectionId: '', ...defaultOption };
   };
 
   handleDelete = (element: Option) => {
@@ -87,7 +140,7 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
         mainTitle: value
       } : {
           ...elementChange,
-          text: value 
+          text: value
         };
       this.setState(state => ({
         ...state,
@@ -131,30 +184,30 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
   };
 
   handleSelect = (id: string, type: string) => {
-    return ({name, value}: {name: string; value: string}) => {
+    return ({ value }: { value: string }) => {
       const Id = parseInt(id) - 1;
       const elementChange = Object.assign({}, this.state.elements[Id]);
-      const newElement = type ==='title' ? {
+      const newElement = type === 'title' ? {
         ...elementChange,
         colorMainTitle: value
       } : {
-        ...elementChange,
-        colorText: value
-      }
+          ...elementChange,
+          colorText: value
+        };
       this.setState(state => ({
         ...state,
         elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
-      }))
-    } 
-  }
+      }));
+    };
+  };
 
 
   _renderSettingsBox = ({ sectionId }: Option) => {
-    console.log(sectionId)
     return (
       <PopUp id={sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <SettingsBox
+          <Form
+            formName="settings"
             fieldsInput={[
               {
                 name: 'title',
@@ -259,8 +312,8 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
                   value: 'red',
                   name: 'red'
                 },
-                renderInput: ({value, name}) => <ColorPicker color={name} name={name} />,
-                renderItem: ({value, name}) => <ColorPicker color={value} name={name} />,
+                renderInput: ({ value, name }) => <ColorPicker color={name} name={name} />,
+                renderItem: ({ value, name }) => <ColorPicker color={value} name={name} />,
                 onChange: this.handleSelect(sectionId, 'title')
               },
               {
@@ -302,15 +355,15 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
                   value: 'red',
                   name: 'red'
                 },
-                renderInput: ({value, name}) => <ColorPicker color={name} name={name} />,
-                renderItem: ({value, name}) => <ColorPicker color={value} name={name} />,
+                renderInput: ({ value, name }) => <ColorPicker color={name} name={name} />,
+                renderItem: ({ value, name }) => <ColorPicker color={value} name={name} />,
                 onChange: this.handleSelect(sectionId, 'text')
               }
             ]}
 
-            renderSelect={({defaultValue, data, renderInput, renderItem, onChange}) => <Select onChange={onChange}  data={data} defaultValue={defaultValue} 
-            renderItem={!!renderItem ? renderItem : ({value, name}) => <div>{value}{name}</div>} // WTF did I write?
-            renderInput={!!renderInput ? renderInput : ({value, name}) => <ColorPicker color={value} name={name} />} // WTF did I write?
+            renderSelect={({ defaultValue, data, renderInput, renderItem, onChange }) => <Select onChange={onChange} data={data} defaultValue={defaultValue}
+              renderItem={!!renderItem ? renderItem : ({ value, name }) => <div>{value}{name}</div>} // WTF did I write?
+              renderInput={!!renderInput ? renderInput : ({ value, name }) => <ColorPicker color={value} name={name} />} // WTF did I write?
             />}
             onSubmit={this.handleSubmit(sectionId)}
           />
@@ -319,42 +372,57 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
     );
   };
 
-  _render = (element: Option) => (
-    <div className={styles.section}>
-      <div className={styles.sectionTop}>
-        <ButtonGroup style={{ display: 'flex' }} align='right'>
-          <Button onClick={PopUp.show(element.sectionId)}>
-            <i className="fas fa-cog"></i>
-          </Button>
-          <Button onClick={this.handleDelete(element)}>
-            <i className="fas fa-times"></i>
-          </Button>
-        </ButtonGroup>
-      </div>
-      {RenderSection({
-         mainTitle: !!element.mainTitle ? element.mainTitle : defaultTitle, 
-         sectionName: element.sectionName, 
-         text: !!element.text ? element.text : defaultText, 
-         alignMainTitle: !!element.alignMainTitle ? element.alignMainTitle : 'left', 
-         alignText: !!element.alignText ? element.alignText : 'left', 
-         colorMainTitle: element.colorMainTitle ? element.colorMainTitle : 'white',
-         colorText: element.colorText ? element.colorText : 'white',
-         slider: element.slider ? element.slider : false,
-         })}
-      {this._renderSettingsBox(element)}
-    </div>
+  _render = (element: Option, index: number) => (
+    <Draggable draggableId={element.sectionId} index={index} key={element.sectionId}>
+      {(provided, snapshot) => {
+        return (
+          <div className={styles.section} style={getItemStyle(snapshot.isDragging, !!provided.draggableProps.style ? provided.draggableProps.style : {})} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps} key={element.sectionId} >
+            <div className={styles.sectionTop}>
+              <ButtonGroup style={{ display: 'flex' }} align='right'>
+                <Button onClick={PopUp.show(element.sectionId)}>
+                  <i className="fas fa-cog"></i>
+                </Button>
+                <Button onClick={this.handleDelete(element)}>
+                  <i className="fas fa-times"></i>
+                </Button>
+              </ButtonGroup>
+            </div>
+            {RenderSection({
+              mainTitle: !!element.mainTitle ? element.mainTitle : defaultTitle,
+              sectionName: element.sectionName,
+              text: !!element.text ? element.text : defaultText,
+              alignMainTitle: !!element.alignMainTitle ? element.alignMainTitle : 'left',
+              alignText: !!element.alignText ? element.alignText : 'left',
+              colorMainTitle: element.colorMainTitle ? element.colorMainTitle : 'white',
+              colorText: element.colorText ? element.colorText : 'white',
+              slider: element.slider ? element.slider : false,
+            })}
+            {this._renderSettingsBox(element)}
+          </div>
+        );
+      }}
+    </Draggable>
   );
 
+  componentDidMount() {
+    const { getData } = this.props;
+    getData();
+  }
+
   render() {
-    console.log(this.state);
+    // console.log(this.state);
+    console.log(this.props)
     return (
       <DragDropContext onDragEnd={this.handleDragEnd}>
         <SideBar onEvent={this.handleDragStart} />
-        <div className={styles.mainContent}>
-          <Droppable isDropDisabled={true} droppableId="2" type="Test">
-            {provided => <div ref={provided.innerRef} {...provided.droppableProps}>{
-              !!this.state.elements && this.state.elements.map(element => this._render(element))
-            }</div>}
+        <div className={styles.mainContent} onMouseUp={this.handleAdd}>
+          <Droppable droppableId="2" type="Main Content">
+            {provided => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>{
+                !!this.state.elements && this.state.elements.map((element, index) => this._render(element, index))}
+                {provided.placeholder}
+              </div>
+            )}
           </Droppable>
         </div>
       </DragDropContext>
@@ -366,4 +434,15 @@ class SettingsPage extends PureComponent<PageProps, PageProps> {
 //   return <SettingsBox />;
 // };
 
-export default SettingsPage;
+const mapStateToProps = (state: any) => ({
+  pageName: state.settingsReducers.pageName,
+  elements: state.settingsReducers.elements,
+  slider: state.settingsReducers.slider
+});
+
+const mapDispatchToProps = {
+  getData: thunkGetData,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);

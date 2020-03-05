@@ -32,7 +32,7 @@ const data: ItemSideBar[] = [
     classText: '',
     styleText: {},
     darkMode: false,
-    id: '1'
+    id: 'Btn Section 1'
   },
   {
     sectionName: 'Section 2',
@@ -49,7 +49,7 @@ const data: ItemSideBar[] = [
     classText: '',
     styleText: {},
     darkMode: false,
-    id: '2'
+    id: 'Btn Section 2'
   },
   {
     sectionName: 'Section 3',
@@ -66,7 +66,7 @@ const data: ItemSideBar[] = [
     classText: '',
     styleText: {},
     darkMode: false,
-    id: '3'
+    id: 'Btn Section 3'
   },
   {
     sectionName: 'Section 4',
@@ -83,7 +83,7 @@ const data: ItemSideBar[] = [
     classText: '',
     styleText: {},
     darkMode: false,
-    id: '4'
+    id: 'Btn Section 4'
   },
 ];
 

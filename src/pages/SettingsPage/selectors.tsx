@@ -1,1 +1,3 @@
-export const optionSelector = (state: any) => state;
+import { PageProps } from './SettingsPage';
+
+export const optionSelector = (state: PageProps) => state;

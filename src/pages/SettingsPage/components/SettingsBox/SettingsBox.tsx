@@ -1,4 +1,4 @@
-import Form, { FieldCheckbox, FieldInput, FieldsSelect, FieldsRadio, FormProps } from 'components/Form/Form';
+import Form, { FieldCheckbox, FieldInput, FieldsRadio, FieldsSelect, FormProps } from 'components/Form/Form';
 import React, { FC } from 'react';
 import styles from './SettingsBox.module.scss';
 
@@ -9,11 +9,12 @@ export interface SettingsBoxProps extends FormProps<FieldInput, FieldCheckbox, F
   // onSubmit: ((arg: object) => () => void);
 }
 
-const SettingsBox: FC<SettingsBoxProps> = ({ fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, fieldsSelect, renderSelect, onSubmit }) => {
+const SettingsBox: FC<SettingsBoxProps> = ({ formName, fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, fieldsSelect, renderSelect, onSubmit }) => {
 
   return (
     <div className={styles.settingsBox}>
       <Form
+        formName={formName}
         fieldsInput={fieldsInput}
         renderItemInput={renderItemInput}
         fieldsCheckBox={fieldsCheckBox}
