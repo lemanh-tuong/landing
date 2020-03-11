@@ -1,135 +1,98 @@
-import Button from 'components/Button/Button';
-import { SelectProps } from 'pages/SettingsPage/components/Select/Select';
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styles from './Form.module.scss';
 
-export type Item<ItemT> = ItemT;
-
-export type RenderItem<ItemT> = (arg: Item<ItemT>, key?: any, onClick?: () => void) => ReactNode;
-
-export interface FieldInput {
-  name: string;
-  type: 'text' | 'checkbox' | 'radio';
-  required?: boolean;
-  defaultValue: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  key?: any;
+function createEnumArray(length: number) {
+  const arr = [];
+  for (let i = 0; i < length; i++) {
+    arr.push(i);
+  }
+  return arr;
 }
 
-export interface FieldCheckbox {
-  label: string;
-  checked: boolean;
-  onClick: () => void;
+interface TField<T> {
+  fieldType: string;
+  props: T & {
+    onEvent?: (arg?: any) => void;
+  };
 }
 
-export interface TypeRadio {
-  name: string;
-  label: string;
-  checked?: boolean;
-  key?: any;
-}
+export type RenderField<T> = ({ fieldType, props }: TField<T>) => ReactNode;
+export type RenderItem<T> = (arg: T) => ReactNode;
+type RenderTab<T> = ({ fields, formName, onSubmit, renderField }: Pick<FormProps<T>, 'fields' | 'formName' | 'onSubmit' | 'renderField'>) => ReactNode;
+// export type TFields<T> = TField<T>[];
 
-export interface FieldsRadio {
-  label: string;
-  data: TypeRadio[];
-  onClick: (result: any) => void;
-}
-
-export interface Color {
-  name: string;
-  color: string;
+export interface FormProps<T> {
+  formName?: string;
+  fields: TField<T>[];
+  renderField: RenderField<T>;
+  tabs?: Omit<FormProps<T>, 'renderTab'>[];
+  renderTab?: RenderTab<T>;
+  hasNav?: boolean;
+  onSubmit?: (arg?: any) => void;
 }
 
 
-export interface SelectItem {
-  name: string;
-  value: string;
-  [key: string]: any;
-}
+const Form = <T extends object>({ formName, fields, tabs, renderField, renderTab, hasNav, onSubmit }: Partial<FormProps<T>>) => {
 
-export interface FieldsSelect extends SelectProps<SelectItem> {
-  // data: Color[];
-  // defaultValue: Color;
-  // renderItem?: (arg: Color) => ReactNode;
-  // renderInput?: (arg: Color) => ReactNode;
-}
+  const [nowTab, setNowTab] = useState(0);
 
-
-export interface FormProps<TItemInput, TItemCheckBox, TItemRadio, TItemSelect> {
-  formName: string;
-
-
-  fieldsInput?: Item<TItemInput>[] | Item<TItemInput>;
-  renderItemInput?: RenderItem<TItemInput>;
-  fieldsCheckBox?: Item<TItemCheckBox>[] | Item<TItemCheckBox>;
-  renderItemCheckBox?: RenderItem<TItemCheckBox>;
-  fieldsRadio?: Item<TItemRadio>[] | Item<TItemRadio>;
-  renderItemRadio?: RenderItem<TItemRadio>;
-  fieldsSelect?: Item<TItemSelect>[] | Item<TItemSelect>;
-  renderSelect?: RenderItem<TItemSelect>;
-  onSubmit?: () => void;
-}
-
-// const defaultProps: FormProps<FieldInput, FieldCheckbox, FieldsRadio, FieldsSelect> = {
-//   fieldsInput: [],
-//   renderItemInput: undefined,
-//   fieldsCheckBox: [],
-//   renderItemCheckBox: undefined,
-//   fieldsRadio: [],
-//   renderItemRadio: undefined,
-//   fieldsSelect: [],
-//   renderSelect: undefined
-// };
-
-
-const Form = <TItemInput extends FieldInput, TItemCheckBox extends FieldCheckbox, TItemRadio extends FieldsRadio, TItemSelect extends FieldsSelect>({ formName, fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, onSubmit, fieldsSelect, renderSelect }: FormProps<TItemInput, TItemCheckBox, TItemRadio, TItemSelect>) => {
-
-  const _renderInput = () => {
-    if (fieldsInput instanceof Array) {
-      return fieldsInput.map((field, key) => renderItemInput?.(field, key));
-    }
-    return fieldsInput ? renderItemInput?.(fieldsInput) : null;
+  const _handleChangeTab = (tab: number) => {
+    return () => {
+      setNowTab(tab);
+    };
   };
 
-  const _renderCheckBox = () => {
-    if (fieldsCheckBox instanceof Array) {
-      return fieldsCheckBox.map((field, key) => renderItemCheckBox?.(field, key));
-    }
-    return fieldsCheckBox ? renderItemCheckBox?.(fieldsCheckBox) : null;
+
+  const _renderFieldsDefault = ({ fieldType, props }: TField<T>) => {
+    return (
+      <div>Field Default {JSON.stringify({ fieldType, props })}</div>
+    );
   };
 
-  const _renderRadio = () => {
-    if (fieldsRadio instanceof Array) {
-      return fieldsRadio.map((field, key) => renderItemRadio?.(field, key));
-    }
-    return fieldsRadio ? renderItemRadio?.(fieldsRadio) : null;
+  const _renderTabDefault = ({ fields, formName, onSubmit }: Pick<FormProps<T>, 'fields' | 'formName' | 'onSubmit'>) => {
+    return <div>Tabs Default {JSON.stringify({ fields, formName, onSubmit })}</div>;
   };
 
-  const _renderSelect = () => {
-    if (fieldsSelect instanceof Array) {
-      return fieldsSelect.map(field => renderSelect?.(field));
-    }
-    return fieldsSelect ? renderSelect?.(fieldsSelect) : null;
+  const _renderFields = (fields: TField<T>[]) => {
+    return fields?.map(field => renderField?.(field) ?? _renderFieldsDefault(field));
   };
 
-  const _renderSwitchButton = () => {
+  const _renderTabs = (tabs: FormProps<T>[]) => {
+    return (
+      <div className={styles.tabs}>
+        {
+          tabs.map((tab, index) => (
+            <div className={`${styles.tab} ${nowTab === index ? styles.show : null}`} key={index}>
+              {renderTab?.(tab) ?? _renderTabDefault({ fields: tab.fields, formName: tab.formName, onSubmit: tab.onSubmit })}
+            </div>
+          ))
+        }
+      </div>
+    );
+  };
 
+  const _renderNav = () => {
+    const nav = tabs ? [...createEnumArray(tabs?.length)] : [];
+    return nav.map((item, index) => <div className={styles.navItem} onClick={_handleChangeTab(index)}>{item}</div>);
   };
 
   return (
     <div className={styles.form}>
-      <div className={styles.formTop}>
-        <div className={styles.formName}>
-          {formName}
-        </div>
+      <div className={styles.formContainer}>
+        {tabs ? _renderTabs(tabs)
+          : fields ? _renderFields(fields)
+            : null
+        }
       </div>
-      {_renderInput()}
-      {_renderCheckBox()}
-      {_renderRadio()}
-      {_renderSelect()}
-      <Button color='border' onClick={onSubmit}>
-        Done!
-      </Button>
+      {
+        hasNav ? <div className={styles.formNav}>
+          {_renderNav()}
+        </div>
+          : null
+      }
+      <div className={styles.formNav}>
+        {_renderNav()}
+      </div>
     </div>
   );
 };

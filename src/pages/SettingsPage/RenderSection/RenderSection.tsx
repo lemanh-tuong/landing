@@ -10,11 +10,12 @@ import Section3 from 'components/Section3/Section3';
 import Section4 from 'components/Section4/Section4';
 import React, { Fragment } from 'react';
 import { align } from 'types/types';
+import { Option } from '../SettingsPage';
 
 // const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
-const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, slider }: { sectionName: string; mainTitle: string; text: string; alignMainTitle: align; alignText: align; colorText: string; colorMainTitle: string; slider: boolean }) => {
+const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, slider, data }: Option) => {
 
   const _renderContent = () => {
     switch (sectionName) {
@@ -29,7 +30,7 @@ const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText
           fontSizeText='sm'
           bgColor="gradient-orange-pink"
           slider={slider}
-          data={[
+          data={data || [
             {
               imgMockUpContent: mockUpMacContent1,
               hasVideo: true,
