@@ -6,6 +6,7 @@ interface ButtonProps extends PropsComponent {
   dark: boolean;
   darkClassName?: string;
   onClick?: <T>(arg?: T) => void;
+  initial: boolean;
 }
 
 export default class Button extends Component<ButtonProps> {
@@ -13,14 +14,15 @@ export default class Button extends Component<ButtonProps> {
     color: 'white',
     className: '',
     dark: false,
+    initial: false
   };
 
   render() {
-    const { children, className, style, color, dark, onClick } = this.props;
+    const { children, className, style, color, dark, initial, onClick } = this.props;
     const darkMode = dark ? styles['dark'] : '';
     return (
       <div className={className} style={style} onClick={onClick && onClick}>
-        <a href="###" className={`${styles.button} ${styles[color]}  ${darkMode} ${className}`}>
+        <a href="###" className={`${styles[color]}  ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
           {children}
         </a>
       </div >
