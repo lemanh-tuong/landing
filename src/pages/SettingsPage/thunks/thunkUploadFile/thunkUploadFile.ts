@@ -2,11 +2,9 @@ import uploadFileFireBase from '../../../../firebase/storage/uploadFile';
 import { uploadFile } from '../../actions/actionUploadFile/actionUploadFile';
 type ThunkUpLoadFile = ThunkAction<typeof uploadFile>;
 
-const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/my-project-6-264609.appspot.com/o/images%2F';
-
-const thunkUploadFile = (file: File): ThunkUpLoadFile => (dispatch: any) => {
-  uploadFileFireBase(file.name, file);
-  dispatch(uploadFile(file));
+const thunkUploadFile = (path: string, file: File, nowIndex: number): ThunkUpLoadFile => (dispatch: any) => {
+  uploadFileFireBase(path, file.name, file);
+  dispatch(uploadFile({path: path, file: file, nowIndex: nowIndex}));
 };
 
 export default thunkUploadFile;

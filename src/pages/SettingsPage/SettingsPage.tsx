@@ -29,34 +29,6 @@ import thunkChangeCheckBox from './thunks/thunkChangeCheckBox/thunkChangeCheckBo
 import Upload from 'components/Upload/Upload';
 import Icon from 'components/Icon/Icon';
 
-const renderTab1 = ({ fields, formName, renderField }: any) => {
-  return (
-    <div className="Tab">
-      <div className="Tab-top">
-        {formName}
-      </div>
-      <div className="fields">
-        {fields.map((field: any) => renderField(field))}
-      </div>
-    </div>
-  )
-}
-
-const renderField1 = ({ fieldType, props }: any) => {
-  switch (fieldType) {
-    case 'input':
-      return <Input defaultValue={props.defaultValue} horizontal={props.horizontal} name={props.name} onChange={props.onChange} placeholder={props.placeholder} />
-    case 'radio':
-      return <Radio onClick={props.onClick} name={props.name} data={props.data} />
-    case 'checkbox':
-      return <CheckBox name={props.name} checked={props.checked} onClick={props.onClick} />;
-    case 'upload':
-      return <Upload listImg={props.listImg} onEvent={props.onEvent} />
-    default: 
-      return null;;
-  }
-}
-
 const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
 const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
 
@@ -85,7 +57,6 @@ export interface Option extends Partial<MainTitleProps>, Partial<TextProps>, Par
   sectionId: string;
   slider?: boolean;
 }
-
 export interface PageProps extends Pick<Option, 'slider'> {
   pageName: string;
   elements: Option[];
@@ -189,22 +160,31 @@ class SettingsPage extends PureComponent<any, PageState> {
     changeRadio(type, value, nowIndex)
   };
 
-  handleCheck = (type: string, nowIndex: number) => {
+  handleCheck = (type: string, result: boolean, nowIndex: number) => {
     const { changeCheckBox } = this.props;
-    changeCheckBox(type, nowIndex)
+    changeCheckBox(type, result, nowIndex)
   };
 
-  handleChangeForm = (nowIndex: number) => {
+  handleUploadFile = (path: string, file: File, nowIndex: number) => {
+    const { uploadFile } = this.props;
+    uploadFile(path, file, nowIndex);
+
+  }
+
+  handleChangeForm = (sectionId: string, nowIndex: number) => {
     return (fieldName: string) => {
       return (result: any) => {
-        if(fieldName === 'title' || fieldName === 'text') {
+        if(fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
           this.handleChangeInput(fieldName, result, nowIndex);
         }
         if(fieldName === 'align title' || fieldName === 'align text') {
           this.handleChageRadio(fieldName, result, nowIndex);
         }
         if(fieldName === 'slider') {
-          this.handleCheck(fieldName, nowIndex)
+          this.handleCheck(fieldName, result, nowIndex)
+        }
+        if(fieldName === 'upload') {
+          this.handleUploadFile(sectionId, result, nowIndex);
         }
       }
     }
@@ -256,7 +236,9 @@ class SettingsPage extends PureComponent<any, PageState> {
     }
   }
 
-  _renderSettingsBox = ({ sectionId, mainTitle, text, slider }: Option, index: number) => {
+  
+  _renderSettingsBox = ({ sectionId, mainTitle, text, slider, data }: Option, index: number) => {
+    
     return (
       <PopUp id={sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -265,48 +247,65 @@ class SettingsPage extends PureComponent<any, PageState> {
             {
               fieldType: 'input',
               fieldName: 'title',
-              props: {
-                horizontal: true,
-                defaultValue: 'Title'
-              }
+              horizontal: true,
+              defaultValue: 'Title'
             },
             {
               fieldType: 'input',
               fieldName: 'text',
-              props: {
-                horizontal: true,
-                defaultValue: 'Text'
-              }
+              horizontal: true,
+              defaultValue: 'Text'
+            },
+            {
+              fieldType: 'radio',
+              fieldName: 'align text',
+              data: [
+                {
+                  value: 'center',
+                  name: 'align text'
+                },
+                {
+                  value: 'left',
+                  name: 'align text'
+                },
+                {
+                  value: 'right',
+                  name: 'align text'
+                },
+              ],
             },
             {
               fieldType: 'radio',
               fieldName: 'align title',
-              props: {
-                data: [
-                  {
-                    value: 'center',
-                    name: 'align title'
-                  },
-                  {
-                    value: 'left',
-                    name: 'align title'
-                  },
-                  {
-                    value: 'right',
-                    name: 'align title'
-                  },
-                ],
-              }
+              data: [
+                {
+                  value: 'center',
+                  name: 'align title'
+                },
+                {
+                  value: 'left',
+                  name: 'align title'
+                },
+                {
+                  value: 'right',
+                  name: 'align title'
+                },
+              ],
             },
             {
               fieldType: 'checkbox',
               fieldName: 'slider',
-              props: {
-                name: "Slider"
-              }
+              name: "Slider",
+              checked: slider
+            },
+            {
+              fieldType: 'file',
+              fieldName: 'upload',
+              hidden: !slider,
+              listImg: data || [],
             }
           ]}
-          onChange={this.handleChangeForm(index)}
+          onChange={this.handleChangeForm(sectionId, index)}
         />
         </div>
       </PopUp>
@@ -365,6 +364,7 @@ class SettingsPage extends PureComponent<any, PageState> {
                 colorMainTitle: element.colorMainTitle ? element.colorMainTitle : 'white',
                 colorText: element.colorText ? element.colorText : 'white',
                 slider: element.slider ? element.slider : false,
+                data: element.data ? element.data : undefined,
               })}
               {this._renderSettingsBox(element, index)}
             </div>

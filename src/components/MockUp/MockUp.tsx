@@ -15,7 +15,7 @@ export interface MockUpOption {
 }
 
 export interface DataType {
-  imgMockUpContent: string;
+  imgUrl: string;
   hasVideo?: boolean;
   videoUrl?: string;
 }
@@ -54,10 +54,10 @@ const MockUp = <DataType extends any>({
         data={data}
         itemShow={1}
         fluid={fluid}
-        renderItem={({ imgMockUpContent, videoUrl, hasVideo }) => {
+        renderItem={({ imgUrl, videoUrl, hasVideo }) => {
           return (
             <Fragment>
-              <div className={styles.video} style={{ backgroundImage: `url(${imgMockUpContent})` }}>
+              <div className={styles.video} style={{ backgroundImage: `url(${imgUrl})` }}>
               </div>
               {hasVideo && _renderPlayBtn(videoUrl ? videoUrl : '')}
             </Fragment>

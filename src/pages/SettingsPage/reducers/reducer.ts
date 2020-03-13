@@ -2,6 +2,7 @@ import writeFireBase from 'firebase/database/writeFireBase';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { getData } from '../actions/actionGetData/actionGetData';
 import { PageProps, Option } from '../SettingsPage';
+import { getImageGallery } from '../actions/actionGetDataImage/actionGetDataImage';
 
 const initialState: PageProps & { message: string; status: 'loading' | 'success' | 'failure'} = {
   pageName: '',
@@ -11,7 +12,7 @@ const initialState: PageProps & { message: string; status: 'loading' | 'success'
   message: ''
 };
 
-const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & any>(initialState, [
+const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & typeof getImageGallery & any>(initialState, [
   handleAction('@getDataRequest', (state) => ({
     ...state,
     status: 'loading'
@@ -150,17 +151,34 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     }
   }),
   handleAction('CHANGE_CHECKBOX', (state, action) => {
-    const { nowIndex, value, fieldName} = action.payload;
+    const { nowIndex, result, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
     const newElement = fieldName === 'slider' ? 
     {
       ...elementChange,
-      slider: !elementChange.slider
+      slider: result
     } : 
     {
       ...elementChange,
     };
-    
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndex), { ...newElement }, ...state.elements.slice(nowIndex + 1, state.elements.length)]
+    }
+  }),
+  handleAction('UPLOAD_FILE', (state, action) => {
+    const { file, nowIndex } = action.payload;
+    const fileUrl = window.URL.createObjectURL(file); 
+    const item = {
+      imgUrl: fileUrl,
+      hasVideo: true,
+      videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+    }
+    const nowElement = Object.assign({}, state.elements[nowIndex]);
+    const newElement = {
+      ...nowElement,
+      data: nowElement.data ? [...nowElement.data].concat(item) : [item]
+    }
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndex), { ...newElement }, ...state.elements.slice(nowIndex + 1, state.elements.length)]

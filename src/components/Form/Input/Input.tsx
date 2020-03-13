@@ -17,6 +17,9 @@ export interface InputProps extends InputOption {
 
 const Input = ({ name, placeholder, defaultValue, horizontal, onChange, renderItem }: InputProps) => {
 
+  if(name === 'test') {
+    console.log(onChange)
+  }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
   }

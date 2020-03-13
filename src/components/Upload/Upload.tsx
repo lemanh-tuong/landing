@@ -9,7 +9,10 @@ import styles from './Upload.module.scss';
 // ];
 
 export interface UploadProps {
-  listImg: string[];
+  listImg: {
+    imgUrl: string;
+    [key: string]: any;
+  }[];
   onEvent?: (arg: File | null | undefined) => void;
 }
 
@@ -39,7 +42,7 @@ const Upload: FC<UploadProps> = ({ onEvent, listImg }) => {
 
   return (
     <div className={styles.gallery}>
-      {listImg.map(url => _renderImg(url))}
+      {listImg.map(img => _renderImg(img.imgUrl))}
       <div className={styles.uploadBtn}>
         <input type="file" className={styles.inputFile} ref={inputUpload} onChange={_handleUpload}
           onDrop={_handleDropImage}

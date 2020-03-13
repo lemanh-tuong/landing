@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { RenderItem } from '../Form';
+import React, { useState, Fragment } from 'react';
+import Form, { RenderItem, FormProps, Field } from '../Form';
 import styles from './CheckBox.module.scss';
 
 export interface CheckBoxOption {
@@ -7,7 +7,7 @@ export interface CheckBoxOption {
   name: string;
   reverse?: boolean;
   horizontal?: boolean;
-  onClick?: () => void;
+  onClick?: (result: any) => void;
 }
 
 export interface CheckBoxProps extends CheckBoxOption {
@@ -16,11 +16,11 @@ export interface CheckBoxProps extends CheckBoxOption {
 
 const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: CheckBoxProps) => {
 
-  const [nowCheck, setNowCheck] = useState(checked);
+  const [nowCheck, setNowCheck] = useState(!!checked);
 
   const handleClick = () => {
+    onClick?.(!nowCheck);
     setNowCheck(!nowCheck)
-    onClick?.();
   }
 
   const _renderDefault = () => (
@@ -34,7 +34,11 @@ const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: C
     </div>
   );
 
-  return _renderDefault();
+  return (
+    <Fragment>
+      {_renderDefault()}
+    </Fragment>
+  );
 };
 
 export default CheckBox;
