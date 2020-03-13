@@ -3,7 +3,7 @@ import { createAction } from "utils/functions/reduxActions";
 export interface ActionChangeRadio {
     type: "CHANGE_RADIO",
     payload: {
-        type: string;
+        fieldName: string;
         value: string;
         nowIndex: number;
     }

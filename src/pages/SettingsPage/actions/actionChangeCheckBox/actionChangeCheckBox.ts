@@ -3,7 +3,7 @@ import { createAction } from "utils/functions/reduxActions";
 export interface ActionChangeCheckBox {
     type: "CHANGE_CHECKBOX",
     payload: {
-        type: string;
+        fieldName: string;
         nowIndex: number;
     }
 }

@@ -4,8 +4,8 @@ import { changeInput } from 'pages/SettingsPage/actions/actionChangeInput/action
 
 type ThunkChangeInput = ThunkAction<typeof changeInput>;
 
-const thunkChangeInput = (type: string, value: string, index: number): ThunkChangeInput => (dispatch: any) => {
-  dispatch(changeInput({type: type, value: value, nowIndex: index}))
+const thunkChangeInput = (fieldName: string, value: string, index: number): ThunkChangeInput => (dispatch: any) => {
+  dispatch(changeInput({fieldName: fieldName, value: value, nowIndex: index}))
 };
 
 export default thunkChangeInput;
