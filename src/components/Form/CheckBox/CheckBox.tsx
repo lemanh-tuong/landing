@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { RenderItem } from '../Form';
+import React, { useState, Fragment } from 'react';
+import Form, { RenderItem, FormProps, Field } from '../Form';
 import styles from './CheckBox.module.scss';
 
 export interface CheckBoxOption {
@@ -7,20 +7,22 @@ export interface CheckBoxOption {
   name: string;
   reverse?: boolean;
   horizontal?: boolean;
-  onClick?: () => void;
+  onClick?: (result: any) => void;
+  hideContent?: Field<any>[]; 
+  onEventHideContent: (fieldName: string) => (result: any) => void;
 }
 
 export interface CheckBoxProps extends CheckBoxOption {
   renderItem?: RenderItem<CheckBoxOption>;
 }
 
-const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: CheckBoxProps) => {
+const CheckBox = ({ checked, name, horizontal, renderItem, reverse, hideContent, onEventHideContent, onClick }: CheckBoxProps) => {
 
   const [nowCheck, setNowCheck] = useState(checked);
 
   const handleClick = () => {
     setNowCheck(!nowCheck)
-    onClick?.();
+    onClick?.(nowCheck);
   }
 
   const _renderDefault = () => (
@@ -34,7 +36,18 @@ const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: C
     </div>
   );
 
-  return _renderDefault();
+  const _renderHideContent = () => {
+    if(hideContent) {
+      return <Form fields={hideContent} onChange={onEventHideContent} />
+    }
+  }
+
+  return (
+    <Fragment>
+      {_renderDefault()}
+      {nowCheck ? _renderHideContent() : null}
+    </Fragment>
+  );
 };
 
 export default CheckBox;

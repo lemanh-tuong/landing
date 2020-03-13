@@ -8,7 +8,7 @@ import Input from './Input/Input';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
-const renderField1 = <T extends any>({fieldType, fieldName, props, onChange}: Field<T> & {onChange: any}) => {
+const renderField1 = <T extends any>({fieldType, fieldName, props, hideContent, onChange}: Field<T> & {onChange: any}) => {
   switch (fieldType) {
     case 'input':
       return <Input  
@@ -20,7 +20,7 @@ const renderField1 = <T extends any>({fieldType, fieldName, props, onChange}: Fi
     case 'radio':
       return <Radio name={fieldName} data={props.data} onClick={onChange(fieldName)} />
     case 'checkbox':
-      return <CheckBox name={fieldName} checked={props.checked} onClick={onChange(fieldName)} />;
+      return <CheckBox name={fieldName} checked={props.checked} hideContent={hideContent} onEventHideContent={onChange} onClick={onChange(fieldName)} />;
     case 'upload':
       return <Upload listImg={props.listImg} onEvent={onChange(fieldName)} />
     default: 
@@ -28,11 +28,12 @@ const renderField1 = <T extends any>({fieldType, fieldName, props, onChange}: Fi
   }
 }
  
-
+// 'input' | 'checkbox' | 'radio' | 'upload'
 export type Field<T> = {
-  fieldType: 'input' | 'checkbox' | 'radio' | 'upload',
+  fieldType: string,
   fieldName: string;
-  props: T
+  props: T;
+  hideContent?: Field<any>[];
 }
 
 export interface FormProps<T> {
@@ -44,7 +45,7 @@ const Form = <T extends any>({fields, onChange}: FormProps<T>) => {
   return (
     <FormBase 
       fields={fields}
-      renderField={({fieldType, fieldName, props}, onChange) => renderField1({fieldType, fieldName, props, onChange})}
+      renderField={({fieldType, fieldName, props, hideContent}, onChange) => renderField1({fieldType, fieldName, props, hideContent, onChange})}
       onChange={onChange}
     />
   )
