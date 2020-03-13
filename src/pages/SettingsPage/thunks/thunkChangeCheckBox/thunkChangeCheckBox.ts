@@ -2,8 +2,8 @@ import { changeCheckBox } from "pages/SettingsPage/actions/actionChangeCheckBox/
 
 export type ThunkChangeCheckBox = ThunkAction<typeof changeCheckBox>
 
-const thunkChangeCheckBox = (type: string, nowIndex: number): ThunkChangeCheckBox => dispatch => {
-    dispatch(changeCheckBox({type: type, nowIndex: nowIndex}));
+const thunkChangeCheckBox = (fieldName: string, nowIndex: number): ThunkChangeCheckBox => dispatch => {
+    dispatch(changeCheckBox({fieldName: fieldName, nowIndex: nowIndex}));
 }
 
 export default thunkChangeCheckBox;

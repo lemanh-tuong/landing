@@ -116,9 +116,9 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     }
   }),
   handleAction('CHANGE_INPUT', (state, action) => {
-    const { nowIndex, value, type} = action.payload;
+    const { nowIndex, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
-    const newElement = type === 'title' ? 
+    const newElement = fieldName === 'title' ? 
     {
       ...elementChange,
       mainTitle: value
@@ -133,9 +133,9 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     }
   }),
   handleAction('CHANGE_RADIO', (state, action) => {
-    const { nowIndex, value, type} = action.payload;
+    const { nowIndex, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
-    const newElement = type === 'title' ? 
+    const newElement = fieldName === 'align title' ? 
     {
       ...elementChange,
       alignMainTitle: value
@@ -150,9 +150,9 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     }
   }),
   handleAction('CHANGE_CHECKBOX', (state, action) => {
-    const { nowIndex, value, type} = action.payload;
+    const { nowIndex, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
-    const newElement = type === 'slider' ? 
+    const newElement = fieldName === 'slider' ? 
     {
       ...elementChange,
       slider: !elementChange.slider
@@ -160,7 +160,7 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     {
       ...elementChange,
     };
-    console.log(newElement.slider)
+    
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndex), { ...newElement }, ...state.elements.slice(nowIndex + 1, state.elements.length)]

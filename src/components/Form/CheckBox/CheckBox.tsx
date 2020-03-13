@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RenderItem } from '../Form';
 import styles from './CheckBox.module.scss';
 
@@ -16,7 +16,10 @@ export interface CheckBoxProps extends CheckBoxOption {
 
 const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: CheckBoxProps) => {
 
+  const [nowCheck, setNowCheck] = useState(checked);
+
   const handleClick = () => {
+    setNowCheck(!nowCheck)
     onClick?.();
   }
 
@@ -26,7 +29,7 @@ const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: C
         {name}
       </label>
       <button className={styles.box} onClick={handleClick}>
-        {checked ? <i className="fas fa-check"></i> : <i style={{ color: 'white' }} className="far fa-square"></i>}
+        {nowCheck ? <i className="fas fa-check"></i> : <i style={{ color: 'white' }} className="far fa-square"></i>}
       </button>
     </div>
   );

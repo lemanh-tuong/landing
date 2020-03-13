@@ -8,7 +8,7 @@ export interface InputOption {
   placeholder?: string;
   defaultValue?: string;
   horizontal?: boolean;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => string;
+  onChange?: (result: string) => void;
 }
 
 export interface InputProps extends InputOption {
@@ -18,7 +18,7 @@ export interface InputProps extends InputOption {
 const Input = ({ name, placeholder, defaultValue, horizontal, onChange, renderItem }: InputProps) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e);
+    onChange?.(e.target.value);
   }
 
   const _renderDefault = () => {

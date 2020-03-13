@@ -4,7 +4,7 @@ export interface ActionChangeInput {
     type: "CHANGE_INPUT";
     payload: {
         value: string;
-        type: string;
+        fieldName: string;
         nowIndex: number
     }
 }

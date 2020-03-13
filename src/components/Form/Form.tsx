@@ -1,100 +1,53 @@
 import React, { ReactNode, useState } from 'react';
 import styles from './Form.module.scss';
+import FormBase, { FormBaseProps } from 'components/FormBase/FormBase';
+import Radio from './Radio/Radio';
+import CheckBox from './CheckBox/CheckBox';
+import Upload from 'components/Upload/Upload';
+import Input from './Input/Input';
 
-function createEnumArray(length: number) {
-  const arr = [];
-  for (let i = 0; i < length; i++) {
-    arr.push(i);
-  }
-  return arr;
-}
-
-interface TField<T> {
-  fieldType: string;
-  props: T & {
-    onEvent?: (arg?: any) => void;
-  };
-}
-
-export type RenderField<T> = ({ fieldType, props }: TField<T>) => ReactNode;
 export type RenderItem<T> = (arg: T) => ReactNode;
-type RenderTab<T> = ({ fields, formName, onSubmit, renderField }: Pick<FormProps<T>, 'fields' | 'formName' | 'onSubmit' | 'renderField'>) => ReactNode;
-// export type TFields<T> = TField<T>[];
+
+const renderField1 = <T extends any>({fieldType, fieldName, props, onChange}: Field<T> & {onChange: any}) => {
+  switch (fieldType) {
+    case 'input':
+      return <Input  
+      name={fieldName} 
+      horizontal={props.horizontal} 
+      defaultValue={props.defaultValue}
+      onChange={onChange(fieldName)} placeholder={props.placeholder}
+       />
+    case 'radio':
+      return <Radio name={fieldName} data={props.data} onClick={onChange(fieldName)} />
+    case 'checkbox':
+      return <CheckBox name={fieldName} checked={props.checked} onClick={onChange(fieldName)} />;
+    case 'upload':
+      return <Upload listImg={props.listImg} onEvent={onChange(fieldName)} />
+    default: 
+      return null;;
+  }
+}
+ 
+
+export type Field<T> = {
+  fieldType: 'input' | 'checkbox' | 'radio' | 'upload',
+  fieldName: string;
+  props: T
+}
 
 export interface FormProps<T> {
-  formName?: string;
-  fields: TField<T>[];
-  renderField: RenderField<T>;
-  tabs?: Omit<FormProps<T>, 'renderTab'>[];
-  renderTab?: RenderTab<T>;
-  hasNav?: boolean;
-  onSubmit?: (arg?: any) => void;
+  fields: Field<T>[];
+  onChange: (fieldName: string) => (result: any) => void;
 }
 
-
-const Form = <T extends object>({ formName, fields, tabs, renderField, renderTab, hasNav, onSubmit }: Partial<FormProps<T>>) => {
-
-  const [nowTab, setNowTab] = useState(0);
-
-  const _handleChangeTab = (tab: number) => {
-    return () => {
-      setNowTab(tab);
-    };
-  };
-
-
-  const _renderFieldsDefault = ({ fieldType, props }: TField<T>) => {
-    return (
-      <div>Field Default {JSON.stringify({ fieldType, props })}</div>
-    );
-  };
-
-  const _renderTabDefault = ({ fields, formName, onSubmit }: Pick<FormProps<T>, 'fields' | 'formName' | 'onSubmit'>) => {
-    return <div>Tabs Default {JSON.stringify({ fields, formName, onSubmit })}</div>;
-  };
-
-  const _renderFields = (fields: TField<T>[]) => {
-    return fields?.map(field => renderField?.(field) ?? _renderFieldsDefault(field));
-  };
-
-  const _renderTabs = (tabs: FormProps<T>[]) => {
-    return (
-      <div className={styles.tabs}>
-        {
-          tabs.map((tab, index) => (
-            <div className={`${styles.tab} ${nowTab === index ? styles.show : null}`} key={index}>
-              {renderTab?.(tab) ?? _renderTabDefault({ fields: tab.fields, formName: tab.formName, onSubmit: tab.onSubmit })}
-            </div>
-          ))
-        }
-      </div>
-    );
-  };
-
-  const _renderNav = () => {
-    const nav = tabs ? [...createEnumArray(tabs?.length)] : [];
-    return nav.map((item, index) => <div className={styles.navItem} onClick={_handleChangeTab(index)}>{item}</div>);
-  };
-
+const Form = <T extends any>({fields, onChange}: FormProps<T>) => {
   return (
-    <div className={styles.form}>
-      <div className={styles.formContainer}>
-        {tabs ? _renderTabs(tabs)
-          : fields ? _renderFields(fields)
-            : null
-        }
-      </div>
-      {
-        hasNav ? <div className={styles.formNav}>
-          {_renderNav()}
-        </div>
-          : null
-      }
-      <div className={styles.formNav}>
-        {_renderNav()}
-      </div>
-    </div>
-  );
-};
+    <FormBase 
+      fields={fields}
+      renderField={({fieldType, fieldName, props}, onChange) => renderField1({fieldType, fieldName, props, onChange})}
+      onChange={onChange}
+    />
+  )
+}
 
 export default Form;

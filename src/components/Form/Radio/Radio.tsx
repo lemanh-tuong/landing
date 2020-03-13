@@ -1,5 +1,5 @@
 import { RenderItem } from 'components/Form/Form';
-import React from 'react';
+import React, { useState } from 'react';
 import * as uuid from 'uuid';
 import styles from './Radio.module.scss';
 
@@ -22,24 +22,27 @@ export interface RadioProps extends RadioOption {
 
 const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
 
-  const handleClick = (value: string) => {
+  const [nowCheck, setNowCheck] = useState(-1);
+
+  const handleClick = (value: string, index: number) => {
     return () => {
       onClick?.(value);
+      setNowCheck(index);
     };
   };
 
-  const _renderRadioItem = ({ name, value, checked }: RadioButton) => {
+  const _renderRadioItem = ({ name, value, checked }: RadioButton, index: number) => {
     return (
       <div className={styles.radioItem} key={uuid.v4()}>
         <label htmlFor={name}>{value}</label>
-        <input type="radio" name={name} value={value} id={name} checked={checked} onClick={handleClick(value)} />
+        <input type="radio" name={name} value={value} id={name} checked={!!checked || index === nowCheck} onClick={handleClick(value, index)} />
       </div>
     );
   };
 
   const _renderRadioList = () => {
-    return data.map(item => {
-      return item.renderItem ? item.renderItem({ name: item.name, value: item.value, checked: item.checked }) : _renderRadioItem(item);
+    return data.map((item, index) => {
+      return item.renderItem ? item.renderItem({ name: item.name, value: item.value, checked: item.checked }) : _renderRadioItem(item, index);
     });
   };
 
@@ -49,7 +52,7 @@ const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
         {name}
       </div>
       <div className={styles.radioGroup}>
-        {data.map(item => _renderRadioItem(item))}
+        {_renderRadioList()}
       </div>
 
     </div>

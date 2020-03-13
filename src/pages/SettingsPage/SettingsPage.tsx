@@ -179,27 +179,36 @@ class SettingsPage extends PureComponent<any, PageState> {
     };
   };
 
-  handleChangeInput = (type: string, nowIndex: number) => {
-    return (e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      const { changeInput } = this.props;
-      changeInput(type, value, nowIndex)
-    };
+  handleChangeInput = (type: string, value: string, nowIndex: number) => {
+    const { changeInput } = this.props
+    changeInput(type, value, nowIndex)
   };
 
-  handleChageRadio = (type: string, nowIndex: number) => {
-    return (value: string) => {
-      const { changeRadio } = this.props;
-      changeRadio(type, value, nowIndex)
-    };
+  handleChageRadio = (type: string,value: string, nowIndex: number) => {
+    const { changeRadio } = this.props;
+    changeRadio(type, value, nowIndex)
   };
 
   handleCheck = (type: string, nowIndex: number) => {
-    return () => {
-      const { changeCheckBox } = this.props;
-      changeCheckBox(type, nowIndex)
-    }
+    const { changeCheckBox } = this.props;
+    changeCheckBox(type, nowIndex)
   };
+
+  handleChangeForm = (nowIndex: number) => {
+    return (fieldName: string) => {
+      return (result: any) => {
+        if(fieldName === 'title' || fieldName === 'text') {
+          this.handleChangeInput(fieldName, result, nowIndex);
+        }
+        if(fieldName === 'align title' || fieldName === 'align text') {
+          this.handleChageRadio(fieldName, result, nowIndex);
+        }
+        if(fieldName === 'slider') {
+          this.handleCheck(fieldName, nowIndex)
+        }
+      }
+    }
+  }
 
   handleSubmit = (id: string) => {
     return () => {
@@ -251,111 +260,54 @@ class SettingsPage extends PureComponent<any, PageState> {
     return (
       <PopUp id={sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <Form
-            tabs={[
-              {
-                formName: 'Tab 1',
-                fields: [
-                  {
-                    fieldType: 'input',
-                    props: {
-                      defaultValue: mainTitle,
-                      name: 'Title',
-                      onChange: this.handleChangeInput('title', index)
-                    }
-                  },
-                  {
-                    fieldType: 'input',
-                    props: {
-                      defaultValue: text,
-                      name: 'Text',
-                      onChange: this.handleChangeInput('text', index)
-                    }
-                  },
-                  {
-                    fieldType: 'radio',
-                    props: {
-                      name: 'Title Align',
-                      data: [
-                        {
-                          value: 'center',
-                          name: 'align title'
-                        },
-                        {
-                          value: 'left',
-                          name: 'align title'
-                        },
-                        {
-                          value: 'right',
-                          name: 'align title'
-                        },
-                      ],
-                      onClick: this.handleChageRadio('title', index)
-                    }
-                  },
-                  {
-                    fieldType: 'radio',
-                    props: {
-                      name: 'Text Align',
-                      data: [
-                        {
-                          value: 'center',
-                          name: 'align text'
-                        },
-                        {
-                          value: 'left',
-                          name: 'align text'
-                        },
-                        {
-                          value: 'right',
-                          name: 'align text'
-                        },
-                      ],
-                      onClick: this.handleChageRadio('text', index)
-                    }
-                  }
-                ],
-                renderField: ({ fieldType, props }) => renderField1({ fieldType, props })
-              },
-              {
-                formName: 'Tab 2',
-                fields: [
-                  {
-                    fieldType: 'checkbox',
-                    props: {
-                      name: 'Slider',
-                      checked: slider,
-                      onClick: this.handleCheck('slider', index)
-                    }
-                  },
-                ],
-                renderField: ({ fieldType, props }) => renderField1({ fieldType, props })
-              },
-              {
-                formName: 'Tab 3',
-                fields: [
-                  {
-                    fieldType: 'upload',
-                    props: {
-                      listImg: this.props.imagesGallery,
-                      onEvent: this.props.uploadFile
-                    }
-                  }
-                ],
-                renderField: ({ fieldType, props }) => renderField1({ fieldType, props })
+        <Form 
+          fields={[
+            {
+              fieldType: 'input',
+              fieldName: 'title',
+              props: {
+                horizontal: true,
+                defaultValue: 'Title'
               }
-            ]}
-            renderTab={({ fields, formName, renderField }) => renderTab1({ fields: fields, formName: formName, renderField: renderField })}
-          // fields={[
-          //   {
-          //     fieldType: 'fields 1',
-          //     props: {
-          //       defaultValue: 'default'
-          //     }
-          //   }
-          // ]}
-          // renderField={({props}) => <div><input defaultValue={props?.defaultValue} /></div>}
-          />
+            },
+            {
+              fieldType: 'input',
+              fieldName: 'text',
+              props: {
+                horizontal: true,
+                defaultValue: 'Text'
+              }
+            },
+            {
+              fieldType: 'radio',
+              fieldName: 'align title',
+              props: {
+                data: [
+                  {
+                    value: 'center',
+                    name: 'align title'
+                  },
+                  {
+                    value: 'left',
+                    name: 'align title'
+                  },
+                  {
+                    value: 'right',
+                    name: 'align title'
+                  },
+                ],
+              }
+            },
+            {
+              fieldType: 'checkbox',
+              fieldName: 'slider',
+              props: {
+                name: "Slider"
+              }
+            }
+          ]}
+          onChange={this.handleChangeForm(index)}
+        />
         </div>
       </PopUp>
     );
@@ -386,7 +338,7 @@ class SettingsPage extends PureComponent<any, PageState> {
       <Draggable draggableId={element.sectionId} index={index} key={element.sectionId} >
         {(provided, snapshot) => {
           return (
-            <div className={`${styles.section} ${focusing} ${dragging}`} 
+          <div className={`${styles.section} ${focusing} ${/*${dragging}*/''} `} 
               style={getItemStyle(snapshot.isDragging, !!provided.draggableProps.style ? provided.draggableProps.style : {})} ref={provided.innerRef} 
               {...provided.dragHandleProps} {...provided.draggableProps} key={element.sectionId}
               onMouseDown={this.handleDragStart(element.sectionId)}
