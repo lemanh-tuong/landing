@@ -21,7 +21,6 @@ export interface RadioProps extends RadioOption {
 }
 
 const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
-
   const [nowCheck, setNowCheck] = useState(-1);
 
   const handleClick = (value: string, index: number) => {
@@ -54,7 +53,6 @@ const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
       <div className={styles.radioGroup}>
         {_renderRadioList()}
       </div>
-
     </div>
   );
 

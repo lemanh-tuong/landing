@@ -2,11 +2,17 @@ import { createAction } from 'utils/functions/reduxActions';
 
 export interface ActionUploadFile {
   type: 'UPLOAD_FILE';
-  payload: File;
+  payload: {
+    file: File;
+    path: string;
+    nowIndex: number
+  };
 }
 
-const uploadFile = createAction('UPLOAD_FILE', (payload: File) => {
-  return payload;
+const uploadFile = createAction('UPLOAD_FILE', (payload: ActionUploadFile['payload']) => {
+  return {
+    ...payload
+  };
 });
 
 export { uploadFile };

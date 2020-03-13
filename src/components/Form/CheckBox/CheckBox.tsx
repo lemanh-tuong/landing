@@ -8,21 +8,19 @@ export interface CheckBoxOption {
   reverse?: boolean;
   horizontal?: boolean;
   onClick?: (result: any) => void;
-  hideContent?: Field<any>[]; 
-  onEventHideContent: (fieldName: string) => (result: any) => void;
 }
 
 export interface CheckBoxProps extends CheckBoxOption {
   renderItem?: RenderItem<CheckBoxOption>;
 }
 
-const CheckBox = ({ checked, name, horizontal, renderItem, reverse, hideContent, onEventHideContent, onClick }: CheckBoxProps) => {
+const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: CheckBoxProps) => {
 
-  const [nowCheck, setNowCheck] = useState(checked);
+  const [nowCheck, setNowCheck] = useState(!!checked);
 
   const handleClick = () => {
+    onClick?.(!nowCheck);
     setNowCheck(!nowCheck)
-    onClick?.(nowCheck);
   }
 
   const _renderDefault = () => (
@@ -36,16 +34,9 @@ const CheckBox = ({ checked, name, horizontal, renderItem, reverse, hideContent,
     </div>
   );
 
-  const _renderHideContent = () => {
-    if(hideContent) {
-      return <Form fields={hideContent} onChange={onEventHideContent} />
-    }
-  }
-
   return (
     <Fragment>
       {_renderDefault()}
-      {nowCheck ? _renderHideContent() : null}
     </Fragment>
   );
 };

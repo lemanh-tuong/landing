@@ -16,10 +16,10 @@ import { Option } from '../SettingsPage';
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
 const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, slider, data }: Option) => {
-
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
+        console.log(data)
         return <Section1
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
@@ -32,12 +32,12 @@ const RenderSection = ({ sectionName, mainTitle, text, alignMainTitle, alignText
           slider={slider}
           data={data || [
             {
-              imgMockUpContent: mockUpMacContent1,
+              imgUrl: mockUpMacContent1,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
             },
             {
-              imgMockUpContent: mockUpMacContent2,
+              imgUrl: mockUpMacContent2,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/'
             }

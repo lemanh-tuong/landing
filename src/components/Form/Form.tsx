@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, Fragment } from 'react';
 import styles from './Form.module.scss';
 import FormBase, { FormBaseProps } from 'components/FormBase/FormBase';
 import Radio from './Radio/Radio';
@@ -8,32 +8,33 @@ import Input from './Input/Input';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
-const renderField1 = <T extends any>({fieldType, fieldName, props, hideContent, onChange}: Field<T> & {onChange: any}) => {
-  switch (fieldType) {
+const renderField1 = <T extends any>(arg: T, onChange: any) => {
+  if(!!arg.hidden) {
+    return null;
+  }
+  switch (arg.fieldType) {
     case 'input':
       return <Input  
-      name={fieldName} 
-      horizontal={props.horizontal} 
-      defaultValue={props.defaultValue}
-      onChange={onChange(fieldName)} placeholder={props.placeholder}
+      name={arg.fieldName} 
+      horizontal={arg.horizontal} 
+      defaultValue={arg.defaultValue}
+      onChange={onChange(arg.fieldName)} placeholder={arg.placeholder}
        />
     case 'radio':
-      return <Radio name={fieldName} data={props.data} onClick={onChange(fieldName)} />
+      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange(arg.fieldName)} />
     case 'checkbox':
-      return <CheckBox name={fieldName} checked={props.checked} hideContent={hideContent} onEventHideContent={onChange} onClick={onChange(fieldName)} />;
-    case 'upload':
-      return <Upload listImg={props.listImg} onEvent={onChange(fieldName)} />
+      return  <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange(arg.fieldName)} />
+    case 'file':
+      return <Upload listImg={arg.listImg} onEvent={onChange(arg.fieldName)} />
     default: 
-      return null;;
+      return null;
   }
 }
  
 // 'input' | 'checkbox' | 'radio' | 'upload'
-export type Field<T> = {
+export type Field<T> = T & {
   fieldType: string,
   fieldName: string;
-  props: T;
-  hideContent?: Field<any>[];
 }
 
 export interface FormProps<T> {
@@ -42,10 +43,12 @@ export interface FormProps<T> {
 }
 
 const Form = <T extends any>({fields, onChange}: FormProps<T>) => {
+  const [state, setState] = useState({});
+
   return (
     <FormBase 
       fields={fields}
-      renderField={({fieldType, fieldName, props, hideContent}, onChange) => renderField1({fieldType, fieldName, props, hideContent, onChange})}
+      renderField={(arg, onChange) => renderField1(arg, onChange)}
       onChange={onChange}
     />
   )

@@ -57,7 +57,6 @@ export interface Option extends Partial<MainTitleProps>, Partial<TextProps>, Par
   sectionId: string;
   slider?: boolean;
 }
-
 export interface PageProps extends Pick<Option, 'slider'> {
   pageName: string;
   elements: Option[];
@@ -161,12 +160,18 @@ class SettingsPage extends PureComponent<any, PageState> {
     changeRadio(type, value, nowIndex)
   };
 
-  handleCheck = (type: string, nowIndex: number) => {
+  handleCheck = (type: string, result: boolean, nowIndex: number) => {
     const { changeCheckBox } = this.props;
-    changeCheckBox(type, nowIndex)
+    changeCheckBox(type, result, nowIndex)
   };
 
-  handleChangeForm = (nowIndex: number) => {
+  handleUploadFile = (path: string, file: File, nowIndex: number) => {
+    const { uploadFile } = this.props;
+    uploadFile(path, file, nowIndex);
+
+  }
+
+  handleChangeForm = (sectionId: string, nowIndex: number) => {
     return (fieldName: string) => {
       return (result: any) => {
         if(fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
@@ -176,7 +181,10 @@ class SettingsPage extends PureComponent<any, PageState> {
           this.handleChageRadio(fieldName, result, nowIndex);
         }
         if(fieldName === 'slider') {
-          this.handleCheck(fieldName, nowIndex)
+          this.handleCheck(fieldName, result, nowIndex)
+        }
+        if(fieldName === 'upload') {
+          this.handleUploadFile(sectionId, result, nowIndex);
         }
       }
     }
@@ -228,7 +236,9 @@ class SettingsPage extends PureComponent<any, PageState> {
     }
   }
 
-  _renderSettingsBox = ({ sectionId, mainTitle, text, slider }: Option, index: number) => {
+  
+  _renderSettingsBox = ({ sectionId, mainTitle, text, slider, data }: Option, index: number) => {
+    
     return (
       <PopUp id={sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -237,84 +247,65 @@ class SettingsPage extends PureComponent<any, PageState> {
             {
               fieldType: 'input',
               fieldName: 'title',
-              props: {
-                horizontal: true,
-                defaultValue: 'Title'
-              }
+              horizontal: true,
+              defaultValue: 'Title'
             },
             {
               fieldType: 'input',
               fieldName: 'text',
-              props: {
-                horizontal: true,
-                defaultValue: 'Text'
-              }
+              horizontal: true,
+              defaultValue: 'Text'
             },
             {
               fieldType: 'radio',
               fieldName: 'align text',
-              props: {
-                data: [
-                  {
-                    value: 'center',
-                    name: 'align title'
-                  },
-                  {
-                    value: 'left',
-                    name: 'align title'
-                  },
-                  {
-                    value: 'right',
-                    name: 'align title'
-                  },
-                ],
-              }
+              data: [
+                {
+                  value: 'center',
+                  name: 'align text'
+                },
+                {
+                  value: 'left',
+                  name: 'align text'
+                },
+                {
+                  value: 'right',
+                  name: 'align text'
+                },
+              ],
             },
             {
               fieldType: 'radio',
               fieldName: 'align title',
-              props: {
-                data: [
-                  {
-                    value: 'center',
-                    name: 'align title'
-                  },
-                  {
-                    value: 'left',
-                    name: 'align title'
-                  },
-                  {
-                    value: 'right',
-                    name: 'align title'
-                  },
-                ],
-              }
+              data: [
+                {
+                  value: 'center',
+                  name: 'align title'
+                },
+                {
+                  value: 'left',
+                  name: 'align title'
+                },
+                {
+                  value: 'right',
+                  name: 'align title'
+                },
+              ],
             },
             {
               fieldType: 'checkbox',
               fieldName: 'slider',
-              props: {
-                name: "Slider"
-              },
-              hideContent: [
-                {
-                  fieldType: 'checkbox',
-                  fieldName: 'Test',
-                  props: {
-                    name: "Test",
-                  },
-                  hideContent: [
-                    {
-                      fieldType: 'input',
-                      fieldName: 'testInput',
-                      props: {}
-                    }
-                  ]
-                }
-              ],
+              name: "Slider",
+              checked: slider
+            },
+            {
+              fieldType: 'file',
+              fieldName: 'upload',
+              hidden: !slider,
+              listImg: data || [],
             }
           ]}
-          onChange={this.handleChangeForm(index)}
+          onChange={this.handleChangeForm(sectionId, index)}
         />
         </div>
       </PopUp>
@@ -373,6 +364,7 @@ class SettingsPage extends PureComponent<any, PageState> {
                 colorMainTitle: element.colorMainTitle ? element.colorMainTitle : 'white',
                 colorText: element.colorText ? element.colorText : 'white',
                 slider: element.slider ? element.slider : false,
+                data: element.data ? element.data : undefined,
               })}
               {this._renderSettingsBox(element, index)}
             </div>

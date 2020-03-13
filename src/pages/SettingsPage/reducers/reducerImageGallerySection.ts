@@ -25,10 +25,10 @@ const imageGallerySection = createReducer<ImageGallerySectionState, ActionTypes<
     ...state,
     status: 'failure'
   })),
-  handleAction('UPLOAD_FILE', (state, action) => ({
-    ...state,
-    data: [...state.data].concat(action.payload)
-  }))
+  // handleAction('UPLOAD_FILE', (state, action) => ({
+  //   ...state,
+  //   data: [...state.data].concat(action.payload)
+  // }))
 ]);
 
 export { imageGallerySection };
