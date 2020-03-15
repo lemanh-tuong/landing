@@ -100,7 +100,7 @@ export const FormSection2 = <T extends any>({option, onChange, moveChild}: FormS
         ]}
         onChange={onChange}
       />
-      {/* <DragDropContext onDragEnd={handleDragEnd}>
+      <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId={option.sectionId}>
             {provided => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -109,7 +109,7 @@ export const FormSection2 = <T extends any>({option, onChange, moveChild}: FormS
               </div>
             )}
           </Droppable>
-      </DragDropContext> */}
+      </DragDropContext>
     </div>
   )
   
