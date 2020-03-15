@@ -1,3 +1,26 @@
 .form {
-  background: white
+  background: white;
+  padding: 20px 40px;
+  background: wheat;
+}
+.tab {
+  display: none;
+  &.show {
+    display: block;
+  }
+}
+
+.formNav {
+  display: flex;
+}
+.navItem {
+  padding: 10px 0;
+  flex: 1 1 auto;
+  text-align: center;
+  transition: 0.3s all;
+  border: 1px solid;
+  cursor: pointer;
+  &:hover {
+    background: lightblue;
+  }
 }

@@ -1,137 +1,60 @@
-import Button from 'components/Button/Button';
-import { SelectProps } from 'pages/SettingsPage/components/Select/Select';
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ReactNode, useState, Fragment } from 'react';
 import styles from './Form.module.scss';
+import FormBase, { FormBaseProps } from 'components/FormBase/FormBase';
+import Radio from './Radio/Radio';
+import CheckBox from './CheckBox/CheckBox';
+import RollSelect from 'components/RollSelect/RollSelect';
+import Input from './Input/Input';
+import { SketchPicker } from 'react-color';
+import ColorPicker from './ColorPicker/ColorPicker';
 
-export type Item<ItemT> = ItemT;
+export type RenderItem<T> = (arg: T) => ReactNode;
 
-export type RenderItem<ItemT> = (arg: Item<ItemT>, key?: any, onClick?: () => void) => ReactNode;
-
-export interface FieldInput {
-  name: string;
-  type: 'text' | 'checkbox' | 'radio';
-  required?: boolean;
-  defaultValue: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  key?: any;
+const renderField1 = <T extends any>(arg: T, onChange: any) => {
+  if(!!arg.hidden) {
+    return null;
+  }
+  switch (arg.fieldType) {
+    case 'input':
+      return <Input  
+      name={arg.fieldName} 
+      horizontal={arg.horizontal} 
+      defaultValue={arg.defaultValue}
+      onChange={onChange(arg.fieldName)} placeholder={arg.placeholder}
+       />
+    case 'radio':
+      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange(arg.fieldName)} />
+    case 'checkbox':
+      return  <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange(arg.fieldName)} />
+    case 'file':
+      return <RollSelect listImg={arg.listImg} onEvent={onChange(arg.fieldName)} />
+    case 'color-picker':
+      return <ColorPicker onChange={onChange(arg.fieldName)} />
+    default: 
+      return null;
+  }
+}
+ 
+// 'input' | 'checkbox' | 'radio' | 'upload'
+export type Field<T> = T & {
+  fieldType: string,
+  fieldName: string;
 }
 
-export interface FieldCheckbox {
-  label: string;
-  checked: boolean;
-  onClick: () => void;
+export interface FormProps<T> {
+  fields: Field<T>[];
+  onChange: (fieldName: string) => (result: any) => void;
 }
 
-export interface TypeRadio {
-  name: string;
-  label: string;
-  checked?: boolean;
-  key?: any;
-}
-
-export interface FieldsRadio {
-  label: string;
-  data: TypeRadio[];
-  onClick: (result: any) => void;
-}
-
-export interface Color {
-  name: string;
-  color: string;
-}
-
-
-export interface SelectItem {
-  name: string;
-  value: string;
-  [key: string]: any;
-}
-
-export interface FieldsSelect extends SelectProps<SelectItem> {
-  // data: Color[];
-  // defaultValue: Color;
-  // renderItem?: (arg: Color) => ReactNode;
-  // renderInput?: (arg: Color) => ReactNode;
-}
-
-
-export interface FormProps<TItemInput, TItemCheckBox, TItemRadio, TItemSelect> {
-  formName: string;
-
-
-  fieldsInput?: Item<TItemInput>[] | Item<TItemInput>;
-  renderItemInput?: RenderItem<TItemInput>;
-  fieldsCheckBox?: Item<TItemCheckBox>[] | Item<TItemCheckBox>;
-  renderItemCheckBox?: RenderItem<TItemCheckBox>;
-  fieldsRadio?: Item<TItemRadio>[] | Item<TItemRadio>;
-  renderItemRadio?: RenderItem<TItemRadio>;
-  fieldsSelect?: Item<TItemSelect>[] | Item<TItemSelect>;
-  renderSelect?: RenderItem<TItemSelect>;
-  onSubmit?: () => void;
-}
-
-// const defaultProps: FormProps<FieldInput, FieldCheckbox, FieldsRadio, FieldsSelect> = {
-//   fieldsInput: [],
-//   renderItemInput: undefined,
-//   fieldsCheckBox: [],
-//   renderItemCheckBox: undefined,
-//   fieldsRadio: [],
-//   renderItemRadio: undefined,
-//   fieldsSelect: [],
-//   renderSelect: undefined
-// };
-
-
-const Form = <TItemInput extends FieldInput, TItemCheckBox extends FieldCheckbox, TItemRadio extends FieldsRadio, TItemSelect extends FieldsSelect>({ formName, fieldsInput, renderItemInput, fieldsCheckBox, renderItemCheckBox, fieldsRadio, renderItemRadio, onSubmit, fieldsSelect, renderSelect }: FormProps<TItemInput, TItemCheckBox, TItemRadio, TItemSelect>) => {
-
-  const _renderInput = () => {
-    if (fieldsInput instanceof Array) {
-      return fieldsInput.map((field, key) => renderItemInput?.(field, key));
-    }
-    return fieldsInput ? renderItemInput?.(fieldsInput) : null;
-  };
-
-  const _renderCheckBox = () => {
-    if (fieldsCheckBox instanceof Array) {
-      return fieldsCheckBox.map((field, key) => renderItemCheckBox?.(field, key));
-    }
-    return fieldsCheckBox ? renderItemCheckBox?.(fieldsCheckBox) : null;
-  };
-
-  const _renderRadio = () => {
-    if (fieldsRadio instanceof Array) {
-      return fieldsRadio.map((field, key) => renderItemRadio?.(field, key));
-    }
-    return fieldsRadio ? renderItemRadio?.(fieldsRadio) : null;
-  };
-
-  const _renderSelect = () => {
-    if (fieldsSelect instanceof Array) {
-      return fieldsSelect.map(field => renderSelect?.(field));
-    }
-    return fieldsSelect ? renderSelect?.(fieldsSelect) : null;
-  };
-
-  const _renderSwitchButton = () => {
-
-  };
-
+const Form = <T extends any>({fields, onChange}: FormProps<T>) => {
+  const [state, setState] = useState({});
   return (
-    <div className={styles.form}>
-      <div className={styles.formTop}>
-        <div className={styles.formName}>
-          {formName}
-        </div>
-      </div>
-      {_renderInput()}
-      {_renderCheckBox()}
-      {_renderRadio()}
-      {_renderSelect()}
-      <Button color='border' onClick={onSubmit}>
-        Done!
-      </Button>
-    </div>
-  );
-};
+    <FormBase 
+      fields={fields}
+      renderField={(arg, onChange) => renderField1(arg, onChange)}
+      onChange={onChange}
+    />
+  )
+}
 
 export default Form;

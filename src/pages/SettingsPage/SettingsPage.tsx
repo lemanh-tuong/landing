@@ -1,6 +1,3 @@
-/* eslint-disable react/sort-comp */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable react/destructuring-assignment */
 import Button from 'components/Button/Button';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import { CarouselProps } from 'components/Carousel/Carousel';
@@ -9,18 +6,30 @@ import PopUp from 'components/PopUp/PopUp';
 import { MainTitleProps } from 'components/SectionTitle/SectionTitle';
 import SideBar from 'components/SideBar/SideBar';
 import { TextProps } from 'components/Text/Text';
-import writeFireBase from 'firebase/writeFireBase';
-import React, { ChangeEvent, CSSProperties, PureComponent } from 'react';
+import thunkGetImageGallerySection from 'pages/SettingsPage/thunks/thunkGetImageGallerySection/thunkGetImageGallerySection';
+import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
+import React, { ChangeEvent,CSSProperties, PureComponent, Fragment, MouseEvent } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
-import CheckBox from './components/CheckBox/CheckBox';
-import ColorPicker from './components/ColorPicker/ColorPicker';
-import Input from './components/Input/Input';
-import Radio from './components/Radio/Radio';
-import Select from './components/Select/Select';
-import RenderSection from './RenderSection/RenderSection';
+import RenderSection from './components/RenderSection/RenderSection';
 import styles from './SettingsPage.module.scss';
-import thunkGetData from './thunks/thunkGetData';
+import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
+import thunkDeleteSection from './thunks/thunkDeleteSection/thunkDeleteSection';
+import thunkGetData from './thunks/thunkGetData/thunkGetData';
+import thunkMoveSection from './thunks/thunkMoveSection/thunkMoveSection';
+import { v4 as uuidv4 } from 'uuid';
+import thunkMoveUpSection from './thunks/thunkMoveUpSection/thunkMoveUpSection';
+import thunkMoveDownSection from './thunks/thunkMoveDownSection/thunkMoveDownSection';
+import thunkChangeInput from './thunks/thunkChangeInput/thunkChangeInput';
+import thunkChangeRadio from './thunks/thunkChangeRadio/thunkChangeRadio';
+import thunkChangeCheckBox from './thunks/thunkChangeCheckBox/thunkChangeCheckBox';
+import Icon from 'components/Icon/Icon';
+import FormSection1 from './components/FormSection1/FormSection1';
+import FormSection2 from './components/FormSection2/FormSection2';
+import { Section2Props } from 'components/Section2/Section2';
+import { Section1Props } from 'components/Section1/Section1';
+import thunkMoveChild from './thunks/thunkMoveChild/thunkMoveChild';
+import thunkChangeColor from './thunks/thunkChangeColor/thunkChangeColor';
 
 const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
 const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
@@ -30,7 +39,6 @@ const reorder = (list: Option[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-
   return result;
 };
 
@@ -38,388 +46,283 @@ const getItemStyle = (isDragging: boolean, draggableStyle: CSSProperties): CSSPr
   userSelect: 'none',
   padding: 20,
   margin: `0 0 20px 0`,
-
   // change background colour if dragging
   background: isDragging ? 'lightgreen' : 'grey',
-
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 
 
-export interface Option extends Partial<MainTitleProps>, Partial<TextProps>, Partial<CarouselProps<any>> {
+export interface Option extends Partial<Section1Props<any> & Section2Props> {
   sectionName: string;
   sectionId: string;
   slider?: boolean;
 }
-
 export interface PageProps extends Pick<Option, 'slider'> {
   pageName: string;
   elements: Option[];
+}
+
+export interface PageState extends PageProps {
+  sectionFocusing: string;
+  sectionDragging: string;
 }
 
 const defaultOption: PageProps = {
   pageName: '',
   elements: [],
   slider: false,
-
 };
 
-class SettingsPage extends PureComponent<any, PageProps> {
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = {
-  //     pageName: this.props.pageName,
-  //     elements: [...this.props.elements],
-  //     slider: this.props.slider || false,
-  //   }
-  // }
+
+
+class SettingsPage extends PureComponent<any, PageState> {
 
   option: Option = {
     sectionName: '',
-    sectionId: '',
-    slider: false
+    sectionId: ''
   };
 
-  state = { ...defaultOption };
+  state = { ...defaultOption, sectionFocusing: '', sectionDragging: '' };
 
-  handleDragStart = (arg: Option) => {
+  handlePrepairAdd = (arg: Option) => {
     return () => {
       this.option = {
         ...arg,
-        sectionId: `${this.state.elements.length + 1}`
+        sectionId: uuidv4()
       };
     };
   };
 
-  handleAdd = () => {
-    if (this.option.sectionName) {
-      this.setState({
-        ...this.state,
-        elements: [...this.state.elements.concat(this.option)]
-      }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
-      this.option = { sectionName: '', sectionId: '', ...defaultOption };
+  handleAdd = (index?: number) => {
+    return () => {
+      if (this.option.sectionId) {
+        
+        if(this.option.sectionName === 'Section 2') console.log(this.option.cards)
+        !!(index === 0 || index) ? this.props.addSection(this.option, index) : this.props.addSection(this.option);
+        this.option = {
+          sectionName: '',
+          sectionId: '',
+          slider: false
+        }
+      }
     }
   };
 
+  handleDuplicate = (arg: Option, index: number) => {
+    return (e: any) => {
+      e.stopPropagation();
+      this.handlePrepairAdd(arg)();
+      this.handleAdd(index)();
+    }
+  }
+
+  handleDragStart = (sectionId: string) => {
+    return () => {
+      this.setState(state => ({
+        ...state,
+        sectionDragging: sectionId
+      }))
+    }
+  }
+
   handleDragEnd = (result: any) => {
+    const { elements, moveSection } = this.props;
     if (!result.destination) {
       return;
     }
-    const elements = reorder(
-      this.state.elements,
+    this.setState(state => ({
+      ...state,
+      sectionDragging: ''
+    }))
+
+    const newElements = reorder(
+      elements,
       result.source.index,
       result.destination.index
     );
+    moveSection(newElements);
 
-    this.setState({
-      ...this.state,
-      elements: [...elements]
-    }, () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
   };
 
   handleDelete = (element: Option) => {
     return () => {
-      const { elements } = this.state;
-      const newElements = elements.filter(ele => element !== ele);
-      this.setState(state => ({
-        ...state,
-        elements: [...newElements]
-      }), () => writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider }));
+      const { deleteSection } = this.props;
+      deleteSection(element);
     };
   };
 
-  handleChangeInput = (type: string, id: string) => {
-    return (e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      const Id = parseInt(id) - 1;
-      const elementChange = Object.assign({}, this.state.elements[Id]);
-      const newElement = type === 'title' ? {
-        ...elementChange,
-        mainTitle: value
-      } : {
-          ...elementChange,
-          text: value
-        };
-      this.setState(state => ({
-        ...state,
-        elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
-      }));
-    };
+  handleChangeInput = (fieldName: string, value: string, nowIndex: number) => {
+    const { changeInput } = this.props
+    changeInput(fieldName, value, nowIndex)
   };
 
-  handleChageRadio = (type: string, id: string) => {
-    return (result: any) => {
-      const Id = parseInt(id) - 1;
-      const elementChange = Object.assign({}, this.state.elements[Id]);
-      const newElement = type === 'title' ? {
-        ...elementChange,
-        alignMainTitle: result
-      } : {
-          ...elementChange,
-          alignText: result
-        };
-      this.setState(state => ({
-        ...state,
-        elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
-      }));
-    };
+  handleChageRadio = (fieldName: string,value: string, nowIndex: number) => {
+    const { changeRadio } = this.props;
+    changeRadio(fieldName, value, nowIndex)
   };
 
-  handleCheck = (type: string) => {
-    if (type === 'slider') {
-      this.setState(state => ({
-        ...state,
-        slider: !state.slider
-      }));
+  handleCheck = (fieldName: string, result: boolean, nowIndex: number) => {
+    const { changeCheckBox } = this.props;
+    changeCheckBox(fieldName, result, nowIndex)
+  };
+
+  handleUploadFile = (path: string, file: File, nowIndex: number) => {
+    const { uploadFile } = this.props;
+    uploadFile(path, file, nowIndex);
+
+  }
+
+  handleChangeColor = (fieldName: string, color: string, nowIndex: number) => {
+    const { changeColor } = this.props;
+    changeColor(fieldName, color, nowIndex);
+  }
+
+  handleChangeForm = (sectionId: string, nowIndex: number) => {
+    return (fieldName: string) => {
+      return (result: any) => {
+        if(fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
+          this.handleChangeInput(fieldName, result, nowIndex);
+        }
+        if(fieldName === 'align title' || fieldName === 'align text') {
+          this.handleChageRadio(fieldName, result, nowIndex);
+        }
+        if(fieldName === 'slider') {
+          this.handleCheck(fieldName, result, nowIndex)
+        }
+        if(fieldName === 'upload') {
+          this.handleUploadFile(sectionId, result, nowIndex);
+        }
+        if(fieldName === 'color-picker') {
+          this.handleChangeColor(fieldName, result, nowIndex)
+        }
+      }
     }
-  };
+  }
 
   handleSubmit = (id: string) => {
     return () => {
       PopUp.hide(id)();
-      writeFireBase({ pageName: 'Home Page', elements: [...this.state.elements], slider: this.state.slider });
     };
   };
 
-  handleSelect = (id: string, type: string) => {
-    return ({ value }: { value: string }) => {
-      const Id = parseInt(id) - 1;
-      const elementChange = Object.assign({}, this.state.elements[Id]);
-      const newElement = type === 'title' ? {
-        ...elementChange,
-        colorMainTitle: value
-      } : {
-          ...elementChange,
-          colorText: value
-        };
+  handleFocus = (sectionId: string) => {
+    return () => {
       this.setState(state => ({
         ...state,
-        elements: [...state.elements.slice(0, Id), { ...newElement }, ...state.elements.slice(Id + 1, state.elements.length)]
-      }));
-    };
-  };
+        sectionFocusing: sectionId
+      }))
+    }
+  }
 
+  handleMoveUp = (sectionProperty: Option, index: number) => {
+    return () => {
+      const { moveUpSection } = this.props;
+      moveUpSection(sectionProperty, index)
+    }
+  }
+  handleMoveDown = (sectionProperty: Option, index: number) => {
+    return () => {
+      const { moveDownSection } = this.props;
+      moveDownSection(sectionProperty, index)
+    }
+  }
 
-  _renderSettingsBox = ({ sectionId }: Option) => {
+  handleMoveChild = (nowIndex: number) => {
+    return (data: any[]) => {
+      const { moveChild } = this.props;
+      moveChild(data, nowIndex);
+    }
+  }
+  
+  
+
+  _renderSettingsBox = (option: Option, index: number) => {
     return (
-      <PopUp id={sectionId}>
+      <PopUp id={option.sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <Form
-            formName="settings"
-            fieldsInput={[
-              {
-                name: 'title',
-                type: 'text',
-                defaultValue: 'Title 1',
-                onChange: this.handleChangeInput('title', sectionId),
-                key: '1',
-              },
-              {
-                name: 'text',
-                type: 'text',
-                defaultValue: 'Title 2',
-                onChange: this.handleChangeInput('text', sectionId),
-                key: '2',
-              },
-            ]}
-            renderItemInput={({ name, defaultValue, key, type, onChange }) => <Input key={key} onChange={onChange} label={name} value={defaultValue} type={type} />}
-            fieldsCheckBox={[
-              {
-                checked: this.state?.slider ?? false,
-                label: 'Slider',
-                onClick: () => this.handleCheck('slider'),
-              }
-            ]}
-            renderItemCheckBox={({ checked, label, onClick }) => <CheckBox label={label} checked={checked} onClick={onClick} />}
-            fieldsRadio={[
-              {
-                label: 'Align Title',
-                onClick: (result) => this.handleChageRadio('title', sectionId)(result),
-                data: [
-                  {
-                    label: 'center',
-                    name: 'align title'
-                  },
-                  {
-                    label: 'left',
-                    name: 'align title'
-                  },
-                  {
-                    label: 'right',
-                    name: 'align title'
-                  },
-                ]
-              },
-              {
-                label: 'align text',
-                onClick: (result) => this.handleChageRadio('text', sectionId)(result),
-                data: [
-                  {
-                    label: 'center',
-                    name: 'align text'
-                  },
-                  {
-                    label: 'left',
-                    name: 'align text'
-                  },
-                  {
-                    label: 'right',
-                    name: 'align text'
-                  },
-                ]
-              }
-            ]}
-            renderItemRadio={({ label, data, onClick }) => <Radio onClick={onClick} label={label} data={data} />}
-            fieldsSelect={[
-              {
-                data: [
-                  {
-                    name: 'black',
-                    value: '#252c41'
-                  },
-                  {
-                    name: 'white',
-                    value: 'white',
-                  },
-                  {
-                    name: 'black2',
-                    value: 'rgba(0,0,0,.7)'
-                  },
-                  {
-                    name: 'black3',
-                    value: 'rgba(0,0,0,.8)'
-                  },
-                  {
-                    name: 'black4',
-                    value: 'rgba(0,0,0,.9)'
-                  },
-                  {
-                    name: 'darkblue',
-                    value: 'rgb(0, 27, 68)'
-                  },
-                  {
-                    name: 'green',
-                    value: '#3ece7e'
-                  },
-                  {
-                    name: 'pink',
-                    value: '#f06292'
-                  }
-                ],
-                defaultValue: {
-                  value: 'red',
-                  name: 'red'
-                },
-                renderInput: ({ value, name }) => <ColorPicker color={name} name={name} />,
-                renderItem: ({ value, name }) => <ColorPicker color={value} name={name} />,
-                onChange: this.handleSelect(sectionId, 'title')
-              },
-              {
-                data: [
-                  {
-                    name: 'black',
-                    value: '#252c41'
-                  },
-                  {
-                    name: 'white',
-                    value: 'white',
-                  },
-                  {
-                    name: 'black2',
-                    value: 'rgba(0,0,0,.7)'
-                  },
-                  {
-                    name: 'black3',
-                    value: 'rgba(0,0,0,.8)'
-                  },
-                  {
-                    name: 'black4',
-                    value: 'rgba(0,0,0,.9)'
-                  },
-                  {
-                    name: 'darkblue',
-                    value: 'rgb(0, 27, 68)'
-                  },
-                  {
-                    name: 'green',
-                    value: '#3ece7e'
-                  },
-                  {
-                    name: 'pink',
-                    value: '#f06292'
-                  }
-                ],
-                defaultValue: {
-                  value: 'red',
-                  name: 'red'
-                },
-                renderInput: ({ value, name }) => <ColorPicker color={name} name={name} />,
-                renderItem: ({ value, name }) => <ColorPicker color={value} name={name} />,
-                onChange: this.handleSelect(sectionId, 'text')
-              }
-            ]}
-
-            renderSelect={({ defaultValue, data, renderInput, renderItem, onChange }) => <Select onChange={onChange} data={data} defaultValue={defaultValue}
-              renderItem={!!renderItem ? renderItem : ({ value, name }) => <div>{value}{name}</div>} // WTF did I write?
-              renderInput={!!renderInput ? renderInput : ({ value, name }) => <ColorPicker color={value} name={name} />} // WTF did I write?
-            />}
-            onSubmit={this.handleSubmit(sectionId)}
-          />
+        <FormSection2 
+          option={option}
+          onChange={this.handleChangeForm(option.sectionId, index)}
+          moveChild={this.handleMoveChild(index)}
+        />
         </div>
       </PopUp>
     );
   };
 
-  _render = (element: Option, index: number) => (
-    <Draggable draggableId={element.sectionId} index={index} key={element.sectionId}>
-      {(provided, snapshot) => {
-        return (
-          <div className={styles.section} style={getItemStyle(snapshot.isDragging, !!provided.draggableProps.style ? provided.draggableProps.style : {})} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps} key={element.sectionId} >
-            <div className={styles.sectionTop}>
-              <ButtonGroup style={{ display: 'flex' }} align='right'>
-                <Button onClick={PopUp.show(element.sectionId)}>
-                  <i className="fas fa-cog"></i>
-                </Button>
-                <Button onClick={this.handleDelete(element)}>
-                  <i className="fas fa-times"></i>
-                </Button>
-              </ButtonGroup>
+  _renderFocusing = (sectionProperty: Option, index: number) => {
+    return (
+      <Fragment>
+        <Button onClick={this.handleMoveUp(sectionProperty, index)} initial >
+          <Icon fontAwesomeClass="fas fa-angle-up" styleIcon={{width: 20, height: 20}} />
+        </Button>
+        <Button onClick={this.handleMoveDown(sectionProperty, index)} initial >
+          <Icon fontAwesomeClass="fas fa-angle-down" styleIcon={{width: 20, height: 20}} />
+        </Button>
+        <Button onClick={this.handleDuplicate(sectionProperty, index)} initial >
+          <Icon fontAwesomeClass="fas fa-copy" styleIcon={{width: 20, height: 20}} />
+        </Button>
+      </Fragment>
+    )
+  } 
+
+  _renderSection = (element: Option, index: number) => {
+    const { sectionFocusing, sectionDragging } = this.state;
+
+    const focusing = element.sectionId === sectionFocusing ? styles.focusing : null;
+    const dragging = focusing && element.sectionId === sectionDragging ? styles.dragging: null;
+    return (
+      <Draggable draggableId={element.sectionId} index={index} key={element.sectionId} >
+        {(provided, snapshot) => {
+          return (
+          <div className={`${styles.section} ${focusing} ${/*${dragging}*/''} `} 
+              style={getItemStyle(snapshot.isDragging, !!provided.draggableProps.style ? provided.draggableProps.style : {})} ref={provided.innerRef} 
+              {...provided.dragHandleProps} {...provided.draggableProps} key={element.sectionId}
+              onMouseDown={this.handleDragStart(element.sectionId)}
+              onClick={this.handleFocus(element.sectionId)}
+            >
+              <div className={styles.sectionTop}>
+                <ButtonGroup style={{ display: 'flex' }} align='right'>
+                  {focusing ? this._renderFocusing(element, index) : null}
+                  <Button onClick={PopUp.show(element.sectionId)} initial>
+                    <Icon fontAwesomeClass="fas fa-cog" borderRadiusIcon='circle' styleIcon={{width: 20, height: 20}}/>
+                  </Button>
+                  <Button onClick={this.handleDelete(element)} initial>
+                    <Icon fontAwesomeClass="fas fa-times" borderRadiusIcon='circle' styleIcon={{width: 20, height: 20}}/>
+                  </Button>
+                </ButtonGroup>
+              </div>
+              {RenderSection({...element})}
+              {this._renderSettingsBox({...element}, index)}
             </div>
-            {RenderSection({
-              mainTitle: !!element.mainTitle ? element.mainTitle : defaultTitle,
-              sectionName: element.sectionName,
-              text: !!element.text ? element.text : defaultText,
-              alignMainTitle: !!element.alignMainTitle ? element.alignMainTitle : 'left',
-              alignText: !!element.alignText ? element.alignText : 'left',
-              colorMainTitle: element.colorMainTitle ? element.colorMainTitle : 'white',
-              colorText: element.colorText ? element.colorText : 'white',
-              slider: element.slider ? element.slider : false,
-            })}
-            {this._renderSettingsBox(element)}
-          </div>
-        );
-      }}
-    </Draggable>
-  );
+          );
+        }}
+      </Draggable>
+    )
+  };
 
   componentDidMount() {
-    const { getData } = this.props;
+    const { getData, getImageGallery } = this.props;
     getData();
+    getImageGallery();
   }
 
-  render() {
-    // console.log(this.state);
-    console.log(this.props)
+  renderSuccess = () => {
+    const { elements } = this.props;
+    // return (
+    //   <Upload onEvent={this.props.uploadFile} listImg={imagesGallery} />
+    // )
+
     return (
       <DragDropContext onDragEnd={this.handleDragEnd}>
-        <SideBar onEvent={this.handleDragStart} />
-        <div className={styles.mainContent} onMouseUp={this.handleAdd}>
+        <SideBar onEvent={this.handlePrepairAdd} />
+        <div className={styles.mainContent} onMouseUp={this.handleAdd()}>
           <Droppable droppableId="2" type="Main Content">
             {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>{
-                !!this.state.elements && this.state.elements.map((element, index) => this._render(element, index))}
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {elements.map((element: any, index: number) => this._renderSection(element, index))}
                 {provided.placeholder}
               </div>
             )}
@@ -428,6 +331,25 @@ class SettingsPage extends PureComponent<any, PageProps> {
       </DragDropContext>
     );
   }
+
+  _renderSwitch = () => {
+    const { statusRequestSection } = this.props;
+    switch (statusRequestSection) {
+      case 'loading':
+        return <div>Loading</div>;
+      case 'failure':
+        return <div>Something went wrong</div>
+      case 'success':
+        return this.renderSuccess();
+      default:
+        return null;
+    }
+  }
+
+
+  render() {
+    return this._renderSwitch();
+  }
 }
 
 // const SettingsPage = () => {
@@ -435,13 +357,27 @@ class SettingsPage extends PureComponent<any, PageProps> {
 // };
 
 const mapStateToProps = (state: any) => ({
-  pageName: state.settingsReducers.pageName,
-  elements: state.settingsReducers.elements,
-  slider: state.settingsReducers.slider
+  pageName: state.rootSettingsPageReducers.settingsReducers.pageName,
+  elements: state.rootSettingsPageReducers.settingsReducers.elements,
+  slider: state.rootSettingsPageReducers.settingsReducers.slider,
+  statusRequestSection: state.rootSettingsPageReducers.settingsReducers.status,
+  imagesGallery: state.rootSettingsPageReducers.imageGallerySection.data,
 });
 
 const mapDispatchToProps = {
   getData: thunkGetData,
+  addSection: thunkAddSection,
+  deleteSection: thunkDeleteSection,
+  moveSection: thunkMoveSection,
+  getImageGallery: thunkGetImageGallerySection,
+  uploadFile: thunkUploadFile,
+  moveUpSection: thunkMoveUpSection,
+  moveDownSection: thunkMoveDownSection,
+  changeInput: thunkChangeInput,
+  changeRadio: thunkChangeRadio,
+  changeCheckBox: thunkChangeCheckBox,
+  moveChild: thunkMoveChild,
+  changeColor: thunkChangeColor,
 };
 
 

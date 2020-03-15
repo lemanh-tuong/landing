@@ -13,6 +13,7 @@ axios.defaults.timeout = configureApp.timeout;
 function App() {
   return (
     <Provider store={store}>
+      {/* {console.log(store.getState())} */}
       <PersistGate loading={<div />} persistor={persistor}>
         <Routes />
       </PersistGate>

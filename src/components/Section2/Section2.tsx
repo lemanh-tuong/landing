@@ -8,14 +8,14 @@ import React, { FC, ReactNode } from 'react';
 import styles from './Section2.module.scss';
 
 export interface Section2Props extends MainTitleProps, CardProps, Omit<CarouselOptions, 'data'> {
-  data: CardProps | CardProps[];
+  cards: CardProps | CardProps[];
   slider?: boolean;
   renderItem?: (item: CardProps) => ReactNode;
 }
 
 const Section2: FC<Section2Props> = ({
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, classMainTitle, styleMainTitle,
-  data, slider, hasDots, hasNav, dotClass, navClass, itemShow, responsive,
+  cards, slider, hasDots, hasNav, dotClass, navClass, itemShow, responsive,
   renderItem,
   darkMode }) => {
   const _renderCardDefault = ({ titleCard, alignTitleCard, colorTitleCard, fontSizeTitleCard, classNameTitleCard, styleTitleCard,
@@ -60,13 +60,13 @@ const Section2: FC<Section2Props> = ({
   };
 
   const _renderSlider = () => {
-    if (data instanceof Array)
+    if (cards instanceof Array)
       return <Carousel
         navClass={navClass}
         dotClass={dotClass}
         hasNav={hasNav}
         hasDots={hasDots}
-        data={data}
+        data={cards}
         renderItem={(arg: CardProps) => renderItem ? renderItem(arg) : <Card {...arg} />}
         itemShow={itemShow}
         responsive={responsive}
@@ -74,10 +74,10 @@ const Section2: FC<Section2Props> = ({
   };
 
   const _renderColumnContent = () => {
-    if (data instanceof Array) {
-      return data.map((item, index) => <Col key={index} cols={[12, 6, 12 / data.length >= 3 ? Math.floor(12 / data.length) : 3]}>{renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}</Col>);
+    if (cards instanceof Array) {
+      return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>{renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}</Col>);
     }
-    return _renderCardDefault({ ...data });
+    return _renderCardDefault({ ...cards });
   };
 
   const _renderBodyDefault = () => {

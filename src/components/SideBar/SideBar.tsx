@@ -3,6 +3,7 @@ import React, { CSSProperties, FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Option } from '../../pages/SettingsPage/SettingsPage';
 import styles from './SideBar.module.scss';
+import icon1 from 'assets/img/web_icons/paid-listings.svg';
 
 export interface SideBarProps {
   onEvent: Function;
@@ -32,7 +33,7 @@ const data: ItemSideBar[] = [
     classText: '',
     styleText: {},
     darkMode: false,
-    id: 'Btn Section 1'
+    id: 'Btn Section 1',
   },
   {
     sectionName: 'Section 2',
@@ -49,7 +50,12 @@ const data: ItemSideBar[] = [
     classText: '',
     styleText: {},
     darkMode: false,
-    id: 'Btn Section 2'
+    id: 'Btn Section 2',
+    cards: [
+      { titleCard: 'Paid listings', textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
+      { titleCard: 'Promoted listing', textCard: 'Choosing a promotion plan, listing owners will have directories appeared at the special spots on your site and at the top of the search result page.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
+      { titleCard: 'Paid claim listings', textCard: 'Another revenue model to monetize from listing. You can create a listing on your site and allow the listing owner to claim it.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
+    ],
   },
   {
     sectionName: 'Section 3',

@@ -30,7 +30,7 @@ const Text: FC<TextProps> = ({ text, colorText, fontSizeText, alignText, classTe
   const classT = !!classText ? classText : '';
   const dark = darkMode ? styles.dark : '';
   return (
-    <div className={`${styles.text} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classT} ${dark} `} style={{...style, color: colorText}}>
+    <div className={`${styles.text} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classT} ${dark} `} style={{...style, color: color}}>
       {text}
       {children}
     </div>

@@ -17,6 +17,24 @@
       opacity: .85;
   }
 }
+
+.buttonInitial {
+  display: inline-block;
+  margin: 0px 5px;
+  text-align: center;
+  vertical-align: middle;
+  outline: none;
+  border: none;
+  border-radius: 100px;
+  background-color: $color-white;
+  text-decoration: none!important;
+  color: $color-black-4;
+  &:hover {
+      box-shadow: 0 2px 5px 0 rgba(29,28,28,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+      opacity: .85;
+  }
+}
+
 .primary {
   background-color: $color-primary;
   color: $color-white;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { SwatchesPicker, ChromePicker, SketchPicker } from 'react-color';
+import Form from 'components/Form/Form';
 
 // class PreviewPage extends PureComponent {
 //   state: PageProps = {
@@ -77,9 +79,44 @@ import React from 'react';
 // };
 
 const PreviewPage = () => {
-  return <div>
-    <div />
-  </div>;
+  const handleChange = (color: any) => {
+    console.log(color);
+  }
+  return (
+    <Form 
+        fields={[
+        {
+          fieldType: 'input',
+          fieldName: 'title',
+          horizontal: true,
+          defaultValue: 'Title'
+        },
+        {
+          fieldType: 'radio',
+          fieldName: 'align title',
+          data: [
+          {
+            value: 'center',
+            name: 'align title'
+          },
+          {
+            value: 'left',
+            name: 'align title'
+          },
+          {
+            value: 'right',
+            name: 'align title'
+          },
+          ],
+        },
+        {
+          fieldType: 'color-picker',
+          fieldName: 'title color',
+          name: "Color Title",
+        }
+        ]}
+        onChange={(result) => console.log}
+      />
+  );
 };
-
 export default (PreviewPage);
