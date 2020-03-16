@@ -5,7 +5,7 @@ export interface ActionUploadFile {
   payload: {
     newImgs: string[];
     path: string;
-    nowIndex: number
+    nowIndex: number,
   };
 }
 

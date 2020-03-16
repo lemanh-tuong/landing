@@ -5,20 +5,21 @@ type TField<T> = T & {
   fieldName: string
 }
 
-export type RenderField<T> = (arg: T, onChange: (result: any) => void) => ReactNode;
-  
+export type RenderField<T> = (arg: T, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => ReactNode;
+
 export interface FormBaseProps<T> {
   fields: TField<T>[];
   renderField: RenderField<T>;
   onChange: (result: any) => void;
+  onAnotherEvent?: (result: any) => void;
 }
-  
-const FormBase = <T extends any>({fields, renderField, onChange}: FormBaseProps<T>) => {
+
+const FormBase = <T extends any>({fields, renderField, onChange, onAnotherEvent}: FormBaseProps<T>) => {
   const [result, setResult] = useState({});
 
   return (
     <Fragment>
-      {fields.map(field => renderField({...field}, onChange))}
+      {fields.map(field => renderField({...field}, onChange, onAnotherEvent))}
     </Fragment>
   )
 }

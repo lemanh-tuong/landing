@@ -16,7 +16,7 @@ import { Option } from '../../SettingsPage';
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
 const RenderSection = (option: Option) => {
-  const { sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, data } = option
+  const { sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, data } = option;
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
@@ -57,23 +57,30 @@ const RenderSection = (option: Option) => {
         return <Section2
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
+          colorMainTitle={colorMainTitle}
           cards={cards ? cards : []}
         />;
       case 'Section 3':
         return <Section3
-          srcImg={sectionImg1}
+          imgSrc={data ? data[0].imgSrc : sectionImg1}
           mainTitle={mainTitle}
+          alignMainTitle={alignMainTitle}
+          colorMainTitle={colorMainTitle}
           text={text}
-          hasDivider
-          dividerColor='pink'
+          alignText={alignText}
+          colorText={colorText}
+          hasDivider={hasDivider}
+          dividerColor={dividerColor || '#f06292'}
         />;
       case 'Section 4':
         return <Section4
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
+          colorMainTitle={colorMainTitle}
           text={text}
-          alignText={alignMainTitle}
-          srcImg={sectionImg1}
+          alignText={alignText}
+          colorText={colorText}
+          imgSrc={data ? data[0].imgSrc : sectionImg1}
           type='tagImg'
         />;
     }

@@ -3,10 +3,10 @@ import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import { CarouselProps } from 'components/Carousel/Carousel';
 import Form from 'components/Form/Form';
 import PopUp from 'components/PopUp/PopUp';
-import { MainTitleProps } from 'components/SectionTitle/SectionTitle';
+import { MainTitleProps } from 'components/MainTitle/MainTitle';
 import SideBar from 'components/SideBar/SideBar';
 import { TextProps } from 'components/Text/Text';
-import thunkGetImageGallerySection from 'pages/SettingsPage/thunks/thunkGetImageGallerySection/thunkGetImageGallerySection';
+import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
 import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
 import React, { ChangeEvent,CSSProperties, PureComponent, Fragment, MouseEvent } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -30,6 +30,18 @@ import { Section2Props } from 'components/Section2/Section2';
 import { Section1Props } from 'components/Section1/Section1';
 import thunkMoveChild from './thunks/thunkMoveChild/thunkMoveChild';
 import thunkChangeColor from './thunks/thunkChangeColor/thunkChangeColor';
+import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
+import thunkChangeInputCardForm from './thunks/thunkChangeInputCardForm/thunkChangeInputCardForm';
+import thunkDeleteCard from './thunks/thunkDeleteCard/thunkDeleteCard';
+import thunkAddCard from './thunks/thunkAddCard/thunkAddCard';
+import { CardProps } from 'components/Card/Card';
+import uploadFile from 'firebase/storage/uploadFile';
+import thunkChangeIconCard from './thunks/thunkChangeIconCard/thunkChangeIconCard';
+import FormSection3 from './components/FormSection3/FormSection3';
+import { Section3Props } from 'components/Section3/Section3';
+import { Section4Props } from 'components/Section4/Section4';
+import FormSection4 from './components/FormSection4/FormSection4';
+import thunkChangeRadioCardForm from './thunks/thunkChangeRadioCardForm/thunkChangeRadioCardForm';
 
 const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
 const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
@@ -54,15 +66,17 @@ const getItemStyle = (isDragging: boolean, draggableStyle: CSSProperties): CSSPr
 
 
 
-export interface Option extends Partial<Section1Props<any> & Section2Props> {
+export interface Option extends Partial<Section1Props<any> & Section2Props & Section3Props & Section4Props<any>> {
   sectionName: string;
   sectionId: string;
   slider?: boolean;
+
 }
-export interface PageProps extends Pick<Option, 'slider'> {
+export interface PageProps {
   pageName: string;
   elements: Option[];
 }
+
 
 export interface PageState extends PageProps {
   sectionFocusing: string;
@@ -72,7 +86,6 @@ export interface PageState extends PageProps {
 const defaultOption: PageProps = {
   pageName: '',
   elements: [],
-  slider: false,
 };
 
 
@@ -98,7 +111,7 @@ class SettingsPage extends PureComponent<any, PageState> {
   handleAdd = (index?: number) => {
     return () => {
       if (this.option.sectionId) {
-        
+
         if(this.option.sectionName === 'Section 2') console.log(this.option.cards)
         !!(index === 0 || index) ? this.props.addSection(this.option, index) : this.props.addSection(this.option);
         this.option = {
@@ -171,12 +184,63 @@ class SettingsPage extends PureComponent<any, PageState> {
   handleUploadFile = (path: string, file: File, nowIndex: number) => {
     const { uploadFile } = this.props;
     uploadFile(path, file, nowIndex);
-
   }
 
   handleChangeColor = (fieldName: string, color: string, nowIndex: number) => {
     const { changeColor } = this.props;
     changeColor(fieldName, color, nowIndex);
+  }
+
+  handleChangeInputCardForm = (nowIndexSection: number, nowIndexCard: number, fieldName: string, result: any) => {
+    const { changeInputCardForm } = this.props;
+    changeInputCardForm(fieldName, result, nowIndexSection, nowIndexCard);
+  }
+
+  handleChangeRadioCardForm = (nowIndexSection: number, nowIndexCard: number, fieldName: string, result: any) => {
+    const { changeRadioCardForm } = this.props;
+    changeRadioCardForm(fieldName, result, nowIndexSection, nowIndexCard);
+  }
+
+
+  handleChangeIconCard = (nowIndexSection: number) => {
+    return (nowIndexCard: number) => {
+      return (imgSrc: string) => {
+        const { changeIconCard } = this.props;
+        changeIconCard(imgSrc, nowIndexSection, nowIndexCard)
+      }
+    }
+  }
+
+  handleDeleteCard = (nowIndexSection: number) => {
+    return (nowIndexCard: number) => {
+      const { deleteCard } = this.props;
+      deleteCard(nowIndexSection, nowIndexCard)
+    }
+  }
+
+  handleAddCard = (nowIndexSection: number) => {
+    return (data: CardProps) => {
+      const { addCard } = this.props;
+      addCard(data, nowIndexSection);
+    }
+  }
+
+  handleChangeCardForm = (nowIndexSection: number) => {
+    return (nowIndexCard: number) => {
+      return (fieldName: string) => {
+        return (result: any) => {
+          if(fieldName === 'card title' || fieldName === 'card text') {
+            this.handleChangeInputCardForm(nowIndexSection, nowIndexCard, fieldName, result);
+          }
+          if(fieldName === 'align card title' || fieldName === 'align card text') {
+            this.handleChangeRadioCardForm(nowIndexSection, nowIndexCard, fieldName, result);
+          };
+          if(fieldName === 'card icon') {
+            this.handleUploadFile('icon', result, nowIndexSection);
+          }
+        }
+      }
+    }
   }
 
   handleChangeForm = (sectionId: string, nowIndex: number) => {
@@ -188,23 +252,22 @@ class SettingsPage extends PureComponent<any, PageState> {
         if(fieldName === 'align title' || fieldName === 'align text') {
           this.handleChageRadio(fieldName, result, nowIndex);
         }
-        if(fieldName === 'slider') {
+        if(fieldName === 'slider' || fieldName === 'has divider') {
           this.handleCheck(fieldName, result, nowIndex)
         }
-        if(fieldName === 'upload') {
+        if(fieldName.includes('upload')) {
           this.handleUploadFile(sectionId, result, nowIndex);
         }
-        if(fieldName === 'color-picker') {
+        if(fieldName === 'title color' || fieldName === 'text color' || fieldName === 'divider color') {
           this.handleChangeColor(fieldName, result, nowIndex)
         }
       }
     }
   }
 
-  handleSubmit = (id: string) => {
-    return () => {
-      PopUp.hide(id)();
-    };
+  handleSave = () => {
+    const { saveAll } = this.props;
+    saveAll();
   };
 
   handleFocus = (sectionId: string) => {
@@ -235,18 +298,60 @@ class SettingsPage extends PureComponent<any, PageState> {
       moveChild(data, nowIndex);
     }
   }
-  
-  
+
+  _renderForm1 = (option: Option, indexSection: number) => {
+    return <FormSection1
+      option={option}
+      onChange={this.handleChangeForm(option.sectionId, indexSection)}
+    />
+  }
+
+  _renderForm2 = (option: Option, indexSection: number) => {
+    return <FormSection2
+      option={option}
+      onChange={this.handleChangeForm(option.sectionId, indexSection)}
+      onChangeCard={this.handleChangeCardForm(indexSection)}
+      onDelete={this.handleDeleteCard(indexSection)}
+      onAdd={this.handleAddCard(indexSection)}
+      onChangeIcon={this.handleChangeIconCard(indexSection)}
+      moveChild={this.handleMoveChild(indexSection)}
+    />
+  }
+
+  _renderForm3 = (option: Option, indexSection: number) => {
+    return <FormSection3
+      option={option}
+      onChange={this.handleChangeForm(option.sectionId, indexSection)}
+    />
+  }
+
+  _renderForm4 = (option: Option, indexSection: number) => {
+    return <FormSection4
+      option={option}
+      onChange={this.handleChangeForm(option.sectionId, indexSection)}
+    />
+  }
+
+  _renderSettingBoxSwitch = (option: Option, indexSection: number) => {
+    switch (option.sectionName) {
+      case "Section 1":
+        return this._renderForm1(option, indexSection);
+      case "Section 2":
+        return this._renderForm2(option, indexSection);
+      case "Section 3":
+        return this._renderForm3(option, indexSection);
+      case "Section 4":
+        return this._renderForm4(option, indexSection);
+      default:
+        return null;
+    }
+  }
 
   _renderSettingsBox = (option: Option, index: number) => {
     return (
       <PopUp id={option.sectionId}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-        <FormSection2 
-          option={option}
-          onChange={this.handleChangeForm(option.sectionId, index)}
-          moveChild={this.handleMoveChild(index)}
-        />
+        {this._renderSettingBoxSwitch(option, index)}
         </div>
       </PopUp>
     );
@@ -266,7 +371,7 @@ class SettingsPage extends PureComponent<any, PageState> {
         </Button>
       </Fragment>
     )
-  } 
+  }
 
   _renderSection = (element: Option, index: number) => {
     const { sectionFocusing, sectionDragging } = this.state;
@@ -277,8 +382,8 @@ class SettingsPage extends PureComponent<any, PageState> {
       <Draggable draggableId={element.sectionId} index={index} key={element.sectionId} >
         {(provided, snapshot) => {
           return (
-          <div className={`${styles.section} ${focusing} ${/*${dragging}*/''} `} 
-              style={getItemStyle(snapshot.isDragging, !!provided.draggableProps.style ? provided.draggableProps.style : {})} ref={provided.innerRef} 
+          <div className={`${styles.section} ${focusing} ${/*${dragging}*/''} `}
+              style={getItemStyle(snapshot.isDragging, !!provided.draggableProps.style ? provided.draggableProps.style : {})} ref={provided.innerRef}
               {...provided.dragHandleProps} {...provided.draggableProps} key={element.sectionId}
               onMouseDown={this.handleDragStart(element.sectionId)}
               onClick={this.handleFocus(element.sectionId)}
@@ -287,10 +392,10 @@ class SettingsPage extends PureComponent<any, PageState> {
                 <ButtonGroup style={{ display: 'flex' }} align='right'>
                   {focusing ? this._renderFocusing(element, index) : null}
                   <Button onClick={PopUp.show(element.sectionId)} initial>
-                    <Icon fontAwesomeClass="fas fa-cog" borderRadiusIcon='circle' styleIcon={{width: 20, height: 20}}/>
+                    <Icon fontAwesomeClass="fas fa-cog" styleIcon={{width: 20, height: 20}}/>
                   </Button>
                   <Button onClick={this.handleDelete(element)} initial>
-                    <Icon fontAwesomeClass="fas fa-times" borderRadiusIcon='circle' styleIcon={{width: 20, height: 20}}/>
+                    <Icon fontAwesomeClass="fas fa-times" styleIcon={{width: 20, height: 20}}/>
                   </Button>
                 </ButtonGroup>
               </div>
@@ -306,7 +411,7 @@ class SettingsPage extends PureComponent<any, PageState> {
   componentDidMount() {
     const { getData, getImageGallery } = this.props;
     getData();
-    getImageGallery();
+    getImageGallery('icon');
   }
 
   renderSuccess = () => {
@@ -348,7 +453,14 @@ class SettingsPage extends PureComponent<any, PageState> {
 
 
   render() {
-    return this._renderSwitch();
+    return (
+      <Fragment>
+        {this._renderSwitch()}
+        <Button initial onClick={this.handleSave} style={{position: 'fixed', bottom: 10, right: 10, zIndex: 100}}>
+          <Icon fontAwesomeClass="fas fa-save" />
+        </Button>
+      </Fragment>
+    );
   }
 }
 
@@ -361,7 +473,7 @@ const mapStateToProps = (state: any) => ({
   elements: state.rootSettingsPageReducers.settingsReducers.elements,
   slider: state.rootSettingsPageReducers.settingsReducers.slider,
   statusRequestSection: state.rootSettingsPageReducers.settingsReducers.status,
-  imagesGallery: state.rootSettingsPageReducers.imageGallerySection.data,
+  imagesGallery: state.rootSettingsPageReducers.imageGallery.data,
 });
 
 const mapDispatchToProps = {
@@ -369,7 +481,7 @@ const mapDispatchToProps = {
   addSection: thunkAddSection,
   deleteSection: thunkDeleteSection,
   moveSection: thunkMoveSection,
-  getImageGallery: thunkGetImageGallerySection,
+  getImageGallery: thunkGetImageGallery,
   uploadFile: thunkUploadFile,
   moveUpSection: thunkMoveUpSection,
   moveDownSection: thunkMoveDownSection,
@@ -378,6 +490,12 @@ const mapDispatchToProps = {
   changeCheckBox: thunkChangeCheckBox,
   moveChild: thunkMoveChild,
   changeColor: thunkChangeColor,
+  saveAll: thunkSaveAll,
+  changeInputCardForm: thunkChangeInputCardForm,
+  changeRadioCardForm: thunkChangeRadioCardForm,
+  deleteCard: thunkDeleteCard,
+  addCard: thunkAddCard,
+  changeIconCard: thunkChangeIconCard
 };
 
 

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, memo } from 'react';
 import Form, { RenderItem, FormProps, Field } from '../Form';
 import styles from './CheckBox.module.scss';
 
@@ -14,7 +14,7 @@ export interface CheckBoxProps extends CheckBoxOption {
   renderItem?: RenderItem<CheckBoxOption>;
 }
 
-const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: CheckBoxProps) => {
+const CheckBox = ({ checked = false, name, horizontal = false, renderItem, reverse = false, onClick }: CheckBoxProps) => {
 
   const [nowCheck, setNowCheck] = useState(!!checked);
 
@@ -36,9 +36,9 @@ const CheckBox = ({ checked, name, horizontal, renderItem, reverse, onClick }: C
 
   return (
     <Fragment>
-      {_renderDefault()}
+      {renderItem ? renderItem({ checked, name, horizontal, reverse, onClick }) : _renderDefault()}
     </Fragment>
   );
 };
 
-export default CheckBox;
+export default memo(CheckBox);

@@ -1,3 +1,2 @@
-import { PageProps } from './SettingsPage';
 
-export const optionSelector = (state: PageProps) => state;
+export const icon = (state: any) => state.rootSettingsPageReducers.imageGallery?.icon;

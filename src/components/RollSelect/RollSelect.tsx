@@ -10,14 +10,17 @@ import styles from './RollSelect.module.scss';
 
 export interface UploadProps {
   listImg: {
-    imgUrl: string;
+    imgSrc: string;
     [key: string]: any;
   }[];
-  onEvent?: (arg: File | null | undefined) => void;
+  onEvent?: (arg: File | undefined) => void;
+  onChoose?: (imgSrc: string) => void;
+  width?: number;
+  height?: number;
 }
 
 
-const Upload: FC<UploadProps> = ({ onEvent, listImg }) => {
+const RollSelect: FC<UploadProps> = ({ onEvent, onChoose, listImg, width, height }) => {
 
   const inputUpload = useRef<HTMLInputElement | null>(null);
 
@@ -36,13 +39,19 @@ const Upload: FC<UploadProps> = ({ onEvent, listImg }) => {
     onEvent?.(files[0]);
   };
 
+  const _handleChoose = (imgSrc: string) => {
+    return () => {
+      onChoose?.(imgSrc)
+    }
+  }
+
   const _renderImg = (url: string) => {
-    return <div className={styles.img} style={{ backgroundImage: `url(${url})` }}></div>;
+    return <div onClick={_handleChoose(url)} className={styles.img} style={{ backgroundImage: `url(${url})`, width: width, height: height }}></div>;
   };
 
   return (
     <div className={styles.gallery}>
-      {listImg.map(img => _renderImg(img.imgUrl))}
+      {listImg.map(img => _renderImg(img.imgSrc))}
       <div className={styles.uploadBtn}>
         <input type="file" className={styles.inputFile} ref={inputUpload} onChange={_handleUpload}
           onDrop={_handleDropImage}
@@ -55,4 +64,4 @@ const Upload: FC<UploadProps> = ({ onEvent, listImg }) => {
   );
 };
 
-export default Upload;
+export default RollSelect;

@@ -1,4 +1,3 @@
-import { addData } from '../../actions/actionAddData/actionAddData';
 import { Option } from '../../SettingsPage';
 import { changeInput } from 'pages/SettingsPage/actions/actionChangeInput/actionChangeInput';
 

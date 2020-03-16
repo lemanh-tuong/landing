@@ -1,11 +1,10 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { CSSProperties, FC, memo } from 'react';
 import { borderRadius, size } from 'types/types';
 import styles from './Icon.module.scss';
 
-export interface IconOption {
+export interface IconOption extends PropsComponent {
   sizeIcon?: size;
   bgColorIcon?: 'transparent' | 'gradient-pink-orange';
-  borderRadiusIcon?: borderRadius;
   classNameIcon?: string;
   styleIcon?: CSSProperties;
   animationIcon?: 'scale' | 'opacity';
@@ -18,16 +17,13 @@ export interface IconProps extends IconOption {
   darkMode?: boolean;
 }
 
-
-
-
-
 const Icon: FC<IconProps> = ({ iconImg, fontAwesomeClass, bgColorIcon, sizeIcon, onClick, animationIcon, darkMode, classNameIcon, styleIcon, children }) => {
   const dark = darkMode ? styles.dark : '';
   const hasEventClick: CSSProperties = onClick ? { cursor: 'pointer' } : {};
   const size = !!sizeIcon ? sizeIcon : '';
   const bgC = !!bgColorIcon ? bgColorIcon : '';
   const animated = !!animationIcon ? animationIcon : '';
+
   return (
     <div className={`${styles.icon} ${styles[size]} ${styles[bgC]} ${classNameIcon} ${darkMode} ${styles[animated]} ${dark}`} onClick={onClick} style={{ ...hasEventClick, ...styleIcon }}>
       {iconImg && <img src={iconImg} alt="" />}
@@ -37,4 +33,4 @@ const Icon: FC<IconProps> = ({ iconImg, fontAwesomeClass, bgColorIcon, sizeIcon,
   );
 };
 
-export default Icon;
+export default memo(Icon);

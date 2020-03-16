@@ -1,7 +1,6 @@
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ChangeEvent, ReactNode, memo, FC } from 'react';
 import styles from './Input.module.scss';
-
-type RenderItem<T> = (arg: T) => ReactNode;
+import { RenderItem } from '../Form';
 
 export interface InputOption {
   name?: string;
@@ -12,26 +11,13 @@ export interface InputOption {
 }
 
 export interface InputProps extends InputOption {
-  renderItem?: RenderItem<InputOption>;
 }
 
-const Input = ({ name, placeholder, defaultValue, horizontal, onChange, renderItem }: InputProps) => {
+const Input:FC<InputProps> = ({ name, placeholder, defaultValue, horizontal, onChange }) => {
 
-  if(name === 'test') {
-    console.log(onChange)
-  }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
   }
-
-  const _renderDefault = () => {
-    // return (
-    //   <div className={`${styles.inputBox} ${horizontal ? styles.horizontal : null}`}>
-    //     <label className={styles.inputName}>{name}</label>
-    //     <input className={styles.input} defaultValue={defaultValue} onChange={onChange} placeholder={placeholder} />
-    //   </div>
-    // );
-  };
 
   return (
     <div className={`${styles.inputBox} ${horizontal ? styles.horizontal : null}`}>
@@ -41,4 +27,4 @@ const Input = ({ name, placeholder, defaultValue, horizontal, onChange, renderIt
   );
 };
 
-export default Input;
+export default memo(Input);

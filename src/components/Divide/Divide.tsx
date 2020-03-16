@@ -1,23 +1,23 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import styles from './Divide.module.scss';
 
 export interface DividerOption {
-  dividerColor?: 'white' | 'pink';
+  dividerColor?: string; // 'white' | 'pink' |
   darkMode?: true | false;
 }
 
-export interface DividerProps {
-  hasDivider?: boolean;
-  dividerColor?: DividerOption['dividerColor'];
+export interface DividerProps extends DividerOption {
 }
 
 const defaultDividerOption: DividerOption = {
   darkMode: false,
   dividerColor: 'white'
 };
-const Divide: FC<DividerOption> = ({ dividerColor } = { ...defaultDividerOption }) => {
+
+
+const Divide: FC<DividerProps> = ({ dividerColor } = { ...defaultDividerOption }) => {
   const color = !!dividerColor ? styles[dividerColor] : '';
-  return <div className={`${styles.divide} ${color}`} />;
+  return <div className={`${styles.divide} ${color}`} style={{ backgroundColor: dividerColor }} />;
 };
 
-export default Divide;
+export default memo(Divide);

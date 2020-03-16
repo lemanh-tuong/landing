@@ -2,18 +2,17 @@ import writeFireBase from 'firebase/database/writeFireBase';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { getData } from '../actions/actionGetData/actionGetData';
 import { PageProps, Option } from '../SettingsPage';
-import { getImageGallery } from '../actions/actionGetDataImage/actionGetDataImage';
 import readStorage from 'firebase/storage/readStorage';
+import { CardProps } from 'components/Card/Card';
 
 const initialState: PageProps & { message: string; status: 'loading' | 'success' | 'failure'} = {
   pageName: '',
   elements: [],
-  slider: false,
   status: 'success',
   message: ''
 };
 
-const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & typeof getImageGallery & any>(initialState, [
+const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & any>(initialState, [
   handleAction('@getDataRequest', (state) => ({
     ...state,
     status: 'loading'
@@ -25,7 +24,6 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
         ...state,
         elements: [...action.payload.elements],
         pageName: action.payload.pageName,
-        slider: action.payload.slider,
         status: 'success'
       }
     }
@@ -51,7 +49,7 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
         ...state,
         elements: [...newElement]
       });
-      
+
       return {
         ...state,
         elements: [...newElement]
@@ -108,7 +106,7 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
       const nowElement = state.elements[nowIndex];
       const nextElement = state.elements[nextIndex];
       const newElements = [...state.elements.slice(0, nowIndex), nextElement, nowElement, ...state.elements.slice(nextIndex + 1, state.elements.length)];
-      
+
       return {
         ...state,
         elements: [...newElements]
@@ -121,11 +119,11 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
   handleAction('CHANGE_INPUT', (state, action) => {
     const { nowIndex, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
-    const newElement = fieldName === 'title' ? 
+    const newElement = fieldName === 'title' ?
     {
       ...elementChange,
       mainTitle: value
-    } : 
+    } :
     {
       ...elementChange,
       text: value
@@ -138,11 +136,11 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
   handleAction('CHANGE_RADIO', (state, action) => {
     const { nowIndex, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
-    const newElement = fieldName === 'align title' ? 
+    const newElement = fieldName === 'align title' ?
     {
       ...elementChange,
       alignMainTitle: value
-    } : 
+    } :
     {
       ...elementChange,
       alignText: value
@@ -155,13 +153,14 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
   handleAction('CHANGE_CHECKBOX', (state, action) => {
     const { nowIndex, result, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndex]);
-    const newElement = fieldName === 'slider' ? 
+    const newElement = fieldName === 'slider' ?
     {
       ...elementChange,
       slider: result
-    } : 
+    } :
     {
       ...elementChange,
+      hasDivider: result
     };
     return {
       ...state,
@@ -169,10 +168,9 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     }
   }),
   handleAction('UPLOAD_FILE', (state, action) => {
-    console.log(action);
-    const { newImgs, nowIndex } = action.payload;
+    const { path, newImgs, nowIndex } = action.payload;
     const item = newImgs.map((imgUrl: string) => ({
-      imgUrl: imgUrl,
+      imgSrc: imgUrl,
       hasVideo: true,
       videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
     }))
@@ -198,7 +196,7 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
       cards: [...newChild]
     }
     return {
-      ...state,  
+      ...state,
       elements: [...state.elements.slice(0, nowIndex), { ...newElement }, ...state.elements.slice(nowIndex + 1, state.elements.length)]
     }
   }),
@@ -208,6 +206,9 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     const newElement = fieldName.includes('title') ? {
       ...nowElement,
       colorMainTitle: color,
+    } : fieldName === 'divider color' ? {
+      ...nowElement,
+      dividerColor: color
     } : {
       ...nowElement,
       colorText: color,
@@ -215,6 +216,108 @@ const settingsReducers = createReducer<PageProps, ActionTypes<typeof getData> & 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndex), { ...newElement }, ...state.elements.slice(nowIndex + 1, state.elements.length)]
+    }
+  }),
+  handleAction("SAVE", (state, action) => {
+    writeFireBase(state);
+    return {
+      ...state,
+    }
+  }),
+
+  handleAction("CHANGE_INPUT_CARD_FORM", (state, action) => {
+    const { fieldName, value, nowIndexSection, nowIndexCard } = action.payload;
+    const nowElement = Object.assign({}, state.elements[nowIndexSection]);
+    const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
+
+    const newCard = fieldName === 'card title' ? {
+      ...nowCard,
+      titleCard: value
+    } : {
+      ...nowCard,
+      textCard: value
+    }
+
+    const newElement = {
+      ...nowElement,
+      cards: nowElement.cards instanceof Array ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : {...newCard}
+    }
+
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction("CHANGE_RADIO_CARD_FORM", (state, action) => {
+    const { fieldName, value, nowIndexSection, nowIndexCard } = action.payload;
+    const nowElement = Object.assign({}, state.elements[nowIndexSection]);
+    const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
+
+    const newCard = fieldName === 'align card title' ? {
+      ...nowCard,
+      alignTitleCard: value
+    } : {
+      ...nowCard,
+      alignText: value
+    }
+
+    const newElement = {
+      ...nowElement,
+      cards: nowElement.cards instanceof Array ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : {...newCard}
+    }
+
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction('CHANGE_ICON_CARD', (state, action) => {
+    const { imgSrc, nowIndexSection, nowIndexCard} = action.payload;
+    const nowElement = Object.assign({}, state.elements[nowIndexSection]);
+    const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
+
+    const newCard = {
+      ...nowCard,
+      iconImg: imgSrc
+    }
+
+    const newElement = {
+      ...nowElement,
+      cards: nowElement.cards instanceof Array ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : {...newCard}
+    }
+
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction("DELETE_CARD", (state, action) => {
+    const { nowIndexSection, nowIndexCard } = action.payload;
+    console.log(nowIndexSection, nowIndexCard);
+
+    const nowElement = Object.assign({}, state.elements[nowIndexSection]);
+    const newElement = {
+      ...nowElement,
+      cards: nowElement.cards instanceof Array ? [...nowElement.cards.slice(0, nowIndexCard), ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : {}
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction('ADD_CARD', (state, action) => {
+    const { data, nowIndexSection } = action.payload;
+
+    const nowElement = state.elements[nowIndexSection];
+
+    const newElement = {
+      ...nowElement,
+      cards: nowElement.cards instanceof Array ? [...nowElement.cards].concat(data) : {...nowElement}
+    }
+
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
   })
 ]);

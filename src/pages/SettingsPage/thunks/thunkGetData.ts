@@ -1,5 +1,5 @@
-import readFireBase from 'firebase/readFireBase';
-import { getData } from '../actions/actionGetData';
+import { getData } from '../actions/actionGetData/actionGetData';
+import readFireBase from 'firebase/database/readFireBase';
 
 type ThunkGetData = ThunkAction<typeof getData>;
 

@@ -1,16 +1,24 @@
-import React, { FC } from 'react';
+import React, { FC, PureComponent } from 'react';
 import styles from './ColorPicker.module.scss';
 import { ChromePicker, ColorResult, SketchPicker } from 'react-color';
 
 export interface ColorPickerProps {
   onChange: (result: any) => void;
   defaultColor: string;
+  fieldName: string;
 }
 
-class ColorPicker extends React.Component<ColorPickerProps, {}> {
+export interface ColorPickerState {
+  displayColorPicker: boolean;
+  color: string;
+}
+
+class ColorPicker extends PureComponent<ColorPickerProps, ColorPickerState> {
   static defaultProps = {
-    defaultColor: '#fff'
+    defaultColor: '#000',
+    fieldName: ''
   }
+
   state = {
     displayColorPicker: false,
     color: this.props.defaultColor,
@@ -24,11 +32,17 @@ class ColorPicker extends React.Component<ColorPickerProps, {}> {
     const { onChange } = this.props
     this.setState({ color: color.hex }, () => onChange(this.state.color))
   };
-  
+
   render() {
+
+    const { defaultColor, fieldName } = this.props;
+
     return (
-      <div>
-        <div  onClick={ this.handleClick }>
+      <div className={styles.colorPicker}>
+        <div className={styles.fieldName}>
+          {fieldName}
+        </div>
+        <div onClick={ this.handleClick }>
           <div style={{
             width: '36px',
             height: '14px',

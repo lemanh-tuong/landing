@@ -6,7 +6,7 @@ export interface ActionAddData {
   payload: PageProps;
 }
 
-const addData = createAction('ADD_SECTION', (payload: Option ,index?: number) => {
+const actionAddData = createAction('ADD_SECTION', (payload: Option ,index?: number) => {
   if(!!index || index === 0) {
     return {
       ...payload,
@@ -18,5 +18,5 @@ const addData = createAction('ADD_SECTION', (payload: Option ,index?: number) =>
   };
 });
 
-export { addData };
+export { actionAddData };
 

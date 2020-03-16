@@ -3,7 +3,7 @@ import Carousel, { CarouselOptions } from 'components/Carousel/Carousel';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section from 'components/Grid/Section/Section';
-import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
+import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import React, { FC, ReactNode } from 'react';
 import styles from './Section2.module.scss';
 
@@ -46,7 +46,7 @@ const Section2: FC<Section2Props> = ({
   const _renderHeaderDefault = () => {
     return (
       <div className={styles.sectionHeader}>
-        <SectionTitle
+        <MainTitle
           mainTitle={mainTitle}
           colorMainTitle={colorMainTitle}
           fontSizeMainTitle={fontSizeMainTitle}
@@ -75,6 +75,7 @@ const Section2: FC<Section2Props> = ({
 
   const _renderColumnContent = () => {
     if (cards instanceof Array) {
+      console.log(cards);
       return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>{renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}</Col>);
     }
     return _renderCardDefault({ ...cards });
