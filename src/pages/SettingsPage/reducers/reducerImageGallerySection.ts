@@ -1,5 +1,5 @@
-import { getImageGallery } from 'pages/SettingsPage/actions/actionGetDataImage/actionGetDataImage';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
+import { getImageGallery } from '../actions/actionGetDataImageGallery/actionGetDataImageGallery';
 
 export interface ImageGallerySectionState {
   status: 'loading' | 'success' | 'failure';

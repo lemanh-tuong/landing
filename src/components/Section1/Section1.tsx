@@ -3,7 +3,7 @@ import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
-import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
+import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { Fragment, ReactNode } from 'react';
 
@@ -12,6 +12,7 @@ interface Section1Option {
   darkMode?: true | false;
   reverse?: boolean;
   slider?: boolean;
+  hasDivider?: boolean;
 }
 
 
@@ -21,13 +22,13 @@ export interface Section1Props<T> extends MainTitleProps, TextProps, DividerProp
 }
 
 
-const Section1 = <DataType extends any>({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
+const Section1 = <SlideType extends any>({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
-  hasDivider, dividerColor,
+  hasDivider = false, dividerColor,
   typeMockUp, data, slider, bgColor,
   classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp,
   margin, itemShow, responsive,
-  reverse, darkMode, renderLeft, renderRight }: Section1Props<DataType>) => {
+  reverse, darkMode, renderLeft, renderRight }: Section1Props<SlideType>) => {
 
   const _renderMockUp = () => {
     return <MockUp
@@ -42,7 +43,7 @@ const Section1 = <DataType extends any>({ mainTitle, colorMainTitle, fontSizeMai
   };
 
   const _renderMainTitle = () => {
-    return <SectionTitle
+    return <MainTitle
       mainTitle={!!mainTitle ? mainTitle : ''}
       colorMainTitle={colorMainTitle}
       fontSizeMainTitle={fontSizeMainTitle}

@@ -1,6 +1,6 @@
 import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
 import Icon from 'components/Icon/Icon';
-import ImageVideo from 'components/ImageVideo/ImageVideo';
+import Video from 'components/Video/Video';
 import PopUp from 'components/PopUp/PopUp';
 import React, { CSSProperties, Fragment } from 'react';
 import imgMac from '../../assets/img/macbook.png';
@@ -14,18 +14,18 @@ export interface MockUpOption {
   slider?: boolean;
 }
 
-export interface DataType {
+export interface ItemT {
   imgUrl: string;
   hasVideo?: boolean;
   videoUrl?: string;
 }
 
-export interface MockUpProps<DataType> extends MockUpOption, Omit<CarouselProps<DataType>, 'responsive, itemShow'> {
+export interface MockUpProps<ItemT> extends MockUpOption, Omit<CarouselProps<ItemT>, 'responsive, itemShow'> {
 }
 
-const MockUp = <DataType extends any>({
+const MockUp = <ItemT extends any>({
   data, typeMockUp = 'Mac', classMockUp, styleMockUp,
-  dotClass, navClass, hasDots, hasNav, margin, fluid }: MockUpProps<DataType>
+  dotClass, navClass, hasDots, hasNav, margin, fluid }: MockUpProps<ItemT>
 ) => {
 
   const _renderPlayBtn = (videoUrl: string) => {
@@ -36,7 +36,7 @@ const MockUp = <DataType extends any>({
             <i className="fas fa-play" style={{ color: 'white' }}></i>
           </Icon>
           <PopUp id={videoUrl}>
-            <ImageVideo videoUrl={videoUrl} />
+            <Video videoUrl={videoUrl} />
           </PopUp>
         </div>
       </div>
@@ -54,10 +54,10 @@ const MockUp = <DataType extends any>({
         data={data}
         itemShow={1}
         fluid={fluid}
-        renderItem={({ imgUrl, videoUrl, hasVideo }) => {
+        renderItem={({ imgSrc, videoUrl, hasVideo }) => {
           return (
             <Fragment>
-              <div className={styles.video} style={{ backgroundImage: `url(${imgUrl})` }}>
+              <div className={styles.video} style={{ backgroundImage: `url(${imgSrc})` }}>
               </div>
               {hasVideo && _renderPlayBtn(videoUrl ? videoUrl : '')}
             </Fragment>
@@ -65,6 +65,7 @@ const MockUp = <DataType extends any>({
         }}
       />;
     }
+
     return (
       <Fragment>
         <div className={styles.video} style={{ backgroundImage: `url(${data})` }}>

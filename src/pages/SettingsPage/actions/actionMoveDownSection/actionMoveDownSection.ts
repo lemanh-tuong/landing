@@ -1,16 +1,17 @@
-import { PageProps } from "pages/SettingsPage/SettingsPage";
 import { createAction } from "utils/functions/reduxActions";
 
 type ActionMoveDownSectionType = 'MOVE_DOWN_SECTION'
-type ActionMoveDownSectionPayload = PageProps;
+type ActionMoveDownSectionPayload = {
+  nowIndexSection: number;
+};
+
 export interface ActionMoveDownSection {
     type: ActionMoveDownSectionType ,
     payload: ActionMoveDownSectionPayload
 }
 
-const moveDownSection = createAction('MOVE_DOWN_SECTION', (payload: ActionMoveDownSectionPayload, nowIndex: number) =>  ({
-    ...payload,
-    nowIndex
+const moveDownSection = createAction('MOVE_DOWN_SECTION', (payload: ActionMoveDownSectionPayload) =>  ({
+  ...payload,
 }))
 
 export { moveDownSection }

@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import styles from './Slide.module.scss';
 interface SlideProps extends PropsComponent {
-  srcImg: string;
+  imgSrc: string;
 }
-const Slide: FC<SlideProps> = ({ srcImg, children, className, style }) => {
+
+const Slide: FC<SlideProps> = ({ imgSrc, children, className, style }) => {
   return (
     <div className={`${styles.slide} ${className}`} style={style}>
-      {children ?? <img src={srcImg} alt="#" draggable="false" />}
+      {children ?? <img src={imgSrc} alt="#" draggable="false" />}
     </div>
   );
 };

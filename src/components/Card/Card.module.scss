@@ -32,6 +32,8 @@
   font-size: $font-size-15;
   color: $color-black-4;
   margin-bottom: 20px;
+  display: block;
+  width: 100%;
   @media (min-width: 768px) {
   font-size: $title-md;
   }

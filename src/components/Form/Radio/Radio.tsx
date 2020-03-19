@@ -1,5 +1,5 @@
 import { RenderItem } from 'components/Form/Form';
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import * as uuid from 'uuid';
 import styles from './Radio.module.scss';
 
@@ -21,7 +21,10 @@ export interface RadioProps extends RadioOption {
 }
 
 const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
-  const [nowCheck, setNowCheck] = useState(-1);
+
+
+
+  const [nowCheck, setNowCheck] = useState(data.findIndex(item => item.checked));
 
   const handleClick = (value: string, index: number) => {
     return () => {
@@ -59,4 +62,4 @@ const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
   return _renderDefault();
 };
 
-export default Radio;
+export default memo(Radio);

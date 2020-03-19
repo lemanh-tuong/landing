@@ -5,7 +5,7 @@ export interface ActionChangeCheckBox {
     payload: {
         fieldName: string;
         result: boolean;
-        nowIndex: number;
+        nowIndexSection: number;
     }
 }
 

@@ -1,11 +1,10 @@
-import { addData } from '../../actions/actionAddData/actionAddData';
-import { Option } from '../../SettingsPage';
 import { changeInput } from 'pages/SettingsPage/actions/actionChangeInput/actionChangeInput';
+import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkChangeInput = ThunkAction<typeof changeInput>;
 
-const thunkChangeInput = (fieldName: string, value: string, index: number): ThunkChangeInput => (dispatch: any) => {
-  dispatch(changeInput({fieldName: fieldName, value: value, nowIndex: index}))
+const thunkChangeInput = (fieldName: string, value: string, nowIndexSection: number): ThunkChangeInput => (dispatch: any) => {
+  dispatch(changeInput({fieldName: fieldName, value: value, nowIndexSection: nowIndexSection}))
 };
 
-export default thunkChangeInput;
+export default createDispatchAction(thunkChangeInput);

@@ -1,16 +1,10 @@
 .colorPicker {
+  position: relative;
   display: flex;
-  padding: 10px 0;
-  &:hover {
-    background-color: lightblue;
-  }
+  align-items: center;
 }
-
-.color {
-  width: 40px;
+.fieldName {
+  text-transform: capitalize;
   margin-right: 10px;
 }
 
-.colorName {
-  font-size: 15px;
-}
