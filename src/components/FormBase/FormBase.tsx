@@ -1,5 +1,5 @@
 import React, { ReactNode, Fragment } from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
 type TField<T> = T & {
   fieldType: string;
   fieldName: string
@@ -14,11 +14,11 @@ export interface FormBaseProps<T> {
   onAnotherEvent?: (result: any) => void;
 }
 
-const FormBase = <T extends any>({fields, renderField, onChange, onAnotherEvent}: FormBaseProps<T>) => {
+const FormBase = <T extends any>({ fields, renderField, onChange, onAnotherEvent }: FormBaseProps<T>) => {
 
   return (
-    <Fragment>
-      {fields.map(field => renderField({...field}, onChange, onAnotherEvent))}
+    <Fragment key={uuidv4()}>
+      {fields.map(field => renderField({ ...field }, onChange, onAnotherEvent))}
     </Fragment>
   )
 }

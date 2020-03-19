@@ -1,4 +1,4 @@
-import React, { memo, FC, useState, useEffect } from 'react';
+import React, { memo, FC, useState } from 'react';
 import Form from 'components/Form/Form';
 import { CardProps } from 'components/Card/Card';
 import { iconGallery, sections } from 'pages/SettingsPage/selectors';
@@ -46,13 +46,13 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
       setShow(cardId);
     }
   }
-  const handleClose = () => {
-    setShow('')
-  }
-
-  useEffect(() => {
-    !!show ? window.addEventListener('click', handleClose) : window.removeEventListener('click', handleClose);
-  })
+  // const handleClose = () => {
+  //   setShow('')
+  // }
+  // useEffect(() => {
+  //   !!show ? window.addEventListener('click', handleClose) : null;
+  //   return window.removeEventListener('click', handleClose)
+  // })
 
   const handleChangeCardForm = (nowIndexCard: number) => {
     return (fieldName: string) => {
@@ -170,7 +170,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
     return (
       <>
-        <Draggable index={nowIndexCard} draggableId={uuidv4()} key={uuidv4()}>
+        <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`} key={uuidv4()}>
           {provided => (
             <div className={styles.cardFormName} onClick={handleShow(`card-${nowIndexCard}`)} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
               <div className={styles.cardDesc}>

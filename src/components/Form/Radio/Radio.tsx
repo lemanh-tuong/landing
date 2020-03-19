@@ -37,7 +37,7 @@ const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
     return (
       <div className={styles.radioItem} key={uuid.v4()}>
         <label htmlFor={name}>{value}</label>
-        <input type="radio" name={name} value={value} id={name} checked={!!checked || index === nowCheck} onClick={handleClick(value, index)} />
+        <input type="radio" name={name} value={value} id={name} defaultChecked={!!checked || index === nowCheck} onClick={handleClick(value, index)} />
       </div>
     );
   };
