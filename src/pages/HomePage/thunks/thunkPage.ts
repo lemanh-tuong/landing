@@ -1,8 +1,8 @@
-import { getPage } from '../actions/actionPage';
+import { getPageData } from '../actions/actionGetPageData';
 
-type ThunkGetPage = ThunkAction<typeof getPage>;
+type ThunkGetPage = ThunkAction<typeof getPageData>;
 
 const getPageInfo = () => (dispatch: any) => {
-  dispatch(getPage.request());
+  dispatch(getPageData.request());
 };
 export default getPageInfo;

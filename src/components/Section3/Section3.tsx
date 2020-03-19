@@ -3,7 +3,7 @@ import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import Image, { ImageProps } from 'components/Image/Image';
-import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
+import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { Component, FC, Fragment } from 'react';
 
@@ -12,13 +12,14 @@ export interface Section3Props extends MainTitleProps, DividerProps, Omit<TextPr
   renderRight?: () => Component;
   text?: string | string[];
   reverse?: boolean;
+  hasDivider?: boolean;
 }
 
-const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider, dividerColor, srcImg, type, zoom, aspectRatio, className, style, reverse, darkMode, renderLeft, renderRight }) => {
+const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider = false, dividerColor, imgSrc, type, zoom, aspectRatio, className, style, reverse, darkMode, renderLeft, renderRight }) => {
   const dark = darkMode ? 'dark' : '';
 
   const _renderLeftDefault = () => {
-    return <Image srcImg={srcImg} className={className} aspectRatio={aspectRatio} style={style} zoom={zoom} type='tagImg' />;
+    return <Image imgSrc={imgSrc} className={className} aspectRatio={aspectRatio} style={style} zoom={zoom} type='tagImg' />;
   };
 
   const _renderText = () => {
@@ -31,7 +32,7 @@ const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, color
 
   const _renderRightDefault = () => {
     return <Fragment>
-      {mainTitle && <SectionTitle mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} darkMode={darkMode} />}
+      {mainTitle && <MainTitle mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} darkMode={darkMode} />}
       {hasDivider && <Divide dividerColor={dividerColor} />}
       {text && _renderText()}
     </Fragment>;

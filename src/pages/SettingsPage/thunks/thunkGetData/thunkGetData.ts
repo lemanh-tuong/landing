@@ -1,5 +1,6 @@
 import readFireBase from 'firebase/database/readFireBase';
 import { getData } from '../../actions/actionGetData/actionGetData';
+import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkGetData = ThunkAction<typeof getData>;
 
@@ -20,4 +21,4 @@ const thunkGetData = (): ThunkGetData => async (dispatch: any) => {
   }
 };
 
-export default thunkGetData;
+export default createDispatchAction(thunkGetData);

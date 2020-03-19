@@ -58,14 +58,14 @@ class HomePage extends PureComponent {
           }}
         />
         <Section3
-          srcImg={sectionImg1}
+          imgSrc={sectionImg1}
           mainTitle='Create unlimited directory'
           text={['Comes with power of Wiloke Tools, you can add unlimited directory types to your site. The tool also lets you design functionality and features.', 'That’s why we give you our promise: Quisque amet consectetur, egestas nulla at nisi cursus, sed iaculis est commodo, nulla lacus aliquet.']}
           hasDivider
           dividerColor='pink'
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle='Customize single listing page your way'
           text={'The administrator can design What Sections you want to display on the Single Listing Page. Plus, the owner of listing can inherit your design as well as re-design it in his own way.'}
           hasDivider
@@ -74,7 +74,7 @@ class HomePage extends PureComponent {
         <Section2
           mainTitle="Section 2"
           alignMainTitle='center'
-          data={[
+          cards={[
             { titleCard: 'Paid listings', textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
             { titleCard: 'Promoted listing', textCard: 'Choosing a promotion plan, listing owners will have directories appeared at the special spots on your site and at the top of the search result page.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
             { titleCard: 'Paid claim listings', textCard: 'Another revenue model to monetize from listing. You can create a listing on your site and allow the listing owner to claim it.', iconImg: icon1, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
@@ -110,14 +110,14 @@ class HomePage extends PureComponent {
           bgColor='gradient-pink-orange'
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Customize directory functionality"
           hasDivider
           dividerColor='pink'
           text='Design the fields of each directory type like visual way. Choose between 15 pre-made fields and create your own unlimited custom fields.'
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Customize directory functionality"
           hasDivider
           dividerColor='pink'
@@ -125,14 +125,14 @@ class HomePage extends PureComponent {
           reverse
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Add directories type to your site"
           hasDivider
           dividerColor='pink'
           text='Design the fields of each directory type like visual way. Choose between 15 pre-made fields and create your own unlimited custom fields.'
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Advanced rating and reviews"
           hasDivider
           dividerColor='pink'
@@ -140,14 +140,14 @@ class HomePage extends PureComponent {
           reverse
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Advanced search filters"
           hasDivider
           dividerColor='pink'
           text={['Hotels, near New York? No problem, the "near by" field cares about it. It will query the entered location and return results sorted by the distance.', 'Not only "near by" field, we also added lots of awesome fields to search form such as search autocomplete, radius search.']}
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Map template with awesome features"
           hasDivider
           dividerColor='pink'
@@ -155,14 +155,14 @@ class HomePage extends PureComponent {
           reverse
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Schema markup"
           hasDivider
           dividerColor='pink'
           text="Building Schema Markup with Drag Drop builder."
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Dokan multi-vendor"
           hasDivider
           dividerColor='pink'
@@ -170,14 +170,14 @@ class HomePage extends PureComponent {
           reverse
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Beautiful sub-categories, locations page"
           hasDivider
           dividerColor='pink'
           text="Displaying sub-locations, and sub-categories on a special design page. We also provide lots of options for you such as number of locations / categories per row, order by, maximum taxonomies can be shown."
         />
         <Section3
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           mainTitle="Custom anythings in your listing card"
           hasDivider
           dividerColor='pink'
@@ -189,13 +189,13 @@ class HomePage extends PureComponent {
           alignMainTitle='center'
           text='The listing owners can take full control of their business from Customer Dashboard. Here they can upgrade plans, run promotion campains, reply to messages, track the statistics of views, favorites, shares, reviews.'
           alignText='center'
-          srcImg={sectionImg2}
+          imgSrc={sectionImg2}
           type='tagImg'
         />
         <Section2
           mainTitle="Let's see what makes our theme super powerful"
           alignMainTitle='center'
-          data={[
+          cards={[
             {
               hasIcon: true,
               iconImg: icon2,
@@ -273,7 +273,7 @@ class HomePage extends PureComponent {
             '768px': 4,
             '992px': 5
           }}
-          renderItem={(item) => <Image type='tagImg' srcImg={item} />}
+          renderItem={(item) => <Image type='tagImg' imgSrc={item} />}
         />
         <Section4
           mainTitle='Trusted by over 6600 users'

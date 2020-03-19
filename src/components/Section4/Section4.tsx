@@ -3,19 +3,19 @@ import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import Image, { ImageProps } from 'components/Image/Image';
-import SectionTitle, { MainTitleProps } from 'components/SectionTitle/SectionTitle';
+import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React from 'react';
 
-export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<ImageProps, 'srcImg'>, Omit<CarouselProps<ItemT>, 'data'> {
+export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<ImageProps, 'imgSrc'>, Omit<CarouselProps<ItemT>, 'data'> {
   data?: ItemT[];
-  srcImg?: string;
+  imgSrc?: string;
   slider?: boolean;
 }
 
 const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  srcImg, aspectRatio, type, zoom, parallax,
+  imgSrc, aspectRatio, type, zoom, parallax,
   slider, data, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
   bgColor, style, className, darkMode, renderItem,
 }: Section4Props<ItemT>) => {
@@ -23,7 +23,7 @@ const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle
   const _renderImage = () => {
     return (
       <Col cols={[12]}>
-        {srcImg && <Image srcImg={srcImg} aspectRatio={aspectRatio} type={type} zoom={zoom} parallax={parallax} />}
+        {imgSrc && <Image imgSrc={imgSrc} aspectRatio={aspectRatio} type={type} zoom={zoom} parallax={parallax} />}
       </Col>
     );
   };
@@ -38,7 +38,7 @@ const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle
     <Section bgColor={bgColor} className={className} style={style}>
       <Row>
         <Col cols={[10]} offsets={[1]}>
-          <SectionTitle darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />
+          <MainTitle darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />
           <Text darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />
         </Col>
         {_renderImage()}

@@ -2,6 +2,7 @@ import Image, { ImageProps } from 'components/Image/Image';
 import useSlide from 'hooks/useSlide';
 import React, { CSSProperties, ReactNode } from 'react';
 import styles from './Carousel.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 
 const createArrayEnum = (length: number) => {
   const arr = [];
@@ -29,18 +30,16 @@ export interface CarouselOptions {
   fluid?: boolean;
 }
 
-type ItemType<DataType> = DataType;
+type RenderType<ItemT> = (arg: ItemT) => ReactNode;
 
-type RenderType<DataType> = (arg: DataType) => ReactNode;
-
-export interface CarouselProps<DataType> extends CarouselOptions, Omit<ImageProps, 'srcImg'> {
-  renderItem?: RenderType<DataType>;
-  data: ItemType<DataType>[];
+export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 'imgSrc'> {
+  renderItem?: RenderType<ItemT>;
+  data: (ItemT & {imgSrc?: string})[];
 }
 
-const Carousel = <DataType extends any>({ data, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<DataType>) => {
+const Carousel = <ItemT extends any>({ data, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<ItemT>) => {
 
-  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(data.length, responsive && responsive, itemShow);
+  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(data.length, responsive, itemShow);
 
   const _renderNavSlide = () => {
     return (
@@ -56,23 +55,23 @@ const Carousel = <DataType extends any>({ data, renderItem, hasNav, hasDots, dot
   };
 
   const _renderDot = (order: number) => {
-    const activeClass = order === currentSlide ? styles.active : '';
-    return <div key={order} className={`${styles.dot} ${activeClass} ${dotClass}`} onClick={() => pickSlide(order)}></div>;
+    const actived = order === currentSlide ? styles.active : '';
+    return <div key={uuidv4()} className={`${styles.dot} ${actived} ${dotClass}`} onClick={() => pickSlide(order)}></div>;
   };
 
   const _renderDots = () => {
     return <div className={styles.dots}>{createArrayEnum(data.length - items + 1).map((_item, index) => _renderDot(index))}</div>;
   };
 
-  const _renderDefault = (srcImg: string) => {
-    return <Image srcImg={srcImg} />;
+  const _renderDefault = (imgSrc: string) => {
+    return <Image imgSrc={imgSrc} />;
   };
 
   const _renderSlide = () => {
-    return data.map((item, index) => {
+    return data.map(item => {
       return (
-        <div key={index} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
-          {renderItem ? renderItem(item) : _renderDefault(item.srcImg)}
+        <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
+          {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
         </div>
       );
     });

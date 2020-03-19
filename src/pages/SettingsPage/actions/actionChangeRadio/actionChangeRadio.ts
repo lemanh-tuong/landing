@@ -5,7 +5,7 @@ export interface ActionChangeRadio {
     payload: {
         fieldName: string;
         value: string;
-        nowIndex: number;
+        nowIndexSection: number;
     }
 }
 

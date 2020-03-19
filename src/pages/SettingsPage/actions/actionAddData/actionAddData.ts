@@ -6,11 +6,11 @@ export interface ActionAddData {
   payload: PageProps;
 }
 
-const addData = createAction('ADD_SECTION', (payload: Option ,index?: number) => {
-  if(!!index || index === 0) {
+const actionAddData = createAction('ADD_SECTION', (payload: Option ,nowIndexSection?: number) => {
+  if(!!nowIndexSection || nowIndexSection === 0) {
     return {
       ...payload,
-      index: index
+      nowIndexSection: nowIndexSection
     };
   }
   return {
@@ -18,5 +18,5 @@ const addData = createAction('ADD_SECTION', (payload: Option ,index?: number) =>
   };
 });
 
-export { addData };
+export { actionAddData };
 

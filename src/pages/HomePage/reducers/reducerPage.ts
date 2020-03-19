@@ -1,17 +1,17 @@
-import { Page, PageAction } from 'api/Page';
+import { PageState, PageAction } from 'api/PageType';
 import { createReducer, handleAction } from 'utils/functions/reduxActions';
 
-const initialState: Page = {
+const initialState: PageState = {
   status: 'success',
   pageName: '',
   section: [{
     sectionType: '1',
-    srcImg: ''
+    imgSrc: ''
   }]
 };
 
 
-export const page = createReducer<Page, PageAction>(initialState, [
+export const page = createReducer<PageState, PageAction>(initialState, [
   handleAction('@getPageRequest', (state) => {
     return {
       ...state,

@@ -5,12 +5,13 @@ export interface ActionChangeInput {
     payload: {
         value: string;
         fieldName: string;
-        nowIndex: number
+        nowIndexSection: number;
     }
 }
 
 const changeInput = createAction('CHANGE_INPUT', (payload: ActionChangeInput['payload']) => ({
     ...payload
 }))
+
 
 export { changeInput }

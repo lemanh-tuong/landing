@@ -10,19 +10,13 @@ export interface TextOption {
   alignText?: align;
   darkMode?: true | false;
 }
-const defaultTextOption: TextOption = {
-  alignText: 'left',
-  classText: '',
-  styleText: {},
-  colorText: 'black-3',
-  fontSizeText: undefined,
-};
+
 
 export interface TextProps extends TextOption {
   text?: string;
 }
 
-const Text: FC<TextProps> = ({ text, colorText, fontSizeText, alignText, classText, styleText, darkMode, children } = { text: '', darkMode: false, ...defaultTextOption }) => {
+const Text: FC<TextProps> = ({ text, colorText, fontSizeText, alignText, classText, styleText, darkMode, children }) => {
   const color = !!colorText ? colorText : '';
   const fontSize = !!fontSizeText ? fontSizeText : '';
   const align = !!alignText ? alignText : '';
@@ -30,7 +24,7 @@ const Text: FC<TextProps> = ({ text, colorText, fontSizeText, alignText, classTe
   const classT = !!classText ? classText : '';
   const dark = darkMode ? styles.dark : '';
   return (
-    <div className={`${styles.text} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classT} ${dark} `} style={{...style, color: colorText}}>
+    <div className={`${styles.text} ${styles[fontSize]} ${styles[color]} ${styles[align]} ${classT} ${dark} `} style={{...style, color: color, fontSize: fontSize}}>
       {text}
       {children}
     </div>

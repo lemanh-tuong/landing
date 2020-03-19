@@ -1,7 +1,8 @@
-import React, { CSSProperties, FC, Fragment } from 'react';
+import React, { CSSProperties, FC, Fragment, memo } from 'react';
 import styles from './Image.module.scss';
+
 export interface ImageProps {
-  srcImg: string;
+  imgSrc: string;
   type?: 'background' | 'tagImg';
   zoom?: boolean;
   className?: string;
@@ -11,7 +12,7 @@ export interface ImageProps {
 }
 
 const defaultProps: ImageProps = {
-  srcImg: '',
+  imgSrc: '',
   type: 'tagImg',
   aspectRatio: 'aspectRatio-11',
   zoom: false,
@@ -20,13 +21,13 @@ const defaultProps: ImageProps = {
   style: {},
 };
 
-const Image: FC<ImageProps> = ({ srcImg, type, aspectRatio, zoom, parallax, className, style, children } = { ...defaultProps }) => {
+const Image: FC<ImageProps> = ({ imgSrc, type, aspectRatio, zoom, parallax, className, style, children } = { ...defaultProps }) => {
   const aspectRatioStyle = !!aspectRatio ? styles[aspectRatio] : '';
 
   const _renderBackground = () => {
     return (
       <div className={`${styles.imageWrap} ${aspectRatioStyle}`}>
-        <div className={`${styles.image}`} style={{ backgroundImage: `url(${srcImg})`, backgroundAttachment: `${parallax ? 'fixed' : ''}` }}>{children}</div>
+        <div className={`${styles.image}`} style={{ backgroundImage: `url(${imgSrc})`, backgroundAttachment: `${parallax ? 'fixed' : ''}` }}>{children}</div>
       </div>
     );
   };
@@ -35,7 +36,7 @@ const Image: FC<ImageProps> = ({ srcImg, type, aspectRatio, zoom, parallax, clas
     return (
       <Fragment>
         <div className={`${styles.image} ${className}`}>
-          <img src={srcImg} alt="" onDragStart={(e) => e.preventDefault()} />
+          <img src={imgSrc} alt="" onDragStart={(e) => e.preventDefault()} />
           {children}
         </div>
       </Fragment>
@@ -47,4 +48,4 @@ const Image: FC<ImageProps> = ({ srcImg, type, aspectRatio, zoom, parallax, clas
 
 };
 
-export default Image;
+export default memo(Image);

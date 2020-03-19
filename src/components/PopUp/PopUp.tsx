@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode, PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './PopUp.module.scss';
 
@@ -41,7 +41,7 @@ class Event {
 
 const controller = new Event();
 
-class PopUp extends Component<PopUpProps> {
+class PopUp extends PureComponent<PopUpProps> {
   state: PopUpState = {
     visible: false
   };
@@ -85,7 +85,6 @@ class PopUp extends Component<PopUpProps> {
   render() {
     const { children } = this.props;
     const { visible } = this.state;
-
     if (!visible) {
       return null;
     }
