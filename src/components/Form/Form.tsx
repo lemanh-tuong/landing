@@ -5,7 +5,7 @@ import CheckBox from './CheckBox/CheckBox';
 import RollSelect from 'components/RollSelect/RollSelect';
 import Input from './Input/Input';
 import ColorPicker from './ColorPicker/ColorPicker';
-import { v4 as uuidv4 } from 'uuid';
+
 export type RenderItem<T> = (arg: T) => ReactNode;
 
 const renderField1 = <T extends any>(arg: T, onChange: any, onAnotherEvent?: any) => {
@@ -19,16 +19,15 @@ const renderField1 = <T extends any>(arg: T, onChange: any, onAnotherEvent?: any
         horizontal={arg.horizontal}
         defaultValue={arg.defaultValue}
         onChange={onChange(arg.fieldName)} placeholder={arg.placeholder}
-        key={uuidv4()}
       />
     case 'radio':
-      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange(arg.fieldName)} key={uuidv4()} />
+      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange(arg.fieldName)} />
     case 'checkbox':
-      return <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange(arg.fieldName)} key={uuidv4()} />
+      return <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange(arg.fieldName)} />
     case 'file':
-      return <RollSelect onChoose={onAnotherEvent} width={arg.width} height={arg.height} listImg={arg.listImg} onEvent={onChange(arg.fieldName)} key={uuidv4()} />
+      return <RollSelect onChoose={onAnotherEvent} width={arg.width} height={arg.height} listImg={arg.listImg} onEvent={onChange(arg.fieldName)} />
     case 'color-picker':
-      return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange(arg.fieldName)} key={uuidv4()} />
+      return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange(arg.fieldName)} />
     default:
       return null;
   }

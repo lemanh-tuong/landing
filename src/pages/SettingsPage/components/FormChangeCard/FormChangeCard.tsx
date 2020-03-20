@@ -49,10 +49,6 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
   // const handleClose = () => {
   //   setShow('')
   // }
-  // useEffect(() => {
-  //   !!show ? window.addEventListener('click', handleClose) : null;
-  //   return window.removeEventListener('click', handleClose)
-  // })
 
   const handleChangeCardForm = (nowIndexCard: number) => {
     return (fieldName: string) => {
@@ -87,7 +83,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
   }
   const handleChangeIconCard = (nowIndexCard: number) => {
     return (result: string) => {
-      changeIconCardForm(result, nowIndexSection, nowIndexCard);
+      changeIconCardForm(result, nowIndexSection, nowIndexCard)
     }
   }
 
