@@ -11,6 +11,11 @@
     background-repeat: no-repeat;
     box-sizing: border-box;
     margin: 15px 10px;
+    &.chose {
+      border: 2px solid red;
+      background-size: 80%;
+      background-position: center
+    }
 }
 
 .uploadBtn {
@@ -52,3 +57,4 @@
         color: lightgray;
     }
 }
+

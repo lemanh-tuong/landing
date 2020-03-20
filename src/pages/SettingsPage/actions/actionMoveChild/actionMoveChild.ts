@@ -1,9 +1,10 @@
 import { createAction } from "utils/functions/reduxActions";
+import { CardProps } from "components/Card/Card";
 
 export interface ActionMoveChild {
   type: "MOVE_CHILD",
   payload: {
-    newChild: any[];
+    newChild: CardProps[];
     nowIndexSection: number;
   }
 }

@@ -111,7 +111,7 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
   }),
   handleAction('MOVE_DOWN_SECTION', (state, action) => {
     const { nowIndexSection } = action.payload;
-    if(nowIndexSection < state.elements.length) {
+    if(nowIndexSection < state.elements.length - 1) {
       const nowIndex = nowIndexSection;
       const nextIndex = nowIndexSection + 1;
       const nowElement = state.elements[nowIndex];
