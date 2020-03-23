@@ -127,13 +127,13 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'file',
             fieldName: 'backgroundImage',
-            fieldId: 6,
+            fieldId: 7,
             listImg: backgroundImages || []
           },
           {
             fieldType: 'file',
             fieldName: 'imgSrc',
-            fieldId: 7,
+            fieldId: 8,
             listImg: imgSrcs || []
           }
         ]}

@@ -12,7 +12,7 @@ export interface InputOption {
 export interface InputProps extends InputOption {
 }
 
-const Input:FC<InputProps> = ({ name, placeholder, defaultValue, horizontal, onChange }) => {
+const Input: FC<InputProps> = ({ name, placeholder, defaultValue, horizontal, onChange }) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);

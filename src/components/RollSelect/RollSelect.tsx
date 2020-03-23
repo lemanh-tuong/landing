@@ -1,5 +1,6 @@
 import React, { FC, useRef, useState } from 'react';
 import styles from './RollSelect.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 
 // const listImg = [
 //   'https://images.pexels.com/photos/2508810/pexels-photo-2508810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
@@ -22,6 +23,7 @@ export interface UploadProps {
 
 
 const RollSelect: FC<UploadProps> = ({ onEvent, onChoose, listImg, fieldName, width, height }) => {
+
   const [choosing, setChoosing] = useState('');
   const inputUpload = useRef<HTMLInputElement | null>(null);
 
@@ -49,7 +51,7 @@ const RollSelect: FC<UploadProps> = ({ onEvent, onChoose, listImg, fieldName, wi
 
   const _renderImg = (url: string) => {
     const chose = choosing === url ? styles.chose : {};
-    return <div onClick={_handleChoose(url)} className={`${styles.img} ${chose}`} style={{ backgroundImage: `url(${url})`, width: width, height: height }}></div>;
+    return <div onClick={_handleChoose(url)} className={`${styles.img} ${chose}`} style={{ backgroundImage: `url(${url})`, width: width, height: height }} key={uuidv4()}></div>;
   };
 
   return (
