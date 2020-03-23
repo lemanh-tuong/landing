@@ -27,7 +27,6 @@ import { reorder } from './reoderFunction';
 import { useMount } from 'hooks/useMount';
 import thunkGetData from './thunks/thunkGetData';
 import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
-import thunkGetImageGallery from './thunks/thunkGetImageGallery/thunkGetImageGallery';
 
 export interface PageProps {
   pageName: string;
@@ -62,7 +61,7 @@ const SettingsPage = () => {
   const moveDownSection = thunkMoveDownSection();
   const getData = thunkGetData();
   const saveAll = thunkSaveAll();
-  const getImageGallery = thunkGetImageGallery();
+
   //Handle
   const handlePrepairAdd = (option: Omit<Option, 'sectionId'>) => {
     return () => {
@@ -221,7 +220,6 @@ const SettingsPage = () => {
 
   useMount(() => {
     getData();
-    getImageGallery('icon');
   })
 
   return (

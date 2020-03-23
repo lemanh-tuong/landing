@@ -13,6 +13,7 @@ export interface UploadProps {
     imgSrc: string;
     [key: string]: any;
   }[];
+  fieldName: string;
   onEvent?: (arg: File | undefined) => void;
   onChoose?: (imgSrc: string) => void;
   width?: number;
@@ -20,7 +21,7 @@ export interface UploadProps {
 }
 
 
-const RollSelect: FC<UploadProps> = ({ onEvent, onChoose, listImg, width, height }) => {
+const RollSelect: FC<UploadProps> = ({ onEvent, onChoose, listImg, fieldName, width, height }) => {
   const [choosing, setChoosing] = useState('');
   const inputUpload = useRef<HTMLInputElement | null>(null);
 
@@ -53,6 +54,7 @@ const RollSelect: FC<UploadProps> = ({ onEvent, onChoose, listImg, width, height
 
   return (
     <div className={styles.gallery}>
+      <div className={styles.galleryName}>{fieldName}</div>
       {listImg.map(img => _renderImg(img.imgSrc))}
       <div className={styles.uploadBtn}>
         <input type="file" className={styles.inputFile} ref={inputUpload} onChange={_handleUpload}

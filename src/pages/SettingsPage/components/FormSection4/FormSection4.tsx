@@ -1,11 +1,13 @@
 import React, { memo, FC } from 'react';
 import Form from 'components/Form/Form';
 import { useSelector } from 'react-redux';
-import { sections } from 'pages/SettingsPage/selectors';
+import { imgSrcGallery, backgroundImageGallery } from 'pages/SettingsPage/selectors';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
 import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
+import { useMount } from 'hooks/useMount';
+import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
 
 export type FormSection4Field = {
   fieldType: 'input' | 'radio' | 'checkbox' | 'file';
@@ -19,34 +21,40 @@ export interface FormSection4Props {
 
 export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
   // Selector
-  const element = useSelector(sections)[nowIndexSection];
+  const imgSrcs = useSelector(imgSrcGallery);
+  const backgroundImages = useSelector(backgroundImageGallery);
 
   //Destructoring
-  const { data, sectionId } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeRadio = thunkChangeRadio();
   const changeColor = thunkChangeColor();
   const uploadImageSection = thunkUploadFile();
+  const getImageGallery = thunkGetImageGallery();
 
   //Handle
   const handleChangeForm = (fieldName: string) => {
     return (result: any) => {
-      if (fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
+      if (fieldName === 'mainTitle' || fieldName === 'text') {
         changeInput(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'align title' || fieldName === 'align text') {
+      if (fieldName.includes('align')) {
         changeRadio(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'title color' || fieldName === 'text color' || fieldName === 'divider color') {
+      if (fieldName.includes('color') || fieldName.includes('Color')) {
         changeColor(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'upload img section') {
-        uploadImageSection(sectionId, result, nowIndexSection);
+      if (fieldName === 'imgSrc') {
+        uploadImageSection(fieldName, fieldName, result, nowIndexSection);
       }
     }
   }
+
+  useMount(() => {
+    getImageGallery('imgSrc');
+    getImageGallery('backgroundImage');
+  })
 
   return (
     <div style={{ padding: 30, background: 'white' }}>
@@ -54,13 +62,15 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
         fields={[
           {
             fieldType: 'input',
-            fieldName: 'title',
+            fieldName: 'mainTitle',
+            fieldId: 1,
             horizontal: true,
             defaultValue: 'Title'
           },
           {
             fieldType: 'radio',
-            fieldName: 'align title',
+            fieldName: 'alignMainTitle',
+            fieldId: 2,
             data: [
               {
                 value: 'center',
@@ -78,18 +88,21 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           },
           {
             fieldType: 'color-picker',
-            fieldName: 'title color',
+            fieldName: 'colorMainTitle',
+            fieldId: 3,
             defaultValue: '#000'
           },
           {
             fieldType: 'input',
             fieldName: 'text',
+            fieldId: 4,
             horizontal: true,
             defaultValue: 'Text'
           },
           {
             fieldType: 'radio',
-            fieldName: 'align text',
+            fieldName: 'alignText',
+            fieldId: 5,
             data: [
               {
                 value: 'center',
@@ -107,13 +120,21 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           },
           {
             fieldType: 'color-picker',
-            fieldName: 'text color',
+            fieldName: 'colorText',
+            fieldId: 6,
             defaultValue: '#000'
           },
           {
             fieldType: 'file',
-            fieldName: 'upload img section',
-            listImg: data || []
+            fieldName: 'backgroundImage',
+            fieldId: 6,
+            listImg: backgroundImages || []
+          },
+          {
+            fieldType: 'file',
+            fieldName: 'imgSrc',
+            fieldId: 7,
+            listImg: imgSrcs || []
           }
         ]}
         onChange={handleChangeForm}

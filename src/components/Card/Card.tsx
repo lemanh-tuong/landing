@@ -5,7 +5,7 @@ import { align, size } from 'types/types';
 import styles from './Card.module.scss';
 
 interface CardTitleOption {
-  colorTitleCard?: 'white' | 'black-3';
+  colorTitleCard?: string;
   alignTitleCard?: align;
   fontSizeTitleCard?: size;
   classNameTitleCard?: string;
@@ -38,14 +38,14 @@ const Card: FC<CardProps> = ({
 
   const _renderCardTitle = () => {
     return (
-      <h2 className={`${classNameTitleCard} ${styles.cardTitle} ${styles[titleColor]} ${styles[titleFontSize]} ${styles[titleAlign]} ${dark}`} style={styleTitleCard}>
+      <h2 className={`${classNameTitleCard} ${styles.cardTitle} ${styles[titleColor]} ${styles[titleFontSize]} ${styles[titleAlign]} ${dark}`} style={{ ...styleTitleCard, color: colorTitleCard }}>
         {titleCard}
       </h2>
     );
   };
 
   const _renderText = () => {
-    return <Text text={textCard} alignText={alignText} classText={classText} colorText={colorText} fontSizeText={fontSizeText} styleText={{...styleText, width: '100%'}} />;
+    return <Text text={textCard} alignText={alignText} classText={classText} colorText={colorText} fontSizeText={fontSizeText} styleText={{ ...styleText, width: '100%', color: colorText }} />;
   };
 
   const _renderIcon = () => {

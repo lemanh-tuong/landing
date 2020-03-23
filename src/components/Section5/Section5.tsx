@@ -6,7 +6,7 @@ import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React from 'react';
 
-export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<CarouselProps<ItemT>, 'data'> {
+export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<CarouselProps<ItemT>, 'sliderImgs'> {
   data?: ItemT[];
   imgSrc?: string;
   slider?: boolean;
@@ -15,7 +15,7 @@ export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps
 const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
   slider, data, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
-  bgColor, style, className, darkMode, renderItem,
+  backgroundColor, backgroundImage, style, className, darkMode, renderItem,
 }: Section4Props<ItemT>) => {
 
   const _renderColumn = () => {
@@ -25,13 +25,13 @@ const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle
   };
 
   return (
-    <Section bgColor={bgColor} className={className} style={style}>
+    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style}>
       <Row>
         <Col cols={[10]} offsets={[1]}>
           <MainTitle darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />
           <Text darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />
         </Col>
-        {slider && data ? <Carousel navClass={navClass} dotClass={dotClass} fluid={fluid} data={data} hasDots={hasDots} hasNav={hasNav} renderItem={renderItem} margin={margin} responsive={responsive} itemShow={itemShow} /> : _renderColumn()}
+        {slider && data ? <Carousel navClass={navClass} dotClass={dotClass} fluid={fluid} sliderImgs={data} hasDots={hasDots} hasNav={hasNav} renderItem={renderItem} margin={margin} responsive={responsive} itemShow={itemShow} /> : _renderColumn()}
       </Row>
     </Section>
   );

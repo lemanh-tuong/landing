@@ -19,15 +19,16 @@ const renderField1 = <T extends any>(arg: T, onChange: any, onAnotherEvent?: any
         horizontal={arg.horizontal}
         defaultValue={arg.defaultValue}
         onChange={onChange(arg.fieldName)} placeholder={arg.placeholder}
+        key={arg.fieldId}
       />
     case 'radio':
-      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange(arg.fieldName)} />
+      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange(arg.fieldName)} key={arg.fieldId} />
     case 'checkbox':
-      return <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange(arg.fieldName)} />
+      return <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange(arg.fieldName)} key={arg.fieldId} />
     case 'file':
-      return <RollSelect onChoose={onAnotherEvent} width={arg.width} height={arg.height} listImg={arg.listImg} onEvent={onChange(arg.fieldName)} />
+      return <RollSelect fieldName={arg.fieldName} onChoose={onAnotherEvent?.(arg.fieldName)} width={arg.width} height={arg.height} listImg={arg.listImg} onEvent={onChange(arg.fieldName)} key={arg.fieldId} />
     case 'color-picker':
-      return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange(arg.fieldName)} />
+      return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange(arg.fieldName)} key={arg.fieldId} />
     default:
       return null;
   }
@@ -36,6 +37,7 @@ const renderField1 = <T extends any>(arg: T, onChange: any, onAnotherEvent?: any
 export type Field<T> = T & {
   fieldType: string,
   fieldName: string;
+  fieldId: string | number;
 }
 
 export interface FormProps<T> {
@@ -45,7 +47,7 @@ export interface FormProps<T> {
 }
 
 const Form = <T extends any>({ fields, onChange, onAnotherEvent }: FormProps<T>) => {
-
+  console.log(fields);
   return (
     <div style={{ padding: 30, background: 'white' }}>
       <FormBase

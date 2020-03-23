@@ -3,8 +3,9 @@ import { createAction } from 'utils/functions/reduxActions';
 export interface ActionUploadFile {
   type: 'UPLOAD_FILE';
   payload: {
-    newImgs: string[];
     path: string;
+    fieldName: string;
+    newImgs: string[];
     nowIndexSection: number,
   };
 }

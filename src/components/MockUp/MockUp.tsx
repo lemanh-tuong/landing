@@ -24,7 +24,7 @@ export interface MockUpProps<ItemT> extends MockUpOption, Omit<CarouselProps<Ite
 }
 
 const MockUp = <ItemT extends any>({
-  data, typeMockUp = 'Mac', classMockUp, styleMockUp,
+  sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp,
   dotClass, navClass, hasDots, hasNav, margin, fluid }: MockUpProps<ItemT>
 ) => {
 
@@ -44,14 +44,14 @@ const MockUp = <ItemT extends any>({
   };
 
   const _renderMockUpContent = () => {
-    if (data instanceof Array) {
+    if (sliderImgs instanceof Array) {
       return <Carousel
         margin={margin}
         dotClass={dotClass}
         navClass={navClass}
         hasDots={hasDots}
         hasNav={hasNav}
-        data={data}
+        sliderImgs={sliderImgs}
         itemShow={1}
         fluid={fluid}
         renderItem={({ imgSrc, videoUrl, hasVideo }) => {
@@ -68,9 +68,9 @@ const MockUp = <ItemT extends any>({
 
     return (
       <Fragment>
-        <div className={styles.video} style={{ backgroundImage: `url(${data})` }}>
+        <div className={styles.video} style={{ backgroundImage: `url(${sliderImgs})` }}>
         </div>
-        {_renderPlayBtn(data ? data : '')}
+        {_renderPlayBtn(sliderImgs ? sliderImgs : '')}
       </Fragment>
     );
   };

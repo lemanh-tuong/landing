@@ -32,9 +32,9 @@ class HomePage extends PureComponent {
           text="Create unlimited directory types, our tool also lest you design functionality and features for each of them."
           colorText='white'
           fontSizeText='sm'
-          bgColor="gradient-orange-pink"
+          backgroundColor="gradient-orange-pink"
           slider
-          data={[
+          sliderImgs={[
             {
               imgMockUpContent: mockUpMacContent1,
               hasVideo: true,
@@ -90,7 +90,7 @@ class HomePage extends PureComponent {
           slider
           typeMockUp="Iphone"
           margin={0}
-          data={[
+          sliderImgs={[
             {
               imgMockUpContent: imgApp,
             },
@@ -107,7 +107,8 @@ class HomePage extends PureComponent {
               imgMockUpContent: imgApp5,
             },
           ]}
-          bgColor='gradient-pink-orange'
+          backgroundColor='gradient-pink-orange'
+        // backgroundImage={backgroundImage}
         />
         <Section3
           imgSrc={sectionImg2}
@@ -261,7 +262,7 @@ class HomePage extends PureComponent {
           text="We’re honored some of the most talented creatives out there build with Wilcity"
           colorText='white'
           alignText='center'
-          bgColor='gradient-pink-orange'
+          backgroundColor='gradient-pink-orange'
           slider
           data={[
             client, client2, client, client2, client, client2, client, client2, client, client2, client, client2

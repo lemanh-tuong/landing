@@ -14,7 +14,7 @@ import { Option } from '../../SettingsPage';
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
 const RenderSection = (option: Option) => {
-  const { sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, data } = option;
+  const { sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage, imgSrc } = option;
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
@@ -26,9 +26,10 @@ const RenderSection = (option: Option) => {
           alignText={alignText}
           colorText={colorText}
           fontSizeText='sm'
-          bgColor="gradient-orange-pink"
+          backgroundColor="gradient-orange-pink"
+          backgroundImage={backgroundImage}
           slider={slider}
-          data={data || [
+          sliderImgs={sliderImgs || [
             {
               imgUrl: mockUpMacContent1,
               hasVideo: true,
@@ -41,12 +42,13 @@ const RenderSection = (option: Option) => {
             }
           ]}
           margin={0}
+
           renderLeft={() => {
             return (
               <ButtonGroup>
                 <Button color='white'>
                   Try demo
-            </Button>
+                </Button>
               </ButtonGroup>
             );
           }}
@@ -56,11 +58,15 @@ const RenderSection = (option: Option) => {
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          backgroundImage={backgroundImage?.[0]}
+          // backgroundColor={backgroundColor}
           cards={cards ? cards : []}
         />;
       case 'Section 3':
         return <Section3
-          imgSrc={data ? data[0].imgSrc : sectionImg1}
+          backgroundImage={backgroundImage?.[0]}
+          // backgroundColor={backgroundColor}
+          imgSrc={!!imgSrc ? imgSrc[0] : sectionImg1}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
@@ -72,13 +78,15 @@ const RenderSection = (option: Option) => {
         />;
       case 'Section 4':
         return <Section4
+          backgroundImage={backgroundImage?.[0]}
+          // backgroundColor={backgroundColor}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
           text={text}
           alignText={alignText}
           colorText={colorText}
-          imgSrc={data ? data[0].imgSrc : sectionImg1}
+          imgSrc={!!imgSrc ? imgSrc[0] : sectionImg1}
           type='tagImg'
         />;
     }

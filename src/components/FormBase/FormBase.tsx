@@ -14,11 +14,11 @@ export interface FormBaseProps<T> {
   onAnotherEvent?: (result: any) => void;
 }
 
-const FormBase = <T extends any>({fields, renderField, onChange, onAnotherEvent}: FormBaseProps<T>) => {
+const FormBase = <T extends any>({ fields, renderField, onChange, onAnotherEvent }: FormBaseProps<T>) => {
 
   return (
     <Fragment>
-      {fields.map(field => renderField({...field}, onChange, onAnotherEvent))}
+      {fields.map(field => renderField({ ...field }, onChange, onAnotherEvent))}
     </Fragment>
   )
 }

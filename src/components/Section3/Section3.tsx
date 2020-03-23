@@ -15,7 +15,7 @@ export interface Section3Props extends MainTitleProps, DividerProps, Omit<TextPr
   hasDivider?: boolean;
 }
 
-const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider = false, dividerColor, imgSrc, type, zoom, aspectRatio, className, style, reverse, darkMode, renderLeft, renderRight }) => {
+const Section3: FC<Section3Props> = ({ backgroundColor, backgroundImage, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider = false, dividerColor, imgSrc, type, zoom, aspectRatio, className, style, reverse, darkMode, renderLeft, renderRight }) => {
   const dark = darkMode ? 'dark' : '';
 
   const _renderLeftDefault = () => {
@@ -39,7 +39,7 @@ const Section3: FC<Section3Props> = ({ bgColor, mainTitle, alignMainTitle, color
   };
 
   return (
-    <Section className={`section3 ${dark}`} bgColor={bgColor}>
+    <Section className={`section3 ${dark}`} backgroundColor={backgroundColor} backgroundImage={backgroundImage}>
       <Row>
         <Col cols={[12, 12, 6]} className={`${reverse ? 'order-last' : ''}`}>
           {renderLeft ? renderLeft() : _renderLeftDefault()}

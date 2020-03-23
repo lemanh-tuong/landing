@@ -7,8 +7,8 @@ import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { Fragment, ReactNode } from 'react';
 
-interface Section1Option {
-  bgColor?: SectionPatternBase['bgColor'];
+interface Section1Option extends SectionPatternBase {
+  backgroundColor?: SectionPatternBase['backgroundColor'];
   darkMode?: true | false;
   reverse?: boolean;
   slider?: boolean;
@@ -25,7 +25,7 @@ export interface Section1Props<T> extends MainTitleProps, TextProps, DividerProp
 const Section1 = <SlideType extends any>({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor,
-  typeMockUp, data, slider, bgColor,
+  typeMockUp, sliderImgs, slider, backgroundColor,
   classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp,
   margin, itemShow, responsive,
   reverse, darkMode, renderLeft, renderRight }: Section1Props<SlideType>) => {
@@ -33,7 +33,7 @@ const Section1 = <SlideType extends any>({ mainTitle, colorMainTitle, fontSizeMa
   const _renderMockUp = () => {
     return <MockUp
       styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      data={data} slider={slider} margin={margin} itemShow={itemShow} responsive={responsive}
+      sliderImgs={sliderImgs} slider={slider} margin={margin} itemShow={itemShow} responsive={responsive}
       navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots}
     />;
   };
@@ -87,7 +87,7 @@ const Section1 = <SlideType extends any>({ mainTitle, colorMainTitle, fontSizeMa
   };
 
   return (
-    <Section bgColor={!!bgColor ? bgColor : undefined}>
+    <Section backgroundColor={!!backgroundColor ? backgroundColor : undefined}>
       <Row>
         <Col cols={[12, 6, 6]} className={reverse ? 'order-2' : ''}>
           {_renderLeftDefault()}

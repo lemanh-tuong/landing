@@ -132,15 +132,10 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
   handleAction('CHANGE_INPUT', (state, action) => {
     const { nowIndexSection, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
-    const newElement = fieldName === 'title' ?
-    {
+    const newElement = {
       ...elementChange,
-      mainTitle: value
-    } :
-    {
-      ...elementChange,
-      text: value
-    };
+      [fieldName]: value
+    }
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
@@ -149,15 +144,10 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
   handleAction('CHANGE_RADIO', (state, action) => {
     const { nowIndexSection, value, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
-    const newElement = fieldName === 'align title' ?
-    {
+    const newElement = {
       ...elementChange,
-      alignMainTitle: value
-    } :
-    {
-      ...elementChange,
-      alignText: value
-    };
+      [fieldName]: value
+    }
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
@@ -166,15 +156,10 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
   handleAction('CHANGE_CHECKBOX', (state, action) => {
     const { nowIndexSection, result, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
-    const newElement = fieldName === 'slider' ?
-    {
+    const newElement = {
       ...elementChange,
-      slider: result
-    } :
-    {
-      ...elementChange,
-      hasDivider: result
-    };
+      [fieldName]: result
+    }
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
@@ -183,15 +168,9 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
   handleAction('CHANGE_COLOR', (state, action) => {
     const { fieldName, color, nowIndexSection } = action.payload;
     const nowElement = state.elements[nowIndexSection];
-    const newElement = fieldName.includes('title') ? {
+    const newElement = {
       ...nowElement,
-      colorMainTitle: color,
-    } : fieldName === 'divider color' ? {
-      ...nowElement,
-      dividerColor: color
-    } : {
-      ...nowElement,
-      colorText: color,
+      [fieldName]: color,
     }
     return {
       ...state,
@@ -199,17 +178,17 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
     }
   }),
   handleAction('UPLOAD_FILE', (state, action) => {
-    // const { path, newImgs, nowIndex } = action.payload;
-    const { newImgs, nowIndexSection } = action.payload;
-    const item = newImgs.map((imgUrl: string) => ({
+    // const { path, fieldName, newImgs, nowIndex } = action.payload;
+    const { fieldName, newImgs, nowIndexSection } = action.payload;
+    const item = fieldName === 'imgSrc' ? newImgs.map((imgUrl: string) => imgUrl) : newImgs.map((imgUrl: string) => ({
       imgSrc: imgUrl,
       hasVideo: true,
       videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
-    }))
+    }));
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...nowElement,
-      data: item ? [].concat(item) : []
+      [fieldName]: item ? [].concat(item) : []
     }
     writeFireBase({
       ...state,
@@ -244,15 +223,10 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
     const { fieldName, value, nowIndexSection, nowIndexCard } = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
-
-    const newCard = fieldName === 'card title' ? {
+    const newCard = {
       ...nowCard,
-      titleCard: value
-    } : {
-      ...nowCard,
-      textCard: value
+      [fieldName]: value
     }
-
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
@@ -267,15 +241,28 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
     const { fieldName, value, nowIndexSection, nowIndexCard } = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
-
-    const newCard = fieldName === 'align card title' ? {
+    const newCard = {
       ...nowCard,
-      alignTitleCard: value
-    } : {
-      ...nowCard,
-      alignText: value
+      [fieldName]: value
+    }
+    const newElement = {
+      ...nowElement,
+      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
     }
 
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction("CHANGE_COLOR_CARD_TEXT", (state, action) => {
+    const { fieldName, color, nowIndexSection, nowIndexCard } = action.payload;
+    const nowElement = state.elements[nowIndexSection];
+    const nowCard = nowElement.cards?.[nowIndexCard];
+    const newCard = {
+      ...nowCard,
+      [fieldName]: color
+    }
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
@@ -287,12 +274,12 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
     }
   }),
   handleAction('CHANGE_ICON_CARD', (state, action) => {
-    const { imgSrc, nowIndexSection, nowIndexCard} = action.payload;
+    const { fieldName, imgSrc, nowIndexSection, nowIndexCard} = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
     const newCard = {
       ...nowCard,
-      iconImg: imgSrc
+      [fieldName]: imgSrc
     }
     const newElement = {
       ...nowElement,

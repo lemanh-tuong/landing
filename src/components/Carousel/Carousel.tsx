@@ -34,12 +34,12 @@ type RenderType<ItemT> = (arg: ItemT) => ReactNode;
 
 export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 'imgSrc'> {
   renderItem?: RenderType<ItemT>;
-  data: (ItemT & {imgSrc?: string})[];
+  sliderImgs: (ItemT & { imgSrc?: string })[];
 }
 
-const Carousel = <ItemT extends any>({ data, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<ItemT>) => {
+const Carousel = <ItemT extends any>({ sliderImgs, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<ItemT>) => {
 
-  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(data.length, responsive, itemShow);
+  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, responsive, itemShow);
 
   const _renderNavSlide = () => {
     return (
@@ -60,7 +60,7 @@ const Carousel = <ItemT extends any>({ data, renderItem, hasNav, hasDots, dotCla
   };
 
   const _renderDots = () => {
-    return <div className={styles.dots}>{createArrayEnum(data.length - items + 1).map((_item, index) => _renderDot(index))}</div>;
+    return <div className={styles.dots}>{createArrayEnum(sliderImgs.length - items + 1).map((_item, index) => _renderDot(index))}</div>;
   };
 
   const _renderDefault = (imgSrc: string) => {
@@ -68,7 +68,7 @@ const Carousel = <ItemT extends any>({ data, renderItem, hasNav, hasDots, dotCla
   };
 
   const _renderSlide = () => {
-    return data.map(item => {
+    return sliderImgs.map(item => {
       return (
         <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
           {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
