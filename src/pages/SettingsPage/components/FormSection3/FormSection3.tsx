@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import Form from 'components/Form/Form';
 import { useSelector } from 'react-redux';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
@@ -9,6 +9,7 @@ import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUplo
 import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
 import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
 import { useMount } from 'hooks/useMount';
+import thunkChooseImage from 'pages/SettingsPage/thunks/thunkChooseImage/thunkChooseImage';
 
 export type FormSection3Field = {
   fieldType: 'input' | 'radio' | 'checkbox' | 'file';
@@ -36,9 +37,11 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
   const uploadImageSection = thunkUploadFile();
   const getImageGallery = thunkGetImageGallery();
+  const chooseImage = thunkChooseImage();
 
   //Handle
   const handleChangeForm = (fieldName: string) => {
+
     return (result: any) => {
       if (fieldName === 'mainTitle' || fieldName === 'text') {
         changeInput(fieldName, result, nowIndexSection);
@@ -55,6 +58,11 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
       if (fieldName === 'hasDivider') {
         changeCheckBox(fieldName, result, nowIndexSection);
       }
+    }
+  }
+  const handleChooseImage = (fieldName: string) => {
+    return (src: string) => {
+      chooseImage(fieldName, src, nowIndexSection)
     }
   }
 
@@ -147,7 +155,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           },
           {
             fieldType: 'file',
-            fieldName: 'imgSrc',
+            fieldName: 'imageSectionCol',
             fieldId: 9,
             listImg: imgSrcs || []
           },
@@ -159,9 +167,10 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           },
         ]}
         onChange={handleChangeForm}
+        onAnotherEvent={handleChooseImage}
       />
     </div>
   )
 };
 
-export default FormSection3;
+export default memo(FormSection3);

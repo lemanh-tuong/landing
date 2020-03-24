@@ -7,18 +7,20 @@ import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { Component, FC, Fragment } from 'react';
 
-export interface Section3Props extends MainTitleProps, DividerProps, Omit<TextProps, 'text'>, ImageProps, SectionPatternBase {
+export interface Section3Props extends MainTitleProps, DividerProps, Omit<TextProps, 'text'>, SectionPatternBase {
   renderLeft?: () => Component;
   renderRight?: () => Component;
   text?: string | string[];
   reverse?: boolean;
   hasDivider?: boolean;
+  imageSectionCol: ImageProps
 }
 
-const Section3: FC<Section3Props> = ({ backgroundColor, backgroundImage, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider = false, dividerColor, imgSrc, type, zoom, aspectRatio, className, style, reverse, darkMode, renderLeft, renderRight }) => {
+const Section3: FC<Section3Props> = ({ backgroundColor, backgroundImage, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider = false, dividerColor, imageSectionCol, className, style, reverse, darkMode, renderLeft, renderRight }) => {
   const dark = darkMode ? 'dark' : '';
 
   const _renderLeftDefault = () => {
+    const { imgSrc, zoom, aspectRatio } = imageSectionCol;
     return <Image imgSrc={imgSrc} className={className} aspectRatio={aspectRatio} style={style} zoom={zoom} type='tagImg' />;
   };
 

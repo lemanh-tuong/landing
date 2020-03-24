@@ -22,7 +22,7 @@ const defaultProps: RateProps = {
 const Rate: FC<RateProps> = ({ authorName, authorAvatar, purpose, rateContent, stars, className, style } = { ...defaultProps }) => {
   return (
     <div className={`${styles.rate} ${className}`} style={style}>
-      <Icon bgColorIcon='gradient-pink-orange' sizeIcon="xs" iconImg={authorAvatar} classNameIcon={styles.rateIcon} />
+      <Icon bgColorIcon='gradient-pink-orange' sizeIcon="xs" iconImg={{ imgSrc: authorAvatar }} classNameIcon={styles.rateIcon} />
       <div className={styles.rateContent}>
         <div className={styles.contentHeader}>
           <div className={styles.stars} data-src={stars}>

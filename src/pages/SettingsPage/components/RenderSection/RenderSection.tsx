@@ -14,7 +14,7 @@ import { Option } from '../../SettingsPage';
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
 const RenderSection = (option: Option) => {
-  const { sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage, imgSrc } = option;
+  const { imageSectionCol, sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage } = option;
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
@@ -66,7 +66,7 @@ const RenderSection = (option: Option) => {
         return <Section3
           backgroundImage={backgroundImage?.[0]}
           // backgroundColor={backgroundColor}
-          imgSrc={!!imgSrc ? imgSrc[0] : sectionImg1}
+          imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
@@ -86,7 +86,7 @@ const RenderSection = (option: Option) => {
           text={text}
           alignText={alignText}
           colorText={colorText}
-          imgSrc={!!imgSrc ? imgSrc[0] : sectionImg1}
+          imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           type='tagImg'
         />;
     }

@@ -7,7 +7,7 @@ type ThunkUpLoadFile = ThunkAction<typeof uploadFile>;
 
 const thunkUploadFile = (path: ActionAddImageToGalleryPayload['type'], fieldName: string, file: File, nowIndexSection: number): ThunkUpLoadFile => async (dispatch: any) => {
   const newImgs = await uploadFileFireBase(path, file.name, file);
-  dispatch(uploadFile({path: path, fieldName: fieldName, newImgs: [...newImgs], nowIndexSection: nowIndexSection}));
+  // dispatch(uploadFile({path: path, fieldName: fieldName, newImgs: [...newImgs], nowIndexSection: nowIndexSection}));
   dispatch(addImageToGallery({type: path, imgs: newImgs}))
 };
 

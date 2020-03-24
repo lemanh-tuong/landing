@@ -9,6 +9,7 @@ import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/t
 import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
 import { useMount } from 'hooks/useMount';
 import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
+import thunkChooseImage from 'pages/SettingsPage/thunks/thunkChooseImage/thunkChooseImage';
 
 export type FormSection1Field = {
   fieldType: 'input' | 'radio' | 'checkbox' | 'file';
@@ -23,9 +24,9 @@ export interface FormSection1Props {
 export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
-  const sliderImgs = useSelector(sliderImgsGallery);
+  const sliderImageGallery = useSelector(sliderImgsGallery);
   //Destructoring
-  const { slider } = element;
+  const { slider, sliderImgs } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -34,6 +35,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
   const uploadImageSection = thunkUploadFile();
   const getImageGallery = thunkGetImageGallery();
+  const chooseImage = thunkChooseImage();
 
   //Handle
   const handleChangeForm = (fieldName: string) => {
@@ -53,6 +55,12 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
       if (fieldName === 'sliderImgs') {
         uploadImageSection(fieldName, fieldName, result, nowIndexSection);
       }
+    }
+  }
+
+  const handleChoose = (fieldName: string) => {
+    return (result: any) => {
+      chooseImage(fieldName, result, nowIndexSection);
     }
   }
 
@@ -138,10 +146,13 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
             fieldName: 'sliderImgs',
             fieldId: 8,
             hidden: !slider,
-            listImg: sliderImgs || [],
+            multiple: true,
+            listImg: sliderImageGallery || [],
+            defaultSelected: sliderImgs
           }
         ]}
         onChange={handleChangeForm}
+        onAnotherEvent={handleChoose}
       />
     </div>
   )

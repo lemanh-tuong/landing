@@ -8,6 +8,7 @@ import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkCh
 import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
 import { useMount } from 'hooks/useMount';
 import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
+import thunkChooseImage from 'pages/SettingsPage/thunks/thunkChooseImage/thunkChooseImage';
 
 export type FormSection4Field = {
   fieldType: 'input' | 'radio' | 'checkbox' | 'file';
@@ -32,6 +33,7 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
   const uploadImageSection = thunkUploadFile();
   const getImageGallery = thunkGetImageGallery();
+  const chooseImage = thunkChooseImage();
 
   //Handle
   const handleChangeForm = (fieldName: string) => {
@@ -48,6 +50,11 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
       if (fieldName === 'imgSrc') {
         uploadImageSection(fieldName, fieldName, result, nowIndexSection);
       }
+    }
+  }
+  const handleChooseImage = (fieldName: string) => {
+    return (src: string) => {
+      chooseImage(fieldName, src, nowIndexSection)
     }
   }
 
@@ -132,12 +139,13 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           },
           {
             fieldType: 'file',
-            fieldName: 'imgSrc',
+            fieldName: 'imageSectionCol',
             fieldId: 8,
             listImg: imgSrcs || []
           }
         ]}
         onChange={handleChangeForm}
+        onAnotherEvent={handleChooseImage}
       />
     </div>
   )

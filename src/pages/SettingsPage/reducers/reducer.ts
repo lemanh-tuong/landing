@@ -177,28 +177,41 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
   }),
-  handleAction('UPLOAD_FILE', (state, action) => {
-    // const { path, fieldName, newImgs, nowIndex } = action.payload;
-    const { fieldName, newImgs, nowIndexSection } = action.payload;
-    const item = fieldName === 'imgSrc' ? newImgs.map((imgUrl: string) => imgUrl) : newImgs.map((imgUrl: string) => ({
-      imgSrc: imgUrl,
-      hasVideo: true,
-      videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
-    }));
-    const nowElement = Object.assign({}, state.elements[nowIndexSection]);
+  handleAction('CHOOSE_IMAGE', (state, action) => {
+    const { fieldName, data, nowIndexSection } = action.payload;
+    const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
-      [fieldName]: item ? [].concat(item) : []
+      [fieldName]: data instanceof Array ? [...data] : {...data}
     }
-    writeFireBase({
-      ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    })
+
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
   }),
+  // handleAction('UPLOAD_FILE', (state, action) => {
+  //   // const { path, fieldName, newImgs, nowIndex } = action.payload;
+  //   const { fieldName, newImgs, nowIndexSection } = action.payload;
+  //   const item = fieldName === 'imgSrc' ? newImgs.map((imgUrl: string) => imgUrl) : newImgs.map((imgUrl: string) => ({
+  //     imgSrc: imgUrl,
+  //     hasVideo: true,
+  //     videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+  //   }));
+  //   const nowElement = Object.assign({}, state.elements[nowIndexSection]);
+  //   const newElement = {
+  //     ...nowElement,
+  //     [fieldName]: item ? [].concat(item) : []
+  //   }
+  //   writeFireBase({
+  //     ...state,
+  //     elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+  //   })
+  //   return {
+  //     ...state,
+  //     elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+  //   }
+  // }),
   handleAction('MOVE_CHILD', (state, action) => {
     const { newChild , nowIndexSection } = action.payload;
     const nowElement = state.elements[nowIndexSection];

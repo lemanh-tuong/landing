@@ -15,7 +15,7 @@ import Button from 'components/Button/Button';
 const cardDefault: CardProps = {
   titleCard: 'Paid listings',
   textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
-  iconImg: icon1,
+  iconImg: { imgSrc: icon1 },
   hasIcon: true, bgColorIcon: 'gradient-pink-orange'
 }
 

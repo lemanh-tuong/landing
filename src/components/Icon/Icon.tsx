@@ -11,7 +11,10 @@ export interface IconOption extends PropsComponent {
 }
 
 export interface IconProps extends IconOption {
-  iconImg?: string;
+  iconImg?: {
+    imgSrc: string;
+    [key: string]: any;
+  };
   fontAwesomeClass?: string;
   onClick?: () => void;
   darkMode?: boolean;
@@ -26,7 +29,7 @@ const Icon: FC<IconProps> = ({ iconImg, fontAwesomeClass, bgColorIcon, sizeIcon,
 
   return (
     <div className={`${styles.icon} ${styles[size]} ${styles[bgC]} ${classNameIcon} ${darkMode} ${styles[animated]} ${dark}`} onClick={onClick} style={{ ...hasEventClick, ...styleIcon }}>
-      {iconImg && <img src={iconImg} alt="" />}
+      {iconImg && <img src={iconImg.imgSrc} alt="" />}
       {fontAwesomeClass && <i className={fontAwesomeClass}></i>}
       {children}
     </div>

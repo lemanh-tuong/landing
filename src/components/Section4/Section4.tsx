@@ -7,15 +7,15 @@ import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React from 'react';
 
-export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<ImageProps, 'imgSrc'>, Omit<CarouselProps<ItemT>, 'sliderImgs'> {
+export interface Section4Props<ItemT> extends SectionPatternBase, MainTitleProps, TextProps, Omit<CarouselProps<ItemT>, 'sliderImgs'> {
   data?: ItemT[];
-  imgSrc?: string;
+  imageSectionCol?: ImageProps;
   slider?: boolean;
 }
 
 const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  imgSrc, aspectRatio, type, zoom, parallax,
+  imageSectionCol, aspectRatio, type, zoom, parallax,
   slider, data, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
   backgroundColor, backgroundImage, style, className, darkMode, renderItem,
 }: Section4Props<ItemT>) => {
@@ -23,7 +23,7 @@ const Section4 = <ItemT extends any>({ mainTitle, colorMainTitle, alignMainTitle
   const _renderImage = () => {
     return (
       <Col cols={[12]}>
-        {imgSrc && <Image imgSrc={imgSrc} aspectRatio={aspectRatio} type={type} zoom={zoom} parallax={parallax} />}
+        {imageSectionCol && <Image imgSrc={imageSectionCol.imgSrc} aspectRatio={imageSectionCol.aspectRatio} type={'tagImg'} zoom={imageSectionCol.zoom} parallax={imageSectionCol.parallax} />}
       </Col>
     );
   };

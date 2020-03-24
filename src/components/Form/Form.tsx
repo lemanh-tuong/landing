@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import FormBase from 'components/FormBase/FormBase';
 import Radio from './Radio/Radio';
 import CheckBox from './CheckBox/CheckBox';
-import RollSelect from 'components/RollSelect/RollSelect';
+import RollSelect from 'components/Form/RollSelect/RollSelect';
 import Input from './Input/Input';
 import ColorPicker from './ColorPicker/ColorPicker';
 
@@ -26,7 +26,7 @@ const renderField1 = <T extends any>(arg: T, onChange: (result: any) => void, on
     case 'checkbox':
       return <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange} key={arg.fieldId} />
     case 'file':
-      return <RollSelect fieldName={arg.fieldName} onChoose={onAnotherEvent} width={arg.width} height={arg.height} listImg={arg.listImg} onEvent={onChange} key={arg.fieldId} />
+      return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg} onUploadFile={onChange} key={arg.fieldId} />
     case 'color-picker':
       return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange} key={arg.fieldId} />
     default:
