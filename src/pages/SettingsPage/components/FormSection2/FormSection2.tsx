@@ -15,7 +15,7 @@ import Button from 'components/Button/Button';
 const cardDefault: CardProps = {
   titleCard: 'Paid listings',
   textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
-  iconImg: icon1,
+  iconImg: { imgSrc: icon1 },
   hasIcon: true, bgColorIcon: 'gradient-pink-orange'
 }
 
@@ -48,10 +48,10 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
       if (fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
         changeInput(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'align title' || fieldName === 'align text') {
+      if (fieldName === 'alignMainTitle' || fieldName === 'alignText') {
         changeRadio(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'title color' || fieldName === 'text color' || fieldName === 'divider color') {
+      if (fieldName === 'colorMainTitle' || fieldName === 'colorText' || fieldName === 'divider color') {
         changeColor(fieldName, result, nowIndexSection);
       }
     }
@@ -67,12 +67,14 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
           {
             fieldType: 'input',
             fieldName: 'title',
+            fieldId: 1,
             horizontal: true,
             defaultValue: 'Title'
           },
           {
             fieldType: 'radio',
-            fieldName: 'align title',
+            fieldName: 'alignMainTitle',
+            fieldId: 2,
             data: [
               {
                 value: 'center',
@@ -91,12 +93,14 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
           {
             fieldType: 'checkbox',
             fieldName: 'slider',
+            fieldId: 3,
             name: "Slider",
             checked: slider
           },
           {
             fieldType: 'color-picker',
-            fieldName: 'title color',
+            fieldName: 'colorMainTitle',
+            fieldId: 4,
             name: "Color Title",
           }
         ]}

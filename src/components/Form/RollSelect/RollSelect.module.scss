@@ -1,0 +1,56 @@
+@import '../../../styles/abstracts/variables.scss';
+.rollSelect {
+  width: 1000px;
+  margin: 20px 10px;
+  & .img {
+    background-position: center;
+    background-size: cover;
+    flex: 1 1 25%;
+    height: 250px;
+    &.chose {
+      background-color: rgb(76, 76, 76);;
+      background-blend-mode: overlay;
+    }
+  }
+}
+
+.rollSelectOptimize {
+  margin: 20px 10px;
+}
+
+.listImg {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.img {
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  margin: 15px 10px;
+  position: relative;
+  &.chose {
+    background-color: rgb(76, 76, 76);;
+    background-blend-mode: overlay;
+  }
+}
+
+.number {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: $color-primary;
+  color: $color-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & i {
+    color: $color-white;
+  }
+}
+
+

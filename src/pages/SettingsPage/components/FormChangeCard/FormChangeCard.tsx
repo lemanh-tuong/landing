@@ -10,9 +10,12 @@ import thunkChangeRadioCardForm from 'pages/SettingsPage/thunks/thunkChangeRadio
 import thunkDeleteCard from 'pages/SettingsPage/thunks/thunkDeleteCard/thunkDeleteCard';
 import thunkMoveChild from 'pages/SettingsPage/thunks/thunkMoveChild/thunkMoveChild';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { v4 as uuidv4 } from 'uuid';
 import { reorder } from 'pages/SettingsPage/reoderFunction';
 import thunkChangeIconCard from 'pages/SettingsPage/thunks/thunkChangeIconCard/thunkChangeIconCard';
+import thunkChangeColorTextCard from 'pages/SettingsPage/thunks/thunkChangeColorTextCard/thunkChangeColorTextCard';
+import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
+import { useMount } from 'hooks/useMount';
+
 export type FormSection1Field<T> = T & {
   fieldType: 'input' | 'radio' | 'checkbox' | 'file';
   fieldName: string;
@@ -37,8 +40,10 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
   const changeInputCardForm = thunkChangeInputCardForm();
   const changeRadioCardForm = thunkChangeRadioCardForm();
   const changeIconCardForm = thunkChangeIconCard();
+  const changeColorTextCard = thunkChangeColorTextCard();
   const deleteCard = thunkDeleteCard();
   const moveChild = thunkMoveChild();
+  const getImageGallery = thunkGetImageGallery();
 
   // Handle
   const handleShow = (cardId: string) => {
@@ -53,18 +58,22 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
   const handleChangeCardForm = (nowIndexCard: number) => {
     return (fieldName: string) => {
       return (result: any) => {
-        if (fieldName === 'card title' || fieldName === 'card text') {
+        if (fieldName === 'titleCard' || fieldName === 'textCard') {
           changeInputCardForm(fieldName, result, nowIndexSection, nowIndexCard);
         }
-        if (fieldName === 'align card title' || fieldName === 'align card text') {
+        if (fieldName === 'alignTitleCard' || fieldName === 'alignText') {
           changeRadioCardForm(fieldName, result, nowIndexSection, nowIndexCard);
         }
-        if (fieldName === 'card icon') {
-          changeIconCardForm('icon', result, nowIndexCard);
+        if (fieldName === 'colorTitleCard' || fieldName === 'colorText') {
+          changeColorTextCard(fieldName, result, nowIndexSection, nowIndexCard);
+        }
+        if (fieldName === 'iconImg') {
+          changeIconCardForm(fieldName, 'icon', result, nowIndexCard);
         }
       }
     }
   }
+
   const handleDelete = (nowIndexCard: number) => {
     return () => {
       deleteCard(nowIndexSection, nowIndexCard)
@@ -82,8 +91,10 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
     moveChild(newElements, nowIndexSection);
   }
   const handleChangeIconCard = (nowIndexCard: number) => {
-    return (result: string) => {
-      changeIconCardForm(result, nowIndexSection, nowIndexCard)
+    return (fieldName: string) => {
+      return (result: string) => {
+        changeIconCardForm(fieldName, result, nowIndexSection, nowIndexCard)
+      }
     }
   }
 
@@ -94,12 +105,14 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
         {
           fieldType: 'input',
           fieldName: 'card title',
+          fieldId: 1,
           horizontal: true,
           defaultValue: 'Card Text'
         },
         {
           fieldType: 'radio',
-          fieldName: 'align card title',
+          fieldName: 'alignTitleCard',
+          fieldId: 2,
           data: [
             {
               value: 'center',
@@ -117,17 +130,20 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
         },
         {
           fieldType: 'color-picker',
-          fieldName: 'color card title',
+          fieldName: 'colorTitleCard',
+          fieldId: 3,
           defaultValue: '#000'
         },
         {
           fieldType: 'input',
           fieldName: 'card text',
+          fieldId: 4,
           defaultValue: 'Card Text'
         },
         {
           fieldType: 'radio',
-          fieldName: 'align card text',
+          fieldName: 'alignText',
+          fieldId: 5,
           data: [
             {
               value: 'center',
@@ -145,12 +161,14 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
         },
         {
           fieldType: 'color-picker',
-          fieldName: 'color card text',
+          fieldName: 'colorText',
+          fieldId: 6,
           defaultValue: '#000'
         },
         {
           fieldType: 'file',
-          fieldName: 'card icon',
+          fieldName: 'iconImg',
+          fieldId: 7,
           listImg: icons ? [...icons] : [],
           width: 50,
           height: 50
@@ -166,7 +184,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
     return (
       <>
-        <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`} key={uuidv4()}>
+        <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`}>
           {provided => (
             <div className={styles.cardFormName} onClick={handleShow(`card-${nowIndexCard}`)} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
               <div className={styles.cardDesc}>
@@ -183,6 +201,10 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
       </>
     )
   }
+
+  useMount(() => {
+    getImageGallery('icon');
+  })
 
   return (
     <DragDropContext onDragEnd={handleMove}>
