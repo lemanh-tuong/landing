@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
-import { settingsReducers } from '../reducers/reducer';
+import { settingMainContentReducers } from '../reducers/reducerMainContent';
 import { imageGallery } from '../reducers/reducerImageGallery';
+import { sidebarReducers } from '../reducers/reducerSidebar';
 
 // todolist,
 const rootSettingsPageReducers = combineReducers({
-  settingsReducers,
-  imageGallery
+  settingMainContentReducers,
+  imageGallery,
+  sidebarReducers,
 });
 
 export default rootSettingsPageReducers;

@@ -24,7 +24,7 @@ const renderField1 = <T extends any>(arg: T, onChange: (result: any) => void, on
     case 'radio':
       return <Radio name={arg.fieldName} data={arg.data} onClick={onChange} key={arg.fieldId} />
     case 'checkbox':
-      return <CheckBox name={arg.fieldName} checked={arg.checked} onClick={onChange} key={arg.fieldId} />
+      return <CheckBox name={arg.fieldName} defaultChecked={arg.checked} onClick={onChange} key={arg.fieldId} />
     case 'file':
       return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg} onUploadFile={onChange} key={arg.fieldId} />
     case 'color-picker':

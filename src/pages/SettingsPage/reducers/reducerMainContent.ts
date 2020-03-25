@@ -1,9 +1,9 @@
 import writeFireBase from 'firebase/database/writeFireBase';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
-import { getData } from '../actions/actionGetData/actionGetData';
+import { getDataSection } from '../actions/actionGetDataSection/actionGetDataSection';
 import { Option } from '../SettingsPage';
 
-export interface SettingsReducers {
+export interface SettingMainContentReducers {
   pageName: string;
   elements: Option[];
   statusRequestElements: 'loading' | 'success' | 'failure';
@@ -11,19 +11,19 @@ export interface SettingsReducers {
 }
 
 
-const initialState: SettingsReducers = {
+const initialState: SettingMainContentReducers = {
   pageName: '',
   elements: [],
   statusRequestElements: 'success',
   messageRequestElements: ''
 };
 
-const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getData> & any>(initialState, [
-  handleAction('@getDataRequest', (state) => ({
+const settingMainContentReducers = createReducer<SettingMainContentReducers, ActionTypes<typeof getDataSection> & any>(initialState, [
+  handleAction('@getDataSectionRequest', (state) => ({
     ...state,
     status: 'loading'
   })),
-  handleAction('@getDataSuccess', (state, action) => {
+  handleAction('@getDataSectionSuccess', (state, action) => {
     if(!!action.payload.elements) {
       return {
         ...state,
@@ -38,7 +38,7 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
       status: 'success'
     }
   }),
-  handleAction('@getDataFailure', (state) => ({
+  handleAction('@getDataSectionFailure', (state) => ({
     ...state,
     status: 'failure',
     message: 'Error'
@@ -336,5 +336,5 @@ const settingsReducers = createReducer<SettingsReducers, ActionTypes<typeof getD
 ]);
 
 
-export { settingsReducers };
+export { settingMainContentReducers };
 

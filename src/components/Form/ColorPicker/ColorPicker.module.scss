@@ -1,5 +1,4 @@
 .colorPicker {
-  position: relative;
   display: flex;
   align-items: center;
 }
@@ -8,3 +7,28 @@
   margin-right: 10px;
 }
 
+.picked {
+  width: 36px;
+  height: 14px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.colorBox {
+  position: absolute;
+  top: 0px;
+  left: calc(100% + 20px);
+  z-index: 123;
+  transform: translateY(-10%);
+  &:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid blue;
+    top: 8%;
+    left: -7%;
+  }
+}
