@@ -52,8 +52,8 @@ class ColorPicker extends PureComponent<ColorPickerProps, ColorPickerState> {
         <div className={styles.fieldName}>
           {fieldName}
         </div>
-        <div onClick={this.handleClick}>
-          <div className={styles.picked} style={{
+        <div className={styles.colorField}>
+          <div className={styles.picked} onClick={this.handleClick} style={{
             background: color
           }}>
             {displayColorPicker ? this._renderColorBox() : null}
