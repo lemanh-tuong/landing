@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, useState, useEffect } from 'react';
+import React, { ReactNode, Fragment, useState, useEffect, useRef } from 'react';
 
 type TField<T> = T & {
   fieldType: string;
@@ -15,6 +15,7 @@ export interface FormBaseProps<T> {
 }
 
 const FormBase = <T extends any>({ fields, renderField, onChange, onAnotherEvent }: FormBaseProps<T>) => {
+  const onChangeRef = useRef(onChange)
   const [result, setResult] = useState({});
 
   const handleChange = (fieldName: string) => {
@@ -27,8 +28,8 @@ const FormBase = <T extends any>({ fields, renderField, onChange, onAnotherEvent
   }
 
   useEffect(() => {
-    onChange?.(result);
-  }, [onChange, result])
+    onChangeRef.current?.(result);
+  }, [onChangeRef, result])
 
   return (
     <Fragment>

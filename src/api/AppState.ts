@@ -1,8 +1,8 @@
-import { SettingsReducers } from "pages/SettingsPage/reducers/reducer";
+import { SettingMainContentReducers } from "pages/SettingsPage/reducers/reducerMainContent";
 import { ImageGalleryReducers } from "pages/SettingsPage/reducers/reducerImageGallery";
 
 export interface RootSettingsPageReducers {
-  settingsReducers: SettingsReducers;
+  settingMainContentReducers: SettingMainContentReducers;
   imageGallery: ImageGalleryReducers;
 }
 

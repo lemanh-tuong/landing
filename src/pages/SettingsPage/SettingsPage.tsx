@@ -25,7 +25,7 @@ import FormSection3 from './components/FormSection3/FormSection3';
 import { FormSection4 } from './components/FormSection4/FormSection4';
 import { reorder } from './reoderFunction';
 import { useMount } from 'hooks/useMount';
-import thunkGetData from './thunks/thunkGetData';
+import thunkGetDataSection from './thunks/thunkGetDataSection/thunkGetDataSection';
 import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
@@ -59,7 +59,7 @@ const SettingsPage = () => {
   const deleteSection = thunkDeleteSection();
   const moveUpSection = thunkMoveUpSection();
   const moveDownSection = thunkMoveDownSection();
-  const getData = thunkGetData();
+  const getData = thunkGetDataSection();
   const saveAll = thunkSaveAll();
 
   //Handle
@@ -219,7 +219,7 @@ const SettingsPage = () => {
   // Lifecycle
 
   useMount(() => {
-    getData();
+    getData('HomePage');
   })
 
   return (

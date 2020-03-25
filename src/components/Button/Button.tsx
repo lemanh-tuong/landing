@@ -12,11 +12,9 @@ interface ButtonProps extends PropsComponent {
 const Button: FC<ButtonProps> = ({ children, className, style, color = 'primary', dark, initial = false, onClick }) => {
   const darkMode = dark ? styles['dark'] : '';
   return (
-    <div className={className} style={style} onClick={onClick && onClick}>
-      <button className={`${styles[color]}  ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
-        {children}
-      </button>
-    </div >
+    <button onClick={onClick && onClick} className={`${styles[color]}  ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
+      {children}
+    </button>
   );
 }
 
