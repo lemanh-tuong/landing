@@ -1,31 +1,34 @@
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
-import { getImageGallery } from '../actions/actionGetDataImageGallery/actionGetDataImageGallery';
+import { getImageGallery } from '../../ImageGalleryPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
 
 export interface ImageGalleryReducers {
-  statusRequestImageGallery: 'loading' | 'success' | 'failure';
-  [key: string]: any;
+  readonly statusRequestImageGallery: 'loading' | 'success' | 'failure';
+  readonly messageRequestImageGallery: string;
+  readonly [key: string]: any;
 }
 
 
 const initialState: ImageGalleryReducers = {
-  statusRequestImageGallery: 'success',
+  statusRequestImageGallery: 'loading',
+  messageRequestImageGallery: ''
 };
 
 const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof getImageGallery> & any>(initialState, [
   handleAction('@getImageGalleryRequest', (state) => ({
     ...state,
-    status: 'loading'
+    statusRequestImageGallery: 'loading'
   })),
   handleAction('@getImageGallerySuccess', (state, action) => {
     const { type, imgs } = action.payload;
     return {
       ...state,
-      [type]: imgs ? [...imgs] : [...state[type]]
+      statusRequestImageGallery: 'success',
+      [type]: imgs ? [...imgs] : [],
     }
   }),
   handleAction('@getImageGalleryFailure', (state) => ({
     ...state,
-    status: 'failure'
+    statusRequestImageGallery: 'failure'
   })),
   handleAction('ADD_IMAGE_TO_GALLERY', (state: any, action: any) => {
     const { type, imgs } = action.payload;
@@ -34,7 +37,6 @@ const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof getI
     }))
     return {
       ...state,
-      status: 'success',
       [type]: newIcon ? [...newIcon] : [...state[type]]
     }
   })

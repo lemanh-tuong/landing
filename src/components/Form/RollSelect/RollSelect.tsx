@@ -10,6 +10,13 @@ import InputFile from '../InputFile/InputFile';
 //   'https://images.pexels.com/videos/3795655/pexels-photo-3795655.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 //   'https://images.pexels.com/photos/3748035/pexels-photo-3748035.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 // ];
+function initArray(length: number) {
+  let arr = [];
+  for (let i = 0; i < length; i++) {
+    arr.push(i);
+  }
+  return arr;
+}
 
 type ImgType = {
   imgSrc: string;
@@ -18,38 +25,41 @@ type ImgType = {
 
 export interface UploadProps {
   listImg: ImgType[];
-  defaultSelected?: ImgType[];
+  defaultSelected?: ImgType | ImgType[];
   fieldName: string;
   multiple?: boolean;
-  onUploadFile?: (arg: File | undefined) => void;
+  onUploadFile?: (arg: File) => void;
   onChoose?: (result: any) => void;
   width?: number;
   height?: number;
+  statusLazy?: 'loading' | 'success';
+  ammountLazyLoading?: number;
 }
 
 
-const RollSelect: FC<UploadProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height }) => {
+const RollSelect: FC<UploadProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading }) => {
 
-  const _renderImg = (url: string, orderSelected: number, onChange?: (result: any) => void) => {
-    if (orderSelected !== -1) {
-      return (
-        <div onClick={onChange} className={`${styles.img} ${styles.chose}`} style={{ backgroundImage: `url(${url})`, width: width, height: height }} key={uuidv4()}>
-          <div className={styles.number}>{multiple ? orderSelected : <i className="fas fa-check"></i>}</div>
-        </div>
-      )
-    }
-    return <div onClick={onChange} className={`${styles.img}`} style={{ backgroundImage: `url(${url})`, width: width, height: height }} key={uuidv4()}></div>
+  const _renderImg = (item: ImgType, orderSelected: number, onChange?: (result: any) => void) => {
+    const { imgSrc } = item;
+    const isSelected = orderSelected !== -1 ? true : false;
+
+    return (
+      <div onClick={onChange} className={`${styles.rollSelectItem} ${statusLazy === 'loading' ? styles.skeleton : ''}  ${isSelected ? styles.chose : ''}`} style={{ width: width, height: height }} key={uuidv4()}>
+        {statusLazy === 'success' ? <div className={`${styles.image}`} style={{ backgroundImage: `url(${imgSrc})` }}></div> : null}
+        {isSelected ? <div className={styles.number}>{multiple ? orderSelected : <i className="fas fa-check"></i>}</div> : null}
+      </div>
+    )
   };
 
   return (
-    <div className={width ? styles.rollSelectOptimize : styles.rollSelect}>
+    <div className={`${width ? styles.rollSelectOptimize : styles.rollSelect}`}>
       <div className={styles.galleryName}>{fieldName}</div>
-      <div className={styles.listImg}>
+      <div className={`${styles.rollSelectList} ${styles[fieldName]}`}>
         <RollSelectBase
-          data={listImg}
+          data={statusLazy === 'success' ? listImg : initArray(ammountLazyLoading || 0)}
           defaultSelected={defaultSelected}
           multiple={multiple}
-          renderItem={(item, index, onChoose) => _renderImg(item.imgSrc, index, onChoose)}
+          renderItem={(item, index, onChoose) => _renderImg(item, index, onChoose)}
           onResult={onChoose}
         />
       </div>

@@ -4,9 +4,9 @@ import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { getDataSideBar } from '../actions/actionGetDataSideBar/actionGetDataSideBar';
 
 export type SideBarReducers = {
-  statusRequestSideBar: 'loading' | 'success' | 'failure';
-  messageRequestSideBar: string;
-  patternSection: ItemSideBar[];
+  readonly statusRequestSideBar: 'loading' | 'success' | 'failure';
+  readonly messageRequestSideBar: string;
+  readonly patternSection: ItemSideBar[];
 };
 
 const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';

@@ -3,13 +3,12 @@ import Form from 'components/Form/Form';
 import { useSelector } from 'react-redux';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
-import { sections, imgSrcGallery, backgroundImageGallery } from 'pages/SettingsPage/selectors';
+import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
 import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
-import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
-import { useMount } from 'hooks/useMount';
-import thunkChooseImage from 'pages/SettingsPage/thunks/thunkChooseImage/thunkChooseImage';
+import { Button } from 'antd';
+import { Link } from 'react-router-dom';
+import 'antd/es/style/css';
 
 export type FormSection3Field = {
   fieldType: 'input' | 'radio' | 'checkbox' | 'file';
@@ -24,52 +23,34 @@ export interface FormSection3Props {
 export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
-  const imgSrcs = useSelector(imgSrcGallery);
-  const backgroundImages = useSelector(backgroundImageGallery);
 
   //Destructoring
-  const { hasDivider, dividerColor } = element;
+  const { hasDivider, dividerColor, mainTitle, text } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeRadio = thunkChangeRadio();
   const changeCheckBox = thunkChangeCheckBox();
   const changeColor = thunkChangeColor();
-  const uploadImageSection = thunkUploadFile();
-  const getImageGallery = thunkGetImageGallery();
-  const chooseImage = thunkChooseImage();
 
   //Handle
-  const handleChangeForm = (fieldName: string) => {
+  const handleChangeForm = (fieldType: string, fieldName: string) => {
 
     return (result: any) => {
-      if (fieldName === 'mainTitle' || fieldName === 'text') {
+      if (fieldType === 'input') {
         changeInput(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'alignMainTitle' || fieldName === 'alignText') {
+      if (fieldType === 'radio') {
         changeRadio(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'colorMainTitle' || fieldName === 'colorText' || fieldName === 'dividerColor') {
+      if (fieldType === 'color-picker') {
         changeColor(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'backgroundImage' || fieldName === 'imgSrc') {
-        uploadImageSection(fieldName, fieldName, result, nowIndexSection);
-      }
-      if (fieldName === 'hasDivider') {
+      if (fieldType === 'checkbox') {
         changeCheckBox(fieldName, result, nowIndexSection);
       }
     }
   }
-  const handleChooseImage = (fieldName: string) => {
-    return (src: string) => {
-      chooseImage(fieldName, src, nowIndexSection)
-    }
-  }
-
-  useMount(() => {
-    getImageGallery('imgSrc');
-    getImageGallery('backgroundImage');
-  })
 
   return (
     <div style={{ padding: 30, background: 'white' }}>
@@ -80,7 +61,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             fieldName: 'mainTitle',
             fieldId: 1,
             horizontal: true,
-            defaultValue: 'Title'
+            defaultValue: mainTitle
           },
           {
             fieldType: 'radio',
@@ -112,7 +93,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             fieldName: 'text',
             fieldId: 4,
             horizontal: true,
-            defaultValue: 'Text'
+            defaultValue: text
           },
           {
             fieldType: 'radio',
@@ -153,22 +134,14 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             defaultValue: dividerColor,
             hidden: !hasDivider,
           },
-          {
-            fieldType: 'file',
-            fieldName: 'imageSectionCol',
-            fieldId: 9,
-            listImg: imgSrcs || []
-          },
-          {
-            fieldType: 'file',
-            fieldName: "backgroundImage",
-            fieldId: 10,
-            listImg: backgroundImages || []
-          },
         ]}
         onChange={handleChangeForm}
-        onAnotherEvent={handleChooseImage}
       />
+      <Button size='large' shape='round' >
+        <Link to={`/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
+          Change Image
+        </Link>
+      </Button>
     </div>
   )
 };

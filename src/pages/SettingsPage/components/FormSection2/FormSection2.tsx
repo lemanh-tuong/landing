@@ -1,26 +1,16 @@
 import React, { memo } from 'react';
 import Form from 'components/Form/Form';
-import { CardProps } from 'components/Card/Card';
 import FormChangeCard from '../FormChangeCard/FormChangeCard';
-import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { useSelector } from 'react-redux';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import Icon from 'components/Icon/Icon';
-import Button from 'components/Button/Button';
 
-const cardDefault: CardProps = {
-  titleCard: 'Paid listings',
-  textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
-  iconImg: { imgSrc: icon1 },
-  hasIcon: true, bgColorIcon: 'gradient-pink-orange'
-}
+
 
 export type FormSection1Field<T> = T & {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
+  fieldType: 'input' | 'radio' | 'file';
   fieldName: string;
 }
 
@@ -33,32 +23,30 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
+  // Destructoring
+  const { mainTitle } = element;
+
   // Dispatch
-  const addCard = thunkAddCard();
   const changeInput = thunkChangeInput();
   const changeRadio = thunkChangeRadio();
   const changeColor = thunkChangeColor();
 
   // Handle
-  const handleAdd = () => {
-    addCard(cardDefault, nowIndexSection)
-  }
-  const handleChangeForm = (fieldName: string) => {
+
+
+  const handleChangeForm = (fieldType: string, fieldName: string) => {
     return (result: any) => {
-      if (fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
+      if (fieldType === 'input') {
         changeInput(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'alignMainTitle' || fieldName === 'alignText') {
+      if (fieldType === 'radio') {
         changeRadio(fieldName, result, nowIndexSection);
       }
-      if (fieldName === 'colorMainTitle' || fieldName === 'colorText' || fieldName === 'divider color') {
+      if (fieldType === 'color-picker') {
         changeColor(fieldName, result, nowIndexSection);
       }
     }
   }
-
-  // Destructoring
-  const { slider } = element;
 
   return (
     <div style={{ padding: 30, background: 'white' }}>
@@ -66,10 +54,10 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
         fields={[
           {
             fieldType: 'input',
-            fieldName: 'title',
+            fieldName: 'mainTitle',
             fieldId: 1,
             horizontal: true,
-            defaultValue: 'Title'
+            defaultValue: mainTitle
           },
           {
             fieldType: 'radio',
@@ -91,13 +79,6 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
             ],
           },
           {
-            fieldType: 'checkbox',
-            fieldName: 'slider',
-            fieldId: 3,
-            name: "Slider",
-            checked: slider
-          },
-          {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
             fieldId: 4,
@@ -107,9 +88,6 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
         onChange={handleChangeForm}
       />
       <FormChangeCard nowIndexSection={nowIndexSection} />
-      <Button initial onClick={handleAdd}>
-        <Icon fontAwesomeClass="fas fa-plus" />
-      </Button>
     </div>
   )
 

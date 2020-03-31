@@ -1,11 +1,12 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, MouseEvent } from 'react';
 import styles from './Button.module.scss';
+import 'antd/es/button/style/css';
 
 interface ButtonProps extends PropsComponent {
   color?: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
   dark?: boolean;
   darkClassName?: string;
-  onClick?: (arg?: any) => void;
+  onClick?: (event?: MouseEvent) => void;
   initial?: boolean;
 }
 

@@ -79,6 +79,7 @@ const RenderSection = (option: Option) => {
       case 'Section 4':
         return <Section4
           backgroundImage={backgroundImage?.[0]}
+
           // backgroundColor={backgroundColor}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}

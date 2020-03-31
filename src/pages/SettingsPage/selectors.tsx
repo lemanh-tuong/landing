@@ -10,8 +10,8 @@ export const statusRequestPatternSection = (state: AppState) => state.rootSettin
 export const messageRequestPatternSection = (state: AppState) => state.rootSettingsPageReducers.sidebarReducers.messageRequestSideBar;
 
 //imageGalleryReducers
-export const iconGallery = (state: AppState) => state.rootSettingsPageReducers.imageGallery?.icon;
+export const iconGallery = (state: AppState) => state.rootSettingsPageReducers.imageGallery?.iconImg;
 export const sliderImgsGallery = (state: AppState) => state.rootSettingsPageReducers.imageGallery?.sliderImgs;
-export const imgSrcGallery = (state: AppState) => state.rootSettingsPageReducers.imageGallery?.imgSrc;
+export const imageSectionCol = (state: AppState) => state.rootSettingsPageReducers.imageGallery?.imageSectionCol;
 export const backgroundImageGallery = (state: AppState) => state.rootSettingsPageReducers.imageGallery?.backgroundImage;
-
+export const statusRequestImage = (state: AppState) => state.rootSettingsPageReducers.imageGallery.statusRequestImageGallery;

@@ -4,43 +4,34 @@ import { getDataSection } from '../actions/actionGetDataSection/actionGetDataSec
 import { Option } from '../SettingsPage';
 
 export interface SettingMainContentReducers {
-  pageName: string;
-  elements: Option[];
-  statusRequestElements: 'loading' | 'success' | 'failure';
-  messageRequestElements: string
+  readonly pageName: string;
+  readonly elements: Option[];
+  readonly statusRequestElements: 'loading' | 'success' | 'failure';
+  readonly messageRequestElements: string
 }
 
 
 const initialState: SettingMainContentReducers = {
   pageName: '',
   elements: [],
-  statusRequestElements: 'success',
+  statusRequestElements: 'loading',
   messageRequestElements: ''
 };
 
 const settingMainContentReducers = createReducer<SettingMainContentReducers, ActionTypes<typeof getDataSection> & any>(initialState, [
   handleAction('@getDataSectionRequest', (state) => ({
     ...state,
-    status: 'loading'
+    statusRequestElements: 'loading'
   })),
-  handleAction('@getDataSectionSuccess', (state, action) => {
-    if(!!action.payload.elements) {
-      return {
-        ...state,
-        elements: [...action.payload.elements],
-        pageName: action.payload.pageName,
-        status: 'success'
-      }
-    }
-    return {
-      ...state,
-      elements: [],
-      status: 'success'
-    }
-  }),
+  handleAction('@getDataSectionSuccess', (state, action) => ({
+    ...state,
+    elements: !!action.payload.elements ? [...action.payload.elements] : [],
+    pageName: action.payload.pageName,
+    statusRequestElements: 'success'
+  })),
   handleAction('@getDataSectionFailure', (state) => ({
     ...state,
-    status: 'failure',
+    statusRequestElements: 'failure',
     message: 'Error'
   })),
 
@@ -287,13 +278,14 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     }
   }),
   handleAction('CHANGE_ICON_CARD', (state, action) => {
-    const { fieldName, imgSrc, nowIndexSection, nowIndexCard} = action.payload;
+    const { fieldName, iconImg, nowIndexSection, nowIndexCard} = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
-    const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
+    const nowCard = Object.assign({}, nowElement.cards?.[nowIndexCard]);
     const newCard = {
       ...nowCard,
-      [fieldName]: imgSrc
+      [fieldName]: iconImg
     }
+
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
@@ -306,8 +298,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   }),
   handleAction("DELETE_CARD", (state, action) => {
     const { nowIndexSection, nowIndexCard } = action.payload;
-    console.log(nowIndexSection, nowIndexCard);
-
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...nowElement,

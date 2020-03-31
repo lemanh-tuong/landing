@@ -1,4 +1,4 @@
-import { actionChooseImage } from "pages/SettingsPage/actions/actionChooseImage/actionChooseImage";
+import { actionChooseImage } from "pages/ImageGalleryPage/actions/actionChooseImage/actionChooseImage";
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkChooseImage = ThunkAction<typeof actionChooseImage>

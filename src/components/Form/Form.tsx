@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ChangeEvent } from 'react';
 import FormBase from 'components/FormBase/FormBase';
 import Radio from './Radio/Radio';
 import CheckBox from './CheckBox/CheckBox';
 import RollSelect from 'components/Form/RollSelect/RollSelect';
-import Input from './Input/Input';
+import { Input } from 'antd';
+import 'antd/es/style/css';
 import ColorPicker from './ColorPicker/ColorPicker';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
@@ -14,12 +15,13 @@ const renderField1 = <T extends any>(arg: T, onChange: (result: any) => void, on
   }
   switch (arg.fieldType) {
     case 'input':
-      return <Input
+      return <Input.TextArea
         name={arg.fieldName}
-        horizontal={arg.horizontal}
         defaultValue={arg.defaultValue}
         onChange={onChange} placeholder={arg.placeholder}
         key={arg.fieldId}
+        autoSize={{ maxRows: 10, minRows: 3 }}
+        style={{ width: '100%' }}
       />
     case 'radio':
       return <Radio name={arg.fieldName} data={arg.data} onClick={onChange} key={arg.fieldId} />
@@ -42,15 +44,20 @@ export type Field<T> = T & {
 
 export interface FormProps<T> {
   fields: Field<T>[];
-  onChange: (fieldName: string) => (result: any) => void;
+  onChange: (fieldType: string, fieldName: string) => (result: any) => void;
   onAnotherEvent?: (fieldName: string) => (result: any) => void;
 }
 
 const Form = <T extends any>({ fields, onChange, onAnotherEvent }: FormProps<T>) => {
 
-  const handleChange = (fieldName: string) => {
+  const handleChange = (fieldType: string, fieldName: string) => {
+    if (fieldType === 'input') {
+      return (e: ChangeEvent<HTMLInputElement>) => {
+        onChange(fieldType, fieldName)(e.target.value);
+      }
+    }
     return (result: any) => {
-      onChange(fieldName)(result);
+      onChange(fieldType, fieldName)(result);
     }
   }
 
@@ -61,10 +68,10 @@ const Form = <T extends any>({ fields, onChange, onAnotherEvent }: FormProps<T>)
   }
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div className="form" style={{ padding: 30 }}>
       <FormBase
         fields={fields}
-        renderField={(arg, onChange) => renderField1(arg, handleChange(arg.fieldName), handleAnotherEvent(arg.fieldName))}
+        renderField={(arg, onChange) => renderField1(arg, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))}
       />
     </div>
   )

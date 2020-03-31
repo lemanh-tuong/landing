@@ -1,9 +1,8 @@
 import HomePage from 'pages/HomePage/HomePage';
-import PreviewPage from 'pages/PreviewPage/PreviewPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 const Routes = () => {
   // const [show, setShow] = useState(false);
   // const [active, setActive] = useState(false);
@@ -42,8 +41,7 @@ const Routes = () => {
       </header>
       <main>
         <Switch>
-          <Route path="/preview" exact>
-            <PreviewPage />
+          <Route path="/gallery" render={({ ...restRouteParam }) => <ImageGalleryPage {...restRouteParam} />}>
           </Route>
           <Route path="/settings">
             <SettingsPage />

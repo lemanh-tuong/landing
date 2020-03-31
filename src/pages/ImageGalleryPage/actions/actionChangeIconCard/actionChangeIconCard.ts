@@ -4,7 +4,7 @@ export interface ActionChangeIconCard {
   type: "CHANGE_ICON_CARD";
   payload: {
     fieldName: string;
-    imgSrc: string;
+    iconImg: string;
     nowIndexSection: number;
     nowIndexCard: number;
   }

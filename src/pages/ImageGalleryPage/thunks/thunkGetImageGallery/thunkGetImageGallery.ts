@@ -1,6 +1,6 @@
 
 import readStorage from 'firebase/storage/readStorage';
-import { getImageGallery } from 'pages/SettingsPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
+import { getImageGallery } from 'pages/ImageGalleryPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 import { ActionAddImageToGalleryPayload } from 'pages/SettingsPage/actions/actionAddImageToGallery/actionAddImageToGallery';
 

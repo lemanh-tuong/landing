@@ -2,8 +2,8 @@ import { SettingMainContentReducers } from "pages/SettingsPage/reducers/reducerM
 import { ImageGalleryReducers } from "pages/SettingsPage/reducers/reducerImageGallery";
 
 export interface RootSettingsPageReducers {
-  settingMainContentReducers: SettingMainContentReducers;
-  imageGallery: ImageGalleryReducers;
+  readonly settingMainContentReducers: SettingMainContentReducers;
+  readonly imageGallery: ImageGalleryReducers;
 }
 
 export interface AppState {

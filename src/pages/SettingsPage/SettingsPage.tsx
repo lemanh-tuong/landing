@@ -13,8 +13,8 @@ import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
 import thunkDeleteSection from './thunks/thunkDeleteSection/thunkDeleteSection';
 import thunkMoveUpSection from './thunks/thunkMoveUpSection/thunkMoveUpSection';
 import thunkMoveDownSection from './thunks/thunkMoveDownSection/thunkMoveDownSection';
-import Button from 'components/Button/Button';
-import Icon from 'components/Icon/Icon';
+import { Button } from 'antd';
+import 'antd/es/style/css';
 import RenderSection from './components/RenderSection/RenderSection';
 import { FormSection2 } from './components/FormSection2/FormSection2';
 import PopUp from 'components/PopUp/PopUp';
@@ -160,20 +160,20 @@ const SettingsPage = () => {
             >
               <div className={styles.sectionTop}>
                 <ButtonGroup style={{ display: 'flex' }} align='right'>
-                  <Button onClick={handleMoveUpSection(indexSection)} initial >
-                    <Icon fontAwesomeClass="fas fa-angle-up" styleIcon={{ width: 20, height: 20 }} />
+                  <Button className={styles.buttonFunc} onClick={handleMoveUpSection(indexSection)} shape='circle' size='large' >
+                    <i className="fas fa-angle-up" />
                   </Button>
-                  <Button onClick={handleMoveDownSection(indexSection)} initial >
-                    <Icon fontAwesomeClass="fas fa-angle-down" styleIcon={{ width: 20, height: 20 }} />
+                  <Button className={styles.buttonFunc} onClick={handleMoveDownSection(indexSection)} shape='circle' size='large' >
+                    <i className="fas fa-angle-down" />
                   </Button>
-                  <Button onClick={handleDuplicate(element, indexSection)} initial >
-                    <Icon fontAwesomeClass="fas fa-copy" styleIcon={{ width: 20, height: 20 }} />
+                  <Button className={styles.buttonFunc} onClick={handleDuplicate(element, indexSection)} shape='circle' size='large' >
+                    <i className="fas fa-copy" />
                   </Button>
-                  <Button onClick={PopUp.show(sectionId)} initial>
-                    <Icon fontAwesomeClass="fas fa-cog" styleIcon={{ width: 20, height: 20 }} />
+                  <Button className={styles.buttonFunc} onClick={PopUp.show(sectionId)} shape='circle' size='large'>
+                    <i className="fas fa-cog" />
                   </Button>
-                  <Button onClick={handleDelete({ ...element }, indexSection)} initial>
-                    <Icon fontAwesomeClass="fas fa-times" styleIcon={{ width: 20, height: 20 }} />
+                  <Button className={styles.buttonFunc} onClick={handleDelete({ ...element }, indexSection)} shape='circle' size='large' >
+                    <i className="fas fa-times" />
                   </Button>
                 </ButtonGroup>
               </div>
@@ -225,8 +225,8 @@ const SettingsPage = () => {
   return (
     <>
       {_renderSwitch()}
-      <Button initial onClick={saveAll} style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
-        <Icon fontAwesomeClass="fas fa-save" />
+      <Button onClick={saveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
+        <i className="fas fa-save"></i>
       </Button>
     </>
   )
