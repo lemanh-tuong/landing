@@ -1,4 +1,4 @@
-
+@import '../../../styles/abstracts/variables.scss';
 .uploadBtn {
   display: inline-block;
   position: relative;
@@ -33,7 +33,77 @@
   align-items: center;
   border: 3px dashed lightgray;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  & .icon {
+    font-size: 60px
+  }
+  & .text {
+    text-align: center;
+  }
   & p {
       color: lightgray;
   }
 }
+
+.upload {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  border: 1px solid;
+  padding: 5px 15px;
+  margin: 5px;
+}
+
+.uploadContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.uploadIcon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  &.uploading {
+    border: 1px solid blue;
+    border-left: none;
+    border-right: none;
+    animation: loading 3s infinite;
+  }
+  &.uploaded {
+    background: $color-primary;
+    & i {
+      color: white;
+    }
+  }
+  &.uploadFailure {
+    background: $color-danger;
+  }
+}
+
+.fileName {
+  font-size: 15px;
+  letter-spacing: 3px;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-size: 20px;
+}
+:local {
+  @keyframes loading {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+

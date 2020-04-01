@@ -3,7 +3,7 @@ import thunkGetImageGallery from 'pages/ImageGalleryPage/thunks/thunkGetImageGal
 import { useMount } from 'hooks/useMount';
 import RollSelect from 'components/Form/RollSelect/RollSelect';
 import { useSelector } from 'react-redux';
-import { statusRequestImage, sliderImgsGallery, iconGallery, imageSectionCol } from 'pages/SettingsPage/selectors';
+import { statusRequestImage, sliderImgsGallery, iconGallery, imageSectionCol, statusUploadFile, messageUploadFileFailure, messageRequestImageFailure } from './selectors';
 import { RouteComponentProps } from 'react-router';
 import thunkChooseImage from 'pages/ImageGalleryPage/thunks/thunkChooseImage/thunkChooseImage';
 import thunkSaveAll from 'pages/SettingsPage/thunks/thunkSaveAll/thunkSaveAll';
@@ -17,11 +17,16 @@ import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUplo
 
 const ImageGalleryPage = ({ match }: RouteComponentProps) => {
   // Selector
+  // Gallery
   const sliderImgs = useSelector(sliderImgsGallery)
   const icon = useSelector(iconGallery);
   const imageSection = useSelector(imageSectionCol);
-  const status = useSelector(statusRequestImage);
-
+  // Request Gallery
+  const statusRequestGallery = useSelector(statusRequestImage);
+  const messageRequest = useSelector(messageRequestImageFailure);
+  // Upload File
+  const statusUpload = useSelector(statusUploadFile);
+  const messageUpload = useSelector(messageUploadFileFailure);
   // Destructoring
 
   const { type, nowIndexSection, nowIndexCard, multiple } = getQuery<'type' | 'nowIndexSection' | 'nowIndexCard' | 'multiple'>(window.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'multiple']);
@@ -68,13 +73,20 @@ const ImageGalleryPage = ({ match }: RouteComponentProps) => {
 
   const _renderSwitch = () => {
     if (!!type) {
-      switch (status) {
+      switch (statusRequestGallery) {
         case 'success':
-          return <RollSelect fieldName={type} listImg={type === 'iconImg' ? icon : type === 'sliderImgs' ? sliderImgs : imageSection} multiple={JSON.parse(multiple)} onChoose={handleChoose(type)} onUploadFile={handleUploadFile(type)} />;
+          return <RollSelect
+            fieldName={type}
+            listImg={type === 'iconImg' ? icon : type === 'sliderImgs' ? sliderImgs : imageSection}
+            multiple={JSON.parse(multiple)}
+            statusUploadFile={statusUpload}
+            messageUpload={messageUpload}
+            onChoose={handleChoose(type)}
+            onUploadFile={handleUploadFile(type)} />;
         case 'loading':
           return <RollSelect fieldName={type} statusLazy="loading" listImg={[]} ammountLazyLoading={10} />
         case 'failure':
-          return <div>Error</div>;
+          return <div>{messageRequest}</div>;
         default:
           return null;
       }

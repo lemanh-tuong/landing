@@ -33,11 +33,13 @@ export interface UploadProps {
   width?: number;
   height?: number;
   statusLazy?: 'loading' | 'success';
+  statusUploadFile?: 'uploading' | 'uploaded' | 'uploadFailure';
+  messageUpload?: string;
   ammountLazyLoading?: number;
 }
 
 
-const RollSelect: FC<UploadProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading }) => {
+const RollSelect: FC<UploadProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading, statusUploadFile, messageUpload }) => {
 
   const _renderImg = (item: ImgType, orderSelected: number, onChange?: (result: any) => void) => {
     const { imgSrc } = item;
@@ -64,7 +66,7 @@ const RollSelect: FC<UploadProps> = ({ onUploadFile, onChoose, listImg, defaultS
         />
       </div>
       <div className={styles.input}>
-        <InputFile onChange={onUploadFile} />
+        <InputFile onChange={onUploadFile} statusUploadFile={statusUploadFile} messageUpload={messageUpload} />
       </div>
     </div>
   );
