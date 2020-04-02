@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Form from 'components/Form/Form';
+import Form, { FieldType } from 'components/Form/Form';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
@@ -9,11 +9,7 @@ import { Button } from 'antd';
 import 'antd/es/style/css';
 import { Link } from 'react-router-dom';
 
-export type FormSection1Field = {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
-  fieldName: string;
-  [key: string]: any
-}
+export type FormSection1Field = FieldType
 
 export interface FormSection1Props {
   nowIndexSection: number;
@@ -23,7 +19,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
   //Destructoring
-  const { mainTitle, text } = element;
+  const { mainTitle, text, alignMainTitle, alignText, colorMainTitle, colorText } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -31,7 +27,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
 
   //Handle
-  const handleChangeForm = (fieldType: string, fieldName: string) => {
+  const handleChangeForm = (fieldType: FormSection1Field['fieldType'], fieldName: string) => {
     return (result: any) => {
       if (fieldType === 'input') {
         changeInput(fieldName, result, nowIndexSection);
@@ -59,6 +55,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
+            defaultCheckedValue: alignMainTitle,
             fieldId: 2,
             data: [
               {
@@ -79,6 +76,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
             fieldId: 3,
+            defaultColor: colorMainTitle || '#000',
           },
           {
             fieldType: 'input',
@@ -91,6 +89,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
             fieldType: 'radio',
             fieldName: 'alignText',
             fieldId: 5,
+            defaultCheckedValue: alignText,
             data: [
               {
                 value: 'center',
@@ -110,6 +109,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
             fieldType: 'color-picker',
             fieldName: 'colorText',
             fieldId: 6,
+            defaultColor: colorText || '#000'
           }
         ]}
         onChange={handleChangeForm}

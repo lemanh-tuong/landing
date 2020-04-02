@@ -13,7 +13,7 @@ import styles from './ImageGalleryPage.module.scss';
 import { Link } from 'react-router-dom';
 import getQuery from 'utils/functions/getQuery';
 import thunkChangeIconCard from 'pages/ImageGalleryPage/thunks/thunkChangeIconCard/thunkChangeIconCard';
-import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
+import thunkUploadFile from 'pages/ImageGalleryPage/thunks/thunkUploadFile/thunkUploadFile';
 
 const ImageGalleryPage = ({ match }: RouteComponentProps) => {
   // Selector
@@ -53,10 +53,10 @@ const ImageGalleryPage = ({ match }: RouteComponentProps) => {
     }
   }
 
-  const handleUploadFile = (fieldName: any) => {
+  const handleUploadFile = (typeImage: "icon" | "imgSrc" | "backgroundImage" | "sliderImgs") => {
     if (!!nowIndexSection) {
-      return (result: File) => {
-        upload(fieldName, fieldName, result, parseInt(nowIndexSection))
+      return (result: File[]) => {
+        upload(typeImage, result);
       }
     }
   }
@@ -66,10 +66,9 @@ const ImageGalleryPage = ({ match }: RouteComponentProps) => {
 
   useMount(() => {
     if (!!type) {
-      getImage(type as any)
+      getImage(type as "icon" | "imgSrc" | "backgroundImage" | "sliderImgs")
     }
   })
-
 
   const _renderSwitch = () => {
     if (!!type) {
@@ -82,7 +81,7 @@ const ImageGalleryPage = ({ match }: RouteComponentProps) => {
             statusUploadFile={statusUpload}
             messageUpload={messageUpload}
             onChoose={handleChoose(type)}
-            onUploadFile={handleUploadFile(type)} />;
+            onUploadFile={handleUploadFile(type as "icon" | "imgSrc" | "backgroundImage" | "sliderImgs")} />;
         case 'loading':
           return <RollSelect fieldName={type} statusLazy="loading" listImg={[]} ammountLazyLoading={10} />
         case 'failure':

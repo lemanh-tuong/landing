@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import InputFileBase, { InputFileBaseProps } from 'components/FormBase/InputFileBase/InputFileBase';
 import styles from './InputFile.module.scss';
 
@@ -27,14 +27,15 @@ const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUplo
   }
 
   const _renderUpload = (statusUpload: InputFileProps['statusUploadFile'], fileName: string, onClose: () => void) => {
-
     return (
-      <div className={styles.upload}>
+      <div className={`${styles.upload}`}>
         <div className={styles.uploadContent}>
           <div className={`${styles.uploadIcon} ${statusUpload === 'uploadFailure' ? styles.uploadFailure : statusUpload === 'uploaded' ? styles.uploaded : styles.uploading}`}>
             {statusUpload === 'uploadFailure' ? <i className="fas fa-times"></i> : statusUpload === 'uploaded' ? <i className="fas fa-check"></i> : null}
           </div>
-          <div className={styles.fileName}>{fileName}</div>
+          <div className={styles.fileName}>{fileName}
+            {messageUpload ? <p className={styles.errorMsg}>{messageUpload}</p> : null}
+          </div>
         </div>
         <div className={styles.closeBtn} onClick={onClose}>
           <i className="fas fa-times"></i>
@@ -48,10 +49,10 @@ const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUplo
       type='file'
       statusUploadFile={statusUploadFile}
       renderInput={(onChange, onDrop, ref) => _render(onChange, onDrop, ref)}
-      renderProcessUpload={(statusUploadFile, filesName, onClose) => _renderUpload(statusUploadFile, filesName, onClose)}
+      renderProcessUpload={(statusUploadFile, fileName, onClose) => _renderUpload(statusUploadFile, fileName, onClose)}
       onChange={onChange}
     />
   )
 }
 
-export default InputFile;
+export default memo(InputFile);

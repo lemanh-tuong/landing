@@ -1,4 +1,5 @@
 import React, { ReactNode, useState, FC } from 'react';
+import styles from './ToggableComponent.module.scss';
 
 export interface ToggableComponentProps {
   renderContent: ReactNode;
@@ -14,9 +15,13 @@ const ToggableComponent: FC<ToggableComponentProps> = ({ renderContent, renderHi
   }
 
   return (
-    <div onClick={handleShow} className="toggable component">
-      {renderContent}
-      {show ? renderHideContent : null}
+    <div className={styles.toggableComponent}>
+      <div onClick={handleShow} className={show ? styles.show : ''}>
+        {renderContent}
+      </div>
+      <div className={styles.hideContent} style={{ marginLeft: 15 }}>
+        {show ? renderHideContent : null}
+      </div>
     </div>
   )
 }

@@ -16,13 +16,13 @@ import thunkMoveDownSection from './thunks/thunkMoveDownSection/thunkMoveDownSec
 import { Button } from 'antd';
 import 'antd/es/style/css';
 import RenderSection from './components/RenderSection/RenderSection';
-import { FormSection2 } from './components/FormSection2/FormSection2';
+import FormSection2 from './components/FormSection2/FormSection2';
 import PopUp from 'components/PopUp/PopUp';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import thunkMoveSection from './thunks/thunkMoveSection/thunkMoveSection';
 import FormSection1 from './components/FormSection1/FormSection1';
 import FormSection3 from './components/FormSection3/FormSection3';
-import { FormSection4 } from './components/FormSection4/FormSection4';
+import FormSection4 from './components/FormSection4/FormSection4';
 import { reorder } from './reoderFunction';
 import { useMount } from 'hooks/useMount';
 import thunkGetDataSection from './thunks/thunkGetDataSection/thunkGetDataSection';

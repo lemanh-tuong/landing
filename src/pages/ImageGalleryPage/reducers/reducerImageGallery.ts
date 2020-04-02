@@ -1,5 +1,5 @@
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
-import { getImageGallery } from '../../ImageGalleryPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
+import { actionGetImageGallery } from '../actions/actionGetDataImageGallery/actionGetDataImageGallery';
 
 export interface ImageGalleryReducers {
   readonly statusRequestImageGallery: 'loading' | 'success' | 'failure';
@@ -14,8 +14,8 @@ const initialState: ImageGalleryReducers = {
   messageRequestImageGallery: ''
 };
 
-const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof getImageGallery> & any>(initialState, [
-  handleAction('@getImageGalleryRequest', (state) => ({
+const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof actionGetImageGallery> & any>(initialState, [
+  handleAction('@getImageGalleryRequest', state => ({
     ...state,
     statusRequestImageGallery: 'loading'
   })),
@@ -27,11 +27,12 @@ const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof getI
       [type]: imgs ? [...imgs] : [],
     }
   }),
-  handleAction('@getImageGalleryFailure', (state) => ({
+  handleAction('@getImageGalleryFailure', (state, action) => ({
     ...state,
+    messageRequestImageGallery: action.payload.message,
     statusRequestImageGallery: 'failure'
   })),
-  handleAction('@uploadingFile', (state, action) => {
+  handleAction('@uploadingFile', state => {
     return {
       statusUpload: 'uploading',
       ...state,

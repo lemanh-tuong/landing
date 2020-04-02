@@ -1,5 +1,5 @@
 import React, { memo, FC } from 'react';
-import Form from 'components/Form/Form';
+import Form, { FieldType } from 'components/Form/Form';
 import { CardProps } from 'components/Card/Card';
 import { sections } from 'pages/SettingsPage/selectors';
 import { useSelector } from 'react-redux';
@@ -18,10 +18,7 @@ import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import ToggableComponent from 'components/ToggableComponent/ToggableComponent';
 import { Link } from 'react-router-dom';
 
-export type FormSection1Field<T> = T & {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
-  fieldName: string;
-}
+export type FormChangeCardField = FieldType;
 
 export interface FormChangeCardProps {
   nowIndexSection: number;
@@ -40,7 +37,6 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
   // Destructoring
   const { sectionId, cards } = element;
-
   // Dispatch
   const changeInputCardForm = thunkChangeInputCardForm();
   const changeRadioCardForm = thunkChangeRadioCardForm();
@@ -51,15 +47,15 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
   // Handle
   const handleChangeCardForm = (nowIndexCard: number) => {
-    return (fieldName: string) => {
+    return (fieldType: FormChangeCardField['fieldType'], fieldName: string) => {
       return (result: any) => {
-        if (fieldName === 'titleCard' || fieldName === 'textCard') {
+        if (fieldType === 'input') {
           changeInputCardForm(fieldName, result, nowIndexSection, nowIndexCard);
         }
-        if (fieldName === 'alignTitleCard' || fieldName === 'alignText') {
+        if (fieldType === 'radio') {
           changeRadioCardForm(fieldName, result, nowIndexSection, nowIndexCard);
         }
-        if (fieldName === 'colorTitleCard' || fieldName === 'colorText') {
+        if (fieldType === 'color-picker') {
           changeColorTextCard(fieldName, result, nowIndexSection, nowIndexCard);
         }
       }
@@ -87,8 +83,9 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText } = element.cards?.[nowIndexCard] as CardProps;
     return (
-      <>
+      <div className="form change card" style={{ padding: 30 }}>
         <Form
           fields={[
             {
@@ -96,7 +93,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
               fieldName: 'card title',
               fieldId: 1,
               horizontal: true,
-              defaultValue: 'Card Text'
+              defaultValue: titleCard,
             },
             {
               fieldType: 'radio',
@@ -116,23 +113,25 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
                   name: 'align card title'
                 },
               ],
+              defaultCheckedValue: alignTitleCard
             },
             {
               fieldType: 'color-picker',
               fieldName: 'colorTitleCard',
               fieldId: 3,
-              defaultValue: '#000'
+              defaultValue: colorTitleCard || '#000'
             },
             {
               fieldType: 'input',
               fieldName: 'card text',
               fieldId: 4,
-              defaultValue: 'Card Text'
+              defaultValue: textCard
             },
             {
               fieldType: 'radio',
               fieldName: 'alignText',
               fieldId: 5,
+              defaultCheckedValue: alignText,
               data: [
                 {
                   value: 'center',
@@ -152,7 +151,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
               fieldType: 'color-picker',
               fieldName: 'colorText',
               fieldId: 6,
-              defaultValue: '#000'
+              defaultValue: colorText || '#000',
             }
           ]}
           onChange={handleChangeCardForm(nowIndexCard)}
@@ -162,7 +161,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
             Change Icon Card
           </Link>
         </Button>
-      </>
+      </div>
     )
   }
 

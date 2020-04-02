@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import styles from './RollSelect.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import RollSelectBase from 'components/FormBase/RollSelectBase/RollSelectBase';
-import InputFile from '../InputFile/InputFile';
+import InputFile, { InputFileProps } from '../InputFile/InputFile';
 
 // const listImg = [
 //   'https://images.pexels.com/photos/2508810/pexels-photo-2508810.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
@@ -10,7 +10,7 @@ import InputFile from '../InputFile/InputFile';
 //   'https://images.pexels.com/videos/3795655/pexels-photo-3795655.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 //   'https://images.pexels.com/photos/3748035/pexels-photo-3748035.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 // ];
-function initArray(length: number) {
+function initArray(length: number): number[] {
   let arr = [];
   for (let i = 0; i < length; i++) {
     arr.push(i);
@@ -23,23 +23,21 @@ type ImgType = {
   [key: string]: any;
 }
 
-export interface UploadProps {
+export interface RollSelectProps extends InputFileProps {
   listImg: ImgType[];
-  defaultSelected?: ImgType | ImgType[];
+  defaultSelected?: ImgType[];
   fieldName: string;
   multiple?: boolean;
-  onUploadFile?: (arg: File) => void;
+  onUploadFile?: (files: File[]) => void;
   onChoose?: (result: any) => void;
   width?: number;
   height?: number;
   statusLazy?: 'loading' | 'success';
-  statusUploadFile?: 'uploading' | 'uploaded' | 'uploadFailure';
-  messageUpload?: string;
   ammountLazyLoading?: number;
 }
 
 
-const RollSelect: FC<UploadProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading, statusUploadFile, messageUpload }) => {
+const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading, statusUploadFile, messageUpload }) => {
 
   const _renderImg = (item: ImgType, orderSelected: number, onChange?: (result: any) => void) => {
     const { imgSrc } = item;

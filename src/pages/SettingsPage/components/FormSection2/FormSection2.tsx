@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import Form from 'components/Form/Form';
+import Form, { FieldType } from 'components/Form/Form';
 import FormChangeCard from '../FormChangeCard/FormChangeCard';
 import { useSelector } from 'react-redux';
 import { sections } from 'pages/SettingsPage/selectors';
@@ -9,22 +9,19 @@ import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkCh
 
 
 
-export type FormSection1Field<T> = T & {
-  fieldType: 'input' | 'radio' | 'file';
-  fieldName: string;
-}
+export type FormSection2Field = FieldType;
 
-export interface FormSection1Props {
+export interface FormSection2Props {
   nowIndexSection: number;
 }
 
-export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
+const FormSection2 = ({ nowIndexSection }: FormSection2Props) => {
 
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
   // Destructoring
-  const { mainTitle } = element;
+  const { mainTitle, alignMainTitle, colorTitleCard } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -32,9 +29,7 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
   const changeColor = thunkChangeColor();
 
   // Handle
-
-
-  const handleChangeForm = (fieldType: string, fieldName: string) => {
+  const handleChangeForm = (fieldType: FormSection2Field['fieldType'], fieldName: string) => {
     return (result: any) => {
       if (fieldType === 'input') {
         changeInput(fieldName, result, nowIndexSection);
@@ -77,12 +72,14 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
                 name: 'align title'
               },
             ],
+            defaultCheckedValue: alignMainTitle
           },
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
             fieldId: 4,
-            name: "Color Title",
+            defaultColor: colorTitleCard || '#000'
+
           }
         ]}
         onChange={handleChangeForm}

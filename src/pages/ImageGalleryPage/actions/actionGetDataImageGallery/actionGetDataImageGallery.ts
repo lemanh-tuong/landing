@@ -1,6 +1,6 @@
 import { createAsyncAction } from 'utils/functions/reduxActions';
 
-const getImageGallery = createAsyncAction(['@getImageGalleryRequest', '@getImageGallerySuccess', '@getImageGalleryFailure'])<null, any, string>();
+const actionGetImageGallery = createAsyncAction(['@getImageGalleryRequest', '@getImageGallerySuccess', '@getImageGalleryFailure'])<null, any, string>();
 
-export { getImageGallery };
+export { actionGetImageGallery };
 

@@ -51,6 +51,7 @@ class PopUp extends PureComponent<PopUpProps> {
     controller.add(`show-${id}`, this.handleShow);
     controller.add(`hide-${id}`, this.handleHide);
   }
+
   componentWillUnmount() {
     const { id } = this.props;
     controller.remove(`show-${id}`, this.handleShow);

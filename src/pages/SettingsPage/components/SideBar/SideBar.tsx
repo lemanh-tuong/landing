@@ -8,7 +8,7 @@ import { patternSection, statusRequestPatternSection, messageRequestPatternSecti
 import { useMount } from 'hooks/useMount';
 import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunkGetDataSideBar/thunkGetDataSideBar';
 import Button from 'components/Button/Button';
-
+import { v4 as uuidv4 } from 'uuid';
 
 export interface SideBarProps {
   onEvent: (option: Omit<Option, 'sectionId'>) => () => void;
@@ -28,10 +28,10 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
 
   //Dispatch
   const getPatternSection = thunkGetDataSideBar();
-
-  const _renderItem = (property: ItemSideBar, key: any) => {
+  /// Sửa key = uuid
+  const _renderItem = (property: ItemSideBar, key: number) => {
     return (
-      <Draggable draggableId={property.id} index={key} key={key}>
+      <Draggable draggableId={property.id} index={key} key={uuidv4()}>
         {provided => (
           <div onMouseDown={onEvent(property)} className={styles.link} ref={provided.innerRef} key={key} {...provided.dragHandleProps} {...provided.draggableProps}>
             <div className={styles.text}>

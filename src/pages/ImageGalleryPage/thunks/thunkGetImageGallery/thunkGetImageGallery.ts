@@ -1,23 +1,23 @@
 
 import readStorage from 'firebase/storage/readStorage';
-import { getImageGallery } from 'pages/ImageGalleryPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
+import { actionGetImageGallery } from 'pages/ImageGalleryPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
 import { createDispatchAction } from 'utils/functions/reduxActions';
-import { ActionAddImageToGalleryPayload } from 'pages/SettingsPage/actions/actionAddImageToGallery/actionAddImageToGallery';
+import { ActionUploadFilePayload } from 'pages/ImageGalleryPage/actions/actionUploadFile/actionUploadFile';
 
-type ThunkGetImageGallery = ThunkAction<typeof getImageGallery>;
+type ThunkGetImageGallery = ThunkAction<typeof actionGetImageGallery>;
 
-const thunkGetImageGallery = (type: ActionAddImageToGalleryPayload['type']): ThunkGetImageGallery => async (dispatch: any) => {
-  dispatch(getImageGallery.request(null));
+const thunkGetImageGallery = (type: ActionUploadFilePayload['type']): ThunkGetImageGallery => async dispatch => {
+  dispatch(actionGetImageGallery.request(null));
   try {
     const data = await readStorage(type);
     const imgs = data.map(item => ({
       imgSrc: item
     }))
     if(data) {
-      dispatch(getImageGallery.success({type, imgs}));
+      dispatch(actionGetImageGallery.success({type, imgs}));
     }
   } catch(err) {
-    dispatch(getImageGallery.failure('Error'));
+    dispatch(actionGetImageGallery.failure('Error'));
   }
 };
 

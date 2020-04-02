@@ -4,7 +4,7 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkAddData = ThunkAction<typeof moveSection>;
 
-const thunkMoveSection = (elements: PageProps['elements']): ThunkAddData => (dispatch: any) => {
+const thunkMoveSection = (elements: PageProps['elements']): ThunkAddData => dispatch => {
   dispatch(moveSection(elements));
 };
 

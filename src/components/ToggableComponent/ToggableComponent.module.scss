@@ -1,0 +1,14 @@
+.toggableComponent {
+  display: block;
+}
+
+.show {
+  border: 1px solid red;
+}
+
+.hideContent {
+  position: absolute;
+  top: 0%;
+  right: calc(-87% - 60px);
+  background: wheat;
+}

@@ -1,12 +1,12 @@
 import imgLogo from 'assets/img/logo.png';
 import Button from 'components/Button/Button';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import React, { FC, memo } from 'react';
+import React, { FC, memo, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Nav.module.scss';
 
 interface NavProps {
-  onClick: any;
+  onClick: () => void;
   active: boolean;
 }
 

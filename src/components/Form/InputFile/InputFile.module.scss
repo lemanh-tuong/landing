@@ -54,6 +54,9 @@
   border: 1px solid;
   padding: 5px 15px;
   margin: 5px;
+  &.animation {
+    animation: show 0.3s forwards;
+  }
 }
 
 .uploadContent {
@@ -73,7 +76,7 @@
   &.uploading {
     border: 1px solid blue;
     border-left: none;
-    border-right: none;
+    border-top: none;
     animation: loading 3s infinite;
   }
   &.uploaded {
@@ -92,6 +95,11 @@
   letter-spacing: 3px;
 }
 
+.errorMsg {
+  margin-left: 10px;
+  color: $color-danger;
+}
+
 .closeBtn {
   cursor: pointer;
   font-size: 20px;
@@ -103,6 +111,24 @@
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+  @keyframes show {
+    from {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes zoom {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1)
     }
   }
 }

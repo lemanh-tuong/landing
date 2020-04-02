@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import Form from 'components/Form/Form';
+import Form, { FieldType } from 'components/Form/Form';
 import { useSelector } from 'react-redux';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
@@ -10,11 +10,7 @@ import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/es/style/css';
 
-export type FormSection3Field = {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
-  fieldName: string;
-  [key: string]: any
-}
+export type FormSection3Field = FieldType;
 
 export interface FormSection3Props {
   nowIndexSection: number
@@ -25,7 +21,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { hasDivider, dividerColor, mainTitle, text } = element;
+  const { hasDivider, dividerColor, mainTitle, text, alignMainTitle, alignText, colorMainTitle, colorText } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -34,7 +30,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
 
   //Handle
-  const handleChangeForm = (fieldType: string, fieldName: string) => {
+  const handleChangeForm = (fieldType: FormSection3Field['fieldType'], fieldName: string) => {
 
     return (result: any) => {
       if (fieldType === 'input') {
@@ -66,11 +62,12 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
+            defaultCheckedValue: alignMainTitle,
             fieldId: 2,
             data: [
               {
                 value: 'center',
-                name: 'align title'
+                name: 'align title',
               },
               {
                 value: 'left',
@@ -86,7 +83,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
             fieldId: 3,
-            defaultValue: '#000'
+            defaultValue: colorMainTitle || '#000'
           },
           {
             fieldType: 'input',
@@ -98,6 +95,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'radio',
             fieldName: 'alignText',
+            defaultCheckedValue: alignText,
             fieldId: 5,
             data: [
               {
@@ -118,14 +116,14 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             fieldType: 'color-picker',
             fieldName: 'colorText',
             fieldId: 6,
-            defaultValue: '#000'
+            defaultValue: colorText || '#000'
           },
           {
             fieldType: 'checkbox',
             fieldName: 'hasDivider',
             fieldId: 7,
             name: "Has Divider",
-            checked: !!hasDivider
+            defaultChecked: !!hasDivider
           },
           {
             fieldType: 'color-picker',
