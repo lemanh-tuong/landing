@@ -85,83 +85,82 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
   const _renderSettingsBox = (nowIndexCard: number) => {
     const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText } = element.cards?.[nowIndexCard] as CardProps;
     return (
-      <div className="form change card" style={{ padding: 30 }}>
-        <Form
-          fields={[
-            {
-              fieldType: 'input',
-              fieldName: 'card title',
-              fieldId: 1,
-              horizontal: true,
-              defaultValue: titleCard,
-            },
-            {
-              fieldType: 'radio',
-              fieldName: 'alignTitleCard',
-              fieldId: 2,
-              data: [
-                {
-                  value: 'center',
-                  name: 'align card title'
-                },
-                {
-                  value: 'left',
-                  name: 'align card title'
-                },
-                {
-                  value: 'right',
-                  name: 'align card title'
-                },
-              ],
-              defaultCheckedValue: alignTitleCard
-            },
-            {
-              fieldType: 'color-picker',
-              fieldName: 'colorTitleCard',
-              fieldId: 3,
-              defaultValue: colorTitleCard || '#000'
-            },
-            {
-              fieldType: 'input',
-              fieldName: 'card text',
-              fieldId: 4,
-              defaultValue: textCard
-            },
-            {
-              fieldType: 'radio',
-              fieldName: 'alignText',
-              fieldId: 5,
-              defaultCheckedValue: alignText,
-              data: [
-                {
-                  value: 'center',
-                  name: 'align card text'
-                },
-                {
-                  value: 'left',
-                  name: 'align card text'
-                },
-                {
-                  value: 'right',
-                  name: 'align card text'
-                },
-              ],
-            },
-            {
-              fieldType: 'color-picker',
-              fieldName: 'colorText',
-              fieldId: 6,
-              defaultValue: colorText || '#000',
-            }
-          ]}
-          onChange={handleChangeCardForm(nowIndexCard)}
-        />
+      <Form
+        fields={[
+          {
+            fieldType: 'input',
+            fieldName: 'card title',
+            fieldId: 1,
+            horizontal: true,
+            defaultValue: titleCard,
+          },
+          {
+            fieldType: 'radio',
+            fieldName: 'alignTitleCard',
+            fieldId: 2,
+            data: [
+              {
+                value: 'center',
+                name: 'align card title'
+              },
+              {
+                value: 'left',
+                name: 'align card title'
+              },
+              {
+                value: 'right',
+                name: 'align card title'
+              },
+            ],
+            defaultCheckedValue: alignTitleCard
+          },
+          {
+            fieldType: 'color-picker',
+            fieldName: 'colorTitleCard',
+            fieldId: 3,
+            defaultValue: colorTitleCard || '#000'
+          },
+          {
+            fieldType: 'input',
+            fieldName: 'card text',
+            fieldId: 4,
+            defaultValue: textCard
+          },
+          {
+            fieldType: 'radio',
+            fieldName: 'alignText',
+            fieldId: 5,
+            defaultCheckedValue: alignText,
+            data: [
+              {
+                value: 'center',
+                name: 'align card text'
+              },
+              {
+                value: 'left',
+                name: 'align card text'
+              },
+              {
+                value: 'right',
+                name: 'align card text'
+              },
+            ],
+          },
+          {
+            fieldType: 'color-picker',
+            fieldName: 'colorText',
+            fieldId: 6,
+            defaultValue: colorText || '#000',
+          }
+        ]}
+        onChange={handleChangeCardForm(nowIndexCard)}
+      >
         <Button shape='round' size='large' style={{ margin: "10px 0" }}>
           <Link to={`/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
             Change Icon Card
-          </Link>
+            </Link>
         </Button>
-      </div>
+      </Form>
     )
   }
 

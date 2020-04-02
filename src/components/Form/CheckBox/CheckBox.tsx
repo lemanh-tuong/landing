@@ -1,6 +1,5 @@
-import React, { Fragment, memo } from 'react';
+import React, { Fragment, memo, FC } from 'react';
 import styles from './CheckBox.module.scss';
-import { RenderItem } from '../Form';
 import CheckBoxBase from 'components/FormBase/CheckBoxBase/CheckBoxBase';
 
 export interface CheckBoxOption {
@@ -8,21 +7,21 @@ export interface CheckBoxOption {
   name: string;
   reverse?: boolean;
   horizontal?: boolean;
-  onClick?: (result: any) => void;
+  onChange?: (result: any) => void;
 }
 
 export interface CheckBoxProps extends CheckBoxOption {
-  renderItem?: RenderItem<CheckBoxOption>;
+
 }
 
-const CheckBox = ({ defaultChecked, name, horizontal = false, renderItem, reverse = false, onClick }: CheckBoxProps) => {
+const CheckBox: FC<CheckBoxProps> = ({ defaultChecked, name, horizontal = false, reverse = false, onChange }) => {
 
-  const _renderDefault = (checked: boolean, onChecked: () => void) => (
+  const _renderDefault = (checked: boolean, onChange: () => void) => (
     <div className={`${styles.checkBox} ${reverse ? styles.reverse : null} ${horizontal ? styles.horizontal : null}`}>
       <label className={styles.checkBoxName}>
         {name}
       </label>
-      <button className={styles.box} onClick={onChecked}>
+      <button className={styles.box} onClick={onChange}>
         {checked ? <i className="fas fa-check"></i> : <i style={{ color: 'white' }} className="far fa-square"></i>}
       </button>
     </div>
@@ -31,8 +30,8 @@ const CheckBox = ({ defaultChecked, name, horizontal = false, renderItem, revers
   return (
     <Fragment>
       <CheckBoxBase
-        renderItem={_renderDefault}
-        onChange={onClick}
+        renderItem={(checked, onChange) => _renderDefault(checked, onChange)}
+        onChange={onChange}
         defaultChecked={defaultChecked}
       />
     </Fragment>

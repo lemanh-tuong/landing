@@ -17,18 +17,18 @@ import thunkUploadFile from 'pages/ImageGalleryPage/thunks/thunkUploadFile/thunk
 
 const ImageGalleryPage = ({ match }: RouteComponentProps) => {
   // Selector
-  // Gallery
+  // -Gallery
   const sliderImgs = useSelector(sliderImgsGallery)
   const icon = useSelector(iconGallery);
   const imageSection = useSelector(imageSectionCol);
-  // Request Gallery
+  // -Request Gallery
   const statusRequestGallery = useSelector(statusRequestImage);
   const messageRequest = useSelector(messageRequestImageFailure);
-  // Upload File
+  // -Upload File
   const statusUpload = useSelector(statusUploadFile);
   const messageUpload = useSelector(messageUploadFileFailure);
-  // Destructoring
 
+  // Destructoring
   const { type, nowIndexSection, nowIndexCard, multiple } = getQuery<'type' | 'nowIndexSection' | 'nowIndexCard' | 'multiple'>(window.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'multiple']);
 
   // Dispatch

@@ -19,7 +19,7 @@ const ToggableComponent: FC<ToggableComponentProps> = ({ renderContent, renderHi
       <div onClick={handleShow} className={show ? styles.show : ''}>
         {renderContent}
       </div>
-      <div className={styles.hideContent} style={{ marginLeft: 15 }}>
+      <div className={styles.hideContent}>
         {show ? renderHideContent : null}
       </div>
     </div>

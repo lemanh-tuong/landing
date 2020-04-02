@@ -135,10 +135,8 @@ const SettingsPage = () => {
   }
   const _renderSettingsBox = (option: Option, index: number) => {
     return (
-      <PopUp id={option.sectionId}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          {_renderSettingBoxSwitch(option, index)}
-        </div>
+      <PopUp id={option.sectionId} style={{ maxWidth: 550 }}>
+        {_renderSettingBoxSwitch(option, index)}
       </PopUp>
     );
   };

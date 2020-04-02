@@ -1,18 +1,22 @@
 .inputBox {
-  border: 1px solid;
-  border-radius: 5px;
-  overflow: hidden;
-  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputName {
-  background: #75daad;
-  padding: 15px 20px;
-  margin: 0;
-  text-transform: capitalize
+  color: #363f5a;
+  margin-bottom: 10px;
+  display: inline-block;
+  text-transform: capitalize;
 }
 .input {
-  padding: 15px 20px;
   border: none;
-  outline: none;
+  padding: 14px 34px 14px 14px;
+  font-size: 1rem;
+  background-color: #EEF5FF;
+  width: calc(100% - 2rem);
+  color: #363f5a;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
 }

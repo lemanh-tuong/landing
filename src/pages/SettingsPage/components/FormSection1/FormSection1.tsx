@@ -42,7 +42,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   }
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div>
       <Form
         fields={[
           {

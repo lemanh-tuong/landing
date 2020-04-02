@@ -21,7 +21,6 @@ export interface RollSelectBaseProps<T> {
 }
 
 const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = false, onChoose, onResult, renderItem }: RollSelectBaseProps<T>) => {
-  const onChooseRef = useRef(onChoose);
   const onResultRef = useRef(onResult);
   const [choosing, setChoosing] = useState(() => {
     if (multiple) {
@@ -31,7 +30,7 @@ const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = fa
   });
 
   const handleChoose = (item: ItemT<T>) => () => {
-    onChooseRef.current?.(item);
+    onChoose?.(item);
     if (choosing instanceof Array) {
       choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1 ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc)) : setChoosing(choosing.concat(item));
     }

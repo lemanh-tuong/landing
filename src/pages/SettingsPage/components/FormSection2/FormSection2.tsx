@@ -44,7 +44,7 @@ const FormSection2 = ({ nowIndexSection }: FormSection2Props) => {
   }
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div>
       <Form
         fields={[
           {

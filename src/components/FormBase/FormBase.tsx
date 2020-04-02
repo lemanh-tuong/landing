@@ -7,6 +7,7 @@ type FileRequire = {
   fieldType: string;
   fieldName: string;
   [key: string]: any;
+
 }
 
 export type RenderField<T> = (arg: T, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => ReactNode;
@@ -16,9 +17,10 @@ export interface FormBaseProps<T> {
   renderField: RenderField<T>;
   onChange?: (result: any) => void;
   onAnotherEvent?: (result: any) => void;
+  children?: ReactNode;
 }
 
-const FormBase = <T extends FileRequire>({ fields, renderField, onChange, onAnotherEvent }: FormBaseProps<T>) => {
+const FormBase = <T extends FileRequire>({ fields, renderField, onChange, onAnotherEvent, children }: FormBaseProps<T>) => {
   const onChangeRef = useRef(onChange)
   const [result, setResult] = useState({});
 
@@ -42,6 +44,7 @@ const FormBase = <T extends FileRequire>({ fields, renderField, onChange, onAnot
   return (
     <>
       {_renderFields()}
+      {children}
     </>
   )
 }

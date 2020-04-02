@@ -49,7 +49,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
   }
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div>
       <Form
         fields={[
           {

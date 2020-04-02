@@ -3,10 +3,9 @@ import FormBase from 'components/FormBase/FormBase';
 import Radio, { RadioProps } from './Radio/Radio';
 import CheckBox, { CheckBoxProps } from './CheckBox/CheckBox';
 import RollSelect, { RollSelectProps } from 'components/Form/RollSelect/RollSelect';
-import { Input } from 'antd';
-import 'antd/es/style/css';
 import ColorPicker, { ColorPickerProps } from './ColorPicker/ColorPicker';
-import { InputProps } from './Input/Input';
+import Input, { InputProps } from './Input/Input';
+import styles from './Form.module.scss';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
@@ -21,6 +20,7 @@ export interface FormProps {
   fields: FieldType[];
   onChange: (fieldType: FieldType['fieldType'], fieldName: string) => (result: any) => void;
   onAnotherEvent?: (fieldName: string) => (result: any) => void;
+  children?: ReactNode;
 }
 
 const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => {
@@ -29,7 +29,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
   }
   switch (arg.fieldType) {
     case 'input':
-      return <Input.TextArea
+      return <Input
         name={arg.fieldName}
         defaultValue={arg.defaultValue}
         onChange={onChange} placeholder={arg.placeholder}
@@ -40,7 +40,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'radio':
       return <Radio fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue || ''} />
     case 'checkbox':
-      return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onClick={onChange} key={arg.fieldId} />
+      return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />
     case 'file':
       return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg ?? []} onUploadFile={onChange} key={arg.fieldId} />
     case 'color-picker':
@@ -50,7 +50,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
   }
 }
 
-const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent }) => {
+const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children }) => {
 
   const handleChange = (fieldType: FieldType['fieldType'], fieldName: string) => {
     if (fieldType === 'input') {
@@ -70,11 +70,13 @@ const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent }) => {
   }
 
   return (
-    <div className="form">
+    <div className={styles.form}>
       <FormBase
         fields={fields}
-        renderField={(arg, onChange) => renderField1(arg as any, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))}
-      />
+        renderField={(arg) => renderField1(arg as any, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))}
+      >
+        {children}
+      </FormBase>
     </div>
   )
 }

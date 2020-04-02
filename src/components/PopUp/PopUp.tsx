@@ -1,10 +1,11 @@
-import React, { ReactNode, PureComponent } from 'react';
+import React, { ReactNode, PureComponent, CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './PopUp.module.scss';
 
 interface PopUpProps {
   children: ReactNode;
   id: string;
+  style?: CSSProperties;
 }
 
 interface PopUpState {
@@ -84,14 +85,14 @@ class PopUp extends PureComponent<PopUpProps> {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, style } = this.props;
     const { visible } = this.state;
     if (!visible) {
       return null;
     }
     return createPortal(<div className={styles.popUp}>
       <div className={styles.overlay} onClick={this.handleHide} />
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content} style={style}>{children}</div>
     </div>, body as Element);
   }
 }
