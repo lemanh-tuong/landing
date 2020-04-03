@@ -50,14 +50,14 @@ const FormSection2 = ({ nowIndexSection }: FormSection2Props) => {
           {
             fieldType: 'input',
             fieldName: 'mainTitle',
-            fieldId: 1,
+            fieldId: 'section-2-field-1',
             horizontal: true,
             defaultValue: mainTitle
           },
           {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
-            fieldId: 2,
+            fieldId: 'section-2-field-2',
             data: [
               {
                 value: 'center',
@@ -77,7 +77,7 @@ const FormSection2 = ({ nowIndexSection }: FormSection2Props) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 4,
+            fieldId: 'section-2-field-3',
             defaultColor: colorTitleCard || '#000'
 
           }

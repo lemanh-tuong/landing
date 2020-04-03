@@ -1,4 +1,4 @@
-import React, { ReactNode, ChangeEvent, FC, memo } from 'react';
+import React, { ReactNode, FC, memo } from 'react';
 import FormBase from 'components/FormBase/FormBase';
 import Radio, { RadioProps } from './Radio/Radio';
 import CheckBox, { CheckBoxProps } from './CheckBox/CheckBox';
@@ -53,11 +53,6 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
 const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children }) => {
 
   const handleChange = (fieldType: FieldType['fieldType'], fieldName: string) => {
-    if (fieldType === 'input') {
-      return (e: ChangeEvent<HTMLInputElement>) => {
-        onChange(fieldType, fieldName)(e.target.value);
-      }
-    }
     return (result: any) => {
       onChange(fieldType, fieldName)(result);
     }

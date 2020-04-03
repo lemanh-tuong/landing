@@ -1,5 +1,4 @@
-import React, { ReactNode, Fragment, useState, useEffect, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { ReactNode, useState, useEffect } from 'react';
 
 type TField<T> = T;
 
@@ -21,7 +20,6 @@ export interface FormBaseProps<T> {
 }
 
 const FormBase = <T extends FileRequire>({ fields, renderField, onChange, onAnotherEvent, children }: FormBaseProps<T>) => {
-  const onChangeRef = useRef(onChange)
   const [result, setResult] = useState({});
 
   const handleChange = (fieldName: string) => {
@@ -34,16 +32,12 @@ const FormBase = <T extends FileRequire>({ fields, renderField, onChange, onAnot
   }
 
   useEffect(() => {
-    onChangeRef.current?.(result);
-  }, [onChangeRef, result])
-
-  const _renderFields = () => {
-    return fields.map(field => <Fragment key={uuidv4()}>{renderField({ ...field }, handleChange(field.fieldName), onAnotherEvent)}</Fragment>)
-  }
+    onChange?.(result);
+  }, [onChange, result])
 
   return (
     <>
-      {_renderFields()}
+      {fields.map(field => renderField({ ...field }, handleChange(field.fieldName), onAnotherEvent))}
       {children}
     </>
   )

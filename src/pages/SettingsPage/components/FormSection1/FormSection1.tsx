@@ -8,6 +8,7 @@ import { sections } from 'pages/SettingsPage/selectors';
 import { Button } from 'antd';
 import 'antd/es/style/css';
 import { Link } from 'react-router-dom';
+import FormChangeButton from '../FormChangeButton/FormChangeButton';
 
 export type FormSection1Field = FieldType
 
@@ -18,6 +19,7 @@ export interface FormSection1Props {
 export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
+
   //Destructoring
   const { mainTitle, text, alignMainTitle, alignText, colorMainTitle, colorText } = element;
 
@@ -48,7 +50,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'input',
             fieldName: 'mainTitle',
-            fieldId: 1,
+            fieldId: 'section-1-field-1',
             horizontal: true,
             defaultValue: mainTitle
           },
@@ -56,7 +58,7 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
             defaultCheckedValue: alignMainTitle,
-            fieldId: 2,
+            fieldId: 'section-1-field-2',
             data: [
               {
                 value: 'center',
@@ -75,20 +77,20 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 3,
+            fieldId: 'section-1-field-3',
             defaultColor: colorMainTitle || '#000',
           },
           {
             fieldType: 'input',
             fieldName: 'text',
-            fieldId: 4,
+            fieldId: 'section-1-field-4',
             horizontal: true,
             defaultValue: text
           },
           {
             fieldType: 'radio',
             fieldName: 'alignText',
-            fieldId: 5,
+            fieldId: 'section-1-field-5',
             defaultCheckedValue: alignText,
             data: [
               {
@@ -108,12 +110,13 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
-            fieldId: 6,
+            fieldId: 'section-1-field-6',
             defaultColor: colorText || '#000'
           }
         ]}
         onChange={handleChangeForm}
       />
+      <FormChangeButton nowIndexSection={nowIndexSection} />
       <Button shape='round' size='large' danger>
         <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
           Change Image

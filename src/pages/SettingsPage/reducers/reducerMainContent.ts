@@ -15,7 +15,7 @@ const initialState: SettingMainContentReducers = {
   pageName: '',
   elements: [],
   statusRequestElements: 'loading',
-  messageRequestElements: ''
+  messageRequestElements: '',
 };
 
 const settingMainContentReducers = createReducer<SettingMainContentReducers, ActionTypes<typeof getDataSection> & any>(initialState, [

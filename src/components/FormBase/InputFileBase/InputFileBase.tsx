@@ -1,5 +1,6 @@
 import React, { useRef, ReactNode, MutableRefObject, useState, Fragment } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { createUrl } from 'utils/functions/createUrl';
 
 export type OnChangeFileFunc = (files: File[]) => void;
 export type OnDropFileFunc = (e: CustomEvent & { dataTransfer: DataTransfer }) => void;
@@ -12,10 +13,8 @@ export interface InputFileBaseProps {
 }
 
 export interface FileState extends File {
-  urlLocal?: string;
+  urlLocal: string;
 }
-
-const createUrl = (file: File) => URL.createObjectURL(file);
 
 const InputFileBase = ({ type, statusUploadFile, onChange, renderInput, renderProcessUpload }: InputFileBaseProps) => {
   const [filesUpload, setFilesUpload] = useState<FileState[]>([]);

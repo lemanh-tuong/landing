@@ -18,7 +18,6 @@ export interface InputProps extends InputOption {
 }
 
 const Input: FC<InputProps> = ({ name, placeholder, defaultValue, horizontal, autoSize, style, onChange }) => {
-
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange?.(e.target.value);
   }

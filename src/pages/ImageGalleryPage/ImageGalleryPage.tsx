@@ -15,7 +15,7 @@ import getQuery from 'utils/functions/getQuery';
 import thunkChangeIconCard from 'pages/ImageGalleryPage/thunks/thunkChangeIconCard/thunkChangeIconCard';
 import thunkUploadFile from 'pages/ImageGalleryPage/thunks/thunkUploadFile/thunkUploadFile';
 
-const ImageGalleryPage = ({ match }: RouteComponentProps) => {
+const ImageGalleryPage = ({ history }: RouteComponentProps) => {
   // Selector
   // -Gallery
   const sliderImgs = useSelector(sliderImgsGallery)
@@ -29,7 +29,7 @@ const ImageGalleryPage = ({ match }: RouteComponentProps) => {
   const messageUpload = useSelector(messageUploadFileFailure);
 
   // Destructoring
-  const { type, nowIndexSection, nowIndexCard, multiple } = getQuery<'type' | 'nowIndexSection' | 'nowIndexCard' | 'multiple'>(window.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'multiple']);
+  const { type, nowIndexSection, nowIndexCard, multiple } = getQuery<'type' | 'nowIndexSection' | 'nowIndexCard' | 'multiple'>(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'multiple']);
 
   // Dispatch
   const getImage = thunkGetImageGallery();
@@ -43,13 +43,10 @@ const ImageGalleryPage = ({ match }: RouteComponentProps) => {
     if (type === 'iconImg') {
       return (result: any) => {
         chooseIcon(fieldName, result, parseInt(nowIndexSection), parseInt(nowIndexCard));
-
       }
     }
     return (result: any) => {
-      if (!!nowIndexSection) {
-        chooseImage(fieldName, result, parseInt(nowIndexSection));
-      }
+      chooseImage(fieldName, result, parseInt(nowIndexSection));
     }
   }
 

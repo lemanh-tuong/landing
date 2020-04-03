@@ -1,8 +1,6 @@
 import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import sectionImg1 from 'assets/img/settings/create-unlimited-directory-types.png';
-import Button from 'components/Button/Button';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Section1 from 'components/Section1/Section1';
 import Section2 from 'components/Section2/Section2';
 import Section3 from 'components/Section3/Section3';
@@ -14,7 +12,10 @@ import { Option } from '../../SettingsPage';
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
 const RenderSection = (option: Option) => {
-  const { imageSectionCol, sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage } = option;
+  const { imageSectionCol, sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle,
+    cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage,
+    textButton, styleButton, hrefButton
+  } = option;
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
@@ -42,16 +43,9 @@ const RenderSection = (option: Option) => {
             }
           ]}
           margin={0}
-
-          renderLeft={() => {
-            return (
-              <ButtonGroup>
-                <Button color='white'>
-                  Try demo
-                </Button>
-              </ButtonGroup>
-            );
-          }}
+          textButton={textButton}
+          styleButton={styleButton}
+          hrefButton={hrefButton}
         />;
       case 'Section 2':
         return <Section2

@@ -12,8 +12,6 @@ import sectionImg2 from 'assets/img/settings/customize-single-listing-page-your-
 import avatar from 'assets/img/web_icons/envato.svg';
 import icon2 from 'assets/img/web_icons/feature-icons/1-feature-icon.svg';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
-import Button from 'components/Button/Button';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Image from 'components/Image/Image';
 import Rate from 'components/Rate/Rate';
 import Section1 from 'components/Section1/Section1';
@@ -47,15 +45,6 @@ class HomePage extends PureComponent {
             }
           ]}
           margin={0}
-          renderLeft={() => {
-            return (
-              <ButtonGroup>
-                <Button color='white'>
-                  Try demo
-                </Button>
-              </ButtonGroup>
-            );
-          }}
         />
         <Section3
           imageSectionCol={{ imgSrc: sectionImg1 }}

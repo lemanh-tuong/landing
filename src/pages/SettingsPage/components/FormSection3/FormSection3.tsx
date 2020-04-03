@@ -31,7 +31,6 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
 
   //Handle
   const handleChangeForm = (fieldType: FormSection3Field['fieldType'], fieldName: string) => {
-
     return (result: any) => {
       if (fieldType === 'input') {
         changeInput(fieldName, result, nowIndexSection);
@@ -55,7 +54,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'input',
             fieldName: 'mainTitle',
-            fieldId: 1,
+            fieldId: 'section-3-field-1',
             horizontal: true,
             defaultValue: mainTitle
           },
@@ -63,7 +62,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
             defaultCheckedValue: alignMainTitle,
-            fieldId: 2,
+            fieldId: 'section-3-field-2',
             data: [
               {
                 value: 'center',
@@ -82,13 +81,13 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 3,
+            fieldId: 'section-3-field-3',
             defaultValue: colorMainTitle || '#000'
           },
           {
             fieldType: 'input',
             fieldName: 'text',
-            fieldId: 4,
+            fieldId: 'section-3-field-4',
             horizontal: true,
             defaultValue: text
           },
@@ -96,7 +95,7 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
             fieldType: 'radio',
             fieldName: 'alignText',
             defaultCheckedValue: alignText,
-            fieldId: 5,
+            fieldId: 'section-3-field-5',
             data: [
               {
                 value: 'center',
@@ -115,20 +114,20 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
-            fieldId: 6,
+            fieldId: 'section-3-field-6',
             defaultValue: colorText || '#000'
           },
           {
             fieldType: 'checkbox',
             fieldName: 'hasDivider',
-            fieldId: 7,
+            fieldId: 'section-3-field-7',
             name: "Has Divider",
             defaultChecked: !!hasDivider
           },
           {
             fieldType: 'color-picker',
             fieldName: 'dividerColor',
-            fieldId: 8,
+            fieldId: 'section-3-field-8',
             defaultValue: dividerColor,
             hidden: !hasDivider,
           },

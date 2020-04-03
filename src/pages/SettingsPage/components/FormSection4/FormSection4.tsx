@@ -49,7 +49,7 @@ const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'input',
             fieldName: 'mainTitle',
-            fieldId: 1,
+            fieldId: 'section-4-field-1',
             horizontal: true,
             defaultValue: mainTitle
           },
@@ -57,7 +57,7 @@ const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
             defaultCheckedValue: alignMainTitle,
-            fieldId: 2,
+            fieldId: 'section-4-field-2',
             data: [
               {
                 value: 'center',
@@ -76,13 +76,13 @@ const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 3,
+            fieldId: 'section-4-field-3',
             defaultValue: colorMainTitle || '#000'
           },
           {
             fieldType: 'input',
             fieldName: 'text',
-            fieldId: 4,
+            fieldId: 'section-4-field-4',
             horizontal: true,
             defaultValue: text
           },
@@ -90,7 +90,7 @@ const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
             fieldType: 'radio',
             fieldName: 'alignText',
             defaultCheckedValue: alignText,
-            fieldId: 5,
+            fieldId: 'section-4-field-5',
             data: [
               {
                 value: 'center',
@@ -109,7 +109,7 @@ const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
-            fieldId: 6,
+            fieldId: 'section-4-field-6',
             defaultValue: colorText || '#000'
           },
         ]}

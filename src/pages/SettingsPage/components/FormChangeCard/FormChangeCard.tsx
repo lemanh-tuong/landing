@@ -90,14 +90,14 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
           {
             fieldType: 'input',
             fieldName: 'card title',
-            fieldId: 1,
+            fieldId: 'change-card-field-1',
             horizontal: true,
             defaultValue: titleCard,
           },
           {
             fieldType: 'radio',
             fieldName: 'alignTitleCard',
-            fieldId: 2,
+            fieldId: 'change-card-field-2',
             data: [
               {
                 value: 'center',
@@ -117,19 +117,19 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorTitleCard',
-            fieldId: 3,
+            fieldId: 'change-card-field-3',
             defaultValue: colorTitleCard || '#000'
           },
           {
             fieldType: 'input',
             fieldName: 'card text',
-            fieldId: 4,
+            fieldId: 'change-card-field-4',
             defaultValue: textCard
           },
           {
             fieldType: 'radio',
             fieldName: 'alignText',
-            fieldId: 5,
+            fieldId: 'change-card-field-5',
             defaultCheckedValue: alignText,
             data: [
               {
@@ -149,7 +149,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
-            fieldId: 6,
+            fieldId: 'change-card-field-6',
             defaultValue: colorText || '#000',
           }
         ]}

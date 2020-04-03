@@ -136,7 +136,9 @@ const SettingsPage = () => {
   const _renderSettingsBox = (option: Option, index: number) => {
     return (
       <PopUp id={option.sectionId} style={{ maxWidth: 550 }}>
-        {_renderSettingBoxSwitch(option, index)}
+        <div className={styles.settingBox}>
+          {_renderSettingBoxSwitch(option, index)}
+        </div>
       </PopUp>
     );
   };
