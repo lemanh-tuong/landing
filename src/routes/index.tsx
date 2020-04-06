@@ -63,18 +63,18 @@ const Routes = () => {
           <Route exact path='/login'>
             <LoginPage />
           </Route>
+          <Route exact path="/gallery">
+            <ImageGalleryPage />
+          </Route>
           <PrivateRoute
             token={token}
-            component={<Route path="/gallery">
-              <ImageGalleryPage />
-            </Route>}
-          />
-          <PrivateRoute
-            token={token}
-            component={<Route path="/settings">
+            component={<Route exact path="/settings" strict>
               <SettingsPage />
             </Route>}
           />
+          <Route>
+            <div>Something went wrong</div>
+          </Route>
         </Switch>
       </main>
       <footer></footer>

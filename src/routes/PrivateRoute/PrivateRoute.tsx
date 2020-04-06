@@ -1,5 +1,5 @@
 import React, { FC, memo, ReactNode } from 'react';
-import { Redirect, Route } from 'react-router';
+import { Redirect } from 'react-router';
 
 export interface PrivateRouteProps {
   token: string;
@@ -8,9 +8,9 @@ export interface PrivateRouteProps {
 
 const PrivateRoute: FC<PrivateRouteProps> = ({ token, component }) => {
   return (
-    <Route>
+    <>
       {!!token ? component : <Redirect to={{ pathname: '/login' }} />}
-    </Route>
+    </>
   )
 }
 
