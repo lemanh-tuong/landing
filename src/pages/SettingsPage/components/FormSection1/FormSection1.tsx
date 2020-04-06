@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
-import Form, { FieldType } from 'components/Form/Form';
-import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
-import { useSelector } from 'react-redux';
-import { sections } from 'pages/SettingsPage/selectors';
 import { Button } from 'antd';
 import 'antd/es/style/css';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
+import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
+import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FormChangeButton from '../FormChangeButton/FormChangeButton';
 
@@ -29,16 +29,16 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
 
   //Handle
-  const handleChangeForm = (fieldType: FormSection1Field['fieldType'], fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input') {
-        changeInput(fieldName, result, nowIndexSection);
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'radio') {
-        changeRadio(fieldName, result, nowIndexSection);
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'color-picker') {
-        changeColor(fieldName, result, nowIndexSection);
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
     }
   }

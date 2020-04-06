@@ -1,9 +1,9 @@
-import React, { memo, FC } from 'react';
-import Form, { FieldType } from 'components/Form/Form';
-import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import { useSelector } from 'react-redux';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
+import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
+import React, { FC, memo } from 'react';
+import { useSelector } from 'react-redux';
 
 export type FormChangeButtonField = FieldType
 
@@ -24,13 +24,13 @@ const FormChangeButton: FC<FormChangeButtonProps> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
 
   //Handle
-  const handleChangeForm = (fieldType: FormChangeButtonField['fieldType'], fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input') {
-        changeInput(fieldName, result, nowIndexSection);
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'color-picker') {
-        changeColor(fieldName, result, nowIndexSection);
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
     }
   }

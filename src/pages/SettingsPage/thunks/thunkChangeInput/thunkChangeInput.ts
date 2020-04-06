@@ -2,8 +2,12 @@ import { changeInput } from 'pages/SettingsPage/actions/actionChangeInput/action
 import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkChangeInput = ThunkAction<typeof changeInput>;
-
-const thunkChangeInput = (fieldName: string, value: string, nowIndexSection: number): ThunkChangeInput => dispatch => {
+export interface ThunkChangeInputArg {
+  fieldName: string;
+  value: string;
+  nowIndexSection: number
+}
+const thunkChangeInput = ({fieldName, value, nowIndexSection}: ThunkChangeInputArg): ThunkChangeInput => dispatch => {
   dispatch(changeInput({fieldName: fieldName, value: value, nowIndexSection: nowIndexSection}))
 };
 

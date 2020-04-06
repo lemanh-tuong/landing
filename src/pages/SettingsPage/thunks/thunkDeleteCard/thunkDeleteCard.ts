@@ -2,8 +2,12 @@ import { actionDeleteCard } from "pages/SettingsPage/actions/actionDeleteCard/ac
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkDeleteCard = ThunkAction<typeof actionDeleteCard>
+export interface ThunkDeleteCardArg {
+  indexSection: number;
+  indexCard: number
+}
 
-const thunkDeleteCard = (indexSection: number, indexCard: number): ThunkDeleteCard => dispatch => {
+const thunkDeleteCard = ({indexCard, indexSection}: ThunkDeleteCardArg): ThunkDeleteCard => dispatch => {
   dispatch(actionDeleteCard({nowIndexSection: indexSection, nowIndexCard: indexCard}))
 }
 

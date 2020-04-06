@@ -1,33 +1,67 @@
-import React, { useState, ChangeEvent } from 'react';
+import { signInFirebase } from 'firebase/authentication/signInFirebase';
+import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
+import Button from '../../components/Button/Button';
+import Form, { OnChangeFuncArg } from '../../components/Form/Form';
 import styles from './LoginPage.module.scss';
 
-const keyAPI = 'AIzaSyDgVTo9pHCPpH2kK3-V5Bp2JJqkUMq_REQ';
-const baseUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${keyAPI}`;
-
 const LoginPage = () => {
-
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
+  const history = useHistory();
+  const [SignIn_Info, setSignInInfo] = useState<{ userName: string; password: string }>({ userName: '', password: '' });
+  const [error, setError] = useState('');
+  const handleChangeForm = ({ fieldName }: OnChangeFuncArg) => {
+    return (result: string) => {
+      setSignInInfo((SignIn_Info) => ({
+        ...SignIn_Info,
+        [fieldName]: result
+      }))
+    }
   }
 
-  const handleChangePassWord = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
+  const handleSignIn = () => {
+    signInFirebase({ email: `${SignIn_Info.userName}@gmail.com`, password: SignIn_Info.password }).then((res) => {
+      history.push('/settings');
+    }).catch((err) => {
+      setError(err.message)
+    })
   }
 
-  const login = async () => {
-    console.log('login');
+  const handleSignOut = () => {
+    signOutFirebase();
   }
 
   return (
     <div className={styles.LoginPage}>
-      <input placeholder="User Name" onChange={handleChangeUserName} />
-      <input placeholder="Password" onChange={handleChangePassWord} type='password' />
-      <button onClick={login}>
-        Login
-      </button>
+      <div className={styles.contentLoginPage}>
+        <Form
+          fields={[
+            {
+              fieldName: 'userName',
+              fieldType: 'input',
+              fieldId: 1,
+              placeholder: 'User Name'
+            },
+            {
+              fieldName: 'password',
+              fieldType: 'password',
+              fieldId: 2,
+              placeholder: 'Password'
+            }
+          ]}
+          onChange={handleChangeForm}
+        >
+          <Button onClick={handleSignIn}>
+            Sign In
+        </Button>
+          <Button onClick={handleSignOut}>
+            Sign Out
+        </Button>
+        </Form>
+        {error ? <div className={styles.tooltipErr}>
+          {error}
+        </div> : null}
+      </div>
     </div>
   )
 }

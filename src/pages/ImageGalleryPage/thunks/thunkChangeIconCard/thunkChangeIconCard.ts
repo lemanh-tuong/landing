@@ -2,8 +2,14 @@ import { actionChangeIconCard } from "pages/ImageGalleryPage/actions/actionChang
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkChangeIconCard = ThunkAction<typeof actionChangeIconCard>
+export interface ThunkChangeIconCardArg {
+  fieldName: string;
+  imgSrc: string;
+  nowIndexSection: number;
+  nowIndexCard: number
+}
 
-const thunkChangeIconCard = (fieldName: string, imgSrc: string, nowIndexSection: number, nowIndexCard: number): ThunkChangeIconCard => dispatch => {
+const thunkChangeIconCard = ({fieldName, imgSrc, nowIndexSection, nowIndexCard}: ThunkChangeIconCardArg): ThunkChangeIconCard => dispatch => {
   dispatch(actionChangeIconCard({ fieldName: fieldName, iconImg: imgSrc, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}))
 }
 

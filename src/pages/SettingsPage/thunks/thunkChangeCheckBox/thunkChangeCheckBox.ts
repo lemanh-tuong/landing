@@ -2,9 +2,14 @@ import { changeCheckBox } from "pages/SettingsPage/actions/actionChangeCheckBox/
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 export type ThunkChangeCheckBox = ThunkAction<typeof changeCheckBox>
+export interface ThunkChangeCheckBoxArg {
+  fieldName: string;
+  checked: boolean;
+  nowIndexSection: number
+}
 
-const thunkChangeCheckBox = (fieldName: string, result: boolean, nowIndexSection: number): ThunkChangeCheckBox => dispatch => {
-    dispatch(changeCheckBox({fieldName: fieldName, result: result, nowIndexSection: nowIndexSection}));
+const thunkChangeCheckBox = ({fieldName, checked, nowIndexSection}: ThunkChangeCheckBoxArg): ThunkChangeCheckBox => dispatch => {
+    dispatch(changeCheckBox({fieldName: fieldName, checked: checked, nowIndexSection: nowIndexSection}));
 }
 
 export default createDispatchAction(thunkChangeCheckBox);

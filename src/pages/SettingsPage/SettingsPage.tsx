@@ -1,31 +1,33 @@
+import { Button } from 'antd';
+import 'antd/es/style/css';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import PopUp from 'components/PopUp/PopUp';
+import { Section1Props } from 'components/Section1/Section1';
+import { Section2Props } from 'components/Section2/Section2';
+import { Section3Props } from 'components/Section3/Section3';
+import { Section4Props } from 'components/Section4/Section4';
+import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
+import { useMount } from 'hooks/useMount';
 import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
 import React, { useRef, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
-import styles from './SettingsPage.module.scss';
+import { useHistory } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
-import { Section2Props } from 'components/Section2/Section2';
-import { Section1Props } from 'components/Section1/Section1';
-import { Section3Props } from 'components/Section3/Section3';
-import { Section4Props } from 'components/Section4/Section4';
-import { sections, statusRequestElements } from './selectors';
-import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
-import thunkDeleteSection from './thunks/thunkDeleteSection/thunkDeleteSection';
-import thunkMoveUpSection from './thunks/thunkMoveUpSection/thunkMoveUpSection';
-import thunkMoveDownSection from './thunks/thunkMoveDownSection/thunkMoveDownSection';
-import { Button } from 'antd';
-import 'antd/es/style/css';
-import RenderSection from './components/RenderSection/RenderSection';
-import FormSection2 from './components/FormSection2/FormSection2';
-import PopUp from 'components/PopUp/PopUp';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import thunkMoveSection from './thunks/thunkMoveSection/thunkMoveSection';
 import FormSection1 from './components/FormSection1/FormSection1';
+import FormSection2 from './components/FormSection2/FormSection2';
 import FormSection3 from './components/FormSection3/FormSection3';
 import FormSection4 from './components/FormSection4/FormSection4';
+import RenderSection from './components/RenderSection/RenderSection';
 import { reorder } from './reoderFunction';
-import { useMount } from 'hooks/useMount';
+import { sections, statusRequestElements } from './selectors';
+import styles from './SettingsPage.module.scss';
+import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
+import thunkDeleteSection from './thunks/thunkDeleteSection/thunkDeleteSection';
 import thunkGetDataSection from './thunks/thunkGetDataSection/thunkGetDataSection';
+import thunkMoveDownSection from './thunks/thunkMoveDownSection/thunkMoveDownSection';
+import thunkMoveSection from './thunks/thunkMoveSection/thunkMoveSection';
+import thunkMoveUpSection from './thunks/thunkMoveUpSection/thunkMoveUpSection';
 import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
@@ -39,12 +41,13 @@ export interface Option extends Partial<Section1Props<any> & Section2Props & Sec
   slider?: boolean;
 }
 
+const defaultSection: Option = {
+  sectionId: '',
+  sectionName: '',
+}
+
 const SettingsPage = () => {
-  //Hook Ref
-  const defaultSection: Option = {
-    sectionId: '',
-    sectionName: '',
-  }
+  const history = useHistory();
   let prepairAddProperty = useRef<Option>({ ...defaultSection });
 
   //State
@@ -71,19 +74,22 @@ const SettingsPage = () => {
       };
     };
   };
+
   const handleAdd = (indexSection?: number) => {
     return () => {
       if (!!prepairAddProperty.current.sectionId) {
-        !!(indexSection === 0 || indexSection) ? addSection({ ...prepairAddProperty.current }, indexSection) : addSection({ ...prepairAddProperty.current });
+        addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
         prepairAddProperty.current = Object.assign({}, defaultSection);
       }
     }
   }
+
   const handleDragging = (sectionId: string) => {
     return () => {
       setSectionDragging(sectionId);
     }
   }
+
   const handleDragEnd = (result: any) => {
     !!sectionDragging && handleDragging('')();
     if (!result.destination) {
@@ -96,21 +102,25 @@ const SettingsPage = () => {
     );
     moveSection(newElements);
   }
+
   const handleDelete = (arg: Option, indexSection: number) => {
     return () => {
-      deleteSection(arg)
+      deleteSection({ arg: arg })
     }
   }
+
   const handleMoveUpSection = (nowIndexSection: number) => {
     return () => {
       moveUpSection(nowIndexSection);
     }
   }
+
   const handleMoveDownSection = (nowIndexSection: number) => {
     return () => {
       moveDownSection(nowIndexSection);
     }
   }
+
   const handleDuplicate = (element: Option, nowIndexSection: number) => {
     return () => {
       handlePrepairAdd(element)();
@@ -118,6 +128,11 @@ const SettingsPage = () => {
     }
   }
 
+  const handleSaveAll = () => {
+    saveAll();
+    signOutFirebase();
+    history.push('/');
+  }
   // Render
   const _renderSettingBoxSwitch = (option: Option, indexSection: number) => {
     switch (option.sectionName) {
@@ -219,13 +234,13 @@ const SettingsPage = () => {
   // Lifecycle
 
   useMount(() => {
-    getData('HomePage');
+    getData({ pageName: 'HomePage' });
   })
 
   return (
     <>
       {_renderSwitch()}
-      <Button onClick={saveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
+      <Button onClick={handleSaveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
         <i className="fas fa-save"></i>
       </Button>
     </>

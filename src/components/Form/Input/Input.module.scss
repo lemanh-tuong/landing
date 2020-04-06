@@ -11,13 +11,26 @@
   display: inline-block;
   text-transform: capitalize;
 }
+
 .input {
   border: none;
-  padding: 14px 34px 14px 14px;
+  padding: 14px;
   font-size: 1rem;
   background-color: #EEF5FF;
   width: calc(100% - 2rem);
   color: #363f5a;
   margin-bottom: 2rem;
   box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  & input {
+    width: 100%;
+    display: block;
+    outline: none;
+    border: none;
+    background: inherit;
+  }
 }

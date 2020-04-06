@@ -2,8 +2,13 @@ import { actionChangeColorCardText } from "pages/SettingsPage/actions/actionChan
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkChangeColorTextCard = ThunkAction<typeof actionChangeColorCardText>
-
-const thunkChangeColorTextCard = (fieldName: string, color: string, nowIndexSection: number, nowIndexCard: number): ThunkChangeColorTextCard => dispatch => {
+export interface ThunkChangeColorTextCardArg {
+  fieldName: string;
+  color: string;
+  nowIndexSection: number;
+  nowIndexCard: number
+}
+const thunkChangeColorTextCard = ({fieldName, color, nowIndexSection, nowIndexCard}: ThunkChangeColorTextCardArg): ThunkChangeColorTextCard => dispatch => {
   dispatch(actionChangeColorCardText({fieldName: fieldName, color: color, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}))
 }
 

@@ -1,24 +1,29 @@
-import React, { ReactNode, FC, memo } from 'react';
-import FormBase from 'components/FormBase/FormBase';
-import Radio, { RadioProps } from './Radio/Radio';
-import CheckBox, { CheckBoxProps } from './CheckBox/CheckBox';
 import RollSelect, { RollSelectProps } from 'components/Form/RollSelect/RollSelect';
+import FormBase from 'components/FormBase/FormBase';
+import React, { FC, memo, ReactNode } from 'react';
+import CheckBox, { CheckBoxProps } from './CheckBox/CheckBox';
 import ColorPicker, { ColorPickerProps } from './ColorPicker/ColorPicker';
-import Input, { InputProps } from './Input/Input';
 import styles from './Form.module.scss';
+import Input, { InputProps } from './Input/Input';
+import Radio, { RadioProps } from './Radio/Radio';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
 export type FieldType = Partial<InputProps> & Partial<RadioProps> & Partial<CheckBoxProps> & Partial<RollSelectProps> & Partial<ColorPickerProps> & {
   hidden?: boolean;
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file' | 'color-picker';
+  fieldType: 'input' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'password';
   fieldName: string;
   fieldId: string | number;
 }
 
+export type OnChangeFuncArg = {
+  fieldName: string;
+  fieldType?: FieldType['fieldType']
+}
+
 export interface FormProps {
   fields: FieldType[];
-  onChange: (fieldType: FieldType['fieldType'], fieldName: string) => (result: any) => void;
+  onChange: ({ fieldName, fieldType }: OnChangeFuncArg) => (result: any) => void;
   onAnotherEvent?: (fieldName: string) => (result: any) => void;
   children?: ReactNode;
 }
@@ -29,10 +34,13 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
   }
   switch (arg.fieldType) {
     case 'input':
+    case 'password':
       return <Input
+        type={arg.fieldType}
         name={arg.fieldName}
         defaultValue={arg.defaultValue}
-        onChange={onChange} placeholder={arg.placeholder}
+        onChange={onChange}
+        placeholder={arg.placeholder}
         key={arg.fieldId}
         autoSize={{ maxRows: 10, minRows: 3 }}
         style={{ width: '100%', margin: "5px 0" }}
@@ -54,7 +62,7 @@ const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children }) => 
 
   const handleChange = (fieldType: FieldType['fieldType'], fieldName: string) => {
     return (result: any) => {
-      onChange(fieldType, fieldName)(result);
+      onChange({ fieldName: fieldName, fieldType: fieldType })(result);
     }
   }
 

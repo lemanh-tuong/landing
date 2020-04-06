@@ -145,11 +145,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     }
   }),
   handleAction('CHANGE_CHECKBOX', (state, action) => {
-    const { nowIndexSection, result, fieldName} = action.payload;
+    const { nowIndexSection, checked, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      [fieldName]: result
+      [fieldName]: checked
     }
     return {
       ...state,

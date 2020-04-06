@@ -1,11 +1,14 @@
+import { createDispatchAction } from 'utils/functions/reduxActions';
 import { actionAddData } from '../../actions/actionAddData/actionAddData';
 import { Option } from '../../SettingsPage';
-import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkAddSection = ThunkAction<typeof actionAddData>;
-
-const thunkAddSection = (arg: Option, index?: number): ThunkAddSection => dispatch => {
-  if(!!index || index === 0) {
+export interface ThunkAddSectionArg {
+  arg: Option,
+  index?: number
+}
+const thunkAddSection = ({arg, index}: ThunkAddSectionArg): ThunkAddSection => dispatch => {
+  if(typeof index === 'number') {
     dispatch(actionAddData({...arg}, index));
   } else {
     dispatch(actionAddData(arg))

@@ -1,14 +1,14 @@
-import React, { FC, memo } from 'react';
-import Form, { FieldType } from 'components/Form/Form';
-import { useSelector } from 'react-redux';
+import { Button } from 'antd';
+import 'antd/es/style/css';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
-import { sections } from 'pages/SettingsPage/selectors';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
-import { Button } from 'antd';
+import React, { FC, memo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import 'antd/es/style/css';
 
 export type FormSection3Field = FieldType;
 
@@ -30,19 +30,19 @@ export const FormSection3: FC<FormSection3Props> = ({ nowIndexSection }) => {
   const changeColor = thunkChangeColor();
 
   //Handle
-  const handleChangeForm = (fieldType: FormSection3Field['fieldType'], fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input') {
-        changeInput(fieldName, result, nowIndexSection);
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'radio') {
-        changeRadio(fieldName, result, nowIndexSection);
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'color-picker') {
-        changeColor(fieldName, result, nowIndexSection);
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'checkbox') {
-        changeCheckBox(fieldName, result, nowIndexSection);
+        changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection });
       }
     }
   }

@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
-import Form, { FieldType } from 'components/Form/Form';
-import FormChangeCard from '../FormChangeCard/FormChangeCard';
-import { useSelector } from 'react-redux';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
+import FormChangeCard from '../FormChangeCard/FormChangeCard';
 
 
 
@@ -29,16 +29,16 @@ const FormSection2 = ({ nowIndexSection }: FormSection2Props) => {
   const changeColor = thunkChangeColor();
 
   // Handle
-  const handleChangeForm = (fieldType: FormSection2Field['fieldType'], fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input') {
-        changeInput(fieldName, result, nowIndexSection);
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'radio') {
-        changeRadio(fieldName, result, nowIndexSection);
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'color-picker') {
-        changeColor(fieldName, result, nowIndexSection);
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
     }
   }

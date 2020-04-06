@@ -1,22 +1,22 @@
-import React, { memo, FC } from 'react';
-import Form, { FieldType } from 'components/Form/Form';
+import { Button } from 'antd';
+import 'antd/es/style/css';
+import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import ToggableComponent from 'components/ToggableComponent/ToggableComponent';
+import { reorder } from 'pages/SettingsPage/reoderFunction';
 import { sections } from 'pages/SettingsPage/selectors';
-import { useSelector } from 'react-redux';
-import styles from './FormChangeCard.module.scss';
+import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
+import thunkChangeColorTextCard from 'pages/SettingsPage/thunks/thunkChangeColorTextCard/thunkChangeColorTextCard';
 import thunkChangeInputCardForm from 'pages/SettingsPage/thunks/thunkChangeInputCardForm/thunkChangeInputCardForm';
 import thunkChangeRadioCardForm from 'pages/SettingsPage/thunks/thunkChangeRadioCardForm/thunkChangeRadioCardForm';
 import thunkDeleteCard from 'pages/SettingsPage/thunks/thunkDeleteCard/thunkDeleteCard';
 import thunkMoveChild from 'pages/SettingsPage/thunks/thunkMoveChild/thunkMoveChild';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { reorder } from 'pages/SettingsPage/reoderFunction';
-import thunkChangeColorTextCard from 'pages/SettingsPage/thunks/thunkChangeColorTextCard/thunkChangeColorTextCard';
-import { Button } from 'antd';
-import 'antd/es/style/css';
-import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
-import icon1 from 'assets/img/web_icons/paid-listings.svg';
-import ToggableComponent from 'components/ToggableComponent/ToggableComponent';
+import React, { FC, memo } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styles from './FormChangeCard.module.scss';
 
 export type FormChangeCardField = FieldType;
 
@@ -47,26 +47,26 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
   // Handle
   const handleChangeCardForm = (nowIndexCard: number) => {
-    return (fieldType: FormChangeCardField['fieldType'], fieldName: string) => {
+    return ({ fieldName, fieldType }: OnChangeFuncArg) => {
       return (result: any) => {
         if (fieldType === 'input') {
-          changeInputCardForm(fieldName, result, nowIndexSection, nowIndexCard);
+          changeInputCardForm({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
         }
         if (fieldType === 'radio') {
-          changeRadioCardForm(fieldName, result, nowIndexSection, nowIndexCard);
+          changeRadioCardForm({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
         }
         if (fieldType === 'color-picker') {
-          changeColorTextCard(fieldName, result, nowIndexSection, nowIndexCard);
+          changeColorTextCard({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
         }
       }
     }
   }
   const handleAdd = () => {
-    addCard(cardDefault, nowIndexSection)
+    addCard({ data: cardDefault, nowIndexSection: nowIndexSection })
   }
   const handleDelete = (nowIndexCard: number) => {
     return () => {
-      deleteCard(nowIndexSection, nowIndexCard)
+      deleteCard({ indexSection: nowIndexSection, indexCard: nowIndexCard })
     }
   }
   const handleMove = (result: any) => {
@@ -78,7 +78,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
       result.source.index,
       result.destination.index
     ) : [];
-    moveChild(newElements, nowIndexSection);
+    moveChild({ data: newElements, nowIndexSection: nowIndexSection });
   }
 
   // Render
@@ -89,7 +89,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
         fields={[
           {
             fieldType: 'input',
-            fieldName: 'card title',
+            fieldName: 'titleCard',
             fieldId: 'change-card-field-1',
             horizontal: true,
             defaultValue: titleCard,
@@ -122,7 +122,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
           },
           {
             fieldType: 'input',
-            fieldName: 'card text',
+            fieldName: 'textCard',
             fieldId: 'change-card-field-4',
             defaultValue: textCard
           },
