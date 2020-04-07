@@ -8,12 +8,17 @@ export interface UploadFileArg {
 const storageRef  = storage.ref();
 
 const uploadFile = async ({path, files}: UploadFileArg) => {
-    files.forEach(async file => {
-      const ref = storageRef.child(`images/${path}/${file.name}`);
-      await ref.put(file);
-    })
-    const newImgs = await readStorage(path);
-    return newImgs
+  let newImgs;
+  await Promise.all(files.map(async file => {
+    const ref = storageRef.child(`images/${path}/${file.name}`);
+    await ref.put(file);
+  })).then(async () => {
+    const imgs: any[] = await readStorage(path);
+    console.log(imgs);
+    newImgs = [...imgs];
+  })
+
+  return newImgs
 };
 
 export default uploadFile;

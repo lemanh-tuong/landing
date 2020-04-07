@@ -66,6 +66,9 @@ const Routes = () => {
           <Route exact path="/gallery">
             <ImageGalleryPage />
           </Route>
+          {/* <Route exact path="/settings" strict>
+            <SettingsPage />
+          </Route> */}
           <PrivateRoute
             token={token}
             component={<Route exact path="/settings" strict>

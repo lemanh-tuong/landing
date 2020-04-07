@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import 'antd/es/style/css';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import PopUp from 'components/PopUp/PopUp';
 import { Section1Props } from 'components/Section1/Section1';
 import { Section2Props } from 'components/Section2/Section2';
@@ -14,6 +13,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
+import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import FormSection1 from './components/FormSection1/FormSection1';
 import FormSection2 from './components/FormSection2/FormSection2';
 import FormSection3 from './components/FormSection3/FormSection3';
@@ -23,11 +23,8 @@ import { reorder } from './reoderFunction';
 import { sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
 import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
-import thunkDeleteSection from './thunks/thunkDeleteSection/thunkDeleteSection';
 import thunkGetDataSection from './thunks/thunkGetDataSection/thunkGetDataSection';
-import thunkMoveDownSection from './thunks/thunkMoveDownSection/thunkMoveDownSection';
 import thunkMoveSection from './thunks/thunkMoveSection/thunkMoveSection';
-import thunkMoveUpSection from './thunks/thunkMoveUpSection/thunkMoveUpSection';
 import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
@@ -49,21 +46,18 @@ const defaultSection: Option = {
 const SettingsPage = () => {
   const history = useHistory();
   let prepairAddProperty = useRef<Option>({ ...defaultSection });
-
   //State
   const [sectionDragging, setSectionDragging] = useState('');
+
   // Selector
   const elements = useSelector(sections);
   const statusRequestSection = useSelector(statusRequestElements);
 
-  //Dispatch
-  const addSection = thunkAddSection();
-  const moveSection = thunkMoveSection();
-  const deleteSection = thunkDeleteSection();
-  const moveUpSection = thunkMoveUpSection();
-  const moveDownSection = thunkMoveDownSection();
+  // Dispatch
   const getData = thunkGetDataSection();
   const saveAll = thunkSaveAll();
+  const moveSection = thunkMoveSection();
+  const addSection = thunkAddSection();
 
   //Handle
   const handlePrepairAdd = (option: Omit<Option, 'sectionId'>) => {
@@ -103,36 +97,12 @@ const SettingsPage = () => {
     moveSection(newElements);
   }
 
-  const handleDelete = (arg: Option, indexSection: number) => {
-    return () => {
-      deleteSection({ arg: arg })
-    }
-  }
-
-  const handleMoveUpSection = (nowIndexSection: number) => {
-    return () => {
-      moveUpSection(nowIndexSection);
-    }
-  }
-
-  const handleMoveDownSection = (nowIndexSection: number) => {
-    return () => {
-      moveDownSection(nowIndexSection);
-    }
-  }
-
-  const handleDuplicate = (element: Option, nowIndexSection: number) => {
-    return () => {
-      handlePrepairAdd(element)();
-      handleAdd(nowIndexSection)();
-    }
-  }
-
   const handleSaveAll = () => {
     saveAll();
     signOutFirebase();
     history.push('/');
   }
+
   // Render
   const _renderSettingBoxSwitch = (option: Option, indexSection: number) => {
     switch (option.sectionName) {
@@ -148,6 +118,7 @@ const SettingsPage = () => {
         return null;
     }
   }
+
   const _renderSettingsBox = (option: Option, index: number) => {
     return (
       <PopUp id={option.sectionId} style={{ maxWidth: 550 }}>
@@ -165,7 +136,7 @@ const SettingsPage = () => {
 
     return (
       <Draggable draggableId={sectionId} index={indexSection} key={sectionId} >
-        {(provided, snapshot) => {
+        {provided => {
           return (
             <div className={`${styles.section}  ${dragging} `}
               ref={provided.innerRef}
@@ -174,25 +145,14 @@ const SettingsPage = () => {
             // onDoubleClick={!!sectionFocusing.includes(sectionId) ? undefined : handleFocusing(sectionId)}
             >
               <div className={styles.sectionTop}>
-                <ButtonGroup style={{ display: 'flex' }} align='right'>
-                  <Button className={styles.buttonFunc} onClick={handleMoveUpSection(indexSection)} shape='circle' size='large' >
-                    <i className="fas fa-angle-up" />
-                  </Button>
-                  <Button className={styles.buttonFunc} onClick={handleMoveDownSection(indexSection)} shape='circle' size='large' >
-                    <i className="fas fa-angle-down" />
-                  </Button>
-                  <Button className={styles.buttonFunc} onClick={handleDuplicate(element, indexSection)} shape='circle' size='large' >
-                    <i className="fas fa-copy" />
-                  </Button>
-                  <Button className={styles.buttonFunc} onClick={PopUp.show(sectionId)} shape='circle' size='large'>
-                    <i className="fas fa-cog" />
-                  </Button>
-                  <Button className={styles.buttonFunc} onClick={handleDelete({ ...element }, indexSection)} shape='circle' size='large' >
-                    <i className="fas fa-times" />
-                  </Button>
-                </ButtonGroup>
+                <ButtonFunc
+                  nowIndexSection={indexSection}
+                  elementProperty={element}
+                />
               </div>
-              {RenderSection({ ...element })}
+              <div className="content">
+                {RenderSection({ ...element })}
+              </div>
               {_renderSettingsBox({ ...element }, indexSection)}
             </div>
           );
@@ -232,7 +192,6 @@ const SettingsPage = () => {
     }
   }
   // Lifecycle
-
   useMount(() => {
     getData({ pageName: 'HomePage' });
   })
@@ -243,11 +202,9 @@ const SettingsPage = () => {
       <Button onClick={handleSaveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
         <i className="fas fa-save"></i>
       </Button>
+
     </>
   )
 }
-
-
-
 
 export default SettingsPage;

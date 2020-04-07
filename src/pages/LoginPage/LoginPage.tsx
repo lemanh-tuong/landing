@@ -1,5 +1,4 @@
 import { signInFirebase } from 'firebase/authentication/signInFirebase';
-import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Button from '../../components/Button/Button';
@@ -24,11 +23,7 @@ const LoginPage = () => {
       history.push('/settings');
     }).catch((err) => {
       setError(err.message)
-    })
-  }
-
-  const handleSignOut = () => {
-    signOutFirebase();
+    });
   }
 
   return (
@@ -53,10 +48,7 @@ const LoginPage = () => {
         >
           <Button onClick={handleSignIn}>
             Sign In
-        </Button>
-          <Button onClick={handleSignOut}>
-            Sign Out
-        </Button>
+          </Button>
         </Form>
         {error ? <div className={styles.tooltipErr}>
           {error}
