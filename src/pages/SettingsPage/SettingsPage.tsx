@@ -29,10 +29,10 @@ import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
   pageName: string;
-  elements: Option[]
+  elements: Option[];
 }
 
-export interface Option extends Partial<Section1Props<any> & Section2Props & Section3Props & Section4Props<any>> {
+export interface Option extends Partial<Section1Props & Section2Props & Section3Props & Section4Props<any>> {
   sectionName: string;
   sectionId: string;
   slider?: boolean;
@@ -41,11 +41,11 @@ export interface Option extends Partial<Section1Props<any> & Section2Props & Sec
 const defaultSection: Option = {
   sectionId: '',
   sectionName: '',
-}
+};
 
 const SettingsPage = () => {
   const history = useHistory();
-  let prepairAddProperty = useRef<Option>({ ...defaultSection });
+  const prepairAddProperty = useRef<Option>({ ...defaultSection });
   //State
   const [sectionDragging, setSectionDragging] = useState('');
 
@@ -75,14 +75,14 @@ const SettingsPage = () => {
         addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
         prepairAddProperty.current = Object.assign({}, defaultSection);
       }
-    }
-  }
+    };
+  };
 
   const handleDragging = (sectionId: string) => {
     return () => {
       setSectionDragging(sectionId);
-    }
-  }
+    };
+  };
 
   const handleDragEnd = (result: any) => {
     !!sectionDragging && handleDragging('')();
@@ -95,29 +95,29 @@ const SettingsPage = () => {
       result.destination.index
     );
     moveSection(newElements);
-  }
+  };
 
   const handleSaveAll = () => {
     saveAll();
     signOutFirebase();
     history.push('/');
-  }
+  };
 
   // Render
   const _renderSettingBoxSwitch = (option: Option, indexSection: number) => {
     switch (option.sectionName) {
       case 'Section 1':
-        return <FormSection1 nowIndexSection={indexSection} />
-      case "Section 2":
+        return <FormSection1 nowIndexSection={indexSection} />;
+      case 'Section 2':
         return <FormSection2 nowIndexSection={indexSection} />;
       case 'Section 3':
-        return <FormSection3 nowIndexSection={indexSection} />
-      case "Section 4":
+        return <FormSection3 nowIndexSection={indexSection} />;
+      case 'Section 4':
         return <FormSection4 nowIndexSection={indexSection} />;
       default:
         return null;
     }
-  }
+  };
 
   const _renderSettingsBox = (option: Option, index: number) => {
     return (
@@ -158,7 +158,7 @@ const SettingsPage = () => {
           );
         }}
       </Draggable>
-    )
+    );
   };
 
   const renderSuccess = () => {
@@ -177,24 +177,24 @@ const SettingsPage = () => {
         </div>
       </DragDropContext>
     );
-  }
+  };
 
   const _renderSwitch = () => {
     switch (statusRequestSection) {
       case 'loading':
         return <div>Loading</div>;
       case 'failure':
-        return <div>Something went wrong</div>
+        return <div>Something went wrong</div>;
       case 'success':
         return renderSuccess();
       default:
         return null;
     }
-  }
+  };
   // Lifecycle
   useMount(() => {
     getData({ pageName: 'HomePage' });
-  })
+  });
 
   return (
     <>
@@ -204,7 +204,7 @@ const SettingsPage = () => {
       </Button>
 
     </>
-  )
-}
+  );
+};
 
 export default SettingsPage;

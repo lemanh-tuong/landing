@@ -18,10 +18,10 @@ export interface ButtonFuncProps {
 const defaultSection: Option = {
   sectionId: '',
   sectionName: '',
-}
+};
 
 const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) => {
-  let prepairAddProperty = useRef<Option>({ ...defaultSection });
+  const prepairAddProperty = useRef<Option>({ ...defaultSection });
   //Dispatch
   const addSection = thunkAddSection();
   const deleteSection = thunkDeleteSection();
@@ -44,33 +44,33 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
         addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
         prepairAddProperty.current = Object.assign({}, defaultSection);
       }
-    }
-  }
+    };
+  };
 
   const handleDelete = (arg: Option, indexSection: number) => {
     return () => {
-      deleteSection({ arg: arg })
-    }
-  }
+      deleteSection({ arg: arg, nowIndexSection: indexSection });
+    };
+  };
 
   const handleMoveUpSection = (nowIndexSection: number) => {
     return () => {
       moveUpSection(nowIndexSection);
-    }
-  }
+    };
+  };
 
   const handleMoveDownSection = (nowIndexSection: number) => {
     return () => {
       moveDownSection(nowIndexSection);
-    }
-  }
+    };
+  };
 
   const handleDuplicate = (element: Option, nowIndexSection: number) => {
     return () => {
       handlePrepairAdd(element)();
       handleAdd(nowIndexSection)();
-    }
-  }
+    };
+  };
 
   return (
     <ButtonGroup style={{ display: 'flex' }} align='right'>
@@ -90,7 +90,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
         <i className="fas fa-times" />
       </Button>
     </ButtonGroup>
-  )
-}
+  );
+};
 
 export default ButtonFunc;

@@ -1,12 +1,12 @@
+import Button, { ButtonProps } from 'components/Button/Button';
 import Divide, { DividerProps } from 'components/Divide/Divide';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
-import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
 import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
+import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
 import Text, { TextProps } from 'components/Text/Text';
-import React from 'react';
-import Button, { ButtonProps } from 'components/Button/Button';
+import React, { FC } from 'react';
 
 interface Section1Option extends SectionPatternBase {
   backgroundColor?: SectionPatternBase['backgroundColor'];
@@ -17,19 +17,19 @@ interface Section1Option extends SectionPatternBase {
 }
 
 
-export interface Section1Props<T> extends MainTitleProps, TextProps, DividerProps, MockUpProps<T>, Section1Option {
+export interface Section1Props extends MainTitleProps, TextProps, DividerProps, MockUpProps, Section1Option {
   textButton?: ButtonProps['text'];
   hrefButton?: ButtonProps['href'];
   styleButton?: ButtonProps['style'];
 }
 
 
-const Section1 = <SlideType extends any>({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
+const Section1: FC<Section1Props> = ({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor,
   typeMockUp, sliderImgs, slider, backgroundColor, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, itemShow, responsive,
   textButton = 'Try demo', hrefButton, styleButton,
-  reverse, darkMode }: Section1Props<SlideType>) => {
+  reverse, darkMode }) => {
 
   const _renderMockUp = () => {
     return <MockUp
@@ -69,9 +69,9 @@ const Section1 = <SlideType extends any>({ mainTitle, colorMainTitle, fontSizeMa
 
   const _renderButton = () => {
     return (
-      <Button href={hrefButton || ''} style={styleButton} text={textButton} />
-    )
-  }
+      <Button href={hrefButton ?? ''} style={styleButton} text={textButton} />
+    );
+  };
 
   return (
     <Section backgroundColor={!!backgroundColor ? backgroundColor : undefined}>

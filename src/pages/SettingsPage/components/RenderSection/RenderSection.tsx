@@ -30,14 +30,14 @@ const RenderSection = (option: Option) => {
           backgroundColor="gradient-orange-pink"
           backgroundImage={backgroundImage}
           slider={slider}
-          sliderImgs={sliderImgs || [
+          sliderImgs={sliderImgs ?? [
             {
-              imgUrl: mockUpMacContent1,
+              imgSrc: mockUpMacContent1,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
             },
             {
-              imgUrl: mockUpMacContent2,
+              imgSrc: mockUpMacContent2,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/'
             }
@@ -68,7 +68,7 @@ const RenderSection = (option: Option) => {
           alignText={alignText}
           colorText={colorText}
           hasDivider={hasDivider}
-          dividerColor={dividerColor || '#f06292'}
+          dividerColor={dividerColor ?? '#f06292'}
         />;
       case 'Section 4':
         return <Section4

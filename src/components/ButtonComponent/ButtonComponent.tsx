@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactNode, FC } from 'react';
+import React, { ChangeEvent, FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface ButtonComponentProps {
@@ -25,8 +25,8 @@ const ButtonComponent: FC<ButtonComponentProps> = ({ disabled, danger, block, ty
         <span>{text}</span>
         {icon}
       </Link>
-    )
-  }
+    );
+  };
 
   const _renderButton = () => {
     return (
@@ -34,23 +34,23 @@ const ButtonComponent: FC<ButtonComponentProps> = ({ disabled, danger, block, ty
         {text}
         {icon}
       </button>
-    )
-  }
+    );
+  };
 
   const _renderSwitch = () => {
     if (href) {
       return _renderLink(href);
     }
-    return _renderButton()
+    return _renderButton();
 
 
-  }
+  };
 
   return (
     <>
       {_renderSwitch}
     </>
-  )
-}
+  );
+};
 
 export default ButtonComponent;

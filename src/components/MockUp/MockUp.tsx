@@ -1,8 +1,8 @@
 import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
 import Icon from 'components/Icon/Icon';
-import Video from 'components/Video/Video';
 import PopUp from 'components/PopUp/PopUp';
-import React, { CSSProperties, Fragment } from 'react';
+import Video from 'components/Video/Video';
+import React, { CSSProperties, FC, Fragment } from 'react';
 import imgMac from '../../assets/img/macbook.png';
 import imgIphone from '../../assets/img/phones/0.png';
 import styles from './MockUp.module.scss';
@@ -14,18 +14,18 @@ export interface MockUpOption {
   slider?: boolean;
 }
 
-export interface ItemT {
-  imgUrl: string;
+export interface SlideType {
+  imgSrc: string;
   hasVideo?: boolean;
   videoUrl?: string;
 }
 
-export interface MockUpProps<ItemT> extends MockUpOption, Omit<CarouselProps<ItemT>, 'responsive, itemShow'> {
+export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>, 'responsive, itemShow'> {
 }
 
-const MockUp = <ItemT extends any>({
+const MockUp: FC<MockUpProps> = ({
   sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp,
-  dotClass, navClass, hasDots, hasNav, margin, fluid }: MockUpProps<ItemT>
+  dotClass, navClass, hasDots, hasNav, margin, fluid }
 ) => {
 
   const _renderPlayBtn = (videoUrl: string) => {

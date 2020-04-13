@@ -1,6 +1,6 @@
+import 'antd/es/button/style/css';
 import React, { FC, memo, MouseEvent } from 'react';
 import styles from './Button.module.scss';
-import 'antd/es/button/style/css';
 
 export interface ButtonProps extends PropsComponent {
   color?: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
@@ -20,7 +20,7 @@ const Button: FC<ButtonProps> = ({ children, text, href, className, style, color
       {children}
     </a>
   );
-}
+};
 
 export default memo(Button);
 
