@@ -20,7 +20,7 @@
     color: $color-white;
   }
   &.black-3 {
-    color: lightblue;
+    color: $color-black-3;
   }
   &.xs {
     font-size: 16px;
@@ -48,5 +48,19 @@
 .sectionTitle.dark {
   &.black-3 {
     color: rgb(244, 244, 244);
+  }
+}
+.isBuilder {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
   }
 }

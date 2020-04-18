@@ -1,12 +1,11 @@
 import { authentication } from 'firebase/authentication/authentication';
 import { useMount } from 'hooks/useMount';
-import HomePage from 'pages/HomePage/HomePage';
+import ComponentPage from 'pages/ComponentPage/ComponentPage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import PrivateRoute from './PrivateRoute/PrivateRoute';
 const Routes = () => {
   const [token, setToken] = useState('');
   // const [show, setShow] = useState(false);
@@ -58,7 +57,7 @@ const Routes = () => {
       <main>
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <ComponentPage />
           </Route>
           <Route exact path='/login'>
             <LoginPage />
@@ -66,15 +65,15 @@ const Routes = () => {
           <Route exact path="/gallery">
             <ImageGalleryPage />
           </Route>
-          {/* <Route exact path="/settings" strict>
+          <Route exact path="/settings" strict>
             <SettingsPage />
-          </Route> */}
-          <PrivateRoute
+          </Route>
+          {/* <PrivateRoute
             token={token}
             component={<Route exact path="/settings" strict>
               <SettingsPage />
             </Route>}
-          />
+          /> */}
           <Route>
             <div>Something went wrong</div>
           </Route>

@@ -1,36 +1,48 @@
 import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import sectionImg1 from 'assets/img/settings/create-unlimited-directory-types.png';
-import Section1 from 'components/Section1/Section1';
-import Section2 from 'components/Section2/Section2';
-import Section3 from 'components/Section3/Section3';
-import Section4 from 'components/Section4/Section4';
 import React, { Fragment } from 'react';
 import { Option } from '../../SettingsPage';
+import Section1Editable from '../Section1/Section1Editable';
+import Section2Editable from '../Section2/Section2Editable';
+import Section3Editable from '../Section3/Section3Editable';
+import Section4Editable from '../Section4/Section4Editable';
 
 // const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
-const RenderSection = (option: Option) => {
-  const { imageSectionCol, sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle,
+
+export interface RenderSectionArg {
+  option: Option,
+  nowIndexSecion: number;
+  isBuilder?: boolean
+}
+
+const RenderSection = ({ option, nowIndexSecion, isBuilder }: RenderSectionArg) => {
+  const {
+    sectionName, sectionId,
+    mainTitle, alignMainTitle, colorMainTitle,
+    text, alignText, colorText,
+    imageSectionCol,
     cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage,
-    textButton, styleButton, hrefButton
+    textButton, styleButton, hrefButton,
   } = option;
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
-        return <Section1
+        return <Section1Editable
+          nowIndexSection={nowIndexSecion}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
-          text={text}
+          text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
           fontSizeText='sm'
           backgroundColor="gradient-orange-pink"
           backgroundImage={backgroundImage}
           slider={slider}
-          sliderImgs={sliderImgs ?? [
+          sliderImgs={sliderImgs || [
             {
               imgSrc: mockUpMacContent1,
               hasVideo: true,
@@ -46,18 +58,24 @@ const RenderSection = (option: Option) => {
           textButton={textButton}
           styleButton={styleButton}
           hrefButton={hrefButton}
+          isBuilder={isBuilder}
+          sectionId={sectionId}
         />;
       case 'Section 2':
-        return <Section2
+        return <Section2Editable
+          nowIndexSection={nowIndexSecion}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
           backgroundImage={backgroundImage?.[0]}
           // backgroundColor={backgroundColor}
           cards={cards ? cards : []}
+          isBuilder={isBuilder}
+          sectionId={sectionId}
         />;
       case 'Section 3':
-        return <Section3
+        return <Section3Editable
+          nowIndexSection={nowIndexSecion}
           backgroundImage={backgroundImage?.[0]}
           // backgroundColor={backgroundColor}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
@@ -68,21 +86,25 @@ const RenderSection = (option: Option) => {
           alignText={alignText}
           colorText={colorText}
           hasDivider={hasDivider}
-          dividerColor={dividerColor ?? '#f06292'}
+          dividerColor={dividerColor || '#f06292'}
+          isBuilder={isBuilder}
+          sectionId={sectionId}
         />;
       case 'Section 4':
-        return <Section4
+        return <Section4Editable
+          nowIndexSection={nowIndexSecion}
           backgroundImage={backgroundImage?.[0]}
-
           // backgroundColor={backgroundColor}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
-          text={text}
+          text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           type='tagImg'
+          isBuilder={isBuilder}
+          sectionId={sectionId}
         />;
     }
   };

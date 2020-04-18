@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import PopUp from 'components/PopUp/PopUp';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkAddSection from 'pages/SettingsPage/thunks/thunkAddSection/thunkAddSection';
 import thunkDeleteSection from 'pages/SettingsPage/thunks/thunkDeleteSection/thunkDeleteSection';
@@ -18,10 +17,10 @@ export interface ButtonFuncProps {
 const defaultSection: Option = {
   sectionId: '',
   sectionName: '',
-};
+}
 
 const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) => {
-  const prepairAddProperty = useRef<Option>({ ...defaultSection });
+  let prepairAddProperty = useRef<Option>({ ...defaultSection });
   //Dispatch
   const addSection = thunkAddSection();
   const deleteSection = thunkDeleteSection();
@@ -33,6 +32,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
     return () => {
       prepairAddProperty.current = {
         ...option,
+        sectionName: option.sectionName,
         sectionId: uuidv4()
       };
     };
@@ -44,33 +44,33 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
         addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
         prepairAddProperty.current = Object.assign({}, defaultSection);
       }
-    };
-  };
+    }
+  }
 
   const handleDelete = (arg: Option, indexSection: number) => {
     return () => {
-      deleteSection({ arg: arg, nowIndexSection: indexSection });
-    };
-  };
+      deleteSection({ arg: arg })
+    }
+  }
 
   const handleMoveUpSection = (nowIndexSection: number) => {
     return () => {
       moveUpSection(nowIndexSection);
-    };
-  };
+    }
+  }
 
   const handleMoveDownSection = (nowIndexSection: number) => {
     return () => {
       moveDownSection(nowIndexSection);
-    };
-  };
+    }
+  }
 
   const handleDuplicate = (element: Option, nowIndexSection: number) => {
     return () => {
       handlePrepairAdd(element)();
       handleAdd(nowIndexSection)();
-    };
-  };
+    }
+  }
 
   return (
     <ButtonGroup style={{ display: 'flex' }} align='right'>
@@ -83,14 +83,11 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
       <Button className={styles.buttonFunc} onClick={handleDuplicate(elementProperty, nowIndexSection)} shape='circle' size='large' >
         <i className="fas fa-copy" />
       </Button>
-      <Button className={styles.buttonFunc} onClick={PopUp.show(elementProperty.sectionId)} shape='circle' size='large'>
-        <i className="fas fa-cog" />
-      </Button>
       <Button className={styles.buttonFunc} onClick={handleDelete({ ...elementProperty }, nowIndexSection)} shape='circle' size='large' >
         <i className="fas fa-times" />
       </Button>
     </ButtonGroup>
-  );
-};
+  )
+}
 
 export default ButtonFunc;

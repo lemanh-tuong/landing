@@ -27,7 +27,12 @@ const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = fa
 
   const handleChoose = (item: ItemT<T>) => () => {
     onChoose?.(item);
-    choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1 ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc)) : setChoosing(choosing.concat(item));
+    if (multiple) {
+      choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1 ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc)) : setChoosing(choosing.concat(item));
+    } else {
+      setChoosing([].concat(item as any))
+    }
+
   }
 
   useEffect(() => {

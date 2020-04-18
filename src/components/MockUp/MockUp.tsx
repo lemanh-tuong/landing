@@ -1,3 +1,4 @@
+import PopOverText from 'componentBuilder/PopOverText/PopOverText';
 import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
 import Icon from 'components/Icon/Icon';
 import PopUp from 'components/PopUp/PopUp';
@@ -21,9 +22,12 @@ export interface SlideType {
 }
 
 export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>, 'responsive, itemShow'> {
+  isBuider?: boolean;
+  onEditable?: () => void;
 }
 
 const MockUp: FC<MockUpProps> = ({
+  onEditable, isBuider,
   sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp,
   dotClass, navClass, hasDots, hasNav, margin, fluid }
 ) => {
@@ -78,6 +82,19 @@ const MockUp: FC<MockUpProps> = ({
   const device = typeMockUp === 'Mac' ? imgMac : imgIphone;
   const classMockup = !!classMockUp ? classMockUp : '';
   const style = !!styleMockUp ? styleMockUp : {};
+
+  if (isBuider) {
+    return (
+      <PopOverText onEdit={onEditable} component={
+        <div onClick={onEditable} className={`${styles.isBuilder} ${styles.mockUp} ${classMockup}`} style={style}>
+          <img src={device} alt="" draggable='false' onDrag={(e) => e.preventDefault()} />
+          <div className={`${styles.mockUpContent} ${fluid ? styles.fluid : ''} ${styles[typeMockUp]}`}>
+            {_renderMockUpContent()}
+          </div>
+        </div >
+      } />
+    )
+  }
 
   return (
     <div className={`${styles.mockUp} ${classMockup}`} style={style}>

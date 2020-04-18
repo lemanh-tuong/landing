@@ -51,7 +51,7 @@ const ImageGalleryPage = () => {
     }
   }
 
-  const handleUploadFile = (typeImage: "icon" | "imgSrc" | "backgroundImage" | "sliderImgs") => {
+  const handleUploadFile = (typeImage: "icon" | "imgSrc" | "imageSectionCol" | "sliderImgs") => {
     if (!!nowIndexSection) {
       return (result: File[]) => {
         upload({ path: typeImage, files: result });
@@ -64,7 +64,7 @@ const ImageGalleryPage = () => {
 
   useMount(() => {
     if (!!type) {
-      getImage(type as "icon" | "imgSrc" | "backgroundImage" | "sliderImgs")
+      getImage(type as "icon" | "imgSrc" | "imageSectionCol" | "sliderImgs")
     }
   })
 
@@ -79,7 +79,7 @@ const ImageGalleryPage = () => {
             statusUploadFile={statusUpload}
             messageUpload={messageUpload}
             onChoose={handleChoose(type)}
-            onUploadFile={handleUploadFile(type as "icon" | "imgSrc" | "backgroundImage" | "sliderImgs")} />;
+            onUploadFile={handleUploadFile(type as "icon" | "imgSrc" | "imageSectionCol" | "sliderImgs")} />;
         case 'loading':
           return <RollSelect fieldName={type} statusLazy="loading" listImg={[]} ammountLazyLoading={10} />
         case 'failure':

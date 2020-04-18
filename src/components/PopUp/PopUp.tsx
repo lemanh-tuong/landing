@@ -1,4 +1,4 @@
-import React, { ReactNode, PureComponent, CSSProperties } from 'react';
+import React, { CSSProperties, PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './PopUp.module.scss';
 

@@ -3,15 +3,14 @@ import { deleteSection } from 'pages/SettingsPage/actions/actionDeleteSection/ac
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 
-type ThunkDeleteSection = ThunkAction<typeof deleteSection>;
+type ThunkDeleteSection = ThunkAction<typeof deleteSection>
 export interface ThunkDeleteSectionArg {
-  arg: Option;
-  nowIndexSection: number;
+  arg: Option
 }
 
-const thunkDeleteSection = ({arg, nowIndexSection}: ThunkDeleteSectionArg): ThunkDeleteSection => dispatch => {
-  dispatch(deleteSection({...arg, nowIndexSection: nowIndexSection}));
-  deleteStorage(arg.sectionId);
+const thunkDeleteSection = ({arg}: ThunkDeleteSectionArg): ThunkDeleteSection => dispatch => {
+  dispatch(deleteSection(arg));
+  deleteStorage(arg.sectionId)
 };
 
 export default createDispatchAction(thunkDeleteSection);

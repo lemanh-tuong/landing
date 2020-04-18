@@ -1,10 +1,5 @@
 import { Button } from 'antd';
 import 'antd/es/style/css';
-import PopUp from 'components/PopUp/PopUp';
-import { Section1Props } from 'components/Section1/Section1';
-import { Section2Props } from 'components/Section2/Section2';
-import { Section3Props } from 'components/Section3/Section3';
-import { Section4Props } from 'components/Section4/Section4';
 import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
 import { useMount } from 'hooks/useMount';
 import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
@@ -14,11 +9,11 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonFunc from './components/ButtonFunc/ButtonFunc';
-import FormSection1 from './components/FormSection1/FormSection1';
-import FormSection2 from './components/FormSection2/FormSection2';
-import FormSection3 from './components/FormSection3/FormSection3';
-import FormSection4 from './components/FormSection4/FormSection4';
 import RenderSection from './components/RenderSection/RenderSection';
+import { Section1Props } from './components/Section1/Section1';
+import { Section2Props } from './components/Section2/Section2';
+import { Section3Props } from './components/Section3/Section3';
+import { Section4Props } from './components/Section4/Section4';
 import { reorder } from './reoderFunction';
 import { sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
@@ -29,7 +24,7 @@ import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
   pageName: string;
-  elements: Option[];
+  elements: Option[]
 }
 
 export interface Option extends Partial<Section1Props & Section2Props & Section3Props & Section4Props<any>> {
@@ -41,13 +36,13 @@ export interface Option extends Partial<Section1Props & Section2Props & Section3
 const defaultSection: Option = {
   sectionId: '',
   sectionName: '',
-};
+}
 
 const SettingsPage = () => {
   const history = useHistory();
-  const prepairAddProperty = useRef<Option>({ ...defaultSection });
+  let prepairAddProperty = useRef<Option>({ ...defaultSection });
   //State
-  const [sectionDragging, setSectionDragging] = useState('');
+  const [sectionDragging, setSectionDragging] = useState(-1);
 
   // Selector
   const elements = useSelector(sections);
@@ -75,17 +70,15 @@ const SettingsPage = () => {
         addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
         prepairAddProperty.current = Object.assign({}, defaultSection);
       }
-    };
-  };
+    }
+  }
 
-  const handleDragging = (sectionId: string) => {
-    return () => {
-      setSectionDragging(sectionId);
-    };
-  };
+  const handleDragStart = (index: number) => {
+    setSectionDragging(index);
+  }
 
   const handleDragEnd = (result: any) => {
-    !!sectionDragging && handleDragging('')();
+    setSectionDragging(-1)
     if (!result.destination) {
       return;
     }
@@ -95,75 +88,41 @@ const SettingsPage = () => {
       result.destination.index
     );
     moveSection(newElements);
-  };
+  }
 
   const handleSaveAll = () => {
     saveAll();
     signOutFirebase();
     history.push('/');
-  };
+  }
 
   // Render
-  const _renderSettingBoxSwitch = (option: Option, indexSection: number) => {
-    switch (option.sectionName) {
-      case 'Section 1':
-        return <FormSection1 nowIndexSection={indexSection} />;
-      case 'Section 2':
-        return <FormSection2 nowIndexSection={indexSection} />;
-      case 'Section 3':
-        return <FormSection3 nowIndexSection={indexSection} />;
-      case 'Section 4':
-        return <FormSection4 nowIndexSection={indexSection} />;
-      default:
-        return null;
-    }
-  };
-
-  const _renderSettingsBox = (option: Option, index: number) => {
-    return (
-      <PopUp id={option.sectionId} style={{ maxWidth: 550 }}>
-        <div className={styles.settingBox}>
-          {_renderSettingBoxSwitch(option, index)}
-        </div>
-      </PopUp>
-    );
-  };
-
   const _renderSection = (element: Option, indexSection: number) => {
     const { sectionId } = element;
-    // const focusing = sectionId === sectionFocusing ? styles.focusing : null;
-    const dragging = sectionId === sectionDragging ? styles.dragging : null;
-
     return (
       <Draggable draggableId={sectionId} index={indexSection} key={sectionId} >
         {provided => {
           return (
-            <div className={`${styles.section}  ${dragging} `}
+            <div className={`${styles.section} `}
               ref={provided.innerRef}
               {...provided.dragHandleProps} {...provided.draggableProps} key={sectionId}
-            // onMouseDown={!!sectionFocusing.includes(sectionId) ? handleDragging(sectionId) : undefined}
-            // onDoubleClick={!!sectionFocusing.includes(sectionId) ? undefined : handleFocusing(sectionId)}
             >
               <div className={styles.sectionTop}>
-                <ButtonFunc
-                  nowIndexSection={indexSection}
-                  elementProperty={element}
-                />
+                {sectionDragging === indexSection ? null : <ButtonFunc nowIndexSection={indexSection} elementProperty={element} />}
               </div>
-              <div className="content">
-                {RenderSection({ ...element })}
+              <div className="content" style={sectionDragging === indexSection ? { width: 300, height: 300, overflow: 'hidden' } : {}}>
+                {RenderSection({ option: element, isBuilder: true, nowIndexSecion: indexSection })}
               </div>
-              {_renderSettingsBox({ ...element }, indexSection)}
             </div>
           );
         }}
       </Draggable>
-    );
+    )
   };
 
   const renderSuccess = () => {
     return (
-      <DragDropContext onDragEnd={handleDragEnd} >
+      <DragDropContext onDragStart={({ source }) => handleDragStart(source.index)} onDragEnd={handleDragEnd} >
         <SideBar onEvent={handlePrepairAdd} />
         <div className={styles.mainContent} onMouseUp={handleAdd()}>
           <Droppable droppableId="2" type="Main Content">
@@ -177,24 +136,24 @@ const SettingsPage = () => {
         </div>
       </DragDropContext>
     );
-  };
+  }
 
   const _renderSwitch = () => {
     switch (statusRequestSection) {
       case 'loading':
         return <div>Loading</div>;
       case 'failure':
-        return <div>Something went wrong</div>;
+        return <div>Something went wrong</div>
       case 'success':
         return renderSuccess();
       default:
         return null;
     }
-  };
+  }
   // Lifecycle
   useMount(() => {
     getData({ pageName: 'HomePage' });
-  });
+  })
 
   return (
     <>
@@ -204,7 +163,7 @@ const SettingsPage = () => {
       </Button>
 
     </>
-  );
-};
+  )
+}
 
 export default SettingsPage;

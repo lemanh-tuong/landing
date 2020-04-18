@@ -6,7 +6,7 @@
     color: $color-white;
   }
   &.black-3 {
-    color: lightblue;
+    color: $color-black-3;
   }
   &.xs {
     font-size: 12px;
@@ -33,4 +33,20 @@
 .dark {
   color: $color-white-2;
 }
+
+.isBuilder {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}
+
 

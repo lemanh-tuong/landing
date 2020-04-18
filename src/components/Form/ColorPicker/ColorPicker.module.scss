@@ -2,10 +2,14 @@
   display: flex;
   align-items: center;
   margin: 10px 0;
+  position: relative;
 }
 .fieldName {
   text-transform: capitalize;
   margin-right: 10px;
+}
+.colorField {
+  position: relative;
 }
 
 .picked {
@@ -19,7 +23,7 @@
   top: 0;
   left: 0;
   z-index: 123;
-  transform: translate(90%, 48%);
+  transform:  translate(calc(36px + 20px), -7.5px);
   &:before {
     content: '';
     position: absolute;
@@ -28,7 +32,6 @@
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     border-right: 15px solid blue;
-    top: 8%;
     left: -7%;
   }
 }

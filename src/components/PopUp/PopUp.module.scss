@@ -8,6 +8,8 @@
 }
 .content {
   width: 95%;
+  max-height: 95vh;
+  overflow: auto;
   min-width: 550px;
   background-color: white;
   border-radius: 10px;

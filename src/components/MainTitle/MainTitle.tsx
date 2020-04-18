@@ -1,3 +1,4 @@
+import PopOverText from 'componentBuilder/PopOverText/PopOverText';
 import React, { CSSProperties, FC } from 'react';
 import { align, size } from 'types/types';
 import styles from './MainTitle.module.scss';
@@ -20,19 +21,36 @@ const defaultMainTitleOption: MainTitleOption = {
 
 export interface MainTitleProps extends MainTitleOption {
   mainTitle?: string;
+  isBuilder?: boolean;
   darkMode?: true | false;
+  onEditable?: () => void;
 }
 
-const SectionTitle: FC<MainTitleProps> = ({ mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle, darkMode, children } = { mainTitle: '', darkMode: false, ...defaultMainTitleOption }) => {
+const SectionTitle: FC<MainTitleProps> = ({
+  isBuilder = false, darkMode, children, onEditable,
+  mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle
+} = { mainTitle: '', darkMode: false, ...defaultMainTitleOption }) => {
   const color = !!colorMainTitle ? colorMainTitle : '';
   const fontSize = !!fontSizeMainTitle ? fontSizeMainTitle : '';
   const align = !!alignMainTitle ? alignMainTitle : '';
   const style = !!styleMainTitle ? styleMainTitle : {};
   const classM = !!classMainTitle ? classMainTitle : '';
   const dark = darkMode ? styles.dark : '';
-
+  if (isBuilder) {
+    return (
+      <PopOverText
+        onEdit={onEditable}
+        component={
+          <div onClick={onEditable} className={` ${styles.isBuilder} ${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{ ...style, color: colorMainTitle }}>
+            {mainTitle}
+            {children}
+          </div>
+        }
+      />
+    )
+  }
   return (
-    <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{...style, color: colorMainTitle}}>
+    <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{ ...style, color: colorMainTitle }}>
       {mainTitle}
       {children}
     </div>

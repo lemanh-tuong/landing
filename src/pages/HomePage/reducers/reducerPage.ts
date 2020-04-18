@@ -1,4 +1,4 @@
-import { PageState, PageAction } from 'api/PageType';
+import { PageAction, PageState } from 'api/PageType';
 import { createReducer, handleAction } from 'utils/functions/reduxActions';
 
 const initialState: PageState = {
@@ -6,7 +6,8 @@ const initialState: PageState = {
   pageName: '',
   section: [{
     sectionType: '1',
-    imgSrc: ''
+    imgSrc: '',
+    text: '',
   }]
 };
 
