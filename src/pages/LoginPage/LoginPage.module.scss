@@ -1,0 +1,22 @@
+.LoginPage {
+  width: 100vw;
+  height: 100vh;
+}
+.contentLoginPage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.tooltipErr {
+  position: fixed;
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.8);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 5px 20px -10px #000;
+    text-align: center;
+}

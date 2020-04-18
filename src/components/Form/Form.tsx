@@ -1,32 +1,56 @@
-import React, { ReactNode } from 'react';
+import RollSelect, { RollSelectProps } from 'components/Form/RollSelect/RollSelect';
 import FormBase from 'components/FormBase/FormBase';
-import Radio from './Radio/Radio';
-import CheckBox from './CheckBox/CheckBox';
-import RollSelect from 'components/Form/RollSelect/RollSelect';
-import Input from './Input/Input';
-import ColorPicker from './ColorPicker/ColorPicker';
+import React, { FC, memo, ReactNode } from 'react';
+import CheckBox, { CheckBoxProps } from './CheckBox/CheckBox';
+import ColorPicker, { ColorPickerProps } from './ColorPicker/ColorPicker';
+import styles from './Form.module.scss';
+import Input, { InputProps } from './Input/Input';
+import Radio, { RadioProps } from './Radio/Radio';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
-const renderField1 = <T extends any>(arg: T, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => {
+export type FieldType = Partial<InputProps> & Partial<RadioProps> & Partial<CheckBoxProps> & Partial<RollSelectProps> & Partial<ColorPickerProps> & {
+  hidden?: boolean;
+  fieldType: 'input' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'password';
+  fieldName: string;
+  fieldId: string | number;
+}
+
+export type OnChangeFuncArg = {
+  fieldName: string;
+  fieldType?: FieldType['fieldType']
+}
+
+export interface FormProps {
+  fields: FieldType[];
+  onChange: ({ fieldName, fieldType }: OnChangeFuncArg) => (result: any) => void;
+  onAnotherEvent?: (fieldName: string) => (result: any) => void;
+  children?: ReactNode;
+}
+
+const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => {
   if (!!arg.hidden) {
     return null;
   }
   switch (arg.fieldType) {
     case 'input':
+    case 'password':
       return <Input
+        type={arg.fieldType}
         name={arg.fieldName}
-        horizontal={arg.horizontal}
         defaultValue={arg.defaultValue}
-        onChange={onChange} placeholder={arg.placeholder}
+        onChange={onChange}
+        placeholder={arg.placeholder}
         key={arg.fieldId}
+        autoSize={{ maxRows: 10, minRows: 3 }}
+        style={{ width: '100%', margin: "5px 0" }}
       />
     case 'radio':
-      return <Radio name={arg.fieldName} data={arg.data} onClick={onChange} key={arg.fieldId} />
+      return <Radio fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue || ''} />
     case 'checkbox':
-      return <CheckBox name={arg.fieldName} defaultChecked={arg.checked} onClick={onChange} key={arg.fieldId} />
+      return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />
     case 'file':
-      return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg} onUploadFile={onChange} key={arg.fieldId} />
+      return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg ?? []} onUploadFile={onChange} key={arg.fieldId} />
     case 'color-picker':
       return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange} key={arg.fieldId} />
     default:
@@ -34,23 +58,11 @@ const renderField1 = <T extends any>(arg: T, onChange: (result: any) => void, on
   }
 }
 
-export type Field<T> = T & {
-  fieldType: string,
-  fieldName: string;
-  fieldId: string | number;
-}
+const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children }) => {
 
-export interface FormProps<T> {
-  fields: Field<T>[];
-  onChange: (fieldName: string) => (result: any) => void;
-  onAnotherEvent?: (fieldName: string) => (result: any) => void;
-}
-
-const Form = <T extends any>({ fields, onChange, onAnotherEvent }: FormProps<T>) => {
-
-  const handleChange = (fieldName: string) => {
+  const handleChange = (fieldType: FieldType['fieldType'], fieldName: string) => {
     return (result: any) => {
-      onChange(fieldName)(result);
+      onChange({ fieldName: fieldName, fieldType: fieldType })(result);
     }
   }
 
@@ -61,13 +73,15 @@ const Form = <T extends any>({ fields, onChange, onAnotherEvent }: FormProps<T>)
   }
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div className={styles.form}>
       <FormBase
         fields={fields}
-        renderField={(arg, onChange) => renderField1(arg, handleChange(arg.fieldName), handleAnotherEvent(arg.fieldName))}
-      />
+        renderField={(arg) => renderField1(arg as any, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))}
+      >
+        {children}
+      </FormBase>
     </div>
   )
 }
 
-export default Form;
+export default memo(Form);

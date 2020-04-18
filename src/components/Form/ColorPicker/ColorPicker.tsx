@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ChangeEvent } from 'react';
 import styles from './ColorPicker.module.scss';
 import { ColorResult, SketchPicker } from 'react-color';
 
@@ -24,13 +24,14 @@ class ColorPicker extends PureComponent<ColorPickerProps, ColorPickerState> {
     color: this.props.defaultColor,
   };
 
-  handleClick = () => {
+  handleClick = (e: ChangeEvent<any>) => {
+    e.stopPropagation();
     this.setState({ displayColorPicker: !this.state.displayColorPicker })
   };
 
   handleChange = (color: ColorResult) => {
     const { onChange } = this.props
-    this.setState({ color: color.hex }, () => onChange(this.state.color))
+    this.setState({ ...this.state, color: color.hex }, () => onChange(this.state.color))
   };
 
   _renderColorBox = () => {
@@ -53,11 +54,8 @@ class ColorPicker extends PureComponent<ColorPickerProps, ColorPickerState> {
           {fieldName}
         </div>
         <div className={styles.colorField}>
-          <div className={styles.picked} onClick={this.handleClick} style={{
-            background: color
-          }}>
-            {displayColorPicker ? this._renderColorBox() : null}
-          </div>
+          <div className={styles.picked} onClick={this.handleClick} style={{ background: color }} />
+          {displayColorPicker ? this._renderColorBox() : null}
         </div>
       </div>
     );

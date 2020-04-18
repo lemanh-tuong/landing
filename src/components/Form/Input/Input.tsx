@@ -1,27 +1,49 @@
-import React, { ChangeEvent, memo, FC } from 'react';
+import { Input as InputAntd } from 'antd';
+import 'antd/es/style/css';
+import { AutoSizeType } from 'antd/lib/input/ResizableTextArea';
+import React, { ChangeEvent, CSSProperties, FC, memo } from 'react';
 import styles from './Input.module.scss';
 
 export interface InputOption {
+  type: 'input' | 'password';
   name?: string;
   placeholder?: string;
   defaultValue?: string;
   horizontal?: boolean;
   onChange?: (result: string) => void;
+  autoSize?: AutoSizeType;
+  style?: CSSProperties
 }
 
 export interface InputProps extends InputOption {
 }
 
-const Input: FC<InputProps> = ({ name, placeholder, defaultValue, horizontal, onChange }) => {
+const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizontal, autoSize, style, onChange }) => {
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
+  }
+
+  const _renderTextArea = () => {
+    return <InputAntd.TextArea
+      className={styles.input}
+      name={name}
+      defaultValue={defaultValue}
+      onChange={handleChange}
+      placeholder={placeholder}
+      autoSize={autoSize || { maxRows: 10, minRows: 3 }}
+      style={style}
+    />
+  }
+
+  const _renderPassWordArea = () => {
+    return <InputAntd.Password className={`${styles.input} ${styles.flex}`} style={style} visibilityToggle={true} onChange={handleChange} />
   }
 
   return (
     <div className={`${styles.inputBox} ${horizontal ? styles.horizontal : null}`}>
-      <label className={styles.inputName}>{name}</label>
-      <input className={styles.input} defaultValue={defaultValue} onChange={handleChange} placeholder={placeholder} />
+      <label htmlFor={name} className={styles.inputName}>{name}</label>
+      {type === 'input' ? _renderTextArea() : _renderPassWordArea()}
     </div>
   );
 };

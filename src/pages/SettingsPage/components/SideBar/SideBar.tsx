@@ -1,14 +1,13 @@
 import Text from 'components/Text/Text';
+import { useMount } from 'hooks/useMount';
+import { messageRequestPatternSection, patternSection, statusRequestPatternSection } from 'pages/SettingsPage/selectors';
+import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunkGetDataSideBar/thunkGetDataSideBar';
 import React, { CSSProperties, FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { Option } from '../../SettingsPage';
 import styles from './SideBar.module.scss';
-import { useSelector } from 'react-redux';
-import { patternSection, statusRequestPatternSection, messageRequestPatternSection } from 'pages/SettingsPage/selectors';
-import { useMount } from 'hooks/useMount';
-import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunkGetDataSideBar/thunkGetDataSideBar';
-import Button from 'components/Button/Button';
-
 
 export interface SideBarProps {
   onEvent: (option: Omit<Option, 'sectionId'>) => () => void;
@@ -28,10 +27,10 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
 
   //Dispatch
   const getPatternSection = thunkGetDataSideBar();
-
-  const _renderItem = (property: ItemSideBar, key: any) => {
+  /// Sửa key = uuid
+  const _renderItem = (property: ItemSideBar, key: number) => {
     return (
-      <Draggable draggableId={property.id} index={key} key={key}>
+      <Draggable draggableId={property.id} index={key} key={uuidv4()}>
         {provided => (
           <div onMouseDown={onEvent(property)} className={styles.link} ref={provided.innerRef} key={key} {...provided.dragHandleProps} {...provided.draggableProps}>
             <div className={styles.text}>
@@ -54,9 +53,6 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
               </div>
               <ul className={styles.nav}>
                 {pattern.map((item, index) => _renderItem(item, index))}
-                <Button color='primary' initial className={styles.addSectionBtn} >
-                  Add Section
-                </Button>
               </ul>
             </div>
           </div>

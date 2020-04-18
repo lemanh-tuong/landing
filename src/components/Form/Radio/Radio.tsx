@@ -1,57 +1,47 @@
-import { RenderItem } from 'components/Form/Form';
-import React, { useState, memo } from 'react';
-import * as uuid from 'uuid';
+import React, { memo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './Radio.module.scss';
 
 export interface RadioButton {
   name: string;
   value: string;
-  checked?: boolean;
-  renderItem?: RenderItem<{ name: string; value: string; checked?: boolean }>;
 }
 
 export interface RadioOption {
-  name: string;
+  fieldName: string;
   data: RadioButton[];
+  defaultCheckedValue: string;
   onClick?: (value: string) => void;
 }
 
 export interface RadioProps extends RadioOption {
-  renderItem?: RenderItem<RadioOption>;
 }
 
-const Radio = ({ name, data, onClick, renderItem }: RadioProps) => {
+const Radio = ({ fieldName, data, onClick, defaultCheckedValue }: RadioProps) => {
 
-
-
-  const [nowCheck, setNowCheck] = useState(data.findIndex(item => item.checked));
-
-  const handleClick = (value: string, index: number) => {
+  const handleClick = (value: string) => {
     return () => {
       onClick?.(value);
-      setNowCheck(index);
     };
   };
 
-  const _renderRadioItem = ({ name, value, checked }: RadioButton, index: number) => {
+  const _renderRadioItem = (name: string, value: string, index: number, defaultChecked?: boolean) => {
     return (
-      <div className={styles.radioItem} key={uuid.v4()}>
-        <label htmlFor={name}>{value}</label>
-        <input type="radio" name={name} value={value} id={name} checked={!!checked || index === nowCheck} onClick={handleClick(value, index)} />
-      </div>
+      <label htmlFor={`${value} ${name}`} className={styles.radioBtn} key={uuidv4()} onClick={handleClick(value)}>
+        <input type="radio" className={styles.btn} id={`${value} ${name}`} name={name} tabIndex={index} defaultChecked={defaultChecked} />
+        <span>{value}</span>
+      </label>
     );
   };
 
   const _renderRadioList = () => {
-    return data.map((item, index) => {
-      return item.renderItem ? item.renderItem({ name: item.name, value: item.value, checked: item.checked }) : _renderRadioItem(item, index);
-    });
+    return data.map((item, index) => _renderRadioItem(item.name, item.value, index, defaultCheckedValue === item.value));
   };
 
   const _renderDefault = () => (
     <div className={styles.radioForm}>
       <div className={styles.radioName}>
-        {name}
+        {fieldName}
       </div>
       <div className={styles.radioGroup}>
         {_renderRadioList()}

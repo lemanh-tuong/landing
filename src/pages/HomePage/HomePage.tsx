@@ -12,8 +12,6 @@ import sectionImg2 from 'assets/img/settings/customize-single-listing-page-your-
 import avatar from 'assets/img/web_icons/envato.svg';
 import icon2 from 'assets/img/web_icons/feature-icons/1-feature-icon.svg';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
-import Button from 'components/Button/Button';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Image from 'components/Image/Image';
 import Rate from 'components/Rate/Rate';
 import Section1 from 'components/Section1/Section1';
@@ -36,26 +34,17 @@ class HomePage extends PureComponent {
           slider
           sliderImgs={[
             {
-              imgMockUpContent: mockUpMacContent1,
+              imgSrc: mockUpMacContent1,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
             },
             {
-              imgMockUpContent: mockUpMacContent2,
+              imgSrc: mockUpMacContent2,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/'
             }
           ]}
           margin={0}
-          renderLeft={() => {
-            return (
-              <ButtonGroup>
-                <Button color='white'>
-                  Try demo
-                </Button>
-              </ButtonGroup>
-            );
-          }}
         />
         <Section3
           imageSectionCol={{ imgSrc: sectionImg1 }}
@@ -92,19 +81,19 @@ class HomePage extends PureComponent {
           margin={0}
           sliderImgs={[
             {
-              imgMockUpContent: imgApp,
+              imgSrc: imgApp,
             },
             {
-              imgMockUpContent: imgApp2,
+              imgSrc: imgApp2,
             },
             {
-              imgMockUpContent: imgApp3,
+              imgSrc: imgApp3,
             },
             {
-              imgMockUpContent: imgApp4,
+              imgSrc: imgApp4,
             },
             {
-              imgMockUpContent: imgApp5,
+              imgSrc: imgApp5,
             },
           ]}
           backgroundColor='gradient-pink-orange'
@@ -281,7 +270,18 @@ class HomePage extends PureComponent {
           backgroundColor='gradient-pink-orange'
           slider
           data={[
-            client, client2, client, client2, client, client2, client, client2, client, client2, client, client2
+            {
+              imgSrc: client,
+            },
+            {
+              imgSrc: client2,
+            },
+            {
+              imgSrc: client,
+            },
+            {
+              imgSrc: client2,
+            },
           ]}
           hasNav
           fluid={true}
@@ -290,7 +290,7 @@ class HomePage extends PureComponent {
             '768px': 4,
             '992px': 5
           }}
-          renderItem={(item) => <Image type='tagImg' imgSrc={item} />}
+          renderItem={({ imgSrc }) => <Image type='tagImg' imgSrc={imgSrc} />}
         />
         <Section4
           mainTitle='Trusted by over 6600 users'

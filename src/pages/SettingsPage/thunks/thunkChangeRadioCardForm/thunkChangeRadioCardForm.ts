@@ -2,8 +2,14 @@ import { actionChangeRadioCardForm } from "pages/SettingsPage/actions/actionChan
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkChangeRadioCardForm = ThunkAction<typeof actionChangeRadioCardForm>
+export interface ThunkChangeRadioCardFormArg {
+  fieldName: string;
+  value: string;
+  nowIndexSection: number;
+  nowIndexCard: number
+}
 
-const thunkChangeRadioCardForm = (fieldName: string, value: string, nowIndexSection: number, nowIndexCard: number): ThunkChangeRadioCardForm => dispatch => {
+const thunkChangeRadioCardForm = ({fieldName, value, nowIndexSection, nowIndexCard}: ThunkChangeRadioCardFormArg): ThunkChangeRadioCardForm => dispatch => {
   dispatch(actionChangeRadioCardForm({fieldName: fieldName, value: value, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}))
 }
 

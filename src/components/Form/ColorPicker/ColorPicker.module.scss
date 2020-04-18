@@ -1,6 +1,7 @@
 .colorPicker {
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 .fieldName {
   text-transform: capitalize;
@@ -11,15 +12,14 @@
   width: 36px;
   height: 14px;
   border-radius: 2px;
-  position: relative;
 }
 
 .colorBox {
   position: absolute;
-  top: 0px;
-  left: calc(100% + 20px);
+  top: 0;
+  left: 0;
   z-index: 123;
-  transform: translateY(-10%);
+  transform: translate(90%, 48%);
   &:before {
     content: '';
     position: absolute;

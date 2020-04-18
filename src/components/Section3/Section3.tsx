@@ -13,7 +13,7 @@ export interface Section3Props extends MainTitleProps, DividerProps, Omit<TextPr
   text?: string | string[];
   reverse?: boolean;
   hasDivider?: boolean;
-  imageSectionCol: ImageProps
+  imageSectionCol: ImageProps;
 }
 
 const Section3: FC<Section3Props> = ({ backgroundColor, backgroundImage, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle, text, alignText, colorText, fontSizeText, classText, styleText, hasDivider = false, dividerColor, imageSectionCol, className, style, reverse, darkMode, renderLeft, renderRight }) => {

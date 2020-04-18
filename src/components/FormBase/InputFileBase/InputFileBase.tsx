@@ -1,35 +1,75 @@
-import React, { useRef, ReactNode, MutableRefObject } from 'react';
+import React, { useRef, ReactNode, MutableRefObject, useState, Fragment } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { createUrl } from 'utils/functions/createUrl';
 
-export type OnChangeFileFunc = (file: File, urlLocal?: string) => void
-
+export type OnChangeFileFunc = (files: File[]) => void;
+export type OnDropFileFunc = (e: CustomEvent & { dataTransfer: DataTransfer }) => void;
 export interface InputFileBaseProps {
   type: 'file' | 'input';
+  statusUploadFile?: 'uploading' | 'uploaded' | 'uploadFailure';
   onChange?: OnChangeFileFunc;
-  renderInput: (onChangeFunc: OnChangeFileFunc, onDropFunc: OnChangeFileFunc, ref: MutableRefObject<HTMLInputElement | null>) => ReactNode;
+  renderInput: (onChangeFunc: OnChangeFileFunc, onDropFunc: OnDropFileFunc, ref: MutableRefObject<HTMLInputElement | null>) => ReactNode;
+  renderProcessUpload?: (statusUploadFile: InputFileBaseProps['statusUploadFile'], fileName: string, onClose: () => void, fileUrlLocal?: string) => ReactNode;
 }
 
-const InputFileBase = ({ type, onChange, renderInput }: InputFileBaseProps) => {
+export interface FileState extends File {
+  urlLocal: string;
+}
+
+const InputFileBase = ({ type, statusUploadFile, onChange, renderInput, renderProcessUpload }: InputFileBaseProps) => {
+  const [filesUpload, setFilesUpload] = useState<FileState[]>([]);
   const inputUpload = useRef<HTMLInputElement | null>(null);
 
+  const _handleCloseNotifycation = (fileNameClose: string) => {
+    return () => {
+      const newList = filesUpload.filter(file => file.name !== fileNameClose);
+      setFilesUpload([...newList]);
+    }
+  }
 
   const _handleUpload = () => {
-    const files = Array.prototype.slice.call(inputUpload.current?.files);
-    if (files) {
-      files.forEach(file => onChange?.(file, URL.createObjectURL(file)));
-    }
+    const files = Array.prototype.slice.call(inputUpload.current?.files) as File[];
+    const stateFiles: FileState[] = files.map((file: File) => {
+      return {
+        ...file,
+        name: file.name,
+        lastModified: file.lastModified,
+        size: file.size,
+        type: file.type,
+        urlLocal: createUrl(file),
+      }
+    });
+    setFilesUpload(filesUpload.concat(stateFiles));
+    onChange?.(files)
   };
 
-  const _handleDropImage = (e: any) => {
+  const _handleDropImage: OnDropFileFunc = (e) => {
     e.stopPropagation();
     e.preventDefault();
     const dt = e.dataTransfer;
     const files = Array.prototype.slice.call(dt.files);
-    if (files) {
-      files.forEach(file => onChange?.(file, URL.createObjectURL(file)));
-    }
+    const stateFiles: FileState[] = files.map((file: File) => {
+      return {
+        ...file,
+        name: file.name,
+        lastModified: file.lastModified,
+        size: file.size,
+        type: file.type,
+        urlLocal: createUrl(file),
+      }
+    });
+    setFilesUpload(filesUpload.concat(stateFiles));
+    onChange?.(files);
   };
 
-  return <>{renderInput(_handleUpload, _handleDropImage, inputUpload)}</>;
+  const _renderListFileUpload = () => {
+    return filesUpload.map(file => <Fragment key={uuidv4()}>{renderProcessUpload?.(statusUploadFile, file.name, _handleCloseNotifycation(file.name), file?.urlLocal)}</Fragment>)
+  }
+
+  return <>
+    {renderInput(_handleUpload, _handleDropImage, inputUpload)}
+    {_renderListFileUpload()}
+  </>;
 
 }
 

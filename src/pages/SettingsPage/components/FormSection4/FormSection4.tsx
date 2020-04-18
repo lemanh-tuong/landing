@@ -1,83 +1,63 @@
-import React, { memo, FC } from 'react';
-import Form from 'components/Form/Form';
-import { useSelector } from 'react-redux';
-import { imgSrcGallery, backgroundImageGallery } from 'pages/SettingsPage/selectors';
+import { Button } from 'antd';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
-import { useMount } from 'hooks/useMount';
-import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
-import thunkChooseImage from 'pages/SettingsPage/thunks/thunkChooseImage/thunkChooseImage';
+import React, { FC, memo } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-export type FormSection4Field = {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
-  fieldName: string;
-  [key: string]: any;
-}
+export type FormSection4Field = FieldType;
 
 export interface FormSection4Props {
   nowIndexSection: number
 }
 
-export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
+const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
   // Selector
-  const imgSrcs = useSelector(imgSrcGallery);
-  const backgroundImages = useSelector(backgroundImageGallery);
+  const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
+  const { mainTitle, text, alignText, alignMainTitle, colorText, colorMainTitle } = element
+
 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeRadio = thunkChangeRadio();
   const changeColor = thunkChangeColor();
-  const uploadImageSection = thunkUploadFile();
-  const getImageGallery = thunkGetImageGallery();
-  const chooseImage = thunkChooseImage();
 
   //Handle
-  const handleChangeForm = (fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldName === 'mainTitle' || fieldName === 'text') {
-        changeInput(fieldName, result, nowIndexSection);
+      if (fieldType === 'input') {
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldName.includes('align')) {
-        changeRadio(fieldName, result, nowIndexSection);
+      if (fieldType === 'radio') {
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldName.includes('color') || fieldName.includes('Color')) {
-        changeColor(fieldName, result, nowIndexSection);
-      }
-      if (fieldName === 'imgSrc') {
-        uploadImageSection(fieldName, fieldName, result, nowIndexSection);
+      if (fieldType === 'color-picker') {
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
     }
   }
-  const handleChooseImage = (fieldName: string) => {
-    return (src: string) => {
-      chooseImage(fieldName, src, nowIndexSection)
-    }
-  }
-
-  useMount(() => {
-    getImageGallery('imgSrc');
-    getImageGallery('backgroundImage');
-  })
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div>
       <Form
         fields={[
           {
             fieldType: 'input',
             fieldName: 'mainTitle',
-            fieldId: 1,
+            fieldId: 'section-4-field-1',
             horizontal: true,
-            defaultValue: 'Title'
+            defaultValue: mainTitle
           },
           {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
-            fieldId: 2,
+            defaultCheckedValue: alignMainTitle,
+            fieldId: 'section-4-field-2',
             data: [
               {
                 value: 'center',
@@ -96,20 +76,21 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 3,
-            defaultValue: '#000'
+            fieldId: 'section-4-field-3',
+            defaultValue: colorMainTitle || '#000'
           },
           {
             fieldType: 'input',
             fieldName: 'text',
-            fieldId: 4,
+            fieldId: 'section-4-field-4',
             horizontal: true,
-            defaultValue: 'Text'
+            defaultValue: text
           },
           {
             fieldType: 'radio',
             fieldName: 'alignText',
-            fieldId: 5,
+            defaultCheckedValue: alignText,
+            fieldId: 'section-4-field-5',
             data: [
               {
                 value: 'center',
@@ -128,25 +109,17 @@ export const FormSection4: FC<FormSection4Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
-            fieldId: 6,
-            defaultValue: '#000'
+            fieldId: 'section-4-field-6',
+            defaultValue: colorText || '#000'
           },
-          {
-            fieldType: 'file',
-            fieldName: 'backgroundImage',
-            fieldId: 7,
-            listImg: backgroundImages || []
-          },
-          {
-            fieldType: 'file',
-            fieldName: 'imageSectionCol',
-            fieldId: 8,
-            listImg: imgSrcs || []
-          }
         ]}
         onChange={handleChangeForm}
-        onAnotherEvent={handleChooseImage}
       />
+      <Button size='large' shape='round'>
+        <Link to={`/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
+          Change Image
+        </Link>
+      </Button>
     </div>
   )
 };

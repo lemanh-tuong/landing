@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, useEffect, ReactNode } from 'react';
+import React, { Fragment, ReactNode, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 type OnChooseFunc<T> = (item: ItemT<T>, nowChoosing?: ItemT<T>[], setChoosing?: any) => void;
@@ -11,47 +11,38 @@ type Data<T> = ItemT<T>[];
 type RenderItemRollSelect<T> = (item: ItemT<T>, index: number, onChoose?: OnChooseFunc<T>) => ReactNode;
 
 
-export interface RollSelectBaseProps<ItemT> {
-  data: Data<ItemT>;
-  defaultSelected?: any;
-  renderItem: RenderItemRollSelect<ItemT>;
+export interface RollSelectBaseProps<T> {
+  data: Data<T>;
+  defaultSelected?: Data<T> | ItemT<T>;
+  renderItem: RenderItemRollSelect<T>;
   multiple?: boolean;
-  onChoose?: OnChooseFunc<ItemT>;
-  onResult?: (result: ItemT | ItemT[]) => void;
+  onChoose?: OnChooseFunc<T>;
+  onResult?: (result: T | T[]) => void;
 }
 
-const RollSelectBase = <T extends any>({ data, defaultSelected, multiple = false, onChoose, onResult, renderItem }: RollSelectBaseProps<T>) => {
-  const onChooseRef = useRef(onChoose);
-  const onResultRef = useRef(onResult);
+const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = false, onChoose, onResult, renderItem }: RollSelectBaseProps<T>) => {
   const [choosing, setChoosing] = useState(() => {
-    if (multiple && defaultSelected) {
-      return [].concat(defaultSelected);
-    }
-    if (multiple) {
-      return [] as any;
-    }
-    return {} as ItemT<T>;
+    return defaultSelected ? (defaultSelected instanceof Array ? [...defaultSelected] : [{ ...defaultSelected }]) : [] as Data<T>;
   });
 
   const handleChoose = (item: ItemT<T>) => () => {
-    onChooseRef.current?.(item);
-    if (choosing instanceof Array) {
-      choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1 ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc)) : setChoosing(choosing.concat(item));
-    }
-    else {
-      setChoosing(item)
-    }
+    onChoose?.(item);
+    choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1 ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc)) : setChoosing(choosing.concat(item));
   }
 
   useEffect(() => {
-    if (!!choosing) onResultRef.current?.(choosing);
-  }, [choosing, onResultRef])
+    if (multiple) {
+      onResult?.(choosing);
+    } else {
+      onResult?.(choosing[0]);
+    }
+  }, [choosing, multiple, onResult])
 
   return (
     <>
       {
         data.map(item => {
-          const index = choosing instanceof Array ? choosing?.findIndex(chose => chose.imgSrc === item.imgSrc) : choosing.imgSrc === item.imgSrc ? 0 : -1;
+          const index = choosing?.findIndex(chose => chose.imgSrc === item.imgSrc);
           return <Fragment key={uuidv4()}>{renderItem(item, index, handleChoose(item))}</Fragment>
         })
       }

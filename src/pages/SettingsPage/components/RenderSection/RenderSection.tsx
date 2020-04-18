@@ -1,8 +1,6 @@
 import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import sectionImg1 from 'assets/img/settings/create-unlimited-directory-types.png';
-import Button from 'components/Button/Button';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Section1 from 'components/Section1/Section1';
 import Section2 from 'components/Section2/Section2';
 import Section3 from 'components/Section3/Section3';
@@ -14,7 +12,10 @@ import { Option } from '../../SettingsPage';
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
 // }: Option) => {
 const RenderSection = (option: Option) => {
-  const { imageSectionCol, sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle, cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage } = option;
+  const { imageSectionCol, sectionName, mainTitle, text, alignMainTitle, alignText, colorText, colorMainTitle,
+    cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage,
+    textButton, styleButton, hrefButton
+  } = option;
   const _renderContent = () => {
     switch (sectionName) {
       case 'Section 1':
@@ -29,29 +30,22 @@ const RenderSection = (option: Option) => {
           backgroundColor="gradient-orange-pink"
           backgroundImage={backgroundImage}
           slider={slider}
-          sliderImgs={sliderImgs || [
+          sliderImgs={sliderImgs ?? [
             {
-              imgUrl: mockUpMacContent1,
+              imgSrc: mockUpMacContent1,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
             },
             {
-              imgUrl: mockUpMacContent2,
+              imgSrc: mockUpMacContent2,
               hasVideo: true,
               videoUrl: 'https://www.youtube.com/'
             }
           ]}
           margin={0}
-
-          renderLeft={() => {
-            return (
-              <ButtonGroup>
-                <Button color='white'>
-                  Try demo
-                </Button>
-              </ButtonGroup>
-            );
-          }}
+          textButton={textButton}
+          styleButton={styleButton}
+          hrefButton={hrefButton}
         />;
       case 'Section 2':
         return <Section2
@@ -74,11 +68,12 @@ const RenderSection = (option: Option) => {
           alignText={alignText}
           colorText={colorText}
           hasDivider={hasDivider}
-          dividerColor={dividerColor || '#f06292'}
+          dividerColor={dividerColor ?? '#f06292'}
         />;
       case 'Section 4':
         return <Section4
           backgroundImage={backgroundImage?.[0]}
+
           // backgroundColor={backgroundColor}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}

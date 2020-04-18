@@ -1,10 +1,14 @@
+import { authentication } from 'firebase/authentication/authentication';
+import { useMount } from 'hooks/useMount';
 import HomePage from 'pages/HomePage/HomePage';
-import PreviewPage from 'pages/PreviewPage/PreviewPage';
+import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
+import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 const Routes = () => {
+  const [token, setToken] = useState('');
   // const [show, setShow] = useState(false);
   // const [active, setActive] = useState(false);
 
@@ -35,21 +39,44 @@ const Routes = () => {
   //     window.removeEventListener('scroll', handleScroll);
   //   };
   // });
+  const handleIsSignedIn = () => {
+    authentication.onAuthStateChanged(authUser => {
+      authUser?.getIdToken().then((token) => {
+        setToken(token)
+      })
+    })
+  }
+
+  useMount(() => {
+    handleIsSignedIn()
+  })
 
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <header>
       </header>
       <main>
         <Switch>
-          <Route path="/preview" exact>
-            <PreviewPage />
-          </Route>
-          <Route path="/settings">
-            <SettingsPage />
-          </Route>
-          <Route path="/">
+          <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route exact path='/login'>
+            <LoginPage />
+          </Route>
+          <Route exact path="/gallery">
+            <ImageGalleryPage />
+          </Route>
+          {/* <Route exact path="/settings" strict>
+            <SettingsPage />
+          </Route> */}
+          <PrivateRoute
+            token={token}
+            component={<Route exact path="/settings" strict>
+              <SettingsPage />
+            </Route>}
+          />
+          <Route>
+            <div>Something went wrong</div>
           </Route>
         </Switch>
       </main>

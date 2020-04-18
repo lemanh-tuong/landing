@@ -1,6 +1,11 @@
 import database from "./database";
 
-const updateFireBase = (path: string, updateValue: object) => {
+export interface UpdateFireBaseArg {
+  path: string;
+  updateValue: object
+}
+
+const updateFireBase = ({path, updateValue}: UpdateFireBaseArg) => {
   database.ref(path).update(updateValue);
 }
 

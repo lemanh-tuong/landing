@@ -1,21 +1,16 @@
-import React, { FC } from 'react';
-import Form from 'components/Form/Form';
-import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
+import { Button } from 'antd';
+import 'antd/es/style/css';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
+import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { sections, sliderImgsGallery } from 'pages/SettingsPage/selectors';
-import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
-import thunkUploadFile from 'pages/SettingsPage/thunks/thunkUploadFile/thunkUploadFile';
-import { useMount } from 'hooks/useMount';
-import thunkGetImageGallery from 'pages/SettingsPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
-import thunkChooseImage from 'pages/SettingsPage/thunks/thunkChooseImage/thunkChooseImage';
+import { Link } from 'react-router-dom';
+import FormChangeButton from '../FormChangeButton/FormChangeButton';
 
-export type FormSection1Field = {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
-  fieldName: string;
-  [key: string]: any
-}
+export type FormSection1Field = FieldType
 
 export interface FormSection1Props {
   nowIndexSection: number;
@@ -24,65 +19,46 @@ export interface FormSection1Props {
 export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
-  const sliderImageGallery = useSelector(sliderImgsGallery);
+
   //Destructoring
-  const { slider, sliderImgs } = element;
+  const { mainTitle, text, alignMainTitle, alignText, colorMainTitle, colorText } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
-  const changeCheckBox = thunkChangeCheckBox();
   const changeRadio = thunkChangeRadio();
   const changeColor = thunkChangeColor();
-  const uploadImageSection = thunkUploadFile();
-  const getImageGallery = thunkGetImageGallery();
-  const chooseImage = thunkChooseImage();
 
   //Handle
-  const handleChangeForm = (fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldName === 'mainTitle' || fieldName === 'text') {
-        changeInput(fieldName, result, nowIndexSection);
+      if (fieldType === 'input') {
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldName === 'alignMainTitle' || fieldName === 'alignText') {
-        changeRadio(fieldName, result, nowIndexSection);
+      if (fieldType === 'radio') {
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldName === 'colorMainTitle' || fieldName === 'colorText' || fieldName === 'divider color') {
-        changeColor(fieldName, result, nowIndexSection);
-      }
-      if (fieldName === 'slider') {
-        changeCheckBox(fieldName, result, nowIndexSection)
-      }
-      if (fieldName === 'sliderImgs') {
-        uploadImageSection(fieldName, fieldName, result, nowIndexSection);
+      if (fieldType === 'color-picker') {
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
     }
   }
-
-  const handleChoose = (fieldName: string) => {
-    return (result: any) => {
-      chooseImage(fieldName, result, nowIndexSection);
-    }
-  }
-
-  useMount(() => {
-    getImageGallery('sliderImgs')
-  })
 
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div>
       <Form
         fields={[
           {
             fieldType: 'input',
             fieldName: 'mainTitle',
-            fieldId: 1,
+            fieldId: 'section-1-field-1',
             horizontal: true,
-            defaultValue: 'Title'
+            defaultValue: mainTitle
           },
           {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
-            fieldId: 2,
+            defaultCheckedValue: alignMainTitle,
+            fieldId: 'section-1-field-2',
             data: [
               {
                 value: 'center',
@@ -101,19 +77,21 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 3,
+            fieldId: 'section-1-field-3',
+            defaultColor: colorMainTitle || '#000',
           },
           {
             fieldType: 'input',
             fieldName: 'text',
-            fieldId: 4,
+            fieldId: 'section-1-field-4',
             horizontal: true,
-            defaultValue: 'Text'
+            defaultValue: text
           },
           {
             fieldType: 'radio',
             fieldName: 'alignText',
-            fieldId: 5,
+            fieldId: 'section-1-field-5',
+            defaultCheckedValue: alignText,
             data: [
               {
                 value: 'center',
@@ -132,28 +110,18 @@ export const FormSection1: FC<FormSection1Props> = ({ nowIndexSection }) => {
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
-            fieldId: 6,
-          },
-          {
-            fieldType: 'checkbox',
-            fieldName: 'slider',
-            fieldId: 7,
-            name: "Slider",
-            checked: slider
-          },
-          {
-            fieldType: 'file',
-            fieldName: 'sliderImgs',
-            fieldId: 8,
-            hidden: !slider,
-            multiple: true,
-            listImg: sliderImageGallery || [],
-            defaultSelected: sliderImgs
+            fieldId: 'section-1-field-6',
+            defaultColor: colorText || '#000'
           }
         ]}
         onChange={handleChangeForm}
-        onAnotherEvent={handleChoose}
       />
+      <FormChangeButton nowIndexSection={nowIndexSection} />
+      <Button shape='round' size='large' danger>
+        <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
+          Change Image
+        </Link>
+      </Button>
     </div>
   )
 };

@@ -4,7 +4,7 @@ export interface ActionChangeCheckBox {
     type: "CHANGE_CHECKBOX",
     payload: {
         fieldName: string;
-        result: boolean;
+        checked: boolean;
         nowIndexSection: number;
     }
 }
@@ -13,4 +13,5 @@ const changeCheckBox = createAction('CHANGE_CHECKBOX', (payload: ActionChangeChe
     ...payload
 }))
 
-export { changeCheckBox }
+export { changeCheckBox };
+

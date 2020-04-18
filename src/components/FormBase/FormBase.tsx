@@ -1,8 +1,12 @@
-import React, { ReactNode, Fragment, useState, useEffect, useRef } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 
-type TField<T> = T & {
+type TField<T> = T;
+
+type FileRequire = {
   fieldType: string;
-  fieldName: string
+  fieldName: string;
+  [key: string]: any;
+
 }
 
 export type RenderField<T> = (arg: T, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => ReactNode;
@@ -12,10 +16,10 @@ export interface FormBaseProps<T> {
   renderField: RenderField<T>;
   onChange?: (result: any) => void;
   onAnotherEvent?: (result: any) => void;
+  children?: ReactNode;
 }
 
-const FormBase = <T extends any>({ fields, renderField, onChange, onAnotherEvent }: FormBaseProps<T>) => {
-  const onChangeRef = useRef(onChange)
+const FormBase = <T extends FileRequire>({ fields, renderField, onChange, onAnotherEvent, children }: FormBaseProps<T>) => {
   const [result, setResult] = useState({});
 
   const handleChange = (fieldName: string) => {
@@ -28,13 +32,14 @@ const FormBase = <T extends any>({ fields, renderField, onChange, onAnotherEvent
   }
 
   useEffect(() => {
-    onChangeRef.current?.(result);
-  }, [onChangeRef, result])
+    onChange?.(result);
+  }, [onChange, result])
 
   return (
-    <Fragment>
+    <>
       {fields.map(field => renderField({ ...field }, handleChange(field.fieldName), onAnotherEvent))}
-    </Fragment>
+      {children}
+    </>
   )
 }
 

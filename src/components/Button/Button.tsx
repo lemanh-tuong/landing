@@ -1,22 +1,26 @@
-import React, { FC, memo } from 'react';
+import 'antd/es/button/style/css';
+import React, { FC, memo, MouseEvent } from 'react';
 import styles from './Button.module.scss';
 
-interface ButtonProps extends PropsComponent {
+export interface ButtonProps extends PropsComponent {
   color?: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
   dark?: boolean;
   darkClassName?: string;
-  onClick?: (arg?: any) => void;
+  onClick?: (event?: MouseEvent) => void;
   initial?: boolean;
+  text?: string;
+  href?: string;
 }
 
-const Button: FC<ButtonProps> = ({ children, className, style, color = 'primary', dark, initial = false, onClick }) => {
+const Button: FC<ButtonProps> = ({ children, text, href, className, style, color = 'primary', dark, initial = false, onClick }) => {
   const darkMode = dark ? styles['dark'] : '';
   return (
-    <button onClick={onClick && onClick} className={`${styles[color]}  ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
+    <a href={href} style={style} onClick={onClick && onClick} className={`${styles.defaultStyle} ${styles[color]}  ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
+      {text}
       {children}
-    </button>
+    </a>
   );
-}
+};
 
 export default memo(Button);
 

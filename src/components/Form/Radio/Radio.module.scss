@@ -1,54 +1,50 @@
-.radioForm {
-  display: flex;
-  margin: 10px 0;
+$primary: #6743ee;
+$secondary: rgb(159, 159, 159);
+
+
+
+.radioBtn {
+  padding: 6px;
+  border-radius: 50px;
+  display: inline-flex;
+  cursor: pointer;
+  transition: background .2s ease;
+  margin: 8px 0;
+  -webkit-tap-highlight-color: transparent;
+  &:hover {
+    background: rgba($color: $secondary, $alpha: 0.1);
+  }
 }
 
-.radioName {
-  margin-right: 10px;
-  text-transform: capitalize;
+
+.btn {
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: none;
+  border: 0;
+  box-shadow: inset 0 0 0 1px $secondary;
+  box-shadow: inset 0 0 0 1.5px $secondary;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  transition: box-shadow 150ms cubic-bezier(.95,.15,.5,1.25);
+  pointer-events: none;
+
+  &:focus {
+    outline: none
+  }
+
+  &:checked {
+    box-shadow: inset 0 0 0 6px $primary
+  }
 }
 
-.radioGroup {
-  display: flex;
-}
-
-.radioItem {
-  margin: 0px 5px;
-  position: relative;
-}
-
-label {
-  text-transform: capitalize;
-  margin-right: 10px;
-}
-
-input[type="radio"] {
+span {
+  vertical-align: middle;
   display: inline-block;
-  position: relative;
-  &:before {
-    content: '';
-    padding: 10px;
-    background: lightgrey;
-    border-radius: 100%;
-    position: absolute;
-    width: 0;
-    height: 0;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-  }
-  // &:after {
-  //   content: '';
-  //   border-radius: 50%;
-  //   position: absolute;
-  //   width: 0;
-  //   height: 0;
-  //   padding: 5px;
-  //   background: red;
-  //   top: 5px;
-  //   left: -1.5px;
-  // }
-  &:checked:before {
-    background: lightblue;
-  }
+  line-height: 20px;
+  padding: 0 8px;
+  text-transform: capitalize;
 }

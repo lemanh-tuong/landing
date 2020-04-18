@@ -4,43 +4,34 @@ import { getDataSection } from '../actions/actionGetDataSection/actionGetDataSec
 import { Option } from '../SettingsPage';
 
 export interface SettingMainContentReducers {
-  pageName: string;
-  elements: Option[];
-  statusRequestElements: 'loading' | 'success' | 'failure';
-  messageRequestElements: string
+  readonly pageName: string;
+  readonly elements: Option[];
+  readonly statusRequestElements: 'loading' | 'success' | 'failure';
+  readonly messageRequestElements: string;
 }
 
 
 const initialState: SettingMainContentReducers = {
   pageName: '',
   elements: [],
-  statusRequestElements: 'success',
-  messageRequestElements: ''
+  statusRequestElements: 'loading',
+  messageRequestElements: '',
 };
 
 const settingMainContentReducers = createReducer<SettingMainContentReducers, ActionTypes<typeof getDataSection> & any>(initialState, [
   handleAction('@getDataSectionRequest', (state) => ({
     ...state,
-    status: 'loading'
+    statusRequestElements: 'loading'
   })),
-  handleAction('@getDataSectionSuccess', (state, action) => {
-    if(!!action.payload.elements) {
-      return {
-        ...state,
-        elements: [...action.payload.elements],
-        pageName: action.payload.pageName,
-        status: 'success'
-      }
-    }
-    return {
-      ...state,
-      elements: [],
-      status: 'success'
-    }
-  }),
+  handleAction('@getDataSectionSuccess', (state, action) => ({
+    ...state,
+    elements: !!action.payload.elements ? [...action.payload.elements] : [],
+    pageName: action.payload.pageName,
+    statusRequestElements: 'success'
+  })),
   handleAction('@getDataSectionFailure', (state) => ({
     ...state,
-    status: 'failure',
+    statusRequestElements: 'failure',
     message: 'Error'
   })),
 
@@ -51,8 +42,8 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     if(nowIndexSection === 0 || nowIndexSection) {
       const element: Option = {
         ...action.payload,
-      }
-      const newElement = [...state.elements.slice(0, nowIndexSection + 1), {...element}, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      };
+      const newElement = [...state.elements.slice(0, nowIndexSection + 1), {...element}, ...state.elements.slice(nowIndexSection + 1, state.elements.length)];
 
       writeFireBase({
         ...state,
@@ -62,9 +53,8 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       return {
         ...state,
         elements: [...newElement]
-      }
-    }
-    else {
+      };
+    } else {
       writeFireBase({
         ...state,
         elements: [...state.elements].concat(action.payload)
@@ -103,11 +93,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       return {
         ...state,
         elements: [...newElements]
-      }
+      };
     }
     return {
       ...state,
-    }
+    };
   }),
   handleAction('MOVE_DOWN_SECTION', (state, action) => {
     const { nowIndexSection } = action.payload;
@@ -121,11 +111,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       return {
         ...state,
         elements: [...newElements]
-      }
+      };
     }
     return {
       ...state,
-    }
+    };
   }),
 
   // Handle Form Section
@@ -135,11 +125,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...elementChange,
       [fieldName]: value
-    }
+    };
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
   handleAction('CHANGE_RADIO', (state, action) => {
     const { nowIndexSection, value, fieldName} = action.payload;
@@ -147,23 +137,23 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...elementChange,
       [fieldName]: value
-    }
+    };
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
   handleAction('CHANGE_CHECKBOX', (state, action) => {
-    const { nowIndexSection, result, fieldName} = action.payload;
+    const { nowIndexSection, checked, fieldName} = action.payload;
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      [fieldName]: result
-    }
+      [fieldName]: checked
+    };
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
   handleAction('CHANGE_COLOR', (state, action) => {
     const { fieldName, color, nowIndexSection } = action.payload;
@@ -171,11 +161,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...nowElement,
       [fieldName]: color,
-    }
+    };
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
   handleAction('CHOOSE_IMAGE', (state, action) => {
     const { fieldName, data, nowIndexSection } = action.payload;
@@ -183,140 +173,117 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...nowElement,
       [fieldName]: data instanceof Array ? [...data] : {...data}
-    }
+    };
 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
-  // handleAction('UPLOAD_FILE', (state, action) => {
-  //   // const { path, fieldName, newImgs, nowIndex } = action.payload;
-  //   const { fieldName, newImgs, nowIndexSection } = action.payload;
-  //   const item = fieldName === 'imgSrc' ? newImgs.map((imgUrl: string) => imgUrl) : newImgs.map((imgUrl: string) => ({
-  //     imgSrc: imgUrl,
-  //     hasVideo: true,
-  //     videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
-  //   }));
-  //   const nowElement = Object.assign({}, state.elements[nowIndexSection]);
-  //   const newElement = {
-  //     ...nowElement,
-  //     [fieldName]: item ? [].concat(item) : []
-  //   }
-  //   writeFireBase({
-  //     ...state,
-  //     elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-  //   })
-  //   return {
-  //     ...state,
-  //     elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-  //   }
-  // }),
   handleAction('MOVE_CHILD', (state, action) => {
-    const { newChild , nowIndexSection } = action.payload;
+    const { newChild, nowIndexSection } = action.payload;
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
       cards: [...newChild]
-    }
+    };
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
-  handleAction("SAVE", (state, action) => {
+  handleAction('SAVE', state => {
     writeFireBase(state);
     return {
       ...state,
-    }
+    };
   }),
 
   // Handle Form Card
-  handleAction("CHANGE_INPUT_CARD_FORM", (state, action) => {
+  handleAction('CHANGE_INPUT_CARD_FORM', (state, action) => {
     const { fieldName, value, nowIndexSection, nowIndexCard } = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
     const newCard = {
       ...nowCard,
       [fieldName]: value
-    }
+    };
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
-    }
+    };
 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
-  handleAction("CHANGE_RADIO_CARD_FORM", (state, action) => {
+  handleAction('CHANGE_RADIO_CARD_FORM', (state, action) => {
     const { fieldName, value, nowIndexSection, nowIndexCard } = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
     const newCard = {
       ...nowCard,
       [fieldName]: value
-    }
+    };
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
-    }
+    };
 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
-  handleAction("CHANGE_COLOR_CARD_TEXT", (state, action) => {
+  handleAction('CHANGE_COLOR_CARD_TEXT', (state, action) => {
     const { fieldName, color, nowIndexSection, nowIndexCard } = action.payload;
     const nowElement = state.elements[nowIndexSection];
     const nowCard = nowElement.cards?.[nowIndexCard];
     const newCard = {
       ...nowCard,
       [fieldName]: color
-    }
+    };
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
-    }
+    };
 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
   handleAction('CHANGE_ICON_CARD', (state, action) => {
-    const { fieldName, imgSrc, nowIndexSection, nowIndexCard} = action.payload;
+    const { fieldName, iconImg, nowIndexSection, nowIndexCard} = action.payload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
-    const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
+    const nowCard = Object.assign({}, nowElement.cards?.[nowIndexCard]);
     const newCard = {
       ...nowCard,
-      [fieldName]: imgSrc
-    }
+      [fieldName]: iconImg
+    };
+
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
-    }
+    };
 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
-  handleAction("DELETE_CARD", (state, action) => {
+  handleAction('DELETE_CARD', (state, action) => {
     const { nowIndexSection, nowIndexCard } = action.payload;
-    console.log(nowIndexSection, nowIndexCard);
-
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
-    }
+    };
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   }),
   handleAction('ADD_CARD', (state, action) => {
     const { data, nowIndexSection } = action.payload;
@@ -326,12 +293,12 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards].concat(data) : [].concat(data)
-    }
+    };
 
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+    };
   })
 ]);
 

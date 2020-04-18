@@ -1,17 +1,24 @@
-import storage from './storage';
 import readStorage from './readStorage';
+import storage from './storage';
 
-
+export interface UploadFileArg {
+  path: string;
+  files: File[]
+}
 const storageRef  = storage.ref();
 
-const uploadFile = async (path: string, fileName: string, file: File) => {
-    var mountainImagesRef = storageRef.child(`images/${path}/${fileName}`);
-    await mountainImagesRef.put(file);
-    // mountainImagesRef.put(file).then(function(snapshot) {
-    //     console.log('Uploaded a blob or file!', snapshot);
-    // });
-    const newImgs = await readStorage(path);
-    return newImgs
+const uploadFile = async ({path, files}: UploadFileArg) => {
+  let newImgs;
+  await Promise.all(files.map(async file => {
+    const ref = storageRef.child(`images/${path}/${file.name}`);
+    await ref.put(file);
+  })).then(async () => {
+    const imgs: any[] = await readStorage(path);
+    console.log(imgs);
+    newImgs = [...imgs];
+  })
+
+  return newImgs
 };
 
 export default uploadFile;

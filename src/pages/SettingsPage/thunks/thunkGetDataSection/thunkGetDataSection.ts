@@ -1,10 +1,14 @@
 import readFireBase from 'firebase/database/readFireBase';
-import { getDataSection } from '../../actions/actionGetDataSection/actionGetDataSection';
 import { createDispatchAction } from 'utils/functions/reduxActions';
+import { getDataSection } from '../../actions/actionGetDataSection/actionGetDataSection';
 
 type ThunkGetDataSection = ThunkAction<typeof getDataSection>;
+export interface ThunkGetDataSectionArg {
+  pageName: string
+}
 
-const thunkGetDataSection = (pageName: string): ThunkGetDataSection => async dispatch => {
+
+const thunkGetDataSection = ({pageName}: ThunkGetDataSectionArg): ThunkGetDataSection => async dispatch => {
   dispatch(getDataSection.request(null));
   try {
     const data = await readFireBase(pageName);

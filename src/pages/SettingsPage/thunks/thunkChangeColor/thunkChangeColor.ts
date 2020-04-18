@@ -2,8 +2,13 @@ import { actionChangeColor } from "pages/SettingsPage/actions/actionChangeColor/
 import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkChangeColor = ThunkAction<typeof actionChangeColor>
+export interface ThunkChangeColorArg {
+  fieldName: string;
+  color: string;
+  nowIndexSection: number
+}
 
-const thunkChangeColor = (fieldName: string, color: string, nowIndexSection: number): ThunkChangeColor => dispatch => {
+const thunkChangeColor = ({fieldName, color, nowIndexSection}: ThunkChangeColorArg): ThunkChangeColor => dispatch => {
     dispatch(actionChangeColor({fieldName: fieldName, color: color, nowIndexSection: nowIndexSection}));
 }
 

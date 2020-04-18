@@ -1,80 +1,63 @@
-import React, { memo } from 'react';
-import Form from 'components/Form/Form';
-import { CardProps } from 'components/Card/Card';
-import FormChangeCard from '../FormChangeCard/FormChangeCard';
-import icon1 from 'assets/img/web_icons/paid-listings.svg';
-import { useSelector } from 'react-redux';
+import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import Icon from 'components/Icon/Icon';
-import Button from 'components/Button/Button';
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
+import FormChangeCard from '../FormChangeCard/FormChangeCard';
 
-const cardDefault: CardProps = {
-  titleCard: 'Paid listings',
-  textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
-  iconImg: { imgSrc: icon1 },
-  hasIcon: true, bgColorIcon: 'gradient-pink-orange'
-}
 
-export type FormSection1Field<T> = T & {
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file';
-  fieldName: string;
-}
 
-export interface FormSection1Props {
+export type FormSection2Field = FieldType;
+
+export interface FormSection2Props {
   nowIndexSection: number;
 }
 
-export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
+const FormSection2 = ({ nowIndexSection }: FormSection2Props) => {
 
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
+  // Destructoring
+  const { mainTitle, alignMainTitle, colorTitleCard } = element;
+
   // Dispatch
-  const addCard = thunkAddCard();
   const changeInput = thunkChangeInput();
   const changeRadio = thunkChangeRadio();
   const changeColor = thunkChangeColor();
 
   // Handle
-  const handleAdd = () => {
-    addCard(cardDefault, nowIndexSection)
-  }
-  const handleChangeForm = (fieldName: string) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldName === 'title' || fieldName === 'text' || fieldName === 'testInput') {
-        changeInput(fieldName, result, nowIndexSection);
+      if (fieldType === 'input') {
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldName === 'alignMainTitle' || fieldName === 'alignText') {
-        changeRadio(fieldName, result, nowIndexSection);
+      if (fieldType === 'radio') {
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldName === 'colorMainTitle' || fieldName === 'colorText' || fieldName === 'divider color') {
-        changeColor(fieldName, result, nowIndexSection);
+      if (fieldType === 'color-picker') {
+        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
       }
     }
   }
 
-  // Destructoring
-  const { slider } = element;
-
   return (
-    <div style={{ padding: 30, background: 'white' }}>
+    <div>
       <Form
         fields={[
           {
             fieldType: 'input',
-            fieldName: 'title',
-            fieldId: 1,
+            fieldName: 'mainTitle',
+            fieldId: 'section-2-field-1',
             horizontal: true,
-            defaultValue: 'Title'
+            defaultValue: mainTitle
           },
           {
             fieldType: 'radio',
             fieldName: 'alignMainTitle',
-            fieldId: 2,
+            fieldId: 'section-2-field-2',
             data: [
               {
                 value: 'center',
@@ -89,27 +72,19 @@ export const FormSection2 = ({ nowIndexSection }: FormSection1Props) => {
                 name: 'align title'
               },
             ],
-          },
-          {
-            fieldType: 'checkbox',
-            fieldName: 'slider',
-            fieldId: 3,
-            name: "Slider",
-            checked: slider
+            defaultCheckedValue: alignMainTitle
           },
           {
             fieldType: 'color-picker',
             fieldName: 'colorMainTitle',
-            fieldId: 4,
-            name: "Color Title",
+            fieldId: 'section-2-field-3',
+            defaultColor: colorTitleCard || '#000'
+
           }
         ]}
         onChange={handleChangeForm}
       />
       <FormChangeCard nowIndexSection={nowIndexSection} />
-      <Button initial onClick={handleAdd}>
-        <Icon fontAwesomeClass="fas fa-plus" />
-      </Button>
     </div>
   )
 
