@@ -4,9 +4,10 @@ import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
 import { useMount } from 'hooks/useMount';
 import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
 import React, { useRef, useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import RenderSection from './components/RenderSection/RenderSection';
@@ -65,29 +66,35 @@ const SettingsPage = () => {
   };
 
   const handleAdd = (indexSection?: number) => {
-    return () => {
-      if (!!prepairAddProperty.current.sectionId) {
-        addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
-        prepairAddProperty.current = Object.assign({}, defaultSection);
+    if (!!prepairAddProperty.current.sectionId) {
+      addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
+      prepairAddProperty.current = Object.assign({}, defaultSection);
+    }
+  }
+
+  // const handleDragStart = (index: number) => {
+  //   // setSectionDragging(index);
+  // }
+
+  const handleDragEnd = (result: DropResult) => {
+    console.log(result);
+    const { draggableId, source, destination } = result;
+    if (draggableId.includes('Btn Section')) {
+      handleAdd(destination?.index);
+    } else {
+      if (source.droppableId === '2') {
+        setSectionDragging(-1)
+        if (!result.destination) {
+          return;
+        }
+        const newElements = reorder<Option>(
+          elements,
+          result.source.index,
+          result.destination.index
+        );
+        moveSection(newElements);
       }
     }
-  }
-
-  const handleDragStart = (index: number) => {
-    setSectionDragging(index);
-  }
-
-  const handleDragEnd = (result: any) => {
-    setSectionDragging(-1)
-    if (!result.destination) {
-      return;
-    }
-    const newElements = reorder<Option>(
-      elements,
-      result.source.index,
-      result.destination.index
-    );
-    moveSection(newElements);
   }
 
   const handleSaveAll = () => {
@@ -113,6 +120,13 @@ const SettingsPage = () => {
               <div className="content" style={sectionDragging === indexSection ? { width: 300, height: 300, overflow: 'hidden' } : {}}>
                 {RenderSection({ option: element, isBuilder: true, nowIndexSecion: indexSection })}
               </div>
+              <div className={styles.sectionBottom}>
+                <Button className={styles.addComponentBtn}>
+                  <Link to='/new'>
+                    <i className="fas fa-plus"></i>
+                  </Link>
+                </Button>
+              </div>
             </div>
           );
         }}
@@ -122,19 +136,17 @@ const SettingsPage = () => {
 
   const renderSuccess = () => {
     return (
-      <DragDropContext onDragStart={({ source }) => handleDragStart(source.index)} onDragEnd={handleDragEnd} >
+      <DragDropContext onDragEnd={handleDragEnd} >
         <SideBar onEvent={handlePrepairAdd} />
-        <div className={styles.mainContent} onMouseUp={handleAdd()}>
-          <Droppable droppableId="2" type="Main Content">
-            {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {elements.map((element: any, index: number) => _renderSection(element, index))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </div>
-      </DragDropContext>
+        <Droppable droppableId="2">
+          {provided => (
+            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.mainContent} >
+              {elements.map((element: any, index: number) => _renderSection(element, index))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext >
     );
   }
 

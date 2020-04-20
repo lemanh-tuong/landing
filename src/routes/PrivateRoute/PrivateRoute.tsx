@@ -4,12 +4,13 @@ import { Redirect } from 'react-router';
 export interface PrivateRouteProps {
   token: string;
   component: ReactNode;
+  pathRedirect: string;
 }
 
-const PrivateRoute: FC<PrivateRouteProps> = ({ token, component }) => {
+const PrivateRoute: FC<PrivateRouteProps> = ({ token, component, pathRedirect }) => {
   return (
     <>
-      {!!token ? component : <Redirect to={{ pathname: '/login' }} />}
+      {!!token ? component : <Redirect to={{ pathname: pathRedirect }} />}
     </>
   )
 }

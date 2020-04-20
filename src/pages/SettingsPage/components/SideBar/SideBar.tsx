@@ -27,7 +27,6 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
 
   //Dispatch
   const getPatternSection = thunkGetDataSideBar();
-  /// Sửa key = uuid
   const _renderItem = (property: ItemSideBar, key: number) => {
     return (
       <Draggable draggableId={property.id} index={key} key={uuidv4()}>
@@ -44,7 +43,7 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
 
   const _renderSuccess = () => {
     return (
-      <Droppable isDropDisabled={true} droppableId="1" type='Test'>
+      <Droppable droppableId="1">
         {provided => (
           <div className={`${styles.sideBar} ${className}`} ref={provided.innerRef} {...provided.droppableProps} style={style}>
             <div className={styles.menuGroup}>

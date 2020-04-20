@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import Card, { CardProps } from 'components/Card/Card';
 import Carousel, { CarouselOptions } from 'components/Carousel/Carousel';
 import Col from 'components/Grid/Column/Column';
@@ -19,6 +20,8 @@ export type Section2Props = {
   isBuilder?: boolean;
   onShowPopupEditTitle?: () => void;
   onShowPopupEditCard?: () => void;
+  onAddCard?: (nowIndexCard: number) => void;
+  onDeleteCard?: (nowIndexCard: number) => void;
 } & Section2Option
   & Omit<MainTitleProps, 'onEditable' | 'isBuilder'>
   & Pick<CardProps, 'onEditable' | 'isBuilder'>
@@ -26,11 +29,20 @@ export type Section2Props = {
 
 
 const Section2 = ({
-  sectionId, onShowPopupEditTitle, onShowPopupEditCard, isBuilder,
+  sectionId, onShowPopupEditTitle, onShowPopupEditCard, onAddCard, onDeleteCard, isBuilder,
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, classMainTitle, styleMainTitle,
   cards, slider, hasDots, hasNav, dotClass, navClass, itemShow, responsive,
   renderItem,
   darkMode }: Section2Props) => {
+
+  const _handleAddCard = (nowIndexCard: number) => {
+    return () => onAddCard?.(nowIndexCard)
+  }
+
+  const _handleDeleteCard = (nowIndexCard: number) => {
+    return () => onDeleteCard?.(nowIndexCard)
+  }
+
   const _renderCardDefault = ({ titleCard, alignTitleCard, colorTitleCard, fontSizeTitleCard, classNameTitleCard, styleTitleCard,
     textCard, alignText, colorText, fontSizeText, styleText, classText, hasIcon, iconImg, bgColorIcon, animationIcon, sizeIcon, styleIcon }: CardProps) => {
     return (
@@ -91,7 +103,21 @@ const Section2 = ({
   };
 
   const _renderColumnContent = () => {
-    return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>{renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}</Col>);
+    if (isBuilder) {
+      return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
+        <div className={styles.cardEdit}>
+          {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}
+          <div className={styles.btnGroup}>
+            <Button className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddCard(index)} />
+            <Button className={styles.deleteBtn} icon={<i className="fas fa-times"></i>} shape='circle' size='large' onClick={_handleDeleteCard(index)} />
+          </div>
+        </div>
+      </Col>)
+
+    }
+    return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
+      {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}
+    </Col>);
   };
 
   const _renderBodyDefault = () => {

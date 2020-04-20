@@ -6,6 +6,7 @@ import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 const Routes = () => {
   const [token, setToken] = useState('');
   // const [show, setShow] = useState(false);
@@ -59,21 +60,19 @@ const Routes = () => {
           <Route exact path="/">
             <ComponentPage />
           </Route>
-          <Route exact path='/login'>
+          <Route exact path='/admin/login'>
             <LoginPage />
           </Route>
           <Route exact path="/gallery">
             <ImageGalleryPage />
           </Route>
-          <Route exact path="/settings" strict>
-            <SettingsPage />
-          </Route>
-          {/* <PrivateRoute
+          <PrivateRoute
             token={token}
-            component={<Route exact path="/settings" strict>
+            pathRedirect='/admin/login'
+            component={<Route exact path="/admin/builder">
               <SettingsPage />
             </Route>}
-          /> */}
+          />
           <Route>
             <div>Something went wrong</div>
           </Route>

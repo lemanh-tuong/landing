@@ -37,25 +37,9 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
 
   // Handle Function In Section
   handleAction('ADD_SECTION', (state, action) => {
+    const newElement: Option = Object.assign({}, action.payload);
     const { nowIndexSection } = action.payload;
-
-    if(nowIndexSection === 0 || nowIndexSection) {
-      const element: Option = {
-        ...action.payload,
-      }
-      const newElement = [...state.elements.slice(0, nowIndexSection + 1), {...element}, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-
-      writeFireBase({
-        ...state,
-        elements: [...newElement]
-      });
-
-      return {
-        ...state,
-        elements: [...newElement]
-      }
-    }
-    else {
+    if(nowIndexSection === undefined) {
       writeFireBase({
         ...state,
         elements: [...state.elements].concat(action.payload)
@@ -65,6 +49,17 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
         ...state,
         elements: [...state.elements].concat(action.payload)
       };
+    }
+    if(nowIndexSection === 0) {
+      return {
+        ...state,
+        elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
+      }
+    } else {
+      return {
+        ...state,
+        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
+      }
     }
   }),
   handleAction('DELETE_SECTION', (state, action) => {
@@ -118,7 +113,18 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...state,
     }
   }),
-
+  handleAction('DUPLICATE_SECTION', (state, action) => {
+    const {data, nowIndexSection} = action.payload;
+    const newElements = [...state.elements.slice(0, nowIndexSection + 1), {...data}, ...state.elements.slice(nowIndexSection + 1, state.elements.length)];
+    writeFireBase({
+      ...state,
+      elements: [...newElements]
+    });
+    return {
+      ...state,
+      elements: [...newElements]
+    };
+  }),
   // Handle Form Section
   handleAction('CHANGE_INPUT', (state, action) => {
     const { nowIndexSection, value, fieldName} = action.payload;
@@ -288,11 +294,15 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     }
   }),
   handleAction('ADD_CARD', (state, action) => {
-    const { data, nowIndexSection } = action.payload;
+    const { data, nowIndexSection, nowIndexCard } = action.payload;
 
     const nowElement = state.elements[nowIndexSection];
 
-    const newElement = {
+    const newElement = nowIndexCard ? {
+      ...nowElement,
+      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard + 1), {...data}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : [].concat(data)
+    }
+    : {
       ...nowElement,
       cards: !!nowElement.cards ? [...nowElement.cards].concat(data) : [].concat(data)
     }

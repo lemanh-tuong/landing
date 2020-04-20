@@ -4,11 +4,12 @@ import { createDispatchAction } from "utils/functions/reduxActions";
 
 type ThunkAddCard = ThunkAction<typeof actionAddCard>
 export interface ThunkAddCardArg {
-  data: CardProps,
-  nowIndexSection: number
+  data: CardProps;
+  nowIndexSection: number;
+  nowIndexCard?: number;
 }
-const thunkAddCard = ({data, nowIndexSection}: ThunkAddCardArg): ThunkAddCard => dispatch => {
-  dispatch(actionAddCard({data: {...data}, nowIndexSection: nowIndexSection}));
+const thunkAddCard = ({data, nowIndexSection, nowIndexCard}: ThunkAddCardArg): ThunkAddCard => dispatch => {
+  dispatch(actionAddCard({data: {...data}, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}));
 }
 
 export default createDispatchAction(thunkAddCard);

@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const handleSignIn = () => {
     signInFirebase({ email: `${SignIn_Info.userName}@gmail.com`, password: SignIn_Info.password }).then((res) => {
-      history.push('/settings');
+      history.push('/admin/builder');
     }).catch((err) => {
       setError(err.message)
     });

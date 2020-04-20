@@ -1,0 +1,12 @@
+.Section2Editable {
+  position: relative;
+  & .addComponent {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%, 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

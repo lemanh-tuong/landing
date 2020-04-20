@@ -45,6 +45,8 @@
 
 .section {
   position: relative;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
 }
 .sectionTop {
   position: absolute;
@@ -55,6 +57,25 @@
 
 .sectionBody {
   position: relative;
+}
+
+.sectionBottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 200;
+}
+
+.addComponentBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(54, 63, 90);
+  color: white;
+  width: 52px!important;
+  height: 52px!important;
+  border-radius: 5px;
 }
 
 .focusing {
