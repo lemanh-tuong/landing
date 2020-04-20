@@ -1,10 +1,10 @@
-import { Button } from 'antd';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { SlideType } from 'components/MockUp/MockUp';
 import thunkChangeHasVideo from 'pages/SettingsPage/thunks/thunkChangeHasVideo/thunkChangeHasVideo';
 import thunkChangeVideoUrl from 'pages/SettingsPage/thunks/thunkChangeVideoUrl/thunkChangeVideoUrl';
 import React, { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
+import styles from './FormSlide.module.scss';
 
 export interface FormSlideProps {
   slideProperty: SlideType;
@@ -15,7 +15,7 @@ export interface FormSlideProps {
 
 const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowIndexSlide }) => {
   // Destructoring
-  const { hasVideo, videoUrl } = slideProperty;
+  const { imgSrc, hasVideo, videoUrl } = slideProperty;
 
   // Dispatch
   const changeUrl = thunkChangeVideoUrl();
@@ -54,11 +54,10 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
         ]}
         onChange={handleChangeForm}
       >
-        <Button shape='round' size='large' danger>
-          <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
-            Change Image
+        <Link className={styles.btn} to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
+          <img className={styles.img} src={imgSrc} alt='Slide' style={{ width: 200, height: 200 }} />
+          <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
-        </Button>
       </Form>
     </div>
   )

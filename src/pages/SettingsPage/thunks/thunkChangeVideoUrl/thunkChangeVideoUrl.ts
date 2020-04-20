@@ -9,7 +9,7 @@ export interface ThunkChangeVideoUrlArg {
 }
 
 const thunkChangeVideoUrl = ({nowIndexSection, nowIndexSlide, newUrl}: ThunkChangeVideoUrlArg): ThunkChangeVideoUrl => dispatch => {
-  dispatch(actionChangeVideoUrl({nowIndexSection: nowIndexSection, nowIndesSlide: nowIndexSlide, newUrl: newUrl}))
+  dispatch(actionChangeVideoUrl({nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, newUrl: newUrl}))
 }
 
 export default createDispatchAction(thunkChangeVideoUrl);

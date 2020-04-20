@@ -1,7 +1,9 @@
-import { ItemSideBar } from '../components/SideBar/SideBar';
-import { createReducer, handleAction, ActionTypes } from 'utils/functions/reduxActions';
+import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
+import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
+import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { getDataSideBar } from '../actions/actionGetDataSideBar/actionGetDataSideBar';
+import { ItemSideBar } from '../components/SideBar/SideBar';
 
 export type SideBarReducers = {
   readonly statusRequestSideBar: 'loading' | 'success' | 'failure';
@@ -32,6 +34,18 @@ const initialState: SideBarReducers =  {
       styleText: {},
       darkMode: false,
       id: 'Btn Section 1',
+      sliderImgs: [
+        {
+          imgSrc: mockUpMacContent1,
+          hasVideo: true,
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+        },
+        {
+          imgSrc: mockUpMacContent2,
+          hasVideo: true,
+          videoUrl: 'https://www.youtube.com/'
+        }
+      ]
     },
     {
       sectionName: 'Section 2',
@@ -121,3 +135,4 @@ const sidebarReducers = createReducer<SideBarReducers, ActionTypes<typeof getDat
 ])
 
 export { sidebarReducers };
+

@@ -16,7 +16,6 @@ export interface FormMainTitleProps {
 export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
-  console.log(element);
 
   //Destructoring
   const { mainTitle, alignMainTitle, colorMainTitle } = element;

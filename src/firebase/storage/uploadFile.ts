@@ -14,7 +14,6 @@ const uploadFile = async ({path, files}: UploadFileArg) => {
     await ref.put(file);
   })).then(async () => {
     const imgs: any[] = await readStorage(path);
-    console.log(imgs);
     newImgs = [...imgs];
   })
 

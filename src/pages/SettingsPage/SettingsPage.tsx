@@ -77,7 +77,6 @@ const SettingsPage = () => {
   // }
 
   const handleDragEnd = (result: DropResult) => {
-    console.log(result);
     const { draggableId, source, destination } = result;
     if (draggableId.includes('Btn Section')) {
       handleAdd(destination?.index);

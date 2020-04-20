@@ -28,7 +28,7 @@ const Button = ({
   if (isBuilder) {
     return (
       <PopOverText onEdit={onEditable} component={
-        <a href={href} style={style} onClick={onClick && onClick} className={`${styles.isBuilder} ${styles.defaultStyle} ${styles[color]} ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
+        <a href={href} style={style} onClick={(e) => { e.preventDefault(); onEditable?.() }} className={`${styles.isBuilder} ${styles.defaultStyle} ${styles[color]} ${darkMode} ${className} ${initial ? styles.buttonInitial : styles.button}`}>
           {text}
           {children}
         </a>

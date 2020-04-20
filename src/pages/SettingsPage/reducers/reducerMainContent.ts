@@ -125,6 +125,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       elements: [...newElements]
     };
   }),
+
   // Handle Form Section
   handleAction('CHANGE_INPUT', (state, action) => {
     const { nowIndexSection, value, fieldName} = action.payload;
@@ -188,18 +189,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     }
   }),
 
-  handleAction('MOVE_CHILD', (state, action) => {
-    const { newChild , nowIndexSection } = action.payload;
-    const nowElement = state.elements[nowIndexSection];
-    const newElement = {
-      ...nowElement,
-      cards: [...newChild]
-    }
-    return {
-      ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
-  }),
   handleAction("SAVE", (state, action) => {
     writeFireBase(state);
     return {
@@ -312,10 +301,22 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
   }),
+  handleAction('MOVE_CHILD', (state, action) => {
+    const { newChild , nowIndexSection } = action.payload;
+    const nowElement = state.elements[nowIndexSection];
+    const newElement = {
+      ...nowElement,
+      cards: [...newChild]
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
 
   // MockUp
   handleAction('CHANGE_VIDEO_URL', (state: any, action) => {
-    const {nowIndexSection, nowIndexSlide, newUrl} = action.payload;
+    const { newUrl, nowIndexSection, nowIndexSlide } = action.payload;
     const { elements } = state;
     const nowElement = elements[nowIndexSection];
     const nowSlide = nowElement.sliderImgs?.[nowIndexSlide];
@@ -348,6 +349,50 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       sliderImgs: nowElement.sliderImgs
       ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length)]
       : null
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction('CHANGE_IMAGE_SLIDE', (state, action) => {
+    const { elements } = state;
+    const { data, nowIndexSection, nowIndexSlide } = action.payload;
+    const nowElement = elements[nowIndexSection];
+    if(typeof nowIndexSlide === 'number') {
+      const nowSlide = nowElement.sliderImgs ? nowElement.sliderImgs?.[nowIndexSlide] : {};
+      const newSlide = {
+        ...nowSlide,
+        imgSrc: data.imgSrc,
+      }
+      const newElement = {
+        ...nowElement,
+        sliderImgs: nowElement.sliderImgs ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs.length)] : [{...newSlide}]
+      }
+      return {
+        ...state,
+        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      }
+    }
+
+    const newElement = {
+      ...nowElement,
+      sliderImgs: [...data]
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+
+  }),
+  handleAction('DELETE_SLIDE', (state, action) => {
+    const { nowIndexSection, nowIndexSlide } = action.payload;
+    const { elements } = state;
+    const nowElement = elements[nowIndexSection];
+    const newSlides = nowElement.sliderImgs ? nowElement.sliderImgs.filter((_slide, index) => index !== nowIndexSlide) : [];
+    const newElement = {
+      ...nowElement,
+      sliderImgs: [...newSlides]
     }
     return {
       ...state,

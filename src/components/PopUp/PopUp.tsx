@@ -92,6 +92,9 @@ class PopUp extends PureComponent<PopUpProps> {
     }
     return createPortal(<div className={styles.popUp}>
       <div className={styles.overlay} onClick={this.handleHide} />
+      <div className={styles.closeBtn} onClick={this.handleHide} >
+        <button className={styles.btn}>Close</button>
+      </div>
       <div className={styles.content} style={style}>{children}</div>
     </div>, body as Element);
   }

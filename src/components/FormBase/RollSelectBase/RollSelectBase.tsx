@@ -36,10 +36,12 @@ const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = fa
   }
 
   useEffect(() => {
-    if (multiple) {
-      onResult?.(choosing);
-    } else {
-      onResult?.(choosing[0]);
+    if (choosing.length > 0) {
+      if (multiple) {
+        onResult?.(choosing);
+      } else {
+        onResult?.(choosing[0]);
+      }
     }
   }, [choosing, multiple, onResult])
 

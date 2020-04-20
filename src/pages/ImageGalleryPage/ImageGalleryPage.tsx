@@ -6,6 +6,7 @@ import thunkChangeIconCard from 'pages/ImageGalleryPage/thunks/thunkChangeIconCa
 import thunkChooseImage from 'pages/ImageGalleryPage/thunks/thunkChooseImage/thunkChooseImage';
 import thunkGetImageGallery from 'pages/ImageGalleryPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
 import thunkUploadFile from 'pages/ImageGalleryPage/thunks/thunkUploadFile/thunkUploadFile';
+import thunkChangeImgSlide from 'pages/SettingsPage/thunks/thunkChangeImgSlide/thunkChangeImgSlide';
 import thunkSaveAll from 'pages/SettingsPage/thunks/thunkSaveAll/thunkSaveAll';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -30,12 +31,13 @@ const ImageGalleryPage = () => {
   const messageUpload = useSelector(messageUploadFileFailure);
 
   // Destructoring
-  const { type, nowIndexSection, nowIndexCard, multiple } = getQuery<'type' | 'nowIndexSection' | 'nowIndexCard' | 'multiple'>(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'multiple']);
+  const { type, nowIndexSection, nowIndexCard, nowIndexSlide, multiple } = getQuery<'type' | 'nowIndexSection' | 'nowIndexCard' | 'nowIndexSlide' | 'multiple'>(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'multiple']);
 
   // Dispatch
   const getImage = thunkGetImageGallery();
   const chooseImage = thunkChooseImage();
   const chooseIcon = thunkChangeIconCard();
+  const chooseImgSlide = thunkChangeImgSlide();
   const save = thunkSaveAll();
   const upload = thunkUploadFile();
 
@@ -44,6 +46,15 @@ const ImageGalleryPage = () => {
     if (type === 'iconImg') {
       return (result: any) => {
         chooseIcon({ fieldName: fieldName, imgSrc: result, nowIndexSection: parseInt(nowIndexSection), nowIndexCard: parseInt(nowIndexCard) });
+      }
+    }
+    if (type === 'sliderImgs') {
+      return (result: any) => {
+        if (!!nowIndexSlide) {
+          chooseImgSlide({ data: result, nowIndexSection: parseInt(nowIndexSection), nowIndexSlide: parseInt(nowIndexSlide) });
+        } else {
+          chooseImage({ fieldName: fieldName, src: result, nowIndexSection: parseInt(nowIndexSection) });
+        }
       }
     }
     return (result: any) => {
@@ -94,7 +105,7 @@ const ImageGalleryPage = () => {
     <>
       {_renderSwitch()}
       <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
-        <Link to='/settings'>
+        <Link to='/admin/builder'>
           <i className="fas fa-arrow-left"></i>
         </Link>
       </Button>
