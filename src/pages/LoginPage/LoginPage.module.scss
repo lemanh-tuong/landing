@@ -2,21 +2,145 @@
   width: 100vw;
   height: 100vh;
 }
+
 .contentLoginPage {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.tooltipErr {
-  position: fixed;
-    font-size: 22px;
-    color: rgba(0, 0, 0, 0.8);
-    left: 50%;
-    transform: translateX(-50%);
+
+.form {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.formContent {
+  text-align: center;
+}
+
+.formTop {
+  border-top: 1px solid #dce8f1;
+  border-radius: 0 0 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
+  padding: 25px;
+}
+
+.formBottom {
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  padding: 25px;
+  text-align: center;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+.input {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  &::placeholder {
+    text-transform: capitalize;
+  }
+}
+
+.submitBtn {
+  background-color: #56baed;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: 5px 20px 40px 20px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: scale(0.95);
+    background-color: #39ace7;
+  }
+}
+
+.forgotPasswordBtn {
+  color: #92badd;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 400;
+  text-transform: capitalize;
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -4px;
+    background: lightskyblue;
+    transition: 0.3s all ease-out;
+  }
+  &:hover:before{
     width: 100%;
-    padding: 10px;
-    background: white;
-    box-shadow: 0 5px 20px -10px #000;
-    text-align: center;
+  }
+  &:hover {
+    color: skyblue
+  }
+}
+
+.modalError {
+  position: relative;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  outline: 0;
+}
+.modalTop {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  & h3{
+    font-size: 20px;
+    color: #dc3545!important;
+    font-weight: 600;
+  }
+}
+
+.modalContent {
+  position: relative;
+  padding: 15px;
+  & p {
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    font-size: 15px
+  }
 }
