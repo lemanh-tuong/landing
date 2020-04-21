@@ -4,17 +4,17 @@ import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
 import { useMount } from 'hooks/useMount';
 import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
 import React, { useRef, useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DragStart, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { Section1Props } from '../../components/Section1/Section1';
+import { Section2Props } from '../../components/Section2/Section2';
+import { Section3Props } from '../../components/Section3/Section3';
+import { Section4Props } from '../../components/Section4/Section4';
 import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import RenderSection from './components/RenderSection/RenderSection';
-import { Section1Props } from './components/Section1/Section1';
-import { Section2Props } from './components/Section2/Section2';
-import { Section3Props } from './components/Section3/Section3';
-import { Section4Props } from './components/Section4/Section4';
 import { reorder } from './reoderFunction';
 import { sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
@@ -72,13 +72,16 @@ const SettingsPage = () => {
     }
   }
 
-  // const handleDragStart = (index: number) => {
-  //   // setSectionDragging(index);
-  // }
+  const handleDragStart = (result: DragStart) => {
+    if (result.source.droppableId === '2') {
+      setSectionDragging(result.source.index);
+    }
+  }
 
   const handleDragEnd = (result: DropResult) => {
     const { draggableId, source, destination } = result;
-    if (draggableId.includes('Btn Section')) {
+    console.log(result)
+    if (draggableId.includes('Btn Section') && destination?.droppableId === '2') {
       handleAdd(destination?.index);
     } else {
       if (source.droppableId === '2') {
@@ -116,15 +119,17 @@ const SettingsPage = () => {
               <div className={styles.sectionTop}>
                 {sectionDragging === indexSection ? null : <ButtonFunc nowIndexSection={indexSection} elementProperty={element} />}
               </div>
-              <div className="content" style={sectionDragging === indexSection ? { width: 300, height: 300, overflow: 'hidden' } : {}}>
+              <div className={`content ${sectionDragging === indexSection ? styles.dragging : null}`}>
                 {RenderSection({ option: element, isBuilder: true, nowIndexSecion: indexSection })}
               </div>
               <div className={styles.sectionBottom}>
-                <Button className={styles.addComponentBtn}>
-                  <Link to='/new'>
-                    <i className="fas fa-plus"></i>
-                  </Link>
-                </Button>
+                {sectionDragging === indexSection ? null :
+                  <Button className={styles.addComponentBtn}>
+                    <Link to={`/admin/component?nowIndexSection=${indexSection}`}>
+                      <i className="fas fa-plus"></i>
+                    </Link>
+                  </Button>
+                }
               </div>
             </div>
           );
@@ -135,7 +140,7 @@ const SettingsPage = () => {
 
   const renderSuccess = () => {
     return (
-      <DragDropContext onDragEnd={handleDragEnd} >
+      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         <SideBar onEvent={handlePrepairAdd} />
         <Droppable droppableId="2">
           {provided => (

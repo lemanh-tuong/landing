@@ -60,18 +60,16 @@
     background-image: $color-gradient-pink-orange;
     border-radius: 50%;
     z-index: -1;
+    opacity: 1;
+    transform: scale(0);
     animation: blur 3s infinite;
   }
 
 }
 
 @keyframes :local(blur) {
-	0% {
-    opacity: 1;
-    transform: scale(0)
-  }
   100% {
     opacity: 0;
-    transform: scale(2)
+    transform: scale(2);
   }
 }

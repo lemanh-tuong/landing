@@ -1,4 +1,4 @@
-import Text from 'components/Text/Text';
+import Image from 'components/Image/Image';
 import { useMount } from 'hooks/useMount';
 import { messageRequestPatternSection, patternSection, statusRequestPatternSection } from 'pages/SettingsPage/selectors';
 import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunkGetDataSideBar/thunkGetDataSideBar';
@@ -27,14 +27,12 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
 
   //Dispatch
   const getPatternSection = thunkGetDataSideBar();
-  const _renderItem = (property: ItemSideBar, key: number) => {
+  const _renderItem = (property: ItemSideBar & { previewImg: string }, key: number) => {
     return (
       <Draggable draggableId={property.id} index={key} key={uuidv4()}>
         {provided => (
-          <div onMouseDown={onEvent(property)} className={styles.link} ref={provided.innerRef} key={key} {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={styles.text}>
-              <Text text={property.sectionName} />
-            </div>
+          <div onMouseDown={onEvent(property)} className={styles.sidebarItem} ref={provided.innerRef} key={key} {...provided.dragHandleProps} {...provided.draggableProps}>
+            <Image type='tagImg' imgSrc={property.previewImg} />
           </div>
         )}
       </Draggable>

@@ -19,7 +19,7 @@ export type Section2Props = {
   renderItem?: (item: CardProps) => ReactNode;
   isBuilder?: boolean;
   onShowPopupEditTitle?: () => void;
-  onShowPopupEditCard?: () => void;
+  onShowPopupEditCard?: (nowIndexCard: number) => void;
   onAddCard?: (nowIndexCard: number) => void;
   onDeleteCard?: (nowIndexCard: number) => void;
 } & Section2Option
@@ -43,8 +43,13 @@ const Section2 = ({
     return () => onDeleteCard?.(nowIndexCard)
   }
 
+  const _handleonShowPopupEditCard = (nowIndexCard: number) => {
+    return () => onShowPopupEditCard?.(nowIndexCard)
+  }
+
   const _renderCardDefault = ({ titleCard, alignTitleCard, colorTitleCard, fontSizeTitleCard, classNameTitleCard, styleTitleCard,
-    textCard, alignText, colorText, fontSizeText, styleText, classText, hasIcon, iconImg, bgColorIcon, animationIcon, sizeIcon, styleIcon }: CardProps) => {
+    textCard, alignText, colorText, fontSizeText, styleText, classText, hasIcon, iconImg, bgColorIcon, animationIcon, sizeIcon, styleIcon }: CardProps,
+    index: number) => {
     return (
       <Card textCard={textCard}
         alignText={alignText}
@@ -65,7 +70,7 @@ const Section2 = ({
         sizeIcon={sizeIcon}
         styleIcon={styleIcon}
         isBuilder={isBuilder}
-        onEditable={onShowPopupEditCard}
+        onEditable={_handleonShowPopupEditCard(index)}
       />
     );
   };
@@ -106,7 +111,7 @@ const Section2 = ({
     if (isBuilder) {
       return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
         <div className={styles.cardEdit}>
-          {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}
+          {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item }, index)}
           <div className={styles.btnGroup}>
             <Button className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddCard(index)} />
             <Button className={styles.deleteBtn} icon={<i className="fas fa-times"></i>} shape='circle' size='large' onClick={_handleDeleteCard(index)} />
@@ -116,7 +121,7 @@ const Section2 = ({
 
     }
     return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
-      {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item })}
+      {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item }, index)}
     </Col>);
   };
 

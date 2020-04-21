@@ -3,6 +3,7 @@ import 'antd/es/style/css';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import Icon from 'components/Icon/Icon';
 import { reorder } from 'pages/SettingsPage/reoderFunction';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
@@ -21,6 +22,7 @@ export type FormChangeCardField = FieldType;
 
 export interface FormChangeCardProps {
   nowIndexSection: number;
+  indexCard: number
 }
 
 const cardDefault: CardProps = {
@@ -30,11 +32,12 @@ const cardDefault: CardProps = {
   hasIcon: true, bgColorIcon: 'gradient-pink-orange'
 }
 
-const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
-  const [formShown, setFormShown] = useState<CardProps & { nowIndexCard: number }>({ nowIndexCard: -1 });
+const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
+  const [formShown, setFormShown] = useState<CardProps & { nowIndexCard: number }>({ nowIndexCard: indexCard });
 
   const handleFormShown = (cardProperty: CardProps, nowIndexCard: number) => {
     return () => {
+      console.log("AA");
       if (formShown.nowIndexCard !== nowIndexCard) {
         setFormShown({ ...cardProperty, nowIndexCard: nowIndexCard })
       } else {
@@ -78,6 +81,9 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
   const handleDelete = (nowIndexCard: number) => {
     return () => {
       deleteCard({ indexSection: nowIndexSection, indexCard: nowIndexCard })
+      if (formShown.nowIndexCard === nowIndexCard) {
+        setFormShown({ nowIndexCard: -1 })
+      }
     }
   }
   const handleMove = (result: any) => {
@@ -94,7 +100,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
 
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
-    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText } = element.cards?.[nowIndexCard] as CardProps;
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg } = element.cards?.[nowIndexCard] as CardProps;
     return (
       <Form
         fields={[
@@ -166,11 +172,10 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
         ]}
         onChange={handleChangeCardForm(nowIndexCard)}
       >
-        <Button shape='round' size='large' style={{ margin: "10px 0" }}>
-          <Link to={`/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
-            Change Icon Card
-              </Link>
-        </Button>
+        <Link className={styles.link} to={`/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
+          <Icon iconImg={iconImg} bgColorIcon={'gradient-pink-orange'} />
+          <i className={`far fa-images ${styles.icon}`}></i>
+        </Link>
       </Form>
     )
   }
@@ -181,8 +186,8 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
     return (
       <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`}>
         {provided => (
-          <div onClick={handleFormShown(cardProperty, nowIndexCard)} className={styles.cardFormName} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={styles.cardDesc}>
+          <div className={styles.cardFormName} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
               <i className="fas fa-plus"></i>
               <div className={styles.cardName}>{titleCard}</div>
             </div>
@@ -202,18 +207,18 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection }) => {
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} onMouseUp={handleMove}>
               <div className={styles.listCard}>
-                {element.cards?.map((cardProperty, index) => _renderLabel(cardProperty, index))}
+                {element.cards?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
+                <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
+                  <i className="fas fa-plus" />
+                </Button>
               </div>
               <div className={styles.form}>
-                {element.cards?.map((_cardProperty, index) => formShown.nowIndexCard === index ? _renderSettingsBox(index) : null)}
+                {element.cards?.map((_cardProperty: any, index: number) => formShown.nowIndexCard === index ? _renderSettingsBox(index) : null)}
               </div>
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
-        <i className="fas fa-plus" />
-      </Button>
     </div>
   )
 }

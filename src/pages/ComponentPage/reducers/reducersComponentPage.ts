@@ -6,22 +6,21 @@ import previewSection3 from 'assets/img/section/section3.png';
 import previewSection4 from 'assets/img/section/section4.png';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
-import { getDataSideBar } from '../actions/actionGetDataSideBar/actionGetDataSideBar';
-import { ItemSideBar } from '../components/SideBar/SideBar';
+import { ActionGetComponentSuccess, getDataComponent } from '../actions/actionGetComponent/actionGetComponent';
 
-export type SideBarReducers = {
-  readonly statusRequestSideBar: 'loading' | 'success' | 'failure';
-  readonly messageRequestSideBar: string;
-  readonly patternSection: (ItemSideBar & {previewImg: string})[];
+export type ComponentPageReducers = {
+  readonly statusRequestComponentPage: 'loading' | 'success' | 'failure';
+  readonly messageRequestComponentPage: string;
+  readonly patternComponent: ActionGetComponentSuccess[];
 };
 
 const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
 const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
 
-const initialState: SideBarReducers =  {
-  statusRequestSideBar: 'loading',
-  messageRequestSideBar: '',
-  patternSection: [
+const initialState: ComponentPageReducers =  {
+  statusRequestComponentPage: 'loading',
+  messageRequestComponentPage: '',
+  patternComponent: [
     {
       previewImg: previewSection1,
       sectionName: 'Section 1',
@@ -38,7 +37,6 @@ const initialState: SideBarReducers =  {
       classText: '',
       styleText: {},
       darkMode: false,
-      id: 'Btn Section 1',
       sliderImgs: [
         {
           imgSrc: mockUpMacContent1,
@@ -68,7 +66,6 @@ const initialState: SideBarReducers =  {
       classText: '',
       styleText: {},
       darkMode: false,
-      id: 'Btn Section 2',
       cards: [
         { titleCard: 'Paid listings', textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.', iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
         { titleCard: 'Promoted listing', textCard: 'Choosing a promotion plan, listing owners will have directories appeared at the special spots on your site and at the top of the search result page.', iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
@@ -91,7 +88,6 @@ const initialState: SideBarReducers =  {
       classText: '',
       styleText: {},
       darkMode: false,
-      id: 'Btn Section 3',
       hasDivider: true,
     },
     {
@@ -110,38 +106,37 @@ const initialState: SideBarReducers =  {
       classText: '',
       styleText: {},
       darkMode: false,
-      id: 'Btn Section 4'
     },
   ],
 }
 
-const sidebarReducers = createReducer<SideBarReducers, ActionTypes<typeof getDataSideBar>>(initialState, [
-  handleAction('@getDataSidebarRequest', state => ({
+const componentPageReducers = createReducer<ComponentPageReducers, ActionTypes<typeof getDataComponent>>(initialState, [
+  handleAction('@getDataComponentFailure', state => ({
     ...state,
-    statusRequestSideBar: 'loading'
+    statusRequestComponentPage: 'loading'
   })),
-  handleAction('@getDataSidebarSuccess', (state, action) => {
+  handleAction('@getDataComponentSuccess', (state, action) => {
     if(action.payload) {
       return {
         ...state,
-        statusRequestSideBar: 'success',
-        patternSection: state.patternSection.concat(action.payload)
+        statusRequestComponentPage: 'success',
+        patternComponent: state.patternComponent.concat(action.payload)
       }
     }
     return {
       ...state,
-      statusRequestSideBar: 'success'
+      statusRequestComponentPage: 'success'
     }
 
   }),
-  handleAction('@getDataSidebarFailure', (state, action) => {
+  handleAction('@getDataComponentFailure', (state, action) => {
     return {
       ...state,
-      statusRequestSideBar: 'failure',
-      messageRequestSideBar: action.payload
+      statusRequestComponentPage: 'failure',
+      messageRequestComponentPage: action.payload
     }
   })
 ])
 
-export { sidebarReducers };
+export { componentPageReducers };
 

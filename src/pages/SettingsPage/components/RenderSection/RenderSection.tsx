@@ -3,10 +3,10 @@ import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import sectionImg1 from 'assets/img/settings/create-unlimited-directory-types.png';
 import React, { Fragment } from 'react';
 import { Option } from '../../SettingsPage';
-import Section1Editable from '../Section1/Section1Editable';
-import Section2Editable from '../Section2/Section2Editable';
-import Section3Editable from '../Section3/Section3Editable';
-import Section4Editable from '../Section4/Section4Editable';
+import Section1Editable from '../Section1Editable/Section1Editable';
+import Section2Editable from '../Section2Editable/Section2Editable';
+import Section3Editable from '../Section3Editable/Section3Editable';
+import Section4Editable from '../Section4Editable/Section4Editable';
 
 // const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
@@ -26,6 +26,7 @@ const RenderSection = ({ option, nowIndexSecion, isBuilder }: RenderSectionArg) 
     imageSectionCol,
     cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage,
     textButton, styleButton, hrefButton,
+    typeMockUp,
   } = option;
   const _renderContent = () => {
     switch (sectionName) {
@@ -42,6 +43,7 @@ const RenderSection = ({ option, nowIndexSecion, isBuilder }: RenderSectionArg) 
           backgroundColor="gradient-orange-pink"
           backgroundImage={backgroundImage}
           slider={slider}
+          typeMockUp={typeMockUp}
           sliderImgs={sliderImgs || [
             {
               imgSrc: mockUpMacContent1,

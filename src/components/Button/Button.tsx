@@ -21,7 +21,7 @@ export interface ButtonProps {
 
 const Button = ({
   isBuilder = false, children, onEditable,
-  text, href, className, style, color = 'primary', dark, initial = false, onClick
+  text, href, className, style, color = 'white', dark, initial = false, onClick
 }: ButtonProps) => {
   const darkMode = dark ? styles['dark'] : '';
 

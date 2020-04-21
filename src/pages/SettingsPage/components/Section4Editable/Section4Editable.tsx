@@ -1,21 +1,22 @@
 import sectionImg1 from 'assets/img/settings/create-unlimited-directory-types.png';
 import PopUp from 'components/PopUp/PopUp';
 import React, { FC } from 'react';
+import Section4, { Section4Props } from '../../../../components/Section4/Section4';
+import FormButton from '../OtherForm/FormButton/FormButton';
 import { FormDivider } from '../OtherForm/FormDivider/FormDivider';
 import FormImage from '../OtherForm/FormImage/FormImage';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import FormText from '../OtherForm/FormText/FormText';
-import Section3, { Section3Props } from './Section3';
 
-export interface Section3EditableProps extends Section3Props {
+export interface Section4EditableProps extends Section4Props<any> {
   nowIndexSection: number
 };
 
-const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionId,
-  mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
-  text, alignText, colorText, classText, fontSizeText, styleText,
+const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionId,
+  mainTitle, alignMainTitle, colorMainTitle,
+  text, alignText, colorText,
   imageSectionCol,
-  hasDivider, dividerColor, backgroundImage }) => {
+  backgroundImage }) => {
 
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
@@ -25,46 +26,37 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
     PopUp.show(`text-${sectionId}`)();
   }
 
-  const handleShowPopupEditDivider = () => {
-    PopUp.show(`divider-${sectionId}`)();
-  }
-
   const handleShowPopupEditImage = () => {
     PopUp.show(`image-${sectionId}`)();
   }
 
   return (
     <>
-      <Section3
+      <Section4
         backgroundImage={backgroundImage?.[0]}
         // backgroundColor={backgroundColor}
-        imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
-        classMainTitle={classMainTitle}
-        fontSizeMainTitle={fontSizeMainTitle}
-        styleMainTitle={styleMainTitle}
-        text={text}
+        text={text ?? ''}
         alignText={alignText}
         colorText={colorText}
-        classText={classText}
-        fontSizeText={fontSizeText}
-        styleText={styleText}
-        hasDivider={hasDivider}
-        dividerColor={dividerColor || '#f06292'}
+        imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
+        type='tagImg'
         isBuilder={true}
         sectionId={sectionId}
-        onShowPopupEditDivider={handleShowPopupEditDivider}
-        onShowPopupEditTitle={handleShowPopupEditMainTitle}
         onShowPopupEditText={handleShowPopupEditText}
         onShowPopupEditImage={handleShowPopupEditImage}
-      />;
+        onShowPopupEditTitle={handleShowPopupEditMainTitle}
+      />
       <PopUp id={`mainTitle-${sectionId}`} >
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`text-${sectionId}`} >
         <FormText nowIndexSection={nowIndexSection} />
+      </PopUp>
+      <PopUp id={`button-${sectionId}`} >
+        <FormButton nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`divider-${sectionId}`} >
         <FormDivider nowIndexSection={nowIndexSection} />
@@ -76,4 +68,4 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
   )
 }
 
-export default Section3Editable;
+export default Section4Editable;

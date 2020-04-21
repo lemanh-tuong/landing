@@ -2,11 +2,11 @@ import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import PopUp from 'components/PopUp/PopUp';
 import React, { FC } from 'react';
+import Section1, { Section1Props } from '../../../../components/Section1/Section1';
 import FormButton from '../OtherForm/FormButton/FormButton';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import { FormMockUp } from '../OtherForm/FormMockup/FormMockup';
 import FormText from '../OtherForm/FormText/FormText';
-import Section1, { Section1Props } from './Section1';
 
 export interface Section1EditableProps extends Section1Props {
 };
@@ -17,6 +17,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
   text, alignText, colorText,
   sliderImgs, backgroundImage,
   textButton, styleButton, hrefButton,
+  typeMockUp
 }) => {
 
   const handleShowPopupEditMainTitle = () => {
@@ -51,6 +52,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         fontSizeText='sm'
         backgroundColor="gradient-orange-pink"
         backgroundImage={backgroundImage}
+        typeMockUp={typeMockUp}
         sliderImgs={sliderImgs || [
           {
             imgSrc: mockUpMacContent1,

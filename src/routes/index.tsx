@@ -1,6 +1,7 @@
 import { authentication } from 'firebase/authentication/authentication';
 import { useMount } from 'hooks/useMount';
 import ComponentPage from 'pages/ComponentPage/ComponentPage';
+import HomePage from 'pages/HomePage/HomePage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
@@ -57,7 +58,7 @@ const Routes = () => {
       <main>
         <Switch>
           <Route exact path="/">
-            <ComponentPage />
+            <HomePage />
           </Route>
           <Route exact path='/admin/login'>
             <LoginPage />
@@ -67,6 +68,9 @@ const Routes = () => {
           </Route>
           <Route exact path="/admin/builder">
             <SettingsPage />
+          </Route>
+          <Route exact path="/admin/component">
+            <ComponentPage />
           </Route>
           <Route>
             <div>Something went wrong</div>

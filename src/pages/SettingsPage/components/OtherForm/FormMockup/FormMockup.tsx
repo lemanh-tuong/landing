@@ -1,7 +1,9 @@
 import { Button } from 'antd';
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import { SlideType } from 'components/MockUp/MockUp';
 import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,15 +25,20 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
     return () => setTab(tabName);
   }
 
+  //Dispatch
+  const changeTypeMockup = thunkChangeRadio();
+
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { sliderImgs } = element;
+  const { sliderImgs, typeMockUp } = element;
 
   const handleChangeFormGeneral = ({ fieldName, fieldType }: OnChangeFuncArg) => {
-    return () => {
-
+    return (result: any) => {
+      if (fieldType === 'radio') {
+        changeTypeMockup({ fieldName: fieldName, nowIndexSection: nowIndexSection, value: result })
+      }
     }
   }
 
@@ -45,6 +52,22 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
             fieldName: 'timeSlider',
             fieldType: 'input',
             defaultValue: '1000',
+          },
+          {
+            fieldId: 2,
+            fieldName: 'typeMockUp',
+            fieldType: 'radio',
+            data: [
+              {
+                name: 'type mock up',
+                value: 'Iphone'
+              },
+              {
+                name: 'type mock up',
+                value: 'Mac'
+              },
+            ],
+            defaultCheckedValue: typeMockUp
           }
         ]}
         onChange={handleChangeFormGeneral}
@@ -61,7 +84,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
   const _renderDetailSettings = () => {
     return (
       <>
-        {sliderImgs?.map((slideProperty, index) => <FormSlide slideProperty={slideProperty} key={`slide-${index}`} nowIndexSection={nowIndexSection} nowIndexSlide={index} />)}
+        {sliderImgs?.map((slideProperty: SlideType, index: number) => <FormSlide slideProperty={slideProperty} key={`slide-${index}`} nowIndexSection={nowIndexSection} nowIndexSlide={index} />)}
       </>
     )
   }

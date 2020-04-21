@@ -23,7 +23,7 @@ const Divide: FC<DividerProps> = ({ dividerColor, isBuilder = false, onEditable 
 
   if (isBuilder) {
     return (
-      <PopOverText onEdit={onEditable} component={<div onClick={onEditable} className={`${styles.divide} ${color}`} style={{ backgroundColor: dividerColor }} />} />
+      <PopOverText onEdit={onEditable} component={<div onClick={onEditable} className={`${styles.isBuilder} ${styles.divide} ${color}`} style={{ backgroundColor: dividerColor }} />} />
     )
   }
 

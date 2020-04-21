@@ -32,7 +32,9 @@
 a.button {
   display: inline-block;
   min-width: 190px;
-  padding: 10px 30px;
+  padding: 16px 40px;
+  font-size: 14px;
+  font-family: 'Spartan';
   margin: 0px 5px;
   text-align: center;
   vertical-align: middle;
@@ -48,11 +50,11 @@ a.button {
   }
 }
 
-.button.primary {
+a.button.primary {
   background-color: $color-primary;
   color: $color-white;
 }
-.button.gradient {
+a.button.gradient {
   background-image: $color-gradient-pink-orange;
   color: $color-white;
   &:hover {
@@ -60,16 +62,16 @@ a.button {
     opacity: 0.8;
   }
 }
-button.border {
+a.button.border {
   border: 1px solid $color-pink;
   box-shadow: 0 10px 20px -10px rgba(247,116,105,.5);
   padding: 10px 40px;
   background-color: transparent;
 }
-button.transparent {
+a.button.transparent {
   background-color: transparent;
 }
-button.dark {
+a.button.dark {
   &.primary {
       &:hover {
           box-shadow:  0 2px 5px 0 #018786, 0 2px 10px 0 #018786;

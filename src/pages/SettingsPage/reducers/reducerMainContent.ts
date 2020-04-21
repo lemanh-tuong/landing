@@ -40,6 +40,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement: Option = Object.assign({}, action.payload);
     const { nowIndexSection } = action.payload;
     if(nowIndexSection === undefined) {
+      console.log("ASDASD")
       writeFireBase({
         ...state,
         elements: [...state.elements].concat(action.payload)
@@ -51,11 +52,21 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       };
     }
     if(nowIndexSection === 0) {
+      console.log("BBB")
+      writeFireBase({
+        ...state,
+        elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
+      });
       return {
         ...state,
         elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
       }
     } else {
+      console.log("CCC")
+      writeFireBase({
+        ...state,
+        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
+      });
       return {
         ...state,
         elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
@@ -389,7 +400,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const { nowIndexSection, nowIndexSlide } = action.payload;
     const { elements } = state;
     const nowElement = elements[nowIndexSection];
-    const newSlides = nowElement.sliderImgs ? nowElement.sliderImgs.filter((_slide, index) => index !== nowIndexSlide) : [];
+    const newSlides = nowElement.sliderImgs ? nowElement.sliderImgs.filter((_slide: any, index: any) => index !== nowIndexSlide) : [];
     const newElement = {
       ...nowElement,
       sliderImgs: [...newSlides]

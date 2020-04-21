@@ -12,3 +12,18 @@
 .dark {
   background-color: $color-white-3;
 }
+
+.isBuilder {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}

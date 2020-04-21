@@ -3,10 +3,10 @@ import { CardProps } from 'components/Card/Card';
 import PopUp from 'components/PopUp/PopUp';
 import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
 import thunkDeleteCard from 'pages/SettingsPage/thunks/thunkDeleteCard/thunkDeleteCard';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import Section2, { Section2Props } from '../../../../components/Section2/Section2';
 import FormCard from '../OtherForm/FormCard/FormCard';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
-import Section2, { Section2Props } from './Section2';
 import styles from './Section2Editable.module.scss';
 export interface Section2EditableProps extends Section2Props {
   nowIndexSection: number
@@ -22,6 +22,7 @@ const Section2Editable: FC<Section2EditableProps> = ({
   nowIndexSection, sectionId,
   mainTitle, alignMainTitle, colorMainTitle,
   cards, backgroundImage }) => {
+  const [indexCard, setIndexCard] = useState(-1);
   //Dispatch
   const addCard = thunkAddCard();
   const deleteCard = thunkDeleteCard();
@@ -29,7 +30,8 @@ const Section2Editable: FC<Section2EditableProps> = ({
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   }
-  const handleShowPopupEditCard = () => {
+  const handleShowPopupEditCard = (nowIndexCard: number) => {
+    setIndexCard(nowIndexCard);
     PopUp.show(`card-${sectionId}`)();
   }
   const handleAdd = (nowIndexCard: number) => {
@@ -59,7 +61,7 @@ const Section2Editable: FC<Section2EditableProps> = ({
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`card-${sectionId}`} >
-        <FormCard nowIndexSection={nowIndexSection} />
+        <FormCard nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
     </div>
   )
