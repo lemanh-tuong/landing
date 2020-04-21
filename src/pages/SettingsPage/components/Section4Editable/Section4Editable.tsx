@@ -16,7 +16,7 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
   mainTitle, alignMainTitle, colorMainTitle,
   text, alignText, colorText,
   imageSectionCol,
-  backgroundImage }) => {
+  backgroundImage, backgroundColor }) => {
 
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
@@ -34,7 +34,7 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
     <>
       <Section4
         backgroundImage={backgroundImage?.[0]}
-        // backgroundColor={backgroundColor}
+        backgroundColor={backgroundColor}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}

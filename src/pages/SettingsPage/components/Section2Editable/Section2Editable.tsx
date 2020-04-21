@@ -21,7 +21,7 @@ const cardDefault: CardProps = {
 const Section2Editable: FC<Section2EditableProps> = ({
   nowIndexSection, sectionId,
   mainTitle, alignMainTitle, colorMainTitle,
-  cards, backgroundImage }) => {
+  cards, backgroundImage, backgroundColor }) => {
   const [indexCard, setIndexCard] = useState(-1);
   //Dispatch
   const addCard = thunkAddCard();
@@ -48,7 +48,7 @@ const Section2Editable: FC<Section2EditableProps> = ({
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
         backgroundImage={backgroundImage?.[0]}
-        // backgroundColor={backgroundColor}
+        backgroundColor={backgroundColor}
         cards={cards ? cards : []}
         isBuilder={true}
         sectionId={sectionId}

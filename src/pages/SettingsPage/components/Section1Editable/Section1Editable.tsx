@@ -6,16 +6,17 @@ import Section1, { Section1Props } from '../../../../components/Section1/Section
 import FormButton from '../OtherForm/FormButton/FormButton';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import { FormMockUp } from '../OtherForm/FormMockup/FormMockup';
+import FormSection from '../OtherForm/FormSection/FormSection';
 import FormText from '../OtherForm/FormText/FormText';
 
 export interface Section1EditableProps extends Section1Props {
 };
 
 const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
-  nowIndexSection, sectionId,
+  nowIndexSection, sectionId, backgroundColor, backgroundImage,
   mainTitle, alignMainTitle, colorMainTitle,
   text, alignText, colorText,
-  sliderImgs, backgroundImage,
+  sliderImgs,
   textButton, styleButton, hrefButton,
   typeMockUp
 }) => {
@@ -50,7 +51,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         alignText={alignText}
         colorText={colorText}
         fontSizeText='sm'
-        backgroundColor="gradient-orange-pink"
+        backgroundColor={backgroundColor ? backgroundColor : "gradient-orange-pink"}
         backgroundImage={backgroundImage}
         typeMockUp={typeMockUp}
         sliderImgs={sliderImgs || [
@@ -91,9 +92,10 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         Form divider Here
       </PopUp>
       <PopUp id={`mockup-${sectionId}`}>
-        <FormMockUp
-          nowIndexSection={nowIndexSection}
-        />
+        <FormMockUp nowIndexSection={nowIndexSection} />
+      </PopUp>
+      <PopUp id={`section-${sectionId}`}>
+        <FormSection nowIndexSection={nowIndexSection} />
       </PopUp>
     </>
   )

@@ -49,7 +49,7 @@ const Section3: FC<Section3Props> = ({
   const _renderRightDefault = () => {
     return <>
       {mainTitle && <MainTitle onEditable={onShowPopupEditTitle} isBuilder={isBuilder} mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} darkMode={darkMode} />}
-      {hasDivider && <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />}
+      {hasDivider ? <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />}
       {text && _renderText()}
     </>;
   };

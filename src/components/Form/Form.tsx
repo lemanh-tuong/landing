@@ -6,12 +6,13 @@ import ColorPicker, { ColorPickerProps } from './ColorPicker/ColorPicker';
 import styles from './Form.module.scss';
 import Input, { InputProps } from './Input/Input';
 import Radio, { RadioProps } from './Radio/Radio';
+import Select, { SelectProps } from './SelectColor/Select';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
-export type FieldType = Partial<InputProps> & Partial<RadioProps> & Partial<CheckBoxProps> & Partial<RollSelectProps> & Partial<ColorPickerProps> & {
+export type FieldType = Partial<InputProps> & Partial<RadioProps> & Partial<CheckBoxProps> & Partial<RollSelectProps> & Partial<ColorPickerProps> & Partial<SelectProps> & {
   hidden?: boolean;
-  fieldType: 'input' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'password';
+  fieldType: 'input' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'password' | 'select';
   fieldName: string;
   fieldId: string | number;
 }
@@ -53,6 +54,8 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg ?? []} onUploadFile={onChange} key={arg.fieldId} />
     case 'color-picker':
       return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultValue} onChange={onChange} key={arg.fieldId} />
+    case 'select':
+      return arg.optionsGroup ? <Select defaultSelect={arg.defaultSelect} fieldName={arg.fieldName} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null
     default:
       return null;
   }

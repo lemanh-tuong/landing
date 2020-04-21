@@ -196,6 +196,18 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
   }),
+  handleAction('CHANGE_SELECT', (state, action) => {
+    const { fieldName, value, nowIndexSection } = action.payload;
+    const elementChange = Object.assign({}, state.elements[nowIndexSection]);
+    const newElement = {
+      ...elementChange,
+      [fieldName]: value
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
 
   handleAction("SAVE", (state, action) => {
     writeFireBase(state);

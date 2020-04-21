@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import PopUp from 'components/PopUp/PopUp';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkDeleteSection from 'pages/SettingsPage/thunks/thunkDeleteSection/thunkDeleteSection';
 import thunkDuplicateSection from 'pages/SettingsPage/thunks/thunkDuplicateSection/thunkDuplicateSection';
@@ -56,6 +57,9 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
       </Button>
       <Button className={styles.buttonFunc} onClick={handleDuplicate(elementProperty, nowIndexSection)} shape='circle' size='large' >
         <i className="fas fa-copy" />
+      </Button>
+      <Button className={styles.buttonFunc} onClick={PopUp.show(`section-${elementProperty.sectionId}`)} shape='circle' size='large'>
+        <i className="fas fa-cog" />
       </Button>
       <Button className={styles.buttonFunc} onClick={handleDelete({ ...elementProperty }, nowIndexSection)} shape='circle' size='large' >
         <i className="fas fa-times" />

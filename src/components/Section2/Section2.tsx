@@ -109,16 +109,29 @@ const Section2 = ({
 
   const _renderColumnContent = () => {
     if (isBuilder) {
-      return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
-        <div className={styles.cardEdit}>
-          {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item }, index)}
-          <div className={styles.btnGroup}>
-            <Button className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddCard(index)} />
-            <Button className={styles.deleteBtn} icon={<i className="fas fa-times"></i>} shape='circle' size='large' onClick={_handleDeleteCard(index)} />
-          </div>
-        </div>
-      </Col>)
-
+      return (
+        <>
+          {cards.length > 0 ? cards.map((item, index) => (
+            <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
+              <div className={styles.cardEdit}>
+                {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item }, index)}
+                <div className={styles.btnGroup}>
+                  <Button className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddCard(index)} />
+                  <Button className={styles.deleteBtn} icon={<i className="fas fa-times"></i>} shape='circle' size='large' onClick={_handleDeleteCard(index)} />
+                </div>
+              </div>
+            </Col>
+          )) :
+            <Col cols={[12, 12, 12]}>
+              <div className={`${styles.cardEdit} ${styles.cardAdd}`} onClick={_handleAddCard(cards.length + 1)}>
+                <p>
+                  Add Card
+                </p>
+              </div>
+            </Col>
+          }
+        </>
+      )
     }
     return cards.map((item, index) => <Col key={index} cols={[12, 6, 12 / cards.length >= 3 ? Math.floor(12 / cards.length) : 3]}>
       {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item }, index)}

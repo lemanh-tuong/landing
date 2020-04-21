@@ -4,7 +4,7 @@ import styles from './Section.module.scss';
 
 export interface SectionPatternBase {
   backgroundImage?: string;
-  backgroundColor?: 'gradient-pink-orange' | 'gradient-orange-pink';
+  backgroundColor?: 'gradient-pink-orange' | 'gradient-orange-pink' | 'gradient-purple-blue' | 'white-1' | 'white-2' | 'white-3' | 'primary' | 'secondary';
   children?: ReactNode;
   style?: CSSProperties;
   className?: string;
