@@ -41,7 +41,7 @@
   position: relative;
   width: 60px;
   height: 60px;
-  background: white;
+  background: transparent;
   color: transparent;
   transition: 0.3s all;
   outline: none;
@@ -53,7 +53,7 @@
     height: 5px;
     top: 50%;
     left: 0;
-    background: black;
+    background: white;
     transform: rotate(45deg);
     transform-origin: center;
     transition: 0.3s all;
@@ -65,7 +65,7 @@
     height: 5px;
     top: 50%;
     left: 0;
-    background: black;
+    background: white;
     transform: rotate(-45deg);
     transform-origin: center;
     transition: 0.3s all;
@@ -76,6 +76,7 @@
     bottom: 0;
     left: 0;
     z-index: -1;
+    background: black;
   }
   &:hover:after{
     transform: rotate(0deg);
@@ -83,6 +84,7 @@
     top: 0;
     left: 0;
     z-index: -1;
+    background: black;
   }
   &:hover {
     color: white;

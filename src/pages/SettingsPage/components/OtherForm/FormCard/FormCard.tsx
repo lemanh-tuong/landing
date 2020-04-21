@@ -4,7 +4,7 @@ import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import Icon from 'components/Icon/Icon';
-import { reorder } from 'pages/SettingsPage/reoderFunction';
+import { reorder } from 'pages/SettingsPage/DragDropFunction';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
 import thunkChangeColorTextCard from 'pages/SettingsPage/thunks/thunkChangeColorTextCard/thunkChangeColorTextCard';
@@ -37,7 +37,6 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
 
   const handleFormShown = (cardProperty: CardProps, nowIndexCard: number) => {
     return () => {
-      console.log("AA");
       if (formShown.nowIndexCard !== nowIndexCard) {
         setFormShown({ ...cardProperty, nowIndexCard: nowIndexCard })
       } else {

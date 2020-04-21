@@ -1,9 +1,9 @@
-import { Button } from 'antd';
 import { sections } from 'pages/SettingsPage/selectors';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Image from '../../../../../components/Image/Image';
+import styles from './FormImage.module.scss';
+
 export interface FormImageProps {
   nowIndexSection: number;
 }
@@ -17,12 +17,10 @@ const FormImage: FC<FormImageProps> = ({ nowIndexSection }) => {
 
   return (
     <div>
-      {imageSectionCol ? <Image type='tagImg' imgSrc={imageSectionCol?.imgSrc} style={{ width: '50%', marginBottom: 10 }} /> : null}
-      <Button shape='round' size='large' danger>
-        <Link to={`/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
-          Change Image
-        </Link>
-      </Button>
+      <Link className={styles.btn} to={`/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
+        <img className={styles.img} src={imageSectionCol?.imgSrc} alt='Slide' style={{ width: 200, height: 200 }} />
+        <i className={`far fa-image ${styles.icon}`}></i>
+      </Link>
     </div>
   )
 }

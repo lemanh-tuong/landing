@@ -1,13 +1,16 @@
+import { Button } from 'antd';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { SlideType } from 'components/MockUp/MockUp';
 import thunkChangeHasVideo from 'pages/SettingsPage/thunks/thunkChangeHasVideo/thunkChangeHasVideo';
+import thunkChangeHref from 'pages/SettingsPage/thunks/thunkChangeHref/thunkChangeHref';
 import thunkChangeVideoUrl from 'pages/SettingsPage/thunks/thunkChangeVideoUrl/thunkChangeVideoUrl';
+import thunkDeleteSlide from 'pages/SettingsPage/thunks/thunkDeleteSlide/thunkDeleteSlide';
 import React, { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './FormSlide.module.scss';
 
 export interface FormSlideProps {
-  slideProperty: SlideType;
+  slideProperty: SlideType & { [key: string]: any };
   nowIndexSection: number;
   nowIndexSlide: number;
 }
@@ -15,17 +18,22 @@ export interface FormSlideProps {
 
 const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowIndexSlide }) => {
   // Destructoring
-  const { imgSrc, hasVideo, videoUrl } = slideProperty;
+  const { imgSrc, hasVideo, videoUrl, href } = slideProperty;
 
   // Dispatch
   const changeUrl = thunkChangeVideoUrl();
   const changeHasVideo = thunkChangeHasVideo();
+  const changeHref = thunkChangeHref();
+  const deleteSlide = thunkDeleteSlide();
 
   //Handle
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldType === 'input') {
+      if (fieldType === 'input' && fieldName === 'videoUrl') {
         changeUrl({ newUrl: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide })
+      }
+      if (fieldType === 'input' && fieldName === 'href') {
+        changeHref({ href: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide })
       }
       if (fieldType === 'checkbox') {
         changeHasVideo({ hasVideo: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide })
@@ -33,8 +41,13 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
     }
   }
 
+  const handleDelete = () => {
+    deleteSlide({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide })
+  }
+
   return (
-    <div>
+    <div className={styles.formSlide}>
+      <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />
       <Form
         fields={[
           {
@@ -50,6 +63,14 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
             fieldId: 'section-3-field-8',
             defaultValue: videoUrl,
             hidden: !hasVideo,
+          },
+
+          {
+            fieldType: 'input',
+            fieldName: 'href',
+            fieldId: 'section-3-field-8',
+            defaultValue: href,
+            hidden: !!hasVideo,
           },
         ]}
         onChange={handleChangeForm}

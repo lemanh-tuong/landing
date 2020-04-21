@@ -288,7 +288,7 @@ class HomePage extends PureComponent {
           alignText='center'
           backgroundColor='gradient-pink-orange'
           slider
-          data={[
+          sliderImgs={[
             client, client2, client, client2, client, client2, client, client2, client, client2, client, client2
           ]}
           hasNav
@@ -308,7 +308,7 @@ class HomePage extends PureComponent {
           alignText='center'
           classText="mb-50"
           margin={10}
-          data={[
+          sliderImgs={[
             {
               authorName: 'SergeyX',
               rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',

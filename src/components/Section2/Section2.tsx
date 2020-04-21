@@ -133,8 +133,6 @@ const Section2 = ({
     );
   };
 
-
-
   return (
     <Section style={{ backgroundColor: 'rgb(245, 245, 245)' }}>
       <Row>

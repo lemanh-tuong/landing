@@ -1,8 +1,9 @@
+import PopOverText from 'componentBuilder/PopOverText/PopOverText';
 import Image, { ImageProps } from 'components/Image/Image';
 import useSlide from 'hooks/useSlide';
 import React, { CSSProperties, ReactNode } from 'react';
-import styles from './Carousel.module.scss';
 import { v4 as uuidv4 } from 'uuid';
+import styles from './Carousel.module.scss';
 
 const createArrayEnum = (length: number) => {
   const arr = [];
@@ -35,9 +36,11 @@ type RenderType<ItemT> = (arg: ItemT) => ReactNode;
 export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 'imgSrc'> {
   renderItem?: RenderType<ItemT>;
   sliderImgs: (ItemT & { imgSrc?: string })[];
+  isBuilder?: boolean;
+  onEditable?: () => void;
 }
 
-const Carousel = <ItemT extends any>({ sliderImgs, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<ItemT>) => {
+const Carousel = <ItemT extends any>({ isBuilder, onEditable, sliderImgs, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<ItemT>) => {
 
   const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, responsive, itemShow);
 
@@ -80,7 +83,21 @@ const Carousel = <ItemT extends any>({ sliderImgs, renderItem, hasNav, hasDots, 
   const position: CSSProperties = {
     transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${margin - nowPosition + startPosition}px), 0, 0)`,
   };
-
+  if (isBuilder) {
+    return (
+      <PopOverText onEdit={onEditable} component={
+        <div className={`${styles.carousel} ${isBuilder ? styles.isBuilder : null}`} onClick={onEditable}>
+          <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`}>
+            <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
+              {_renderSlide()}
+            </div>
+          </div>
+          {hasNav && _renderNavSlide()}
+          {hasDots && _renderDots()}
+        </div>
+      } />
+    )
+  }
   return (
     <div className={`${styles.carousel} `}>
       <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>

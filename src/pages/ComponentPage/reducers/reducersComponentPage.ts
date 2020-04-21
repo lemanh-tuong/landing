@@ -1,10 +1,16 @@
+import client4 from 'assets/img/client/showcase_01-icare-plus.vn.png';
+import client from 'assets/img/client/showcase_02-baybusinessgroup.org.png';
+import client3 from 'assets/img/client/showcase_03-zoptiks.com.png';
+import client2 from 'assets/img/client/showcase_04-bodrumguru.com.png';
 import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import previewSection1 from 'assets/img/section/section1.png';
 import previewSection2 from 'assets/img/section/section2.png';
 import previewSection3 from 'assets/img/section/section3.png';
 import previewSection4 from 'assets/img/section/section4.png';
+import previewSection5 from 'assets/img/section/section5.png';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
+import { TypeSlide } from 'components/Section5/Section5';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { ActionGetComponentSuccess, getDataComponent } from '../actions/actionGetComponent/actionGetComponent';
 
@@ -105,6 +111,42 @@ const initialState: ComponentPageReducers =  {
       fontSizeText: 'md',
       classText: '',
       styleText: {},
+      darkMode: false,
+    },
+    {
+      previewImg: previewSection5,
+      sectionName: 'Section 5',
+      mainTitle: "Who's using Wilcity",
+      alignMainTitle: 'center',
+      colorMainTitle: 'white',
+      classMainTitle: '',
+      fontSizeMainTitle: 'md',
+      styleMainTitle: {},
+      text: 'We’re honored some of the most talented creatives out there build with Wilcity',
+      alignText: 'center',
+      colorText: 'white',
+      fontSizeText: 'md',
+      classText: '',
+      styleText: {},
+      backgroundColor: 'gradient-pink-orange',
+      sliderImgs: [
+        {
+          imgSrc: client,
+          href: ''
+        },
+        {
+          imgSrc: client2,
+          href: ''
+        },
+        {
+          imgSrc: client3,
+          href: ''
+        },
+        {
+          imgSrc: client4,
+          href: ''
+        }
+      ] as TypeSlide[],
       darkMode: false,
     },
   ],

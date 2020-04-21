@@ -7,6 +7,7 @@ import Section1Editable from '../Section1Editable/Section1Editable';
 import Section2Editable from '../Section2Editable/Section2Editable';
 import Section3Editable from '../Section3Editable/Section3Editable';
 import Section4Editable from '../Section4Editable/Section4Editable';
+import Section5Editable from '../Section5Editable/Section5Editable';
 
 // const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
 //   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
@@ -20,11 +21,13 @@ export interface RenderSectionArg {
 
 const RenderSection = ({ option, nowIndexSecion, isBuilder }: RenderSectionArg) => {
   const {
+    backgroundColor, backgroundImage,
     sectionName, sectionId,
     mainTitle, alignMainTitle, colorMainTitle,
     text, alignText, colorText,
     imageSectionCol,
-    cards, slider, hasDivider, dividerColor, sliderImgs, backgroundImage,
+    cards, slider, hasDivider, dividerColor,
+    sliderImgs, hasNav, navClass, hasDots, dotClass,
     textButton, styleButton, hrefButton,
     typeMockUp,
   } = option;
@@ -108,6 +111,25 @@ const RenderSection = ({ option, nowIndexSecion, isBuilder }: RenderSectionArg) 
           isBuilder={isBuilder}
           sectionId={sectionId}
         />;
+      case 'Section 5':
+        return <Section5Editable
+          nowIndexSection={nowIndexSecion}
+          backgroundImage={backgroundImage?.[0]}
+          backgroundColor={backgroundColor}
+          mainTitle={mainTitle}
+          alignMainTitle={alignMainTitle}
+          colorMainTitle={colorMainTitle}
+          text={text ?? ''}
+          alignText={alignText}
+          colorText={colorText}
+          sliderImgs={sliderImgs}
+          hasNav={hasNav}
+          navClass={navClass}
+          hasDots={hasDots}
+          dotClass={dotClass}
+          isBuilder={isBuilder}
+          sectionId={sectionId}
+        />
     }
   };
   return (

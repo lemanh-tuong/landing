@@ -15,7 +15,7 @@ import { Section3Props } from '../../components/Section3/Section3';
 import { Section4Props } from '../../components/Section4/Section4';
 import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import RenderSection from './components/RenderSection/RenderSection';
-import { reorder } from './reoderFunction';
+import { getListStyle, reorder } from './DragDropFunction';
 import { sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
 import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
@@ -31,13 +31,14 @@ export interface PageProps {
 export interface Option extends Partial<Section1Props & Section2Props & Section3Props & Section4Props<any>> {
   sectionName: string;
   sectionId: string;
-  slider?: boolean;
 }
 
 const defaultSection: Option = {
   sectionId: '',
   sectionName: '',
 }
+
+
 
 const SettingsPage = () => {
   const history = useHistory();
@@ -80,7 +81,6 @@ const SettingsPage = () => {
 
   const handleDragEnd = (result: DropResult) => {
     const { draggableId, source, destination } = result;
-    console.log(result)
     if (draggableId.includes('Btn Section') && destination?.droppableId === '2') {
       handleAdd(destination?.index);
     } else {
@@ -143,8 +143,8 @@ const SettingsPage = () => {
       <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         <SideBar onEvent={handlePrepairAdd} />
         <Droppable droppableId="2">
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.mainContent} >
+          {(provided, snapshot) => (
+            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.mainContent} style={getListStyle(snapshot.isDraggingOver)}>
               {elements.map((element: any, index: number) => _renderSection(element, index))}
               {provided.placeholder}
             </div>

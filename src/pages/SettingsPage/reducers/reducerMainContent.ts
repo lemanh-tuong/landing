@@ -40,7 +40,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement: Option = Object.assign({}, action.payload);
     const { nowIndexSection } = action.payload;
     if(nowIndexSection === undefined) {
-      console.log("ASDASD")
       writeFireBase({
         ...state,
         elements: [...state.elements].concat(action.payload)
@@ -52,7 +51,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       };
     }
     if(nowIndexSection === 0) {
-      console.log("BBB")
       writeFireBase({
         ...state,
         elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
@@ -62,7 +60,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
         elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
       }
     } else {
-      console.log("CCC")
       writeFireBase({
         ...state,
         elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
@@ -325,7 +322,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     }
   }),
 
-  // MockUp
+  // MockUp & Slide
   handleAction('CHANGE_VIDEO_URL', (state: any, action) => {
     const { newUrl, nowIndexSection, nowIndexSlide } = action.payload;
     const { elements } = state;
@@ -395,6 +392,26 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
 
+  }),
+  handleAction('CHANGE_HREF', (state: any, action) => {
+    const { href, nowIndexSection, nowIndexSlide } = action.payload;
+    const { elements } = state;
+    const nowElement = elements[nowIndexSection];
+    const nowSlide = nowElement.sliderImgs?.[nowIndexSlide];
+    const newSlide = {
+      ...nowSlide,
+      href: href
+    }
+    const newElement = {
+      ...nowElement,
+      sliderImgs: nowElement.sliderImgs
+      ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length)]
+      : null
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
   }),
   handleAction('DELETE_SLIDE', (state, action) => {
     const { nowIndexSection, nowIndexSlide } = action.payload;
