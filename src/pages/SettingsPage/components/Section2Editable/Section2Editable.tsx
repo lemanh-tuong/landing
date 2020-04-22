@@ -7,6 +7,7 @@ import React, { FC, useState } from 'react';
 import Section2, { Section2Props } from '../../../../components/Section2/Section2';
 import FormCard from '../OtherForm/FormCard/FormCard';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
+import FormSection from '../OtherForm/FormSection/FormSection';
 import styles from './Section2Editable.module.scss';
 export interface Section2EditableProps extends Section2Props {
   nowIndexSection: number
@@ -62,6 +63,9 @@ const Section2Editable: FC<Section2EditableProps> = ({
       </PopUp>
       <PopUp id={`card-${sectionId}`} >
         <FormCard nowIndexSection={nowIndexSection} indexCard={indexCard} />
+      </PopUp>
+      <PopUp id={`section-${sectionId}`}>
+        <FormSection nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>
   )

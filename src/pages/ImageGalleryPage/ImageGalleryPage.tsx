@@ -6,6 +6,7 @@ import thunkChangeIconCard from 'pages/ImageGalleryPage/thunks/thunkChangeIconCa
 import thunkChooseImage from 'pages/ImageGalleryPage/thunks/thunkChooseImage/thunkChooseImage';
 import thunkGetImageGallery from 'pages/ImageGalleryPage/thunks/thunkGetImageGallery/thunkGetImageGallery';
 import thunkUploadFile from 'pages/ImageGalleryPage/thunks/thunkUploadFile/thunkUploadFile';
+import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeImgSlide from 'pages/SettingsPage/thunks/thunkChangeImgSlide/thunkChangeImgSlide';
 import thunkSaveAll from 'pages/SettingsPage/thunks/thunkSaveAll/thunkSaveAll';
 import React from 'react';
@@ -19,6 +20,7 @@ import { iconGallery, imageSectionCol, messageRequestImageFailure, messageUpload
 const ImageGalleryPage = () => {
   const history = useHistory();
   // Selector
+  const elements = useSelector(sections);
   // -Gallery
   const sliderImgs = useSelector(sliderImgsGallery)
   const icon = useSelector(iconGallery);
@@ -70,7 +72,7 @@ const ImageGalleryPage = () => {
     }
   }
   const handleSaveAll = () => {
-    save();
+    save({ sections: elements });
   }
 
   useMount(() => {

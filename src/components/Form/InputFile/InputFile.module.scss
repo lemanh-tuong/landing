@@ -74,9 +74,9 @@
   align-items: center;
   margin-right: 10px;
   &.uploading {
-    border: 1px solid blue;
-    border-left: none;
-    border-top: none;
+    border: 1px solid #EEE;
+    border-left-color: transparent;
+    border-top-color: transparent;
     animation: loading 3s infinite;
   }
   &.uploaded {

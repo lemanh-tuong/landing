@@ -8,7 +8,8 @@ const LoginPage = () => {
   const [SignIn_Info, setSignInInfo] = useState<{ userName: string; password: string }>({ userName: '', password: '' });
   const [error, setError] = useState('');
 
-  const handleSignIn = () => {
+  const handleSignIn = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+    e.preventDefault();
     signInFirebase({ email: `${SignIn_Info.userName}`, password: SignIn_Info.password }).then((res) => {
       history.push('/admin/builder');
     }).catch((err) => {

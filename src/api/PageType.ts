@@ -1,7 +1,7 @@
 import { ImageProps } from 'components/Image/Image';
 import { MainTitleProps } from 'components/MainTitle/MainTitle';
 import { TextProps } from 'components/Text/Text';
-import { getPageData } from 'pages/HomePage/actions/actionGetPageData';
+import { getDataSections } from 'pages/HomePage/actions/actionGetSections';
 import { ActionTypes } from 'utils/functions/reduxActions';
 
 export type SectionProps = {
@@ -17,4 +17,4 @@ export interface PageState {
   section: SectionProps[];
 }
 
-export type PageAction = ActionTypes<typeof getPageData>;
+export type PageAction = ActionTypes<typeof getDataSections>;

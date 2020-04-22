@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, useEffect, useState } from 'react';
+import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 type OnChooseFunc<T> = (item: ItemT<T>, nowChoosing?: ItemT<T>[], setChoosing?: any) => void;
@@ -21,6 +21,9 @@ export interface RollSelectBaseProps<T> {
 }
 
 const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = false, onChoose, onResult, renderItem }: RollSelectBaseProps<T>) => {
+
+  const onResultRef = useRef(onResult);
+
   const [choosing, setChoosing] = useState(() => {
     return defaultSelected ? (defaultSelected instanceof Array ? [...defaultSelected] : [{ ...defaultSelected }]) : [] as Data<T>;
   });
@@ -38,12 +41,12 @@ const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = fa
   useEffect(() => {
     if (choosing.length > 0) {
       if (multiple) {
-        onResult?.(choosing);
+        onResultRef.current?.(choosing);
       } else {
-        onResult?.(choosing[0]);
+        onResultRef.current?.(choosing[0]);
       }
     }
-  }, [choosing, multiple, onResult])
+  }, [choosing, multiple, onResultRef])
 
   return (
     <>

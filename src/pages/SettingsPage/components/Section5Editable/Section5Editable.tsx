@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import FormButton from '../OtherForm/FormButton/FormButton';
 import { FormDivider } from '../OtherForm/FormDivider/FormDivider';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
+import FormSection from '../OtherForm/FormSection/FormSection';
 import { FormSlides } from '../OtherForm/FormSlides/FormSlides';
 import FormText from '../OtherForm/FormText/FormText';
 
@@ -65,6 +66,9 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
       </PopUp>
       <PopUp id={`slides-${sectionId}`}>
         <FormSlides nowIndexSection={nowIndexSection} />
+      </PopUp>
+      <PopUp id={`section-${sectionId}`}>
+        <FormSection nowIndexSection={nowIndexSection} />
       </PopUp>
     </>
   )

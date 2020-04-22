@@ -1,12 +1,14 @@
 import { Button } from 'antd';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import PopUp from 'components/PopUp/PopUp';
+import { sections } from 'pages/SettingsPage/selectors';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkDeleteSection from 'pages/SettingsPage/thunks/thunkDeleteSection/thunkDeleteSection';
 import thunkDuplicateSection from 'pages/SettingsPage/thunks/thunkDuplicateSection/thunkDuplicateSection';
 import thunkMoveDownSection from 'pages/SettingsPage/thunks/thunkMoveDownSection/thunkMoveDownSection';
 import thunkMoveUpSection from 'pages/SettingsPage/thunks/thunkMoveUpSection/thunkMoveUpSection';
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './ButtonFunc.module.scss';
 
@@ -16,6 +18,10 @@ export interface ButtonFuncProps {
 }
 
 const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) => {
+
+  //Selectors
+  const elements = useSelector(sections);
+
   //Dispatch
   const duplicateSection = thunkDuplicateSection();
   const deleteSection = thunkDeleteSection();
@@ -25,7 +31,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
   // Handle
   const handleDelete = (arg: Option, indexSection: number) => {
     return () => {
-      deleteSection({ arg: arg })
+      deleteSection({ arg: arg, elements: elements, nowIndexSection: indexSection })
     }
   }
 

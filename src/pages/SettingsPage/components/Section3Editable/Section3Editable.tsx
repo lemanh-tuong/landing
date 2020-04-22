@@ -5,6 +5,7 @@ import Section3, { Section3Props } from '../../../../components/Section3/Section
 import { FormDivider } from '../OtherForm/FormDivider/FormDivider';
 import FormImage from '../OtherForm/FormImage/FormImage';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
+import FormSection from '../OtherForm/FormSection/FormSection';
 import FormText from '../OtherForm/FormText/FormText';
 
 export interface Section3EditableProps extends Section3Props {
@@ -71,6 +72,9 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
       </PopUp>
       <PopUp id={`image-${sectionId}`}>
         <FormImage nowIndexSection={nowIndexSection} />
+      </PopUp>
+      <PopUp id={`section-${sectionId}`}>
+        <FormSection nowIndexSection={nowIndexSection} />
       </PopUp>
     </>
   )

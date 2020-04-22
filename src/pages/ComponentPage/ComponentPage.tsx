@@ -2,6 +2,7 @@ import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Image from 'components/Image/Image';
 import { useMount } from 'hooks/useMount';
+import { sections } from 'pages/SettingsPage/selectors';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkAddSection from 'pages/SettingsPage/thunks/thunkAddSection/thunkAddSection';
 import React from 'react';
@@ -21,7 +22,7 @@ const ComponentPage = () => {
   const pattern = useSelector(components);
   const status = useSelector(statusRequestComponents);
   const message = useSelector(messageRequestComponents);
-
+  const elements = useSelector(sections);
   //Dispatch
   const getPatternSection = thunkGetComponent();
   const addSection = thunkAddSection();
@@ -31,7 +32,7 @@ const ComponentPage = () => {
   //Handle
   const handleAdd = (property: Option) => {
     return () => {
-      addSection({ arg: property, index: parseInt(nowIndexSection) + 1 });
+      addSection({ nowSections: elements, arg: property, index: parseInt(nowIndexSection) + 1 });
       history.push('/admin/builder');
     }
   }

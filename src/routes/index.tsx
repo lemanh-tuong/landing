@@ -5,6 +5,7 @@ import HomePage from 'pages/HomePage/HomePage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
+import TestPage from 'pages/TestPage/TestPage';
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
@@ -75,9 +76,13 @@ const Routes = () => {
           {/* <Route exact path="/admin/builder">
             <SettingsPage />
           </Route> */}
-          <Route exact path="/admin/component">
+          <Route path="/admin/component">
             <ComponentPage />
           </Route>
+          <Route
+            path="/test"
+            component={TestPage}
+          />
           <Route>
             <div>Something went wrong</div>
           </Route>

@@ -61,6 +61,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
             fieldName: 'navClass',
             fieldType: 'input',
             defaultValue: navClass,
+            hidden: !hasNav
           },
           {
             fieldId: 3,
@@ -73,6 +74,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
             fieldName: 'dotClass',
             fieldType: 'input',
             defaultValue: dotClass,
+            hidden: !hasDots
           },
           {
             fieldId: 5,

@@ -1,4 +1,4 @@
-import database from "./database";
+import database from "./myFirebase";
 
 export interface UpdateFireBaseArg {
   path: string;
@@ -6,7 +6,10 @@ export interface UpdateFireBaseArg {
 }
 
 const updateFireBase = ({path, updateValue}: UpdateFireBaseArg) => {
-  database.ref(path).update(updateValue);
+  database.ref(path).update(updateValue)
+  .then(res => console.log(res))
+  .catch(err => err)
+  ;
 }
 
 export default updateFireBase;

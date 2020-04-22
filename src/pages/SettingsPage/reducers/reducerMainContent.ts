@@ -1,4 +1,3 @@
-import writeFireBase from 'firebase/database/writeFireBase';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { getDataSection } from '../actions/actionGetDataSection/actionGetDataSection';
 import { Option } from '../SettingsPage';
@@ -40,30 +39,17 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement: Option = Object.assign({}, action.payload);
     const { nowIndexSection } = action.payload;
     if(nowIndexSection === undefined) {
-      writeFireBase({
-        ...state,
-        elements: [...state.elements].concat(action.payload)
-      });
-
       return {
         ...state,
         elements: [...state.elements].concat(action.payload)
       };
     }
     if(nowIndexSection === 0) {
-      writeFireBase({
-        ...state,
-        elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
-      });
       return {
         ...state,
         elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
       }
     } else {
-      writeFireBase({
-        ...state,
-        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
-      });
       return {
         ...state,
         elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
@@ -73,7 +59,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   handleAction('DELETE_SECTION', (state, action) => {
     const { elements } = state;
     const newElement = elements.filter(element => action.payload.sectionId !== element.sectionId);
-    writeFireBase({...state, elements: [...newElement]});
     return {
       ...state,
       elements: [...newElement]
@@ -124,10 +109,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   handleAction('DUPLICATE_SECTION', (state, action) => {
     const {data, nowIndexSection} = action.payload;
     const newElements = [...state.elements.slice(0, nowIndexSection + 1), {...data}, ...state.elements.slice(nowIndexSection + 1, state.elements.length)];
-    writeFireBase({
-      ...state,
-      elements: [...newElements]
-    });
     return {
       ...state,
       elements: [...newElements]
@@ -210,7 +191,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   }),
 
   handleAction("SAVE", (state, action) => {
-    writeFireBase(state);
     return {
       ...state,
     }

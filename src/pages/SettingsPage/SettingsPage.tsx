@@ -68,7 +68,7 @@ const SettingsPage = () => {
 
   const handleAdd = (indexSection?: number) => {
     if (!!prepairAddProperty.current.sectionId) {
-      addSection({ arg: { ...prepairAddProperty.current }, index: indexSection });
+      addSection({ nowSections: elements, arg: { ...prepairAddProperty.current }, index: indexSection });
       prepairAddProperty.current = Object.assign({}, defaultSection);
     }
   }
@@ -100,7 +100,7 @@ const SettingsPage = () => {
   }
 
   const handleSaveAll = () => {
-    saveAll();
+    saveAll({ sections: elements });
     signOutFirebase();
     history.push('/');
   }
