@@ -418,6 +418,20 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     }
+  }),
+  handleAction('ADD_SLIDE', (state, action) => {
+    const { nowIndexSection, nowIndexSlide, slideProperty } = action.payload;
+    const nowElement = state.elements[nowIndexSection];
+    const nowSlides = nowElement.sliderImgs;
+    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide + 1), {...slideProperty}, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)] : [{...slideProperty}];
+    const newElement = {
+      ...nowElement,
+      sliderImgs: [...newSlides],
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
   })
 ]);
 

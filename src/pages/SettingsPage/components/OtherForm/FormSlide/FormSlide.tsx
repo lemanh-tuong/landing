@@ -1,6 +1,8 @@
 import { Button } from 'antd';
+import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { SlideType } from 'components/MockUp/MockUp';
+import thunkAddSlide from 'pages/SettingsPage/thunks/thunkAddSlide/thunkAddSlide';
 import thunkChangeHasVideo from 'pages/SettingsPage/thunks/thunkChangeHasVideo/thunkChangeHasVideo';
 import thunkChangeHref from 'pages/SettingsPage/thunks/thunkChangeHref/thunkChangeHref';
 import thunkChangeVideoUrl from 'pages/SettingsPage/thunks/thunkChangeVideoUrl/thunkChangeVideoUrl';
@@ -16,6 +18,10 @@ export interface FormSlideProps {
 }
 
 
+const defaultSlide = {
+  imgSrc: mockUpMacContent1,
+}
+
 const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowIndexSlide }) => {
   // Destructoring
   const { imgSrc, hasVideo, videoUrl, href } = slideProperty;
@@ -25,7 +31,7 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
   const changeHasVideo = thunkChangeHasVideo();
   const changeHref = thunkChangeHref();
   const deleteSlide = thunkDeleteSlide();
-
+  const addSlide = thunkAddSlide();
   //Handle
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
@@ -43,6 +49,10 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
 
   const handleDelete = () => {
     deleteSlide({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide })
+  }
+
+  const handleAddSlide = () => {
+    addSlide({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, sliderProperty: defaultSlide })
   }
 
   return (
@@ -80,6 +90,9 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
       </Form>
+      <Button shape='round' size='large' type='dashed' onClick={handleAddSlide} style={{ margin: '5px 0' }}>
+        Add Slide
+      </Button>
     </div>
   )
 };
