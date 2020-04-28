@@ -31,12 +31,6 @@ const InputText2: FC<InputText2Props> = ({ addonBefore, addonAfter, disabled, pl
     <div style={{ ...style, marginBottom: 16 }}>
       <Input disabled={disabled} addonBefore={addonBefore} addonAfter={addonAfter} defaultValue={defaultValue} onChange={handleChange} />
     </div>
-  )
-
-  return (
-    <div style={{ marginBottom: 16 }}>
-      <Input disabled={disabled} addonBefore={addonBefore} addonAfter={addonAfter} defaultValue={defaultValue} placeholder={placeholder} onChange={handleChange} />
-    </div>
   );
 };
 

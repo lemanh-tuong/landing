@@ -1,7 +1,7 @@
 import { Input as InputAntd } from 'antd';
 import 'antd/es/style/css';
 import { AutoSizeType } from 'antd/lib/input/ResizableTextArea';
-import React, { ChangeEvent, CSSProperties, FC, memo } from 'react';
+import React, { ChangeEvent, CSSProperties, FC, memo, useEffect, useRef, useState } from 'react';
 import styles from './Input.module.scss';
 
 export interface InputOption {
@@ -19,10 +19,18 @@ export interface InputProps extends InputOption {
 }
 
 const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizontal, autoSize, style, onChange }) => {
+  const onChangeRef = useRef(onChange);
+  const [value, setValue] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e.target.value);
+    setValue(e.target.value);
   }
+
+  useEffect(() => {
+    if (value) {
+      onChangeRef.current?.(value);
+    }
+  }, [onChangeRef, value])
 
   const _renderTextArea = () => {
     return <InputAntd.TextArea

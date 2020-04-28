@@ -10,14 +10,14 @@ type ThunkLoginArg = {
 
 const thunkLogin = ({email, password}: ThunkLoginArg): ThunkLogin => async dispatch => {
   dispatch(actionLogin.request());
-  const { user } = await signInFirebase({email: email, password: password})
-  const token = await user?.getIdToken();
   try {
+    const { user } = await signInFirebase({email: email, password: password})
+    const token = await user?.getIdToken();
     if(token && user?.refreshToken) {
       dispatch(actionLogin.success({token: token, refreshToken: user.refreshToken}))
     }
   } catch(err) {
-    dispatch(actionLogin.failure(JSON.stringify(err)))
+    dispatch(actionLogin.failure(err.message))
   }
 };
 

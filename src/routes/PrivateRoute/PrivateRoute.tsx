@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 
 export interface PrivateRouteProps {
   token: string;
@@ -8,10 +8,11 @@ export interface PrivateRouteProps {
 }
 
 const PrivateRoute: FC<PrivateRouteProps> = ({ token, component, pathRedirect }) => {
-  console.log(!!token);
+  const history = useHistory();
+
   return (
     <>
-      {!!token ? component : <Redirect to={{ pathname: pathRedirect }} />}
+      {!!token ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}
     </>
   )
 }

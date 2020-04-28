@@ -27,6 +27,7 @@ import { ActionChangeInputSlide2Payload } from '../actions/actionSlide2/actionCh
 import { ActionDeleteSlide2Payload } from '../actions/actionSlide2/actionDeleteSlide2/actionDeleteSlide2';
 import { ActinChangeInputRateFormPayload } from '../actions/actionsRate/actionChangeInputRateForm/actionChangeInputRateForm';
 import { ActionDeleteRatePayload } from '../actions/actionsRate/actionDeleteRate/actionDeleteRate';
+import { ActionMoveRatePayload } from '../actions/actionsRate/actionMoveRate/actionMoveRate';
 import { ActionAddSlidePayload } from '../actions/actionsSlide&MockUp/actionAddSlide/actionSlide';
 import { ActionChangeHasVideoPayload } from '../actions/actionsSlide&MockUp/actionChangeHasVideo/actionChangeHasVideo';
 import { ActionChangeHrefPayload } from '../actions/actionsSlide&MockUp/actionChangeHref/actionChangeHref';
@@ -625,6 +626,18 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...nowElement,
       rateList: [...newListRate]
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  }),
+  handleAction("MOVE_RATE", (state, action) => {
+    const { data, nowIndexSection } = action.payload as ActionMoveRatePayload;
+    const nowElement = state.elements[nowIndexSection];
+    const newElement = {
+      ...nowElement,
+      rateList: [...data]
     }
     return {
       ...state,

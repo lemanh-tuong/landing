@@ -58,7 +58,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   };
 
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     if (responsive) {
       if(responsive['576px'] && window.innerWidth >= 576 && window.innerWidth < 768) {
         setItems(responsive?.['576px']);
@@ -70,7 +70,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
         setItems(responsive?.['1200px']);
       }
     };
-  };
+  }, [responsive]);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);

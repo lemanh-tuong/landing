@@ -41,7 +41,7 @@ const HomePage = () => {
   useMount(() => {
     getData({ pageName: 'HomePage' })
   })
-  console.log(statusRequest, sections);
+
   return _renderSwitch();
 }
 

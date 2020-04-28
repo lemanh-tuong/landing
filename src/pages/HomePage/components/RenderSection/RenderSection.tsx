@@ -28,7 +28,7 @@ const RenderSection = (option: Option) => {
     mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
-    cards, slider, hasDivider, dividerColor,
+    cards, hasDivider, dividerColor,
     sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton,
     typeMockUp,
@@ -42,17 +42,19 @@ const RenderSection = (option: Option) => {
     switch (sectionName) {
       case 'Section 1':
         return <Section1
-          sectionId={sectionId}
+          animation={animation}
+          positionAnimation={positionAnimation}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          hasDivider={hasDivider}
+          dividerColor={dividerColor}
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
           fontSizeText='sm'
-          backgroundColor={backgroundColor ? backgroundColor : "gradient-orange-pink"}
+          backgroundColor={backgroundColor}
           backgroundImage={backgroundImage}
-          slider={slider}
           typeMockUp={typeMockUp}
           sliderImgs={sliderImgs || [
             {
@@ -70,49 +72,70 @@ const RenderSection = (option: Option) => {
           textButton={textButton}
           styleButton={styleButton}
           hrefButton={hrefButton}
+          backgroundButton={backgroundButton}
+          colorTextButton={colorTextButton}
+          sectionId={sectionId}
         />;
       case 'Section 2':
         return <Section2
-          sectionId={sectionId}
+          animation={animation}
+          positionAnimation={positionAnimation}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
           backgroundImage={backgroundImage}
           backgroundColor={backgroundColor}
           cards={cards ? cards : []}
+          sectionId={sectionId}
         />;
       case 'Section 3':
         return <Section3
-          sectionId={sectionId}
+          animation={animation}
+          positionAnimation={positionAnimation}
           backgroundImage={backgroundImage}
           backgroundColor={backgroundColor}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          classMainTitle={classMainTitle}
+          fontSizeMainTitle={fontSizeMainTitle}
+          styleMainTitle={styleMainTitle}
           text={text}
           alignText={alignText}
           colorText={colorText}
+          classText={classText}
+          fontSizeText={fontSizeText}
+          styleText={styleText}
           hasDivider={hasDivider}
           dividerColor={dividerColor || '#f06292'}
+          sectionId={sectionId}
         />;
       case 'Section 4':
         return <Section4
-          sectionId={sectionId}
+          animation={animation}
+          positionAnimation={positionAnimation}
           backgroundImage={backgroundImage}
           backgroundColor={backgroundColor}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          backgroundButton={backgroundButton}
+          hrefButton={hrefButton}
+          colorTextButton={colorTextButton}
+          textButton={textButton}
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
+          sectionId={sectionId}
         />;
       case 'Section 5':
         return <Section5
+          animation={animation}
+          positionAnimation={positionAnimation}
           backgroundImage={backgroundImage}
-          backgroundColor={backgroundColor ? backgroundColor : 'gradient-pink-orange'}
+          backgroundColor={backgroundColor}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
@@ -121,14 +144,17 @@ const RenderSection = (option: Option) => {
           colorText={colorText}
           sliderImgs={sliderImgs}
           hasNav={hasNav}
-          navClass={navClass}
           hasDots={hasDots}
+          navClass={navClass}
           dotClass={dotClass}
+          fluid={fluid}
+          margin={margin}
+          itemShow={itemShow}
           sectionId={sectionId}
         />
       case 'Section 6':
         return <Section6
-          backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation} isBuilder={true}
+          backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}
           mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
           textButton={textButton} hrefButton={hrefButton} colorTextButton={colorTextButton} styleButton={styleButton} backgroundButton={backgroundButton}
           sectionId={sectionId} darkMode={darkMode}

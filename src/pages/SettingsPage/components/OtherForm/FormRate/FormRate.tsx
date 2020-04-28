@@ -3,12 +3,14 @@ import authorAvatar from 'assets/img/web_icons/envato.svg';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import Icon from 'components/Icon/Icon';
 import { RateProps } from 'components/Rate/Rate';
+import { reorder } from 'pages/SettingsPage/DragDropFunction';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkAddRate from 'pages/SettingsPage/thunks/thunksRate/thunkAddRate/thunkAddRate';
 import thunkChangeInputRateForm from 'pages/SettingsPage/thunks/thunksRate/thunkChangeInputRateForm/thunkChangeInputRateForm';
 import thunkDeleteRate from 'pages/SettingsPage/thunks/thunksRate/thunkDeleteRate/thunkDeleteRate';
+import thunkMoveRate from 'pages/SettingsPage/thunks/thunksRate/thunkMoveRate/thunkMoveRate';
 import React, { FC, useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FormRate.module.scss';
@@ -56,6 +58,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
   const addRate = thunkAddRate();
   const deleteRate = thunkDeleteRate();
   const changeInput = thunkChangeInputRateForm();
+  const moveRate = thunkMoveRate();
   // Handle
   const handleAdd = () => {
     addRate({ nowIndexRate: rateList?.length || 0, nowIndexSection: nowIndexSection, rateProperty: rateDefault })
@@ -77,6 +80,18 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate });
       }
     }
+  }
+
+  const handleMoveRate = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+    const newElements = rateList ? reorder(
+      rateList,
+      result.source.index,
+      result.destination.index
+    ) : [];
+    moveRate({ data: newElements, nowIndexSection: nowIndexSection });
   }
 
   // Render
@@ -142,7 +157,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
 
   return (
     <div className={styles.editRateComponent}>
-      <DragDropContext onDragEnd={console.log}>
+      <DragDropContext onDragEnd={handleMoveRate}>
         <Droppable droppableId={sectionId} type="rate drop">
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >

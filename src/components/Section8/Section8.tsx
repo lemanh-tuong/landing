@@ -57,47 +57,49 @@ const Section8: FC<Section8Props> = ({
             </Col>
           </Row>
         </Col>
-        <Col cols={[12, 12, 5]} className={styles.contentCenter}>
-          {mainTitle && <MainTitle
-            mainTitle={mainTitle}
-            alignMainTitle={alignMainTitle}
-            classMainTitle={classMainTitle}
-            fontSizeMainTitle={fontSizeMainTitle}
-            colorMainTitle={colorMainTitle}
-            styleMainTitle={styleMainTitle}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditMainTitle}
-            darkMode={darkMode}
-          />}
-          {hasDivider ? <Divide
-            dividerColor={dividerColor}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
-          }
-          {text && <Text
-            text={text}
-            alignText={alignText}
-            colorText={colorText}
-            fontSizeText={fontSizeText}
-            classText={classText}
-            styleText={styleText}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditText}
-            darkMode={darkMode}
-          />
-          }
-          <ButtonGroup align='left'>
-            <Button
-              text={textButton}
-              href={hrefButton}
-              backgroundColor={backgroundButton}
+        <Col cols={[12, 12, 5]}>
+          <div className={styles.contentCenter}>
+            {mainTitle && <MainTitle
+              mainTitle={mainTitle}
+              alignMainTitle={alignMainTitle}
+              classMainTitle={classMainTitle}
+              fontSizeMainTitle={fontSizeMainTitle}
+              colorMainTitle={colorMainTitle}
+              styleMainTitle={styleMainTitle}
               isBuilder={isBuilder}
-              onEditable={onShowPopupEditButton}
-              style={{ ...styleButton, margin: '30px 0' }}
-              color={colorTextButton}
-              dark={darkMode}
+              onEditable={onShowPopupEditMainTitle}
+              darkMode={darkMode}
+            />}
+            {hasDivider ? <Divide
+              dividerColor={dividerColor}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
+            }
+            {text && <Text
+              text={text}
+              alignText={alignText}
+              colorText={colorText}
+              fontSizeText={fontSizeText}
+              classText={classText}
+              styleText={styleText}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditText}
+              darkMode={darkMode}
             />
-          </ButtonGroup>
+            }
+            <ButtonGroup align='left'>
+              <Button
+                text={textButton}
+                href={hrefButton}
+                backgroundColor={backgroundButton}
+                isBuilder={isBuilder}
+                onEditable={onShowPopupEditButton}
+                style={{ ...styleButton, margin: '30px 0' }}
+                color={colorTextButton}
+                dark={darkMode}
+              />
+            </ButtonGroup>
+          </div>
         </Col>
       </Row>
     </Section>

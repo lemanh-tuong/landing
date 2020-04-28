@@ -93,32 +93,34 @@ const Section9: FC<Secction9Props> = ({
     <Section animation={animation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[12, 12, 5]}>
-          {mainTitle && <MainTitle
-            mainTitle={mainTitle}
-            alignMainTitle={alignMainTitle}
-            colorMainTitle={colorMainTitle}
-            fontSizeMainTitle={fontSizeMainTitle}
-            classMainTitle={classMainTitle}
-            styleMainTitle={styleMainTitle}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditMainTitle}
-            darkMode={darkMode}
-          />}
-          {_renderDivider()}
-          {text && <Text
-            text={text}
-            alignText={alignText}
-            fontSizeText={fontSizeText}
-            classText={classText}
-            colorText={colorText}
-            styleText={styleText}
-            darkMode={darkMode}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditText}
-          />}
-          <ButtonGroup style={{ margin: 30 }} align='left'>
-            {buttons.map((button, index) => _renderButton(button, index))}
-          </ButtonGroup>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
+            {mainTitle && <MainTitle
+              mainTitle={mainTitle}
+              alignMainTitle={alignMainTitle}
+              colorMainTitle={colorMainTitle}
+              fontSizeMainTitle={fontSizeMainTitle}
+              classMainTitle={classMainTitle}
+              styleMainTitle={styleMainTitle}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditMainTitle}
+              darkMode={darkMode}
+            />}
+            {_renderDivider()}
+            {text && <Text
+              text={text}
+              alignText={alignText}
+              fontSizeText={fontSizeText}
+              classText={classText}
+              colorText={colorText}
+              styleText={styleText}
+              darkMode={darkMode}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditText}
+            />}
+            <ButtonGroup style={{ marginTop: 30 }} align='left'>
+              {buttons.map((button, index) => _renderButton(button, index))}
+            </ButtonGroup>
+          </div>
         </Col>
         <Col cols={[12, 12, 7]}>
           <div className={styles.phones}>

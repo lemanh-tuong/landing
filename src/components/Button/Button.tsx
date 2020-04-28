@@ -28,7 +28,6 @@ const Button = ({
   const darkMode = dark ? styles['dark'] : '';
   const cssBackground: CSSProperties = backgroundColor ? { background: backgroundColor } : {};
   const cssColor: CSSProperties = color ? { color: color } : {};
-  console.log(cssColor, color);
   if (isBuilder) {
     return (
       <PopOverText onEdit={onEditable} component={

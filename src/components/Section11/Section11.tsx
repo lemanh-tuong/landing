@@ -50,7 +50,7 @@ const Section11: FC<Section11Props> = ({
           aspectRatio={imageSectionCol.aspectRatio}
           zoom={imageSectionCol.zoom}
           parallax={imageSectionCol.parallax}
-          style={{ marginBottom: 30 }}
+          style={{ marginBottom: 45 }}
         />}
       </Col>
     );

@@ -4,10 +4,10 @@ import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import TestPage from 'pages/TestPage/TestPage';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { messageLogin, refreshToken, statusLog, token } from 'selectors';
+import { token } from 'selectors';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 const Routes = () => {
   // const [show, setShow] = useState(false);
@@ -41,46 +41,48 @@ const Routes = () => {
   // });
 
   const tokenLogin = useSelector(token);
-  const refreshTokenLogin = useSelector(refreshToken);
-  const status = useSelector(statusLog);
-  const msg = useSelector(messageLogin);
+
+  useEffect(() => {
+    return () => {
+      localStorage.clear();
+    }
+  })
 
   return (
     <BrowserRouter >
-      <header>
-      </header>
-      <main>
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route exact path="/gallery">
-            <ImageGalleryPage />
-          </Route>
-          <Route exact path="/admin/component">
-            <ComponentPage />
-          </Route>
-          <Route exact path='/admin/login'>
-            <LoginPage />
-          </Route>
-          <PrivateRoute token={tokenLogin} pathRedirect='/admin/login' component={
-            <Route exact path="/admin/builder">
-              <SettingsPage />
-            </Route>}
-          />
-          {/* <Route exact path="/admin/builder">
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path='/admin/login'>
+          <LoginPage />
+        </Route>
+        <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
+          component={
+            <>
+              <Route exact path="/admin/builder">
+                <SettingsPage />
+              </Route>
+              <Route exact path="/gallery">
+                <ImageGalleryPage />
+              </Route>
+              <Route exact path="/admin/component">
+                <ComponentPage />
+              </Route>
+            </>
+          }
+        />
+        {/* <Route exact path="/admin/builder">
             <SettingsPage />
           </Route> */}
-          <Route
-            path="/test"
-            component={TestPage}
-          />
-          <Route>
-            <div>Something went wrong</div>
-          </Route>
-        </Switch>
-      </main>
-      <footer></footer>
+        <Route
+          path="/test"
+          component={TestPage}
+        />
+        <Route>
+          <div>Something went wrong</div>
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 };
