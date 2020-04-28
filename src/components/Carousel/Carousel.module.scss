@@ -22,6 +22,7 @@
       flex: none;
       height: 100%;
       position: relative;
+      box-sizing: initial;
   }
   & img {
     user-select: none;

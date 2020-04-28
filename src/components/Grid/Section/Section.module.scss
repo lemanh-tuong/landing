@@ -19,7 +19,7 @@
 
 .gradient-orange-pink {
   background-image: $color-gradient-orange-pink;
-  background-image: -webkit-gradient(linear,left top,right top,from(#f9785f),to(#f06292));
+  background-image: -webkit-gradient(linear,left top,right top,from(#f9785f),to(#f06292)) ini;
 }
 
 .gradient-purple-blue {
@@ -41,4 +41,34 @@
 }
 .secondary {
   background-color: $color-secondary;
+}
+
+.square {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  background-color: $color-pink;
+  opacity: 0.5;
+  animation: scale 8s infinite ease-out;
+  border-radius: 40px;
+  transform: rotate(45deg);
+  &:before {
+    content: '';
+    padding-top: 100%;
+    display: block;
+  }
+  &.left {
+    left: 9%;
+  }
+  &.right {
+    right: 9%;
+  }
+}
+
+:local {
+  @keyframes scale{
+    0%{-webkit-transform:scale(1) translateY(-35%) rotate(45deg);transform:scale(1) translateY(-35%) rotate(45deg); opacity: 0.1;}
+    50%{-webkit-transform:scale(.6) translateY(-35%) rotate(45deg);transform:scale(.6) translateY(-35%) rotate(45deg); opacity: 0.5;}
+    to{-webkit-transform:scale(1) translateY(-35%) rotate(45deg);transform:scale(1) translateY(-35%) rotate(45deg); opacity: 0.1;}
+  }
 }

@@ -3,7 +3,7 @@ import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { SlideType } from 'components/MockUp/MockUp';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
+import thunkChangeTypeMockup from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeTypeMockup/thunkChangeTypeMockup';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -26,7 +26,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
   }
 
   //Dispatch
-  const changeTypeMockup = thunkChangeRadio();
+  const changeTypeMockup = thunkChangeTypeMockup();
 
   // Selector
   const element = useSelector(sections)[nowIndexSection];
@@ -34,10 +34,10 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
   //Destructoring
   const { sliderImgs, typeMockUp } = element;
 
-  const handleChangeFormGeneral = ({ fieldName, fieldType }: OnChangeFuncArg) => {
+  const handleChangeFormGeneral = ({ fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'radio') {
-        changeTypeMockup({ fieldName: fieldName, nowIndexSection: nowIndexSection, value: result })
+        changeTypeMockup({ nowIndexSection: nowIndexSection, typeMockUp: result })
       }
     }
   }

@@ -7,11 +7,10 @@ interface ButtonGroupProps extends PropsComponent {
   align?: align;
 }
 
-const ButtonGroup: FC<ButtonGroupProps> = ({ scroll = false, align, children, className, style }) => {
-  const scrolling = scroll ? styles.scroll : '';
-  const alignBtn = align ? styles[align] : '';
+const ButtonGroup: FC<ButtonGroupProps> = ({ scroll = false, align = 'center', children, className, style }) => {
+  const canScroll = scroll ? styles.scroll : '';
   return (
-    <div className={`${styles.btnGroup} ${className} ${scrolling} ${styles[alignBtn]}`} style={style}>
+    <div className={`${styles.btnGroup} ${className} ${canScroll} ${styles[align]}`} style={style}>
       {children}
     </div>
   );

@@ -4,7 +4,7 @@ import Image from 'components/Image/Image';
 import { useMount } from 'hooks/useMount';
 import { sections } from 'pages/SettingsPage/selectors';
 import { Option } from 'pages/SettingsPage/SettingsPage';
-import thunkAddSection from 'pages/SettingsPage/thunks/thunkAddSection/thunkAddSection';
+import thunkAddSection from 'pages/SettingsPage/thunks/thunksSection/thunkAddSection/thunkAddSection';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -45,7 +45,7 @@ const ComponentPage = () => {
             <Image type='tagImg' imgSrc={property.previewImg} />
           </div>
           <div className={styles.addBtn}>
-            <button className={styles.btn} onClick={handleAdd({ ...property, sectionId: uuidv4() })}>
+            <button className={styles.btn} onClick={handleAdd({ ...property, sectionName: property.sectionName, sectionId: uuidv4() })}>
               <Link to='/admin/builder'>
                 Add
               </Link>
@@ -76,9 +76,9 @@ const ComponentPage = () => {
   }
 
   useMount(() => {
+    console.log("AA");
     getPatternSection('section');
   })
-
   const _renderSwitch = () => {
     switch (status) {
       case 'loading':

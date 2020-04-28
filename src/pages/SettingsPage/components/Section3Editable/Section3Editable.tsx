@@ -12,7 +12,7 @@ export interface Section3EditableProps extends Section3Props {
   nowIndexSection: number
 };
 
-const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionId,
+const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
   text, alignText, colorText, classText, fontSizeText, styleText,
   imageSectionCol,
@@ -37,7 +37,9 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
   return (
     <>
       <Section3
-        backgroundImage={backgroundImage?.[0]}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundImage={backgroundImage}
         backgroundColor={backgroundColor}
         imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
         mainTitle={mainTitle}
@@ -74,7 +76,7 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
         <FormImage nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection canReverseCol={true} nowIndexSection={nowIndexSection} />
       </PopUp>
     </>
   )

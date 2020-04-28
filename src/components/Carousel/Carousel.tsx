@@ -25,13 +25,14 @@ export interface CarouselOptions {
   hasDots?: boolean;
   dotClass?: string;
   navClass?: string;
+  classActive?: string;
   margin?: number;
   responsive?: breakpoint;
   itemShow?: number;
   fluid?: boolean;
 }
 
-type RenderType<ItemT> = (arg: ItemT) => ReactNode;
+type RenderType<ItemT> = (arg: ItemT, index?: number) => ReactNode;
 
 export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 'imgSrc'> {
   renderItem?: RenderType<ItemT>;
@@ -40,9 +41,12 @@ export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 
   onEditable?: () => void;
 }
 
-const Carousel = <ItemT extends any>({ isBuilder, onEditable, sliderImgs, renderItem, hasNav, hasDots, dotClass, navClass, margin = 30, responsive, itemShow, fluid }: CarouselProps<ItemT>) => {
+const Carousel = <ItemT extends any>({
+  isBuilder, onEditable, sliderImgs, renderItem,
+  hasNav, hasDots, dotClass, navClass, classActive,
+  margin = 30, responsive, itemShow = 2, fluid }: CarouselProps<ItemT>) => {
 
-  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, responsive, itemShow);
+  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
 
   const _renderNavSlide = () => {
     return (
@@ -58,8 +62,8 @@ const Carousel = <ItemT extends any>({ isBuilder, onEditable, sliderImgs, render
   };
 
   const _renderDot = (order: number) => {
-    const actived = order === currentSlide ? styles.active : '';
-    return <div key={uuidv4()} className={`${styles.dot} ${actived} ${dotClass}`} onClick={() => pickSlide(order)}></div>;
+    const actived = order === currentSlide ? classActive || styles.active : '';
+    return <div key={uuidv4()} className={`${actived} ${dotClass || styles.dot}`} onClick={() => pickSlide(order)}></div>;
   };
 
   const _renderDots = () => {
@@ -71,17 +75,17 @@ const Carousel = <ItemT extends any>({ isBuilder, onEditable, sliderImgs, render
   };
 
   const _renderSlide = () => {
-    return sliderImgs.map(item => {
+    return sliderImgs.map((item, index) => {
       return (
         <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
-          {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
+          {renderItem ? renderItem(item, index) : _renderDefault(item.imgSrc)}
         </div>
       );
     });
   };
 
   const position: CSSProperties = {
-    transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${margin - nowPosition + startPosition}px), 0, 0)`,
+    transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${currentSlide * 2 * margin + margin - nowPosition + startPosition}px), 0, 0)`,
   };
   if (isBuilder) {
     return (

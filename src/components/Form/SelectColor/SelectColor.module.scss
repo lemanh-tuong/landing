@@ -1,0 +1,25 @@
+@import '../../../styles//abstracts/variables.scss';
+.selectList {
+  min-width: 250px;
+  width: 50%;
+  position: relative;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.optColor {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
+  margin: 5px;
+}
+
+.colorName {
+  font-size: 16px;
+  text-transform: capitalize;
+  position: relative;
+}
+.colorPreview {
+  width: 50px;
+  height: 20px;
+}

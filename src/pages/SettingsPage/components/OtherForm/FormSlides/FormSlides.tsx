@@ -3,8 +3,8 @@ import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { SlideType } from 'components/MockUp/MockUp';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
-import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
+import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
+import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -32,11 +32,11 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
   const changeInput = thunkChangeInput();
   const changeCheckBox = thunkChangeCheckBox();
   //Destructoring
-  const { sliderImgs, hasNav, navClass, hasDots, dotClass } = element;
+  const { sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin } = element;
 
   const handleChangeFormGeneral = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldType === 'input') {
+      if (fieldType === 'input' || 'number') {
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection })
       }
       if (fieldType === 'checkbox') {
@@ -78,6 +78,28 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
           },
           {
             fieldId: 5,
+            fieldType: 'checkbox',
+            fieldName: 'fluid',
+            defaultChecked: fluid,
+          },
+          {
+            fieldId: 6,
+            fieldType: 'number',
+            fieldName: 'itemShow',
+            defaultNumber: itemShow,
+            min: 1,
+            max: 5,
+          },
+          {
+            fieldId: 7,
+            fieldType: 'number',
+            fieldName: 'margin',
+            defaultNumber: margin,
+            min: 10,
+            max: 50
+          },
+          {
+            fieldId: 8,
             fieldName: 'timeSlider',
             fieldType: 'input',
             defaultValue: '1000',

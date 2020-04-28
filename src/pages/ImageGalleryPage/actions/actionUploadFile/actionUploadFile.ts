@@ -1,7 +1,7 @@
 import { createAsyncAction } from "utils/functions/reduxActions";
 
 export interface ActionUploadFilePayload {
-  type: 'icon' | 'imgSrc' | 'backgroundImage' | 'sliderImgs' | 'imageSectionCol';
+  type: 'icon' | 'iconCard2' | 'imgSrc' | 'backgroundImage' | 'sliderImgs' | 'imageSectionCol' | 'avatarAuthor' | 'sliderSectionImg';
   imgs: string[];
 }
 

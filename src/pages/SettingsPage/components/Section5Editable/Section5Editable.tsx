@@ -12,10 +12,10 @@ export interface Section5EditableProps extends Section5Props {
   nowIndexSection: number
 };
 
-const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionId,
+const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle,
   text, alignText, colorText,
-  sliderImgs, hasNav, navClass, hasDots, dotClass,
+  sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, margin, itemShow,
   backgroundImage, backgroundColor }) => {
 
   const handleShowPopupEditMainTitle = () => {
@@ -33,7 +33,9 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
   return (
     <>
       <Section5
-        backgroundImage={backgroundImage?.[0]}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundImage={backgroundImage}
         backgroundColor={backgroundColor}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
@@ -46,6 +48,9 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         hasDots={hasDots}
         navClass={navClass}
         dotClass={dotClass}
+        fluid={fluid}
+        margin={margin}
+        itemShow={itemShow}
         isBuilder={true}
         sectionId={sectionId}
         onShowPopupEditText={handleShowPopupEditText}

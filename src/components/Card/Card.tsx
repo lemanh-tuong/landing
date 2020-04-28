@@ -24,6 +24,7 @@ export interface CardProps extends CardOption, Omit<TextProps, 'text'>, IconProp
   textCard?: string;
   titleCard?: string;
   hasIcon?: boolean;
+  alignIcon?: align;
   isBuilder?: boolean;
   onEditable?: () => void;
 }
@@ -33,7 +34,7 @@ const Card: FC<CardProps> = ({
   isBuilder, onEditable,
   titleCard, colorTitleCard, fontSizeTitleCard, alignTitleCard, classNameTitleCard, styleTitleCard,
   textCard, colorText, fontSizeText, alignText, styleText, classText,
-  hasIcon, iconImg, sizeIcon, animationIcon, bgColorIcon, styleIcon, classNameIcon,
+  hasIcon, iconImg, sizeIcon, animationIcon, bgColorIcon, styleIcon, classNameIcon, alignIcon = 'center',
   darkMode }) => {
   const titleColor = colorTitleCard ? colorTitleCard : '';
   const titleFontSize = fontSizeTitleCard ? fontSizeTitleCard : '';
@@ -59,13 +60,13 @@ const Card: FC<CardProps> = ({
   };
 
   const _renderIcon = () => {
-    return <div className={styles.cardIcon}>
+    return <div className={`${styles.cardIcon} ${styles[alignIcon]}`}>
       <Icon iconImg={iconImg}
         animationIcon={animationIcon}
         styleIcon={styleIcon}
         bgColorIcon={bgColorIcon}
         darkMode={darkMode} sizeIcon={sizeIcon}
-        classNameIcon={classNameIcon} />
+        classNameIcon={`${classNameIcon} ${styles.icon}`} />
     </div>;
   };
   if (isBuilder) {

@@ -4,17 +4,23 @@ import styles from './Section.module.scss';
 
 export interface SectionPatternBase {
   backgroundImage?: string;
-  backgroundColor?: 'gradient-pink-orange' | 'gradient-orange-pink' | 'gradient-purple-blue' | 'white-1' | 'white-2' | 'white-3' | 'primary' | 'secondary';
+  backgroundColor?: 'gradient-pink-orange' | 'gradient-orange-pink' | 'gradient-purple-blue' | 'white-1' | 'white-2' | 'white-3' | 'primary' | 'secondary' | string;
   children?: ReactNode;
   style?: CSSProperties;
   className?: string;
+  animation?: boolean;
+  positionAnimation?: 'left' | 'right';
 }
 
 
-const Section: FC<SectionPatternBase> = ({ backgroundColor, children, style, className }) => {
-  const bgColor = backgroundColor ? backgroundColor : '';
+const Section: FC<SectionPatternBase> = ({ backgroundColor, children, style, className, animation, positionAnimation = 'left', backgroundImage }) => {
+  const backgroundProperty = backgroundImage ? `url('${backgroundImage}')` : backgroundColor ? `${backgroundColor}` : '';
+  const css: CSSProperties = backgroundProperty ? {
+    background: backgroundProperty
+  } : {};
   return (
-    <div className={`${styles.section} ${styles[bgColor]} ${!!className && className}`} style={style}>
+    <div className={`${styles.section} ${!!className && className}`} style={{ ...style, ...css }}>
+      {animation ? <div className={`${styles.square} ${styles[positionAnimation]}`}></div> : null}
       <Container>{children}</Container>
     </div>
   );

@@ -1,9 +1,9 @@
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
-import thunkChangeInput from 'pages/SettingsPage/thunks/thunkChangeInput/thunkChangeInput';
-import thunkChangeRadio from 'pages/SettingsPage/thunks/thunkChangeRadio/thunkChangeRadio';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
+import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
+import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -29,13 +29,16 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection }) => {
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input') {
+        // Value of input
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'radio') {
+        // Result = value of radio's checking
         changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'color-picker') {
-        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
+        // Result = {hex: string, rgba: string}
+        changeColor({ fieldName: fieldName, color: result.rgba, nowIndexSection: nowIndexSection });
       }
     }
   }

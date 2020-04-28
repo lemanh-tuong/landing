@@ -20,7 +20,7 @@ const defaultMainTitleOption: MainTitleOption = {
 };
 
 export interface MainTitleProps extends MainTitleOption {
-  mainTitle?: string;
+  mainTitle: string;
   isBuilder?: boolean;
   darkMode?: true | false;
   onEditable?: () => void;

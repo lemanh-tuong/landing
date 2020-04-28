@@ -1,5 +1,14 @@
 import { Button } from 'antd';
 import 'antd/es/style/css';
+import { Section10Props } from 'components/Section10/Section10';
+import { Section11Props } from 'components/Section11/Section11';
+import { Section12Props } from 'components/Section12/Section12';
+import { Section13Props } from 'components/Section13/Section13';
+import { Section5Props } from 'components/Section5/Section5';
+import { Section6Props } from 'components/Section6/Section6';
+import { Section7Props } from 'components/Section7/Section7';
+import { Section8Props } from 'components/Section8/Section8';
+import { Secction9Props } from 'components/Section9/Section9';
 import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
 import { useMount } from 'hooks/useMount';
 import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
@@ -18,17 +27,21 @@ import RenderSection from './components/RenderSection/RenderSection';
 import { getListStyle, reorder } from './DragDropFunction';
 import { sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
-import thunkAddSection from './thunks/thunkAddSection/thunkAddSection';
-import thunkGetDataSection from './thunks/thunkGetDataSection/thunkGetDataSection';
-import thunkMoveSection from './thunks/thunkMoveSection/thunkMoveSection';
-import thunkSaveAll from './thunks/thunkSaveAll/thunkSaveAll';
+import thunkAddSection from './thunks/thunksSection/thunkAddSection/thunkAddSection';
+import thunkGetDataSection from './thunks/thunksSection/thunkGetDataSection/thunkGetDataSection';
+import thunkMoveSection from './thunks/thunksSection/thunkMoveSection/thunkMoveSection';
+import thunkSaveAll from './thunks/thunksSection/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
   pageName: string;
   elements: Option[]
 }
 
-export interface Option extends Partial<Section1Props & Section2Props & Section3Props & Section4Props<any>> {
+export interface Option extends Partial<Section1Props
+  & Section2Props & Section3Props & Section4Props
+  & Section5Props & Section6Props & Section7Props
+  & Section8Props & Secction9Props & Section10Props
+  & Section11Props & Section12Props & Section13Props> {
   sectionName: string;
   sectionId: string;
 }
@@ -36,6 +49,7 @@ export interface Option extends Partial<Section1Props & Section2Props & Section3
 const defaultSection: Option = {
   sectionId: '',
   sectionName: '',
+
 }
 
 
@@ -120,7 +134,7 @@ const SettingsPage = () => {
                 {sectionDragging === indexSection ? null : <ButtonFunc nowIndexSection={indexSection} elementProperty={element} />}
               </div>
               <div className={`content ${sectionDragging === indexSection ? styles.dragging : null}`}>
-                {RenderSection({ option: element, isBuilder: true, nowIndexSecion: indexSection })}
+                {RenderSection({ option: element, isBuilder: true, nowIndexSection: indexSection })}
               </div>
               <div className={styles.sectionBottom}>
                 {sectionDragging === indexSection ? null :

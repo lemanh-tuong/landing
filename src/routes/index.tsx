@@ -1,16 +1,15 @@
-import { authentication } from 'firebase/authentication/authentication';
-import { useMount } from 'hooks/useMount';
 import ComponentPage from 'pages/ComponentPage/ComponentPage';
 import HomePage from 'pages/HomePage/HomePage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import TestPage from 'pages/TestPage/TestPage';
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { messageLogin, refreshToken, statusLog, token } from 'selectors';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 const Routes = () => {
-  const [token, setToken] = useState('');
   // const [show, setShow] = useState(false);
   // const [active, setActive] = useState(false);
 
@@ -31,7 +30,6 @@ const Routes = () => {
   //     setActive(false);
   //   }
   // };
-
   // useEffect(() => {
   //   handleScroll();
   //   window.addEventListener('click', handleClose);
@@ -41,17 +39,11 @@ const Routes = () => {
   //     window.removeEventListener('scroll', handleScroll);
   //   };
   // });
-  const handleIsSignedIn = () => {
-    authentication.onAuthStateChanged(authUser => {
-      authUser?.getIdToken().then((token) => {
-        setToken(token)
-      })
-    })
-  }
 
-  useMount(() => {
-    handleIsSignedIn()
-  })
+  const tokenLogin = useSelector(token);
+  const refreshTokenLogin = useSelector(refreshToken);
+  const status = useSelector(statusLog);
+  const msg = useSelector(messageLogin);
 
   return (
     <BrowserRouter >
@@ -62,13 +54,16 @@ const Routes = () => {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route exact path='/admin/login'>
-            <LoginPage />
-          </Route>
           <Route exact path="/gallery">
             <ImageGalleryPage />
           </Route>
-          <PrivateRoute token={token} pathRedirect='/admin/login' component={
+          <Route exact path="/admin/component">
+            <ComponentPage />
+          </Route>
+          <Route exact path='/admin/login'>
+            <LoginPage />
+          </Route>
+          <PrivateRoute token={tokenLogin} pathRedirect='/admin/login' component={
             <Route exact path="/admin/builder">
               <SettingsPage />
             </Route>}
@@ -76,9 +71,6 @@ const Routes = () => {
           {/* <Route exact path="/admin/builder">
             <SettingsPage />
           </Route> */}
-          <Route path="/admin/component">
-            <ComponentPage />
-          </Route>
           <Route
             path="/test"
             component={TestPage}

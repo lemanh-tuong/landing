@@ -1,8 +1,8 @@
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
 import PopUp from 'components/PopUp/PopUp';
-import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
-import thunkDeleteCard from 'pages/SettingsPage/thunks/thunkDeleteCard/thunkDeleteCard';
+import thunkAddCard from 'pages/SettingsPage/thunks/thunksCard/thunkAddCard/thunkAddCard';
+import thunkDeleteCard from 'pages/SettingsPage/thunks/thunksCard/thunkDeleteCard/thunkDeleteCard';
 import React, { FC, useState } from 'react';
 import Section2, { Section2Props } from '../../../../components/Section2/Section2';
 import FormCard from '../OtherForm/FormCard/FormCard';
@@ -20,7 +20,7 @@ const cardDefault: CardProps = {
   hasIcon: true, bgColorIcon: 'gradient-pink-orange'
 }
 const Section2Editable: FC<Section2EditableProps> = ({
-  nowIndexSection, sectionId,
+  nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle,
   cards, backgroundImage, backgroundColor }) => {
   const [indexCard, setIndexCard] = useState(-1);
@@ -45,10 +45,12 @@ const Section2Editable: FC<Section2EditableProps> = ({
   return (
     <div className={styles.Section2Editable}>
       <Section2
+        animation={animation}
+        positionAnimation={positionAnimation}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
-        backgroundImage={backgroundImage?.[0]}
+        backgroundImage={backgroundImage}
         backgroundColor={backgroundColor}
         cards={cards ? cards : []}
         isBuilder={true}

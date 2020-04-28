@@ -23,13 +23,13 @@ export type Section2Props = {
   onAddCard?: (nowIndexCard: number) => void;
   onDeleteCard?: (nowIndexCard: number) => void;
 } & Section2Option
-  & Omit<MainTitleProps, 'onEditable' | 'isBuilder'>
+  & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Pick<CardProps, 'onEditable' | 'isBuilder'>
   & Omit<CarouselOptions, 'sliderImgs' | 'onEditable' | 'isBuilder'>
 
 
 const Section2 = ({
-  sectionId, onShowPopupEditTitle, onShowPopupEditCard, onAddCard, onDeleteCard, isBuilder,
+  sectionId, onShowPopupEditTitle, onShowPopupEditCard, onAddCard, onDeleteCard, isBuilder, animation, positionAnimation, backgroundColor, backgroundImage,
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, classMainTitle, styleMainTitle,
   cards, slider, hasDots, hasNav, dotClass, navClass, itemShow, responsive,
   renderItem,
@@ -47,28 +47,9 @@ const Section2 = ({
     return () => onShowPopupEditCard?.(nowIndexCard)
   }
 
-  const _renderCardDefault = ({ titleCard, alignTitleCard, colorTitleCard, fontSizeTitleCard, classNameTitleCard, styleTitleCard,
-    textCard, alignText, colorText, fontSizeText, styleText, classText, hasIcon, iconImg, bgColorIcon, animationIcon, sizeIcon, styleIcon }: CardProps,
-    index: number) => {
+  const _renderCardDefault = (cardProperty: CardProps, index: number) => {
     return (
-      <Card textCard={textCard}
-        alignText={alignText}
-        colorText={colorText}
-        fontSizeText={fontSizeText}
-        styleText={styleText}
-        classText={classText}
-        titleCard={titleCard}
-        alignTitleCard={alignTitleCard}
-        colorTitleCard={colorTitleCard}
-        classNameTitleCard={classNameTitleCard}
-        fontSizeTitleCard={fontSizeTitleCard}
-        styleTitleCard={styleTitleCard}
-        hasIcon={hasIcon}
-        iconImg={iconImg}
-        bgColorIcon={bgColorIcon}
-        animationIcon={animationIcon}
-        sizeIcon={sizeIcon}
-        styleIcon={styleIcon}
+      <Card {...cardProperty}
         isBuilder={isBuilder}
         onEditable={_handleonShowPopupEditCard(index)}
       />
@@ -78,7 +59,7 @@ const Section2 = ({
   const _renderHeaderDefault = () => {
     return (
       <div className={styles.sectionHeader}>
-        <MainTitle
+        {mainTitle && <MainTitle
           mainTitle={mainTitle}
           colorMainTitle={colorMainTitle}
           fontSizeMainTitle={fontSizeMainTitle}
@@ -88,7 +69,7 @@ const Section2 = ({
           darkMode={darkMode}
           isBuilder={isBuilder}
           onEditable={onShowPopupEditTitle}
-        />
+        />}
       </div>
     );
   };
@@ -107,7 +88,7 @@ const Section2 = ({
       />;
   };
 
-  const _renderColumnContent = () => {
+  const _renderRowContent = () => {
     if (isBuilder) {
       return (
         <>
@@ -141,13 +122,13 @@ const Section2 = ({
   const _renderBodyDefault = () => {
     return (
       <Row>
-        {_renderColumnContent()}
+        {_renderRowContent()}
       </Row>
     );
   };
 
   return (
-    <Section style={{ backgroundColor: 'rgb(245, 245, 245)' }}>
+    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[8]} offsets={[2]}>
           {_renderHeaderDefault()}

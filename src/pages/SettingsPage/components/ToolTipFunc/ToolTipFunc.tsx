@@ -2,7 +2,7 @@ import { Menu } from 'antd';
 import 'antd/dist/antd.css';
 import Dropdown from 'components/Dropdown/Dropdown';
 import { Option } from 'pages/SettingsPage/SettingsPage';
-import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
+import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
 import React, { FC } from 'react';
 import styles from './ToolTipFunc.module.scss';
 

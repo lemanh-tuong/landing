@@ -1,58 +1,66 @@
-import Carousel, { CarouselProps } from 'components/Carousel/Carousel';
+import Button, { ButtonProps } from 'components/Button/Button';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import Image, { ImageProps } from 'components/Image/Image';
 import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
-import React from 'react';
+import React, { FC } from 'react';
 
-export type Section4Props<ItemSlide> = {
-  sliderImgs?: ItemSlide[];
+export type Section4Props = {
   imageSectionCol?: ImageProps;
-  slider?: boolean;
+  textButton?: ButtonProps['text'];
+  hrefButton?: ButtonProps['href'];
+  backgroundButton?: ButtonProps['backgroundColor'];
+  colorTextButton?: ButtonProps['color'];
+  styleButton?: ButtonProps['style'];
   isBuilder?: boolean;
   sectionId: string;
   onShowPopupEditTitle?: () => void;
   onShowPopupEditText?: () => void;
   onShowPopupEditImage?: () => void;
+  onShowPopupEditButton?: () => void;
 } & SectionPatternBase
-  & Omit<MainTitleProps, 'isBuilder' | 'onEditable'>
-  & Omit<TextProps, 'isBuilder' | 'onEditable'>
-  & Omit<CarouselProps<ItemSlide>, 'sliderImgs' | 'isBuilder' | 'onEditable'>
+  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
 
-const Section4 = <ItemT extends any>({
-  isBuilder, sectionId, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditImage,
+const Section4: FC<Section4Props> = ({
+  isBuilder, sectionId, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditImage, onShowPopupEditButton, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
+  backgroundButton, hrefButton, colorTextButton, textButton, styleButton,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  imageSectionCol, aspectRatio, type, zoom, parallax,
-  slider, sliderImgs, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
-  backgroundColor, backgroundImage, style, className, darkMode, renderItem,
-}: Section4Props<ItemT>) => {
+  imageSectionCol,
+  backgroundColor, backgroundImage, style, className, darkMode
+}) => {
 
   const _renderImage = () => {
     return (
       <Col cols={[12]}>
-        {imageSectionCol && <Image isBuilder={isBuilder} onEditable={onShowPopupEditImage} imgSrc={imageSectionCol.imgSrc} aspectRatio={imageSectionCol.aspectRatio} type={'tagImg'} zoom={imageSectionCol.zoom} parallax={imageSectionCol.parallax} />}
+        {imageSectionCol && <Image
+          type='tagImg' isBuilder={isBuilder}
+          onEditable={onShowPopupEditImage}
+          imgSrc={imageSectionCol.imgSrc}
+          aspectRatio={imageSectionCol.aspectRatio}
+          zoom={imageSectionCol.zoom}
+          parallax={imageSectionCol.parallax}
+          style={{ marginBottom: 30 }}
+        />}
       </Col>
     );
   };
 
-  const _renderColumn = () => {
-    if (sliderImgs instanceof Array) {
-      return sliderImgs.map((item, index) => <Col key={index} cols={[12, 6, 12 / sliderImgs.length >= 3 ? Math.floor(12 / sliderImgs.length) : 3]}>{renderItem?.({ ...item })}</Col>);
-    }
-  };
-
   return (
-    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style}>
+    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[10]} offsets={[1]}>
-          <MainTitle isBuilder={isBuilder} onEditable={onShowPopupEditTitle} darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />
-          <Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />
+          {mainTitle && <MainTitle isBuilder={isBuilder} onEditable={onShowPopupEditTitle} darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />}
+          {text && <Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />}
         </Col>
         {_renderImage()}
-        {slider && sliderImgs ? <Carousel navClass={navClass} dotClass={dotClass} fluid={fluid} sliderImgs={sliderImgs} hasDots={hasDots} hasNav={hasNav} renderItem={renderItem} margin={margin} responsive={responsive} itemShow={itemShow} /> : _renderColumn()}
+        <ButtonGroup align='center'>
+          <Button style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
+        </ButtonGroup>
       </Row>
     </Section>
   );

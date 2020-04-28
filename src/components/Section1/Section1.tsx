@@ -20,6 +20,8 @@ export type Section1Props = {
   textButton?: ButtonProps['text'];
   hrefButton?: ButtonProps['href'];
   styleButton?: ButtonProps['style'];
+  backgroundButton?: ButtonProps['backgroundColor'];
+  colorTextButton?: ButtonProps['color'];
   sectionId: string;
   isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
@@ -27,19 +29,19 @@ export type Section1Props = {
   onShowPopupEditButton?: () => void;
   onShowPopupEditDivider?: () => void;
   onShowPopupEditMockUp?: () => void;
-} & Omit<MainTitleProps, 'onEditable' | 'isBuilder'>
-  & Omit<TextProps, 'onEditable' | 'isBuilder'>
+} & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
+  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
   & Omit<DividerProps, 'onEditable' | 'isBuilder'>
   & Omit<MockUpProps, 'onEditable' | 'isBuilder'>
   & Section1Option;
 
 const Section1: FC<Section1Props> = ({
-  isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditButton, onShowPopupEditDivider, onShowPopupEditMockUp, darkMode, reverse,
+  isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditButton, onShowPopupEditDivider, onShowPopupEditMockUp, darkMode, reverse, animation, positionAnimation, backgroundColor,
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor,
-  typeMockUp, sliderImgs, slider, backgroundColor, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, itemShow, responsive,
-  textButton = 'Try demo', hrefButton, styleButton
+  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, itemShow, responsive,
+  textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton
 }) => {
 
   const _renderMockUp = () => {
@@ -52,7 +54,24 @@ const Section1: FC<Section1Props> = ({
   };
 
   const _renderDivider = () => {
-    return <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+    if (isBuilder) {
+      return (
+        <>
+          {hasDivider ? <Divide
+            dividerColor={dividerColor}
+            isBuilder={isBuilder}
+            onEditable={onShowPopupEditDivider} />
+            : <Divide
+              dividerColor='transparent'
+              isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
+            />}
+        </>
+      )
+    }
+    else if (hasDivider) {
+      return <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+    }
+    return null;
   };
 
   const _renderMainTitle = () => {
@@ -88,18 +107,19 @@ const Section1: FC<Section1Props> = ({
       <Button
         href={hrefButton || ''} style={styleButton} text={textButton}
         isBuilder={isBuilder} onEditable={onShowPopupEditButton}
+        backgroundColor={backgroundButton} color={colorTextButton}
       />
     )
   }
 
   return (
     <>
-      <Section backgroundColor={!!backgroundColor ? backgroundColor : undefined}>
+      <Section backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}>
         <Row>
           <Col cols={[12, 6, 6]} className={reverse ? 'order-2' : ''}>
             <>
               {mainTitle && _renderMainTitle()}
-              {hasDivider && _renderDivider()}
+              {_renderDivider()}
               {text && _renderText()}
               {_renderButton()}
             </>

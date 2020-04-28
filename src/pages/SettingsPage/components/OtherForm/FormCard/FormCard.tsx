@@ -6,12 +6,12 @@ import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import Icon from 'components/Icon/Icon';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkAddCard from 'pages/SettingsPage/thunks/thunkAddCard/thunkAddCard';
-import thunkChangeColorTextCard from 'pages/SettingsPage/thunks/thunkChangeColorTextCard/thunkChangeColorTextCard';
-import thunkChangeInputCardForm from 'pages/SettingsPage/thunks/thunkChangeInputCardForm/thunkChangeInputCardForm';
-import thunkChangeRadioCardForm from 'pages/SettingsPage/thunks/thunkChangeRadioCardForm/thunkChangeRadioCardForm';
-import thunkDeleteCard from 'pages/SettingsPage/thunks/thunkDeleteCard/thunkDeleteCard';
-import thunkMoveChild from 'pages/SettingsPage/thunks/thunkMoveChild/thunkMoveChild';
+import thunkAddCard from 'pages/SettingsPage/thunks/thunksCard/thunkAddCard/thunkAddCard';
+import thunkChangeColorTextCard from 'pages/SettingsPage/thunks/thunksCard/thunkChangeColorTextCard/thunkChangeColorTextCard';
+import thunkChangeInputCardForm from 'pages/SettingsPage/thunks/thunksCard/thunkChangeInputCardForm/thunkChangeInputCardForm';
+import thunkChangeRadioCardForm from 'pages/SettingsPage/thunks/thunksCard/thunkChangeRadioCardForm/thunkChangeRadioCardForm';
+import thunkDeleteCard from 'pages/SettingsPage/thunks/thunksCard/thunkDeleteCard/thunkDeleteCard';
+import thunkMoveCard from 'pages/SettingsPage/thunks/thunksCard/thunkMoveCard/thunkMoveCard';
 import React, { FC, memo, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
@@ -56,20 +56,23 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
   const changeColorTextCard = thunkChangeColorTextCard();
   const addCard = thunkAddCard();
   const deleteCard = thunkDeleteCard();
-  const moveChild = thunkMoveChild();
+  const moveChild = thunkMoveCard();
 
   // Handle
   const handleChangeCardForm = (nowIndexCard: number) => {
     return ({ fieldName, fieldType }: OnChangeFuncArg) => {
       return (result: any) => {
         if (fieldType === 'input') {
+          // Value of input
           changeInputCardForm({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
         }
         if (fieldType === 'radio') {
+          // Result = value radio checking
           changeRadioCardForm({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
         }
         if (fieldType === 'color-picker') {
-          changeColorTextCard({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
+          // Result = {hex: string, rgba: string}
+          changeColorTextCard({ fieldName: fieldName, color: result.rgba, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard });
         }
       }
     }
@@ -99,7 +102,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
 
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
-    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg } = element.cards?.[nowIndexCard] as CardProps;
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon } = element.cards?.[nowIndexCard] as CardProps;
     return (
       <Form
         fields={[
@@ -167,6 +170,26 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             fieldName: 'colorText',
             fieldId: 'change-card-field-6',
             defaultValue: colorText || '#000',
+          },
+          {
+            fieldType: 'radio',
+            fieldName: 'alignIcon',
+            fieldId: 'align-icon-card',
+            defaultCheckedValue: alignIcon,
+            data: [
+              {
+                name: 'align icon card2',
+                value: 'left'
+              },
+              {
+                name: 'align icon card2',
+                value: 'right'
+              },
+              {
+                name: 'align icon card2',
+                value: 'center'
+              },
+            ]
           }
         ]}
         onChange={handleChangeCardForm(nowIndexCard)}

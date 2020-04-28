@@ -4,6 +4,7 @@ import PopUp from 'components/PopUp/PopUp';
 import React, { FC } from 'react';
 import Section1, { Section1Props } from '../../../../components/Section1/Section1';
 import FormButton from '../OtherForm/FormButton/FormButton';
+import { FormDivider } from '../OtherForm/FormDivider/FormDivider';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import { FormMockUp } from '../OtherForm/FormMockup/FormMockup';
 import FormSection from '../OtherForm/FormSection/FormSection';
@@ -13,11 +14,12 @@ export interface Section1EditableProps extends Section1Props {
 };
 
 const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
-  nowIndexSection, sectionId, backgroundColor, backgroundImage,
+  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle,
+  hasDivider, dividerColor,
   text, alignText, colorText,
   sliderImgs,
-  textButton, styleButton, hrefButton,
+  textButton, styleButton, hrefButton, backgroundButton, colorTextButton,
   typeMockUp
 }) => {
 
@@ -44,14 +46,18 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
   return (
     <>
       <Section1
+        animation={animation}
+        positionAnimation={positionAnimation}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
+        hasDivider={hasDivider}
+        dividerColor={dividerColor}
         text={text ?? ''}
         alignText={alignText}
         colorText={colorText}
         fontSizeText='sm'
-        backgroundColor={backgroundColor ? backgroundColor : "gradient-orange-pink"}
+        backgroundColor={backgroundColor}
         backgroundImage={backgroundImage}
         typeMockUp={typeMockUp}
         sliderImgs={sliderImgs || [
@@ -70,6 +76,8 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         textButton={textButton}
         styleButton={styleButton}
         hrefButton={hrefButton}
+        backgroundButton={backgroundButton}
+        colorTextButton={colorTextButton}
         isBuilder={true}
         sectionId={sectionId}
         isBuider={true}
@@ -89,7 +97,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         <FormButton nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`divider-${sectionId}`}>
-        Form divider Here
+        <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`mockup-${sectionId}`}>
         <FormMockUp nowIndexSection={nowIndexSection} />

@@ -9,12 +9,13 @@ import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import FormSection from '../OtherForm/FormSection/FormSection';
 import FormText from '../OtherForm/FormText/FormText';
 
-export interface Section4EditableProps extends Section4Props<any> {
+export interface Section4EditableProps extends Section4Props {
   nowIndexSection: number
 };
 
-const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionId,
+const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle,
+  backgroundButton, colorTextButton, textButton, hrefButton,
   text, alignText, colorText,
   imageSectionCol,
   backgroundImage, backgroundColor }) => {
@@ -31,24 +32,34 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
     PopUp.show(`image-${sectionId}`)();
   }
 
+  const handleShowPopupEditButton = () => {
+    PopUp.show(`button-${sectionId}`)();
+  }
+
   return (
     <>
       <Section4
-        backgroundImage={backgroundImage?.[0]}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundImage={backgroundImage}
         backgroundColor={backgroundColor}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
+        backgroundButton={backgroundButton}
+        hrefButton={hrefButton}
+        colorTextButton={colorTextButton}
+        textButton={textButton}
         text={text ?? ''}
         alignText={alignText}
         colorText={colorText}
         imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
-        type='tagImg'
         isBuilder={true}
         sectionId={sectionId}
         onShowPopupEditText={handleShowPopupEditText}
         onShowPopupEditImage={handleShowPopupEditImage}
         onShowPopupEditTitle={handleShowPopupEditMainTitle}
+        onShowPopupEditButton={handleShowPopupEditButton}
       />
       <PopUp id={`mainTitle-${sectionId}`} >
         <FormMainTitle nowIndexSection={nowIndexSection} />

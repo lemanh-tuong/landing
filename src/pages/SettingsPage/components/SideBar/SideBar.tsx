@@ -1,7 +1,7 @@
 import Image from 'components/Image/Image';
 import { useMount } from 'hooks/useMount';
 import { messageRequestPatternSection, patternSection, statusRequestPatternSection } from 'pages/SettingsPage/selectors';
-import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunkGetDataSideBar/thunkGetDataSideBar';
+import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunksSideBar/thunkGetDataSideBar/thunkGetDataSideBar';
 import React, { CSSProperties, FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';

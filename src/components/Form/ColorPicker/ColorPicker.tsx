@@ -1,65 +1,83 @@
-import React, { PureComponent, ChangeEvent } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { ChromePicker, ColorChangeHandler } from 'react-color';
 import styles from './ColorPicker.module.scss';
-import { ColorResult, SketchPicker } from 'react-color';
 
 export interface ColorPickerProps {
-  onChange: (result: any) => void;
-  defaultColor: string;
+  onChange: (result: ColorPickState) => void;
+  defaultColor?: string;
   fieldName: string;
-}
+};
 
-export interface ColorPickerState {
-  displayColorPicker: boolean;
-  color: string;
-}
+export interface ColorPickState {
+  hex: string;
+  rgba: string;
+};
 
-class ColorPicker extends PureComponent<ColorPickerProps, ColorPickerState> {
-  static defaultProps = {
-    defaultColor: '#000',
-    fieldName: ''
+const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', fieldName, onChange }) => {
+
+  const onChangeRef = useRef(onChange);
+
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [color, setColor] = useState<ColorPickState>(() => {
+    if (defaultColor && defaultColor.includes('#')) {
+      return {
+        hex: defaultColor,
+        rgba: '',
+      }
+    }
+
+    if (defaultColor && defaultColor.includes('rgb')) {
+      return {
+        hex: '',
+        rgba: defaultColor,
+      }
+    }
+
+    return {
+      hex: '',
+      rgba: ''
+    }
+  })
+
+  const handleOpenBox = () => {
+    setDisplayColorPicker(!displayColorPicker);
   }
 
-  state = {
-    displayColorPicker: false,
-    color: this.props.defaultColor,
-  };
+  const handleChangeColor: ColorChangeHandler = (result) => {
+    const resultRGBA = `rgba(${result.rgb.r}, ${result.rgb.g}, ${result.rgb.b}, ${result.rgb.a})`
+    setColor({
+      hex: result.hex,
+      rgba: resultRGBA
+    });
+  }
 
-  handleClick = (e: ChangeEvent<any>) => {
-    e.stopPropagation();
-    this.setState({ displayColorPicker: !this.state.displayColorPicker })
-  };
-
-  handleChange = (color: ColorResult) => {
-    const { onChange } = this.props
-    this.setState({ ...this.state, color: color.hex }, () => onChange(this.state.color))
-  };
-
-  _renderColorBox = () => {
-    const { color } = this.state;
-
+  const _renderColorBox = () => {
     return (
       <div className={styles.colorBox}>
-        <SketchPicker color={color} onChange={this.handleChange} />
+        <ChromePicker color={color.rgba} onChange={handleChangeColor} />
       </div>
     )
   }
 
-  render() {
-    const { fieldName } = this.props;
-    const { color, displayColorPicker } = this.state;
+  useEffect(() => {
+    if (color.rgba && color.hex) {
+      onChangeRef.current?.(color)
+    }
+  }, [onChangeRef, color]);
 
-    return (
-      <div className={styles.colorPicker}>
-        <div className={styles.fieldName}>
-          {fieldName}
-        </div>
-        <div className={styles.colorField}>
-          <div className={styles.picked} onClick={this.handleClick} style={{ background: color }} />
-          {displayColorPicker ? this._renderColorBox() : null}
-        </div>
+  return (
+    <div className={styles.colorPicker}>
+      <div className={styles.fieldName}>
+        {fieldName}
       </div>
-    );
-  }
+      <div className={styles.colorField}>
+        <div className={styles.openButton} onClick={handleOpenBox}>
+          <div className={styles.colorPreview} style={{ background: color.rgba }}></div>
+        </div>
+        {displayColorPicker ? _renderColorBox() : null}
+      </div>
+    </div>
+  )
 }
 
 export default ColorPicker;

@@ -8,7 +8,7 @@ import Text, { TextProps } from 'components/Text/Text';
 import React, { FC } from 'react';
 
 export type Section3Props = {
-  text?: string | string[];
+  text?: string;
   reverse?: boolean;
   hasDivider?: boolean;
   imageSectionCol: ImageProps;
@@ -19,12 +19,12 @@ export type Section3Props = {
   onShowPopupEditText?: () => void;
   onShowPopupEditImage?: () => void;
 } & SectionPatternBase
-  & Omit<MainTitleProps, 'isBuilder' | 'onEditable'>
-  & Omit<DividerProps, 'isBuilder' | 'onEditable'>
+  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>
   & Omit<TextProps, 'text' | 'isBuilder' | 'onEditable'>
 
 const Section3: FC<Section3Props> = ({
-  sectionId, isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditTitle, onShowPopupEditImage,
+  sectionId, isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditTitle, onShowPopupEditImage, animation, positionAnimation,
   backgroundColor, backgroundImage,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   text, alignText, colorText, fontSizeText, classText, styleText,
@@ -39,23 +39,42 @@ const Section3: FC<Section3Props> = ({
   };
 
   const _renderText = () => {
-    if (text instanceof Array) {
-      return text.map((content, index) => <Text key={index} text={content} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} classText={classText} styleText={styleText} darkMode={darkMode} />);
-    } else {
-      return <Text onEditable={onShowPopupEditText} isBuilder={isBuilder} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} classText={classText} styleText={styleText} darkMode={darkMode} />;
-    }
+    return <Text
+      onEditable={onShowPopupEditText}
+      isBuilder={isBuilder}
+      text={text ?? ''}
+      colorText={colorText}
+      alignText={alignText}
+      fontSizeText={fontSizeText}
+      classText={classText}
+      styleText={styleText}
+      darkMode={darkMode} />
   };
 
   const _renderRightDefault = () => {
     return <>
-      {mainTitle && <MainTitle onEditable={onShowPopupEditTitle} isBuilder={isBuilder} mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} darkMode={darkMode} />}
-      {hasDivider ? <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />}
+      {mainTitle && <MainTitle
+        onEditable={onShowPopupEditTitle}
+        isBuilder={isBuilder}
+        mainTitle={mainTitle}
+        alignMainTitle={alignMainTitle}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        classMainTitle={classMainTitle}
+        styleMainTitle={styleMainTitle}
+        darkMode={darkMode} />
+      }
+      {hasDivider ? <Divide
+        dividerColor={dividerColor}
+        isBuilder={isBuilder}
+        onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
+      }
       {text && _renderText()}
     </>;
   };
 
   return (
-    <Section className={`section3 ${dark}`} backgroundColor={backgroundColor} backgroundImage={backgroundImage}>
+    <Section className={`section3 ${dark}`} backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[12, 12, 6]} className={`${reverse ? 'order-last' : ''}`}>
           {_renderLeftDefault()}

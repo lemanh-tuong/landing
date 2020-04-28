@@ -50,11 +50,10 @@ const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = fa
 
   return (
     <>
-      {
-        data.map(item => {
-          const index = choosing?.findIndex(chose => chose.imgSrc === item.imgSrc);
-          return <Fragment key={uuidv4()}>{renderItem(item, index, handleChoose(item))}</Fragment>
-        })
+      {data && data.map(item => {
+        const index = choosing?.findIndex(chose => chose.imgSrc === item.imgSrc);
+        return <Fragment key={uuidv4()}>{renderItem(item, index, handleChoose(item))}</Fragment>
+      })
       }
     </>
   )

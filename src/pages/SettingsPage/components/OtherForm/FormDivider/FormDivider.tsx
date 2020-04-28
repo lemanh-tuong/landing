@@ -1,8 +1,8 @@
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
-import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunkChangeCheckBox/thunkChangeCheckBox';
-import thunkChangeColor from 'pages/SettingsPage/thunks/thunkChangeColor/thunkChangeColor';
+import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
+import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import React, { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -27,9 +27,11 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'color-picker') {
-        changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndexSection });
+        // Result = {hex: string, rgba: string}
+        changeColor({ fieldName: fieldName, color: result.rgba, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'checkbox') {
+        // Result = true | false
         changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection });
       }
     }

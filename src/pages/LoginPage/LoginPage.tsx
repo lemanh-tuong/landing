@@ -1,26 +1,29 @@
-import { signInFirebase } from 'firebase/authentication/signInFirebase';
+import { useMount } from 'hooks/useMount';
 import React, { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router';
 import styles from './LoginPage.module.scss';
+import { AuthReducer } from './reducers/authReducer';
+import thunkContinueLog from './thunks/thunkContinueLog';
+import thunkLogin from './thunks/thunkLogin';
 
 const LoginPage = () => {
   const history = useHistory();
-  const [SignIn_Info, setSignInInfo] = useState<{ userName: string; password: string }>({ userName: '', password: '' });
+  const [SignIn_Info, setSignInInfo] = useState<{ email: string; password: string }>({ email: '', password: '' });
   const [error, setError] = useState('');
+
+  // Dispatch
+  const loginAction = thunkLogin();
+  const loginContinue = thunkContinueLog();
 
   const handleSignIn = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
-    signInFirebase({ email: `${SignIn_Info.userName}`, password: SignIn_Info.password }).then((res) => {
-      history.push('/admin/builder');
-    }).catch((err) => {
-      setError(err.message)
-    });
+    loginAction({ email: SignIn_Info.email, password: SignIn_Info.password })
   }
 
-  const handleChangeUserName = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setSignInInfo({
       ...SignIn_Info,
-      userName: e.target.value
+      email: e.target.value
     })
   }
 
@@ -44,6 +47,16 @@ const LoginPage = () => {
     )
   }
 
+  useMount(() => {
+    const preLoginJSON = localStorage.getItem('persist:root');
+    const preLogin = preLoginJSON ? JSON.parse(preLoginJSON) : {};
+    const preAuthReducerJSON = preLogin ? preLogin.authReducer : '';
+    const preAuthReducer: AuthReducer = JSON.parse(preAuthReducerJSON);
+    if (preAuthReducer.token && preAuthReducer.refreshToken) {
+      loginContinue({ token: preAuthReducer.token, refreshToken: preAuthReducer.refreshToken })
+    }
+  })
+
   return (
     <div className={styles.LoginPage}>
       <div className={styles.contentLoginPage}>
@@ -51,7 +64,7 @@ const LoginPage = () => {
           <div className={styles.formTop}>
           </div>
           <div className={styles.formContent}>
-            <input onChange={handleChangeUserName} required type="email" className={styles.input} name="login" placeholder="login" />
+            <input onChange={handleChangeEmail} required type="email" className={styles.input} name="login" placeholder="login" />
             <input onChange={handleChangePassword} required type="password" className={styles.input} name="login" placeholder="password" />
             <button className={styles.submitBtn} onClick={handleSignIn}>
               Log in
