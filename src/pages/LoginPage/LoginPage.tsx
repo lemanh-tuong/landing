@@ -55,8 +55,7 @@ const LoginPage = () => {
     const preLogin = preLoginJSON ? JSON.parse(preLoginJSON) : {};
     const preAuthReducerJSON = preLogin ? preLogin.authReducer : '';
     const preAuthReducer: AuthReducer = preAuthReducerJSON && JSON.parse(preAuthReducerJSON);
-
-    if (preAuthReducer.token && preAuthReducer.refreshToken) {
+    if (preAuthReducer && preAuthReducer.token && preAuthReducer.refreshToken) {
       loginContinue({ token: preAuthReducer.token, refreshToken: preAuthReducer.refreshToken })
     }
   })

@@ -4,7 +4,7 @@ import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import TestPage from 'pages/TestPage/TestPage';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { token } from 'selectors';
@@ -41,12 +41,6 @@ const Routes = () => {
   // });
 
   const tokenLogin = useSelector(token);
-
-  useEffect(() => {
-    return () => {
-      localStorage.clear();
-    }
-  })
 
   return (
     <BrowserRouter >
