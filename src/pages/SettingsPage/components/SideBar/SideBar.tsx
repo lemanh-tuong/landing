@@ -10,7 +10,6 @@ import { Option } from '../../SettingsPage';
 import styles from './SideBar.module.scss';
 
 export interface SideBarProps {
-  onEvent: (option: Omit<Option, 'sectionId'>) => () => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -19,7 +18,12 @@ export interface ItemSideBar extends Omit<Option, 'sectionId'> {
   id: string;
 }
 
-const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
+const getListStyle = (isDraggingOver: boolean) => ({
+  background: isDraggingOver ? "lightblue" : "lightgrey",
+  padding: 20,
+});
+
+const SideBar: FC<SideBarProps> = ({ className, style }) => {
   //Selector
   const pattern = useSelector(patternSection);
   const status = useSelector(statusRequestPatternSection);
@@ -31,7 +35,11 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
     return (
       <Draggable draggableId={property.id} index={key} key={uuidv4()}>
         {provided => (
-          <div onMouseDown={onEvent(property)} className={styles.sidebarItem} ref={provided.innerRef} key={key} {...provided.dragHandleProps} {...provided.draggableProps}>
+          <div className={styles.sidebarItem}
+            ref={provided.innerRef}
+            key={key}
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}>
             <Image type='tagImg' imgSrc={property.previewImg} />
           </div>
         )}
@@ -42,8 +50,12 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
   const _renderSuccess = () => {
     return (
       <Droppable droppableId="1">
-        {provided => (
-          <div className={`${styles.sideBar} ${className}`} ref={provided.innerRef} {...provided.droppableProps} style={style}>
+        {(provided, snapshot) => (
+          <div className={`${styles.sideBar} ${className}`}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            style={getListStyle(snapshot.isDraggingOver)}
+          >
             <div className={styles.menuGroup}>
               <div className={styles.menuName}>
                 Section
@@ -52,6 +64,7 @@ const SideBar: FC<SideBarProps> = ({ className, style, onEvent }) => {
                 {pattern.map((item, index) => _renderItem(item, index))}
               </ul>
             </div>
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

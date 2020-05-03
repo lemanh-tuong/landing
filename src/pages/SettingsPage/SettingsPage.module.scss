@@ -1,11 +1,19 @@
 @import '../../styles/abstracts/variables.scss';
-.wrapper {
+.settingsPage {
   display: flex;
 }
-
+.sideBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: none;
+}
 .mainContent {
-  margin-left: 20%;
   width: 80%;
+  margin-left: 20%;
   min-height: 100vh;
 }
 .toolKit {

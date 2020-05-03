@@ -25,7 +25,7 @@ import { Section4Props } from '../../components/Section4/Section4';
 import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import RenderSection from './components/RenderSection/RenderSection';
 import { getListStyle, reorder } from './DragDropFunction';
-import { sections, statusRequestElements } from './selectors';
+import { patternSection, sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
 import thunkAddSection from './thunks/thunksSection/thunkAddSection/thunkAddSection';
 import thunkGetDataSection from './thunks/thunksSection/thunkGetDataSection/thunkGetDataSection';
@@ -61,6 +61,7 @@ const SettingsPage = () => {
   const [sectionDragging, setSectionDragging] = useState(-1);
 
   // Selector
+  const patterns = useSelector(patternSection);
   const elements = useSelector(sections);
   const statusRequestSection = useSelector(statusRequestElements);
 
@@ -72,11 +73,9 @@ const SettingsPage = () => {
 
   //Handle
   const handlePrepairAdd = (option: Omit<Option, 'sectionId'>) => {
-    return () => {
-      prepairAddProperty.current = {
-        ...option,
-        sectionId: uuidv4()
-      };
+    prepairAddProperty.current = {
+      ...option,
+      sectionId: uuidv4()
     };
   };
 
@@ -88,6 +87,11 @@ const SettingsPage = () => {
   }
 
   const handleDragStart = (result: DragStart) => {
+    const { draggableId } = result;
+    const patternProperty = patterns.find(pattern => pattern.id === draggableId);
+    if (!!patternProperty) {
+      handlePrepairAdd({ ...patternProperty, sectionName: patternProperty.sectionName });
+    }
     if (result.source.droppableId === '2') {
       setSectionDragging(result.source.index);
     }
@@ -154,16 +158,23 @@ const SettingsPage = () => {
 
   const renderSuccess = () => {
     return (
-      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
-        <SideBar onEvent={handlePrepairAdd} />
-        <Droppable droppableId="2">
-          {(provided, snapshot) => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.mainContent} style={getListStyle(snapshot.isDraggingOver)}>
-              {elements.map((element: any, index: number) => _renderSection(element, index))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+      <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} >
+        <div className={styles.settingsPage}>
+          <div className={styles.sideBar}>
+            <SideBar />
+          </div>
+          <div className={styles.mainContent}>
+            <Droppable droppableId="2">
+              {(provided, snapshot) => (
+                <div ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  style={getListStyle(snapshot.isDraggingOver)}>
+                  {elements.map((element: any, index: number) => _renderSection(element, index))}
+                </div>
+              )}
+            </Droppable>
+          </div>
+        </div>
       </DragDropContext >
     );
   }
