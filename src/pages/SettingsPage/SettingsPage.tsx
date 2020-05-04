@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import 'antd/es/style/css';
 import { Section10Props } from 'components/Section10/Section10';
 import { Section11Props } from 'components/Section11/Section11';
@@ -131,8 +131,9 @@ const SettingsPage = () => {
         {provided => {
           return (
             <div className={`${styles.section} `}
+              key={sectionId}
+              {...provided.dragHandleProps} {...provided.draggableProps}
               ref={provided.innerRef}
-              {...provided.dragHandleProps} {...provided.draggableProps} key={sectionId}
             >
               <div className={styles.sectionTop}>
                 {sectionDragging === indexSection ? null : <ButtonFunc nowIndexSection={indexSection} elementProperty={element} />}
@@ -199,10 +200,11 @@ const SettingsPage = () => {
   return (
     <>
       {_renderSwitch()}
-      <Button onClick={handleSaveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
-        <i className="fas fa-save"></i>
-      </Button>
-
+      <Popover content="Save All">
+        <Button onClick={handleSaveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
+          <i className="fas fa-save"></i>
+        </Button>
+      </Popover>
     </>
   )
 }

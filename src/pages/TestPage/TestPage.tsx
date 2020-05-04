@@ -1,37 +1,24 @@
 
-import img1 from 'assets/img/screens/1.png';
-import img2 from 'assets/img/screens/2.png';
-import img3 from 'assets/img/screens/3.png';
-import Section13 from 'components/Section13/Section13';
-import overWriteFirebase from 'firebase/database/test';
+import { useMount } from 'hooks/useMount';
+import { logoImg, navItems, statusRequestNav } from 'pages/SettingsPage/selectors';
+import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const TestPage = () => {
-  const test = () => {
-    console.log(overWriteFirebase());
-  }
-  test();
+
+  const getData = thunkGetDataNav();
+  const status = useSelector(statusRequestNav);
+  const data = useSelector(navItems);
+  const logo = useSelector(logoImg);
+
+  useMount(() => {
+    getData()
+  })
+
   return (
     <>
-      <Section13
-        sectionId="1"
-        mainTitle="App Screenshot"
-        alignMainTitle='center'
-        text="See all awesome app screenshot, it will be your if you buy it"
-        sliderImgs={[
-          {
-            imgSrc: img1
-          },
-          {
-            imgSrc: img2
-          },
-          {
-            imgSrc: img3
-          },
-        ]}
-        fluid={true}
-        itemShow={1}
-      />
+      <div>asdasd</div>
     </>
   )
 }

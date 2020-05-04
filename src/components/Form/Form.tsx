@@ -9,7 +9,7 @@ import Input, { InputProps } from './Input/Input';
 import InputNumber, { InputNumberProps } from './InputNumber/InputNumber';
 import InputText2, { InputText2Props } from './InputText2/InputText2';
 import Radio, { RadioProps } from './Radio/Radio';
-import SelectColor, { SelectColorProps } from './SelectColor/SelectColor';
+import Select, { SelectProps } from './Select/Select';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
@@ -18,7 +18,7 @@ export type FieldType = Partial<InputProps>
   & Partial<CheckBoxProps>
   & Partial<RollSelectProps>
   & Partial<ColorPickerProps>
-  & Partial<SelectColorProps>
+  & Partial<SelectProps>
   & Partial<ColorPickerGradientProps>
   & Partial<InputNumberProps>
   & Partial<InputText2Props>
@@ -71,7 +71,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'color-picker':
       return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultColor} onChange={onChange} key={arg.fieldId} />
     case 'select':
-      return arg.optionsGroup ? <SelectColor defaultSelect={arg.defaultSelect} fieldName={arg.fieldName} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null
+      return arg.optionsGroup ? <Select defaultSelect={arg.defaultSelect} fieldName={arg.fieldName} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null
     case 'color-picker-gradient':
       return <ColorPickerGradient fieldName={arg.fieldName} onChange={onChange} />
     default:

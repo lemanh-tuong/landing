@@ -1,4 +1,4 @@
-import addToFireBase from 'firebase/database/addToFireBase';
+import addToPage from 'firebase/database/addToPage';
 import { actionAddSection } from 'pages/SettingsPage/actions/actionSections/actionAddSection/actionAddSection';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 import { Option } from '../../../SettingsPage';
@@ -11,10 +11,10 @@ export interface ThunkAddSectionArg {
 }
 const thunkAddSection = ({nowSections, arg, index}: ThunkAddSectionArg): ThunkAddSection => dispatch => {
   if(typeof index === 'number') {
-    addToFireBase({pageName: 'HomePage', elements: nowSections, newSection: arg, indexInsert: index})
+    addToPage({pageName: 'HomePage', elements: nowSections, newSection: arg, indexInsert: index})
     dispatch(actionAddSection({...arg}, index));
   } else {
-    addToFireBase({pageName: 'HomePage', elements: nowSections, newSection: arg})
+    addToPage({pageName: 'HomePage', elements: nowSections, newSection: arg})
     dispatch(actionAddSection(arg))
   }
 };

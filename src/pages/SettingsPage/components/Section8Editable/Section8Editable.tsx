@@ -65,7 +65,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
         <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`button-${sectionId}`}>
-        <FormButton nowIndexSection={nowIndexSection} />
+        <FormButton nowIndex={nowIndexSection} type='section' />
       </PopUp>
       <PopUp id={`card-${sectionId}`}>
         <FormCard2 nowIndexSection={nowIndexSection} indexCard={indexCard} />

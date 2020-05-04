@@ -32,7 +32,7 @@ const Section6Editable: FC<Section6EditableProps & Section6Props> = ({ nowIndexS
         sectionId={sectionId} darkMode={darkMode} onShowPopupEditButton={handleShowPopupEditButton} onShowPopupEditTitle={handleShowPopupEditMainTitle}
       />
       <PopUp id={`button-${sectionId}`}>
-        <FormButton nowIndexSection={nowIndexSection} />
+        <FormButton nowIndex={nowIndexSection} type='section' />
       </PopUp>
       <PopUp id={`mainTitle-${sectionId}`}>
         <FormMainTitle nowIndexSection={nowIndexSection} />
