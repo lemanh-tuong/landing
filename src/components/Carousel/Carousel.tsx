@@ -84,8 +84,24 @@ const Carousel = <ItemT extends any>({
     });
   };
 
+  const _renderLast = () => {
+    return [...sliderImgs.slice(sliderImgs.length - (items > 1 ? items : 2), sliderImgs.length)].map(item => (
+      <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
+        {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
+      </div>
+    ));
+  };
+  const _renderFirst = () => {
+    return [...sliderImgs.slice(0, items > 1 ? items : 2)].map(item => (
+      <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
+        {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
+      </div>
+    ));
+  };
+
+
   const position: CSSProperties = {
-    transform: `translate3d(calc(${-currentSlide * (100 / items)}% - ${currentSlide * 2 * margin + margin - nowPosition + startPosition}px), 0, 0)`,
+    transform: `translate3d(calc(${-(currentSlide + 2) * (100 / items)}% - ${(currentSlide + 2) * 2 * margin + margin - nowPosition + startPosition}px), 0, 0)`,
   };
   if (isBuilder) {
     return (
@@ -93,7 +109,9 @@ const Carousel = <ItemT extends any>({
         <div className={`${styles.carousel} ${isBuilder ? styles.isBuilder : null}`} onClick={onEditable}>
           <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`}>
             <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
+              {_renderLast()}
               {_renderSlide()}
+              {_renderFirst()}
             </div>
           </div>
           {hasNav && _renderNavSlide()}
@@ -104,9 +122,11 @@ const Carousel = <ItemT extends any>({
   }
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>
+      <div className={`${styles.slideShow} ${styles.fluid}`} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>
         <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
+          {_renderLast()}
           {_renderSlide()}
+          {_renderFirst()}
         </div>
       </div>
       {hasNav && _renderNavSlide()}

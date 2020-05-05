@@ -4,23 +4,55 @@ import { useCallback, useEffect, useState } from 'react';
 const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint) => {
   const [items, setItems] = useState(itemShow);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [animated, setAnimated] = useState(true);
+  const [animated, setAnimated] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startPosition, setStartMousePosition] = useState(0);
   const [nowPosition, setMousePosition] = useState(0);
   const nextSlide = useCallback(() => {
-    if (currentSlide > imgsLength - items - 1) {
-      setCurrentSlide(0);
+    if(items > 1) {
+      if (currentSlide > imgsLength - 2) {
+        setCurrentSlide(currentSlide + 1);
+        setTimeout(() => {
+          setAnimated(false);
+          setCurrentSlide(0);
+        }, 500);
+      } else {
+        setCurrentSlide(currentSlide + 1);
+      }
     } else {
-      setCurrentSlide(currentSlide + 1);
+      if (currentSlide > imgsLength - items - 1) {
+        setCurrentSlide(currentSlide + 1);
+        setTimeout(() => {
+          setAnimated(false);
+          setCurrentSlide(0);
+        }, 500);
+      } else {
+        setCurrentSlide(currentSlide + 1);
+      }
     }
   }, [currentSlide, imgsLength, items]);
 
   const prevSlide = () => {
-    if (currentSlide > 1) {
-      setCurrentSlide(currentSlide - 1);
+    if(items > 1) {
+      if (currentSlide > 0) {
+        setCurrentSlide(currentSlide - 1);
+      } else {
+        setCurrentSlide(currentSlide - 1);
+        setTimeout(() => {
+          setAnimated(false);
+          setCurrentSlide(imgsLength - 1);
+        }, 500);
+      }
     } else {
-      setCurrentSlide(imgsLength - items);
+      if (currentSlide > 0) {
+        setCurrentSlide(currentSlide - 1);
+      } else {
+        setCurrentSlide(currentSlide - 1);
+        setTimeout(() => {
+          setAnimated(false);
+          setCurrentSlide(imgsLength - items);
+        }, 500);
+      }
     }
   };
 
@@ -46,10 +78,10 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
     if (isDragging) {
       const space = e.clientX - startPosition;
       setAnimated(true);
-      if (space < -50 && currentSlide < imgsLength - items) {
+      if (space < -50) {
         nextSlide();
-      } else if (space > 50 && currentSlide > 0) {
-        setCurrentSlide(currentSlide - 1);
+      } else if (space > 50) {
+        prevSlide();
       }
       setIsDragging(false);
       setMousePosition(0);

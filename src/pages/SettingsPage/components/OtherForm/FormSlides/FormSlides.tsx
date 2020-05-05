@@ -88,7 +88,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
             fieldName: 'itemShow',
             defaultNumber: itemShow,
             min: 1,
-            max: 5,
+            max: 4,
           },
           {
             fieldId: 7,
