@@ -1,13 +1,14 @@
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Image from 'components/Image/Image';
+import Loading from 'components/Loading/Loading';
 import { useMount } from 'hooks/useMount';
 import { sections } from 'pages/SettingsPage/selectors';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkAddSection from 'pages/SettingsPage/thunks/thunksSection/thunkAddSection/thunkAddSection';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import getQuery from 'utils/functions/getQuery';
 import { v4 as uuidv4 } from 'uuid';
@@ -82,11 +83,11 @@ const ComponentPage = () => {
   const _renderSwitch = () => {
     switch (status) {
       case 'loading':
-        return <div>Loading</div>;
+        return <Loading />;
       case 'success':
         return _renderSuccess();
       case 'failure':
-        return <div>{message}</div>;
+        return <Redirect to={{ pathname: '/error', state: message }} />;
       default:
         return null;
     }

@@ -3,9 +3,16 @@ import styles from './Loading.module.scss';
 
 const Loading = () => {
   return (
-    <div className={styles.loadingCompoent}>
-      <div className={styles.content}>
-        <h1 style={{ color: 'white' }}>Loading</h1>
+    <div className={styles.loadingComponent}>
+      <div className={styles.container}>
+        <div className={styles.gooey}>
+          <span className={styles.dot}></span>
+          <div className={styles.dots}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
       </div>
     </div>
   );

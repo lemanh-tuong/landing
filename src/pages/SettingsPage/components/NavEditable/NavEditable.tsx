@@ -1,4 +1,5 @@
 import Image from 'components/Image/Image';
+import Loading from 'components/Loading/Loading';
 import Nav from 'components/Nav/Nav';
 import PopUp from 'components/PopUp/PopUp';
 import { useMount } from 'hooks/useMount';
@@ -53,7 +54,7 @@ const NavEditable: FC = () => {
   const _renderSwitch = () => {
     switch (statusRequest) {
       case 'loading':
-        return <div>Loading</div>;
+        return <Loading />;
       case 'success':
         return _renderSuccess();
       case 'failure':

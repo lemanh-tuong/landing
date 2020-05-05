@@ -1,5 +1,7 @@
+import Loading from 'components/Loading/Loading';
 import Nav from 'components/Nav/Nav';
 import { useMount } from 'hooks/useMount';
+import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import HomePage from 'pages/HomePage/HomePage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
@@ -29,7 +31,7 @@ const Routes = () => {
   const _renderHeader = () => {
     switch (statusRequestNavBar) {
       case 'loading':
-        return <div>Loading</div>;
+        return <Loading />;
       case 'success':
         return <div className="header">{_renderNavBar()}</div>;
       case 'failure':
@@ -42,8 +44,8 @@ const Routes = () => {
   });
 
   return (
-    <>
-      {!location.pathname.includes('/admin') && _renderHeader()}
+    <div className="page" style={{ width: '100vw', height: '100vh' }}>
+      {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
         <Route exact path="/">
           <HomePage />
@@ -73,11 +75,11 @@ const Routes = () => {
           path="/test"
           component={TestPage}
         />
-        <Route>
-          <div>Something went wrong</div>
+        <Route path='/error'>
+          <ErrorPage />
         </Route>
       </Switch>
-    </>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ import thunkSaveAll from 'pages/SettingsPage/thunks/thunksSection/thunkSaveAll/t
 import thunkChangeImgSlide from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeImgSlide/thunkChangeImgSlide';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
@@ -128,7 +128,7 @@ const ImageGalleryPage = () => {
         case 'loading':
           return <RollSelect fieldName={type} statusLazy="loading" listImg={[]} ammountLazyLoading={10} />;
         case 'failure':
-          return <div>{messageRequest}</div>;
+          return <Redirect to={{ pathname: '/error', state: messageRequest }} />;
         default:
           return null;
       }

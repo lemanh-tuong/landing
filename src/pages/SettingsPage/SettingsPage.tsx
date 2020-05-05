@@ -1,5 +1,6 @@
 import { Button, Popover } from 'antd';
 import 'antd/es/style/css';
+import Loading from 'components/Loading/Loading';
 import { Section10Props } from 'components/Section10/Section10';
 import { Section11Props } from 'components/Section11/Section11';
 import { Section12Props } from 'components/Section12/Section12';
@@ -15,7 +16,7 @@ import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
 import React, { useRef, useState } from 'react';
 import { DragDropContext, Draggable, DragStart, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Section1Props } from '../../components/Section1/Section1';
@@ -26,7 +27,7 @@ import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import NavEditable from './components/NavEditable/NavEditable';
 import RenderSection from './components/RenderSection/RenderSection';
 import { getListStyle, reorder } from './DragDropFunction';
-import { patternSection, sections, statusRequestElements } from './selectors';
+import { messageRequestElements, patternSection, sections, statusRequestElements } from './selectors';
 import styles from './SettingsPage.module.scss';
 import thunkAddSection from './thunks/thunksSection/thunkAddSection/thunkAddSection';
 import thunkGetDataSection from './thunks/thunksSection/thunkGetDataSection/thunkGetDataSection';
@@ -69,7 +70,7 @@ const SettingsPage = () => {
   const patterns = useSelector(patternSection);
   const elements = useSelector(sections);
   const statusRequestSection = useSelector(statusRequestElements);
-
+  const messageRequestSection = useSelector(messageRequestElements);
   // Dispatch
   const getData = thunkGetDataSection();
   const saveAll = thunkSaveAll();
@@ -201,9 +202,9 @@ const SettingsPage = () => {
   const _renderSwitch = () => {
     switch (statusRequestSection) {
       case 'loading':
-        return <div>Loading</div>;
+        return <Loading />;
       case 'failure':
-        return <div>Something went wrong</div>;
+        return <Redirect to={{ pathname: '/error', state: messageRequestSection }} />;
       case 'success':
         return renderSuccess();
       default:

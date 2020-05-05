@@ -1,6 +1,8 @@
+import Loading from 'components/Loading/Loading';
 import { useMount } from 'hooks/useMount';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import RenderSection from './components/RenderSection/RenderSection';
 import { homePageSections, messageRequestHomePageSections, statusRequestHomePageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
@@ -28,9 +30,9 @@ const HomePage = () => {
   const _renderMainContentSwitch = () => {
     switch (statusRequest) {
       case 'loading':
-        return <div>Loading</div>;
+        return <Loading />;
       case 'failure':
-        return <div>{messageRequest}</div>;
+        return <Redirect to={{ pathname: '/error', state: messageRequest }} />;
       case 'success':
         return _renderMainContentSuccess();
       default:

@@ -5,6 +5,7 @@ import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunksSideBar/thunkGe
 import React, { CSSProperties, FC } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import { Option } from '../../SettingsPage';
 import styles from './SideBar.module.scss';
@@ -82,7 +83,7 @@ const SideBar: FC<SideBarProps> = ({ className }) => {
       case 'success':
         return _renderSuccess();
       case 'failure':
-        return <div>{message}</div>;
+        return <Redirect to={{ pathname: '/error', state: message }} />;
       default:
         return null;
     }
