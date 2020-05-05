@@ -61,6 +61,11 @@ const SettingsPage = () => {
   //State
   const [sectionDragging, setSectionDragging] = useState(-1);
   const [active, setActive] = useState(false);
+  const [startDrag, setStartDrag] = useState(false);
+
+  const handleSetStartDrag = (value: boolean) => {
+    setStartDrag(value);
+  };
 
   const handleActive = () => {
     setActive(!active);
@@ -105,6 +110,7 @@ const SettingsPage = () => {
 
   const handleDragEnd = (result: DropResult) => {
     const { draggableId, source, destination } = result;
+    setStartDrag(false);
     if (draggableId.includes('Btn Section') && destination?.droppableId === '2') {
       handleAdd(destination?.index);
     } else {
@@ -135,14 +141,16 @@ const SettingsPage = () => {
     return (
       <Draggable draggableId={sectionId} index={indexSection} key={sectionId} >
         {provided => {
+          console.log(provided);
           return (
             <div className={`${styles.section} `}
               key={sectionId}
-              {...provided.dragHandleProps} {...provided.draggableProps}
-              ref={provided.innerRef}
+              {...startDrag ? provided.dragHandleProps : {}}
+              {...provided.draggableProps}
+              ref={startDrag ? provided.innerRef : null}
             >
               <div className={styles.sectionTop}>
-                {sectionDragging === indexSection ? null : <ButtonFunc nowIndexSection={indexSection} elementProperty={element} />}
+                {sectionDragging === indexSection ? null : <ButtonFunc onStartDrag={handleSetStartDrag} nowIndexSection={indexSection} elementProperty={element} />}
               </div>
               <div className={`content ${sectionDragging === indexSection ? styles.dragging : null}`}>
                 {RenderSection({ option: element, isBuilder: true, nowIndexSection: indexSection })}

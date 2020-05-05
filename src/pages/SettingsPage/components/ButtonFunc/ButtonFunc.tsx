@@ -7,7 +7,7 @@ import thunkDeleteSection from 'pages/SettingsPage/thunks/thunksSection/thunkDel
 import thunkDuplicateSection from 'pages/SettingsPage/thunks/thunksSection/thunkDuplicateSection/thunkDuplicateSection';
 import thunkMoveDownSection from 'pages/SettingsPage/thunks/thunksSection/thunkMoveDownSection/thunkMoveDownSection';
 import thunkMoveUpSection from 'pages/SettingsPage/thunks/thunksSection/thunkMoveUpSection/thunkMoveUpSection';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './ButtonFunc.module.scss';
@@ -15,10 +15,18 @@ import styles from './ButtonFunc.module.scss';
 export interface ButtonFuncProps {
   nowIndexSection: number;
   elementProperty: Option;
+  onStartDrag: (value: boolean) => void;
 }
 
-const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) => {
+const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection, onStartDrag }) => {
+  const [mouseDown, setMouseDown] = useState(false);
 
+  const handleMouseDown = () => {
+    setMouseDown(true);
+  };
+  const handleMouseUp = () => {
+    setMouseDown(false);
+  };
   //Selectors
   const elements = useSelector(sections);
 
@@ -53,6 +61,10 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
     };
   };
 
+  const handleDragStart = (value: boolean) => {
+    return () => onStartDrag(value);
+  };
+
   return (
     <ButtonGroup style={{ display: 'flex' }} align='right'>
       <Popover placement='top' content="Move Up Section">
@@ -81,7 +93,10 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection }) =
         </Button>
       </Popover>
       <Popover placement='top' content="Drag Section" >
-        <div className={styles.dragBtn}>
+        <div className={styles.dragBtn} onMouseOver={handleDragStart(true)}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseOut={mouseDown ? () => { } : handleDragStart(false)}>
           <i className="fas fa-arrows-alt"></i>
         </div>
       </Popover>
