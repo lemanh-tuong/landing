@@ -9,6 +9,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   const [startPosition, setStartMousePosition] = useState(0);
   const [nowPosition, setMousePosition] = useState(0);
   const nextSlide = useCallback(() => {
+    setAnimated(true);
     if(items > 1) {
       if (currentSlide > imgsLength - 2) {
         setCurrentSlide(currentSlide + 1);
@@ -33,6 +34,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   }, [currentSlide, imgsLength, items]);
 
   const prevSlide = () => {
+    setAnimated(true);
     if(items > 1) {
       if (currentSlide > 0) {
         setCurrentSlide(currentSlide - 1);
@@ -77,7 +79,6 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   const dragEnd = (e: any) => {
     if (isDragging) {
       const space = e.clientX - startPosition;
-      setAnimated(true);
       if (space < -50) {
         nextSlide();
       } else if (space > 50) {
