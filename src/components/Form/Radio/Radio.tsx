@@ -29,7 +29,7 @@ const Radio = ({ fieldName, data, onClick, defaultCheckedValue }: RadioProps) =>
     return (
       <label htmlFor={`${value} ${name}`} className={styles.radioBtn} key={uuidv4()} onClick={handleClick(value)}>
         <input type="radio" className={styles.btn} id={`${value} ${name}`} name={name} tabIndex={index} defaultChecked={defaultChecked} />
-        <span>{value}</span>
+        <span className={styles.name}>{value}</span>
       </label>
     );
   };

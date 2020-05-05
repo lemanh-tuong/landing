@@ -44,7 +44,7 @@ const Routes = () => {
   });
 
   return (
-    <div className="page" style={{ width: '100vw', height: '100vh' }}>
+    <div className="page" style={{ width: '100%', height: '100vh' }}>
       {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
         <Route exact path="/">
