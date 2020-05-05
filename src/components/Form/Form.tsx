@@ -10,6 +10,7 @@ import InputNumber, { InputNumberProps } from './InputNumber/InputNumber';
 import InputText2, { InputText2Props } from './InputText2/InputText2';
 import Radio, { RadioProps } from './Radio/Radio';
 import Select, { SelectProps } from './Select/Select';
+import SelectButtonType, { SelectButtonTypeProps } from './SelectButtonType/SelectButtonType';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
 
@@ -22,9 +23,10 @@ export type FieldType = Partial<InputProps>
   & Partial<ColorPickerGradientProps>
   & Partial<InputNumberProps>
   & Partial<InputText2Props>
+  & Partial<SelectButtonTypeProps>
   & {
     hidden?: boolean;
-    fieldType: 'input' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'input-text-2';
+    fieldType: 'input' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2';
     fieldName: string;
     fieldId: string | number;
   };
@@ -72,6 +74,8 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultColor} onChange={onChange} key={arg.fieldId} />;
     case 'select':
       return arg.optionsGroup ? <Select key={arg.fieldId} defaultSelect={arg.defaultSelect} fieldName={arg.fieldName} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null;
+    case 'select-button':
+      return arg.options ? <SelectButtonType fieldName={arg.fieldName} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
     case 'color-picker-gradient':
       return <ColorPickerGradient key={arg.fieldId} fieldName={arg.fieldName} onChange={onChange} />;
     default:

@@ -73,7 +73,7 @@ const initialState: SideBarReducers =  {
       styleText: {},
       textButton: 'Try demo',
       colorTextButton: 'rgba(0, 0, 0, 0.8)',
-      backgroundButton: '#fff',
+      typeButton: 'white',
       hrefButton: '##',
       darkMode: false,
       id: 'Btn Section 1',
@@ -88,7 +88,8 @@ const initialState: SideBarReducers =  {
           hasVideo: true,
           videoUrl: 'https://www.youtube.com/'
         }
-      ]
+      ],
+      typeMockUp: 'Mac'
     },
     {
       previewImg: previewSection2,
@@ -157,7 +158,7 @@ const initialState: SideBarReducers =  {
       },
       textButton: 'Purchase now for 64$',
       hrefButton: '##',
-      backgroundButton: 'linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)',
+      typeButton: 'gradient',
       colorTextButton: '#fff',
       darkMode: false,
       id: 'Btn Section 4'

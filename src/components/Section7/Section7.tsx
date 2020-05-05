@@ -18,6 +18,7 @@ export type Section7Props = {
   backgroundButton?: ButtonProps['backgroundColor'];
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
+  typeButton?: ButtonProps['type'];
   rateList: RateProps[];
   isBuilder?: boolean;
   onShowPopupEditTitle?: () => void;
@@ -36,7 +37,7 @@ const Section7: FC<Section7Props> = ({
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   text, colorText, alignText, fontSizeText, classText, styleText,
   rateList,
-  backgroundButton, colorTextButton, hrefButton, styleButton, textButton
+  backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton
 
 }) => {
 
@@ -127,6 +128,7 @@ const Section7: FC<Section7Props> = ({
       </Row>
       <ButtonGroup>
         <Button
+          type={typeButton}
           text={textButton}
           backgroundColor={backgroundButton}
           color={colorTextButton}

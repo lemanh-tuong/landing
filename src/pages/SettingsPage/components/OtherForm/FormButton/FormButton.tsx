@@ -2,6 +2,7 @@ import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
+import thunkChangeSelect from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeSelect/thunkChangeSelect';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -29,11 +30,12 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
   const element = useSelector(sections)[nowIndex];
 
   // Destructoring
-  const { textButton, hrefButton, backgroundButton } = element;
+  const { textButton, hrefButton, backgroundButton, typeButton } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeColor = thunkChangeColor();
+  const changeSelect = thunkChangeSelect();
 
   //Handle
   const handleChangeTextButtonForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
@@ -48,6 +50,9 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
       if (fieldType === 'color-picker') {
         // Result = {hex: string, rgba: string}
         changeColor({ fieldName: fieldName, color: result.rgba, nowIndexSection: nowIndex });
+      }
+      if (fieldType === 'select-button') {
+        changeSelect({ fieldName: fieldName, value: result, nowIndexSection: nowIndex });
       }
     };
   };
@@ -118,6 +123,34 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
             fieldName: 'colorTextButton',
             fieldId: 4
           },
+          {
+            fieldId: 5,
+            fieldName: 'typeButton',
+            fieldType: 'select-button',
+            options: [
+              {
+                label: 'border',
+                value: 'border'
+              },
+              {
+                label: 'gradient',
+                value: 'gradient'
+              },
+              {
+                label: 'primary',
+                value: 'primary'
+              },
+              {
+                label: 'white',
+                value: 'white'
+              },
+              {
+                label: 'transparent',
+                value: 'transparent'
+              },
+            ],
+            defaultSelect: typeButton,
+          }
         ]}
         onChange={handleChangeTextButtonForm}
       />

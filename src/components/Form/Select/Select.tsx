@@ -5,12 +5,12 @@ import styles from './Select.module.scss';
 
 const { Option, OptGroup } = SelectAntd;
 
-interface OptionSelect {
+export interface OptionSelect {
   value: string;
   label: string;
 }
 
-interface OptionGroupSelect {
+export interface OptionGroupSelect {
   groupName: string;
   options: OptionSelect[];
 }

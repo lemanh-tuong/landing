@@ -21,7 +21,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
   mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
   hasDivider, dividerColor,
   text, colorText, fontSizeText, alignText, classText, styleText,
-  hrefButton, backgroundButton, colorTextButton, textButton, styleButton, darkMode, nowIndexSection
+  hrefButton, backgroundButton, colorTextButton, textButton, styleButton, typeButton, darkMode, nowIndexSection
 }) => {
   const [indexCard, setIndexCard] = useState(-1);
 
@@ -53,7 +53,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
         hasDivider={hasDivider} dividerColor={dividerColor}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-        textButton={textButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
+        textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
       />
       <PopUp id={`mainTitle-${sectionId}`}>
         <FormMainTitle nowIndexSection={nowIndexSection} />

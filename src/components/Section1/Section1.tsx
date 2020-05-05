@@ -22,6 +22,7 @@ export type Section1Props = {
   styleButton?: ButtonProps['style'];
   backgroundButton?: ButtonProps['backgroundColor'];
   colorTextButton?: ButtonProps['color'];
+  typeButton?: ButtonProps['type'];
   sectionId: string;
   isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
@@ -41,7 +42,7 @@ const Section1: FC<Section1Props> = ({
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor,
   typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, itemShow, responsive,
-  textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton
+  textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton, typeButton
 }) => {
 
   const _renderMockUp = () => {
@@ -107,6 +108,7 @@ const Section1: FC<Section1Props> = ({
         href={hrefButton ?? ''} style={styleButton} text={textButton}
         isBuilder={isBuilder} onEditable={onShowPopupEditButton}
         backgroundColor={backgroundButton} color={colorTextButton}
+        type={typeButton}
       />
     );
   };

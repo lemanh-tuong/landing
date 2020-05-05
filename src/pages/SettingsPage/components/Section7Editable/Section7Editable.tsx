@@ -29,7 +29,7 @@ const Section7Editable: FC<Section7EditableProps> = ({
   mainTitle, alignMainTitle, colorMainTitle, styleMainTitle, classMainTitle, fontSizeMainTitle,
   text, alignText, colorText, styleText, classText, fontSizeText,
   rateList,
-  textButton, hrefButton, backgroundButton, colorTextButton, styleButton,
+  textButton, hrefButton, backgroundButton, colorTextButton, styleButton, typeButton
 }) => {
   const [indexRate, setIndexRate] = useState(-1);
 
@@ -62,6 +62,7 @@ const Section7Editable: FC<Section7EditableProps> = ({
     <div className="Section7Editable">
       <Section7
         darkMode={darkMode}
+        typeButton={typeButton}
         isBuilder={isBuilder} sectionId={sectionId}
         onShowPopupEditTitle={handleShowPopupEditTitle}
         onShowPopUpEditText={handleShowPopUpEditText}

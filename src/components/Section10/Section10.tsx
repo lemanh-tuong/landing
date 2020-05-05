@@ -17,6 +17,7 @@ export type Section10Props = {
   backgroundButton?: ButtonProps['backgroundColor'];
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
+  typeButton?: ButtonProps['type'];
   isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
   onShowPopupEditDivider?: () => void;
@@ -34,7 +35,7 @@ const Section10: FC<Section10Props> = ({
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   hasDivider, dividerColor,
   imageSectionCol,
-  backgroundButton, hrefButton, colorTextButton, textButton, styleButton,
+  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton,
   text, colorText, alignText, fontSizeText, styleText, classText,
 }) => {
 
@@ -82,7 +83,7 @@ const Section10: FC<Section10Props> = ({
       {_renderImage()}
       {text && <Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />}
       <ButtonGroup align='center'>
-        <Button style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
+        <Button type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
       </ButtonGroup>
     </Section>
   );

@@ -12,6 +12,7 @@ export type Section6Props = {
   backgroundButton?: ButtonProps['backgroundColor'];
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
+  typeButton?: ButtonProps['type'];
   isBuilder?: boolean;
   sectionId: string;
   onShowPopupEditTitle?: () => void;
@@ -22,7 +23,7 @@ export type Section6Props = {
 const Section6: FC<Section6Props> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditButton, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  textButton, hrefButton, styleButton, backgroundButton, colorTextButton,
+  textButton, hrefButton, styleButton, backgroundButton, colorTextButton, typeButton,
   backgroundColor, backgroundImage, style, className, darkMode,
 }) => {
 
@@ -44,6 +45,7 @@ const Section6: FC<Section6Props> = ({
         </Col>
         <ButtonGroup align='center' >
           <Button
+            type={typeButton}
             isBuilder={isBuilder}
             onEditable={onShowPopupEditButton}
             text={textButton} href={hrefButton}

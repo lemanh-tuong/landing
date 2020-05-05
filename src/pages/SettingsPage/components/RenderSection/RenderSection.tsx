@@ -37,7 +37,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
     imageSectionCol,
     cards, slider, hasDivider, dividerColor,
     sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive,
-    textButton, styleButton, hrefButton, backgroundButton, colorTextButton,
+    textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton,
     typeMockUp,
     rateList,
     card2s,
@@ -50,6 +50,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
       case 'Section 1':
         return <Section1Editable
           nowIndexSection={nowIndexSection}
+          typeButton={typeButton}
           darkMode={darkMode}
           animation={animation}
           positionAnimation={positionAnimation}
@@ -155,6 +156,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           colorTextButton={colorTextButton}
           hrefButton={hrefButton}
           styleButton={styleButton}
+          typeButton={typeButton}
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
@@ -211,6 +213,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           classMainTitle={classMainTitle}
           backgroundButton={backgroundButton}
           colorTextButton={colorTextButton}
+          typeButton={typeButton}
           hrefButton={hrefButton}
           textButton={textButton}
           styleButton={styleButton}
@@ -243,6 +246,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           colorTextButton={colorTextButton}
           hrefButton={hrefButton}
           textButton={textButton}
+          typeButton={typeButton}
           nowIndexSection={nowIndexSection}
           isBuilder={isBuilder}
           sectionId={sectionId}
@@ -257,7 +261,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           hasDivider={hasDivider} dividerColor={dividerColor}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
           isBuilder={isBuilder}
-          backgroundButton={backgroundButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
+          backgroundButton={backgroundButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
         />;
       case 'Section 9':
         return <Section9Editable
@@ -281,7 +285,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           hasDivider={hasDivider} dividerColor={dividerColor}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
-          backgroundButton={backgroundButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
+          backgroundButton={backgroundButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
         />;
       case 'Section 11':
         return <Section11Editable
