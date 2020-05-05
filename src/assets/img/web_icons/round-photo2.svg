@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="36px" viewBox="0 0 44 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>round-photo_size_select_actual-24px copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="App-Landing" transform="translate(-1130.000000, -5886.000000)">
+            <g id="round-photo_size_select_actual-24px-copy" transform="translate(1128.000000, 5880.000000)">
+                <polygon id="Shape" points="0 0 48 0 48 48 0 48"></polygon>
+                <path d="M42,6 L6,6 C4,6 2,8 2,10 L2,38 C2,40.2 3.8,42 6,42 L42,42 C44,42 46,40 46,38 L46,10 C46,8 44,6 42,6 Z M11.26,32.38 L16.24,25.98 C16.64,25.48 17.4,25.46 17.8,25.96 L22,31.02 L28.2,23.04 C28.6,22.52 29.4,22.52 29.8,23.06 L36.82,32.42 C37.32,33.08 36.84,34.02 36.02,34.02 L12.04,34.02 C11.22,34 10.74,33.04 11.26,32.38 Z" id="Shape" fill="#7EBFFE" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

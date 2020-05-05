@@ -1,0 +1,60 @@
+$color-green: #3ece7e;
+$color-pink: #f06292;
+$color-black: #252c41;
+$color-blue: #5890ff;
+$color-dark-blue: rgb(71, 110, 255);
+$color-purple: rgb(158, 92, 255);
+$color-yellow: #ffce26;
+$shadow-pink: rgba(247,116,105,.5);
+$shadow-size: 0 10px 20px -10px;
+
+button.btn1 {
+  min-width: 190px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  border: 0;
+  border-radius: 100%;
+  outline: none;
+  padding: 10px 30px;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+
+  & .x-small {
+    min-width: 90px;
+  }
+
+  & .small {
+    padding: 13px 20px;
+    min-width: 120px;
+    min-height: 50px;
+    max-height: 50px;
+  }
+
+  & .middle {
+    padding: 15px 20px;
+    font-size: 13px;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+      min-width: 160px;
+      padding: 5px 10px
+    }
+
+  }
+
+  & .large {
+    min-width: 195px;
+    padding: 15px 20px;
+  }
+}
+
+
+.btn2 {
+  display: inline-block!important;
+  font-size: 12px;
+  padding: 5px 12px;
+}

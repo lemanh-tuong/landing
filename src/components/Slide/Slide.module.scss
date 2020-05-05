@@ -1,0 +1,7 @@
+.slide {
+  overflow: hidden;
+  flex: none;
+  & img {
+      width: 100%;
+  }
+}

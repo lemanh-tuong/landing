@@ -1,0 +1,8 @@
+.contextMenu {
+  background: #f7f7f7;
+  color: #777;
+}
+  [data-theme="dark"] .contextMenu {
+    background: #141414;
+    color: rgba(255,255,255,.65);
+  }

@@ -1,0 +1,25 @@
+.dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 3px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,.3);
+  cursor: pointer;
+  -webkit-transition: 0.4s ease all;
+  transition: 0.4s ease all;
+  display: block;
+  position: relative;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.5);
+  }
+  &.active:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1);
+  }
+}
+
+.active {
+  width: 30px;
+  border-radius: 9999px;
+}

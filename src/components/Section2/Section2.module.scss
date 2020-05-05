@@ -1,0 +1,44 @@
+.sectionHeader {
+  margin-bottom: 50px;
+}
+
+.cardEdit {
+  position: relative;
+  & .btnGroup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2.5px 5px;
+    }
+  }
+  &:hover .btnGroup {
+    display: flex;
+  }
+}
+
+.cardAdd {
+  min-height: 250px;
+  width: 100%;
+  height: calc(100% - 30px);
+  margin-bottom: 30px;
+  border: 2px dashed black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s all;
+  & p {
+    font-size: 18px
+  }
+  &:hover {
+    transform: scale(0.8)
+  }
+}

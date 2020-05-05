@@ -1,0 +1,55 @@
+.storeBtn {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+.storeIcon {
+  height: 50px;
+}
+
+.phones {
+  display: flex;
+  align-items: flex-end;
+}
+.phone {
+  margin: 10px;
+  &.iphone {
+    width: 291px;
+    height: 648px;
+  }
+  &.android {
+    width: 280px;
+    height: 596px;
+  }
+}
+
+.isBuilder {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}
+
+.isBuilder {
+  position: relative;
+  display: inline-block;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid white;
+  }
+}

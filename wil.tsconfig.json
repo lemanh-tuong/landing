@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "isolatedModules": false,
+    "jsx": "react",
+    "baseUrl": "./src",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+  }
+}

@@ -1,0 +1,94 @@
+@import '../../styles/abstracts/variables.scss';
+.card {
+  max-height: 390px;
+  overflow: hidden;
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
+  background-color: $color-white;
+  padding: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.03), 0 20px 30px -20px rgba(0,0,0,.1);
+}
+
+.cardIcon {
+  margin-bottom: 25px;;
+  & .icon {
+    display: inline-block;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.right {
+    text-align: right;
+  }
+  &.left {
+    text-align: left;
+  }
+}
+
+.cardTitle {
+  font-size: $font-size-15;
+  color: $color-black-4;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  @media (min-width: 768px) {
+  font-size: $title-md;
+  }
+  &.light-grey {
+    color: #70778b;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.left {
+    text-align: left;
+  }
+  &.right {
+    text-align: right;
+  }
+}
+.cardContent {
+  margin-top: 20px;
+  & .light-grey {
+    color: #70778b;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.left {
+    text-align: left;
+  }
+  &.right {
+    text-align: right;
+  }
+}
+.dark {
+  background: grey;
+  & .cardTitle {
+    color: $color-white;
+  }
+  & .cardContent {
+    color: $color-white-1;
+  }
+}
+
+
+.isBuilder {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}

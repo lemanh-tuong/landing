@@ -1,0 +1,55 @@
+import 'antd/es/button/style/css';
+import PopOverText from 'componentBuilder/PopOverText/PopOverText';
+import React, { CSSProperties, MouseEvent } from 'react';
+import styles from './Button.module.scss';
+
+export interface ButtonProps {
+  type?: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
+  color?: string;
+  backgroundColor?: string;
+  dark?: boolean;
+  darkClassName?: string;
+  onClick?: (event?: MouseEvent) => void;
+  initial?: boolean;
+  text?: string;
+  href?: string;
+  children?: React.ReactNode;
+  className?: string;
+  style?: CSSProperties;
+  isBuilder?: boolean;
+  onEditable?: () => void;
+}
+
+
+const Button = ({
+  isBuilder = false, children, onEditable, backgroundColor,
+  text, href, className, style, color = '', type = 'white', dark, onClick
+}: ButtonProps) => {
+  const darkMode = dark ? styles['dark'] : '';
+  const cssBackground: CSSProperties = backgroundColor ? { background: backgroundColor } : {};
+  const cssColor: CSSProperties = color ? { color: color } : {};
+  if (isBuilder) {
+    return (
+      <PopOverText onEdit={onEditable} component={
+        <a href={href} style={{ ...style, ...cssBackground, ...cssColor }} onClick={(e) => {
+          e.preventDefault(); onEditable?.();
+        }}
+          className={`${styles.isBuilder} ${styles[type]} ${styles.button} ${styles.defaultStyle} ${darkMode} ${className}`}>
+          {text}
+          {children}
+        </a>
+      } />
+    );
+  }
+  return (
+    <a href={href} style={{ ...style, ...cssBackground, ...cssColor }} onClick={onClick && onClick}
+      className={`${styles.defaultStyle} ${styles[type]} ${styles.button} ${darkMode} ${className}`}>
+      {text}
+      {children}
+    </a>
+  );
+};
+
+export default Button;
+
+
