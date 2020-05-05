@@ -36,23 +36,26 @@ const Nav: FC<NavProps> = ({ logo, navItems, style, isBuilder, onShowPopupEditBu
       return <PopOverText onEdit={handleShowPopupEditButton(indexButton)} component={
         <a href="###" onClick={e => {
           e.preventDefault(); handleShowPopupEditButton(indexButton)();
-        }} className={styles.navLink}>
+        }} className={`${styles.navLink} ${!!text ? null : styles.isBuilderEmpty}`}>
           {text}
         </a>
       } />;
     }
-    if (href.startsWith('/')) {
+    if (!!text && href.startsWith('/')) {
       return (
-        <Link to={href} className={styles.navLink}>
+        <Link to={href} className={`${styles.navLink}`}>
           {text}
         </Link>
       );
     }
-    return (
-      <a href={href} className={styles.navLink}>
-        {text}
-      </a>
-    );
+    if (!!text) {
+      return (
+        <a href={href} className={styles.navLink}>
+          {text}
+        </a>
+      );
+    }
+    return null;
   };
 
   const _renderNavItem = ({ text, href }: NavItemType, indexButton: number) => {

@@ -27,9 +27,7 @@ const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizont
   };
 
   useEffect(() => {
-    if (value) {
-      onChangeRef.current?.(value);
-    }
+    onChangeRef.current?.(value);
   }, [onChangeRef, value]);
 
   const _renderTextArea = () => {
