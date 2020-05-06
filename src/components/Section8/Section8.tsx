@@ -61,8 +61,8 @@ const Section8: FC<Section8Props> = ({
         </Col>
         <Col cols={[12, 12, 5]}>
           <div className={styles.contentCenter}>
-            {mainTitle && <MainTitle
-              mainTitle={mainTitle}
+            {<MainTitle
+              mainTitle={mainTitle ?? ''}
               alignMainTitle={alignMainTitle}
               classMainTitle={classMainTitle}
               fontSizeMainTitle={fontSizeMainTitle}

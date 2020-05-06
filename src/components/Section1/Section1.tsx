@@ -119,9 +119,9 @@ const Section1: FC<Section1Props> = ({
         <Row>
           <Col cols={[12, 6, 6]} className={reverse ? 'order-2' : ''}>
             <>
-              {mainTitle && _renderMainTitle()}
+              {_renderMainTitle()}
               {_renderDivider()}
-              {text && _renderText()}
+              {_renderText()}
               {_renderButton()}
             </>
           </Col>

@@ -69,8 +69,8 @@ const Section13: FC<Section13Props> = ({
 
   return (
     <Section backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage}>
-      {mainTitle && _renderMainTitle()}
-      {text && _renderText()}
+      {_renderMainTitle()}
+      {_renderText()}
       <div className="screenShot" style={{ display: 'flex', justifyContent: 'center' }}>
         {_renderMockUp()}
       </div>

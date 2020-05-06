@@ -76,12 +76,26 @@ const Section10: FC<Section10Props> = ({
     return null;
   };
 
+  const _renderMainTitle = () => {
+    return <MainTitle
+      isBuilder={isBuilder}
+      onEditable={onShowPopupEditMainTitle}
+      darkMode={darkMode}
+      mainTitle={mainTitle ?? ''}
+      colorMainTitle={colorMainTitle}
+      alignMainTitle={alignMainTitle}
+      fontSizeMainTitle={fontSizeMainTitle}
+      styleMainTitle={styleMainTitle}
+      classMainTitle={classMainTitle}
+    />;
+  };
+
   return (
     <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
-      {mainTitle && <MainTitle isBuilder={isBuilder} onEditable={onShowPopupEditMainTitle} darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />}
+      {_renderMainTitle()}
       {_renderDivider()}
       {_renderImage()}
-      {text && <Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />}
+      {<Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />}
       <ButtonGroup align='center'>
         <Button type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
       </ButtonGroup>

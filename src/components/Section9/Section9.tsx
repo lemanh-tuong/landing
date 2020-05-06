@@ -93,8 +93,8 @@ const Section9: FC<Secction9Props> = ({
       <Row>
         <Col cols={[12, 12, 5]}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-            {mainTitle && <MainTitle
-              mainTitle={mainTitle}
+            {<MainTitle
+              mainTitle={mainTitle ?? ''}
               alignMainTitle={alignMainTitle}
               colorMainTitle={colorMainTitle}
               fontSizeMainTitle={fontSizeMainTitle}
@@ -105,8 +105,8 @@ const Section9: FC<Secction9Props> = ({
               darkMode={darkMode}
             />}
             {_renderDivider()}
-            {text && <Text
-              text={text}
+            {<Text
+              text={text ?? ''}
               alignText={alignText}
               fontSizeText={fontSizeText}
               classText={classText}

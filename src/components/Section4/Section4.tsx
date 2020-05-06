@@ -55,8 +55,8 @@ const Section4: FC<Section4Props> = ({
     <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[10]} offsets={[1]}>
-          {mainTitle && <MainTitle isBuilder={isBuilder} onEditable={onShowPopupEditTitle} darkMode={darkMode} mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />}
-          {text && <Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={{ marginBottom: 50, ...styleText }} classText={classText} />}
+          {<MainTitle isBuilder={isBuilder} onEditable={onShowPopupEditTitle} darkMode={darkMode} mainTitle={mainTitle ?? ''} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />}
+          {<Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={{ marginBottom: 50, ...styleText }} classText={classText} />}
         </Col>
         {_renderImage()}
         <ButtonGroup align='center'>

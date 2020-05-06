@@ -56,22 +56,18 @@ const Section2 = ({
     );
   };
 
-  const _renderHeaderDefault = () => {
-    return (
-      <div className={styles.sectionHeader}>
-        {mainTitle && <MainTitle
-          mainTitle={mainTitle}
-          colorMainTitle={colorMainTitle}
-          fontSizeMainTitle={fontSizeMainTitle}
-          alignMainTitle={alignMainTitle}
-          classMainTitle={classMainTitle}
-          styleMainTitle={styleMainTitle}
-          darkMode={darkMode}
-          isBuilder={isBuilder}
-          onEditable={onShowPopupEditTitle}
-        />}
-      </div>
-    );
+  const _renderMainTitle = () => {
+    return <MainTitle
+      mainTitle={mainTitle ?? ''}
+      colorMainTitle={colorMainTitle}
+      fontSizeMainTitle={fontSizeMainTitle}
+      alignMainTitle={alignMainTitle}
+      classMainTitle={classMainTitle}
+      styleMainTitle={{ ...styleMainTitle, marginBottom: 50 }}
+      darkMode={darkMode}
+      isBuilder={isBuilder}
+      onEditable={onShowPopupEditTitle}
+    />;
   };
 
   const _renderSlider = () => {
@@ -131,7 +127,7 @@ const Section2 = ({
     <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[8]} offsets={[2]}>
-          {_renderHeaderDefault()}
+          {_renderMainTitle()}
         </Col>
       </Row>
       {slider ? _renderSlider() : _renderBodyDefault()}

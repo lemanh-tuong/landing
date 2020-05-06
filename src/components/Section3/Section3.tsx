@@ -53,10 +53,10 @@ const Section3: FC<Section3Props> = ({
 
   const _renderRightDefault = () => {
     return <>
-      {mainTitle && <MainTitle
+      {<MainTitle
         onEditable={onShowPopupEditTitle}
         isBuilder={isBuilder}
-        mainTitle={mainTitle}
+        mainTitle={mainTitle ?? ''}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
         fontSizeMainTitle={fontSizeMainTitle}
@@ -69,7 +69,7 @@ const Section3: FC<Section3Props> = ({
         isBuilder={isBuilder}
         onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
       }
-      {text && _renderText()}
+      {_renderText()}
     </>;
   };
 

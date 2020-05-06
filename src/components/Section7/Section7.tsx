@@ -99,21 +99,21 @@ const Section7: FC<Section7Props> = ({
       <div className="section7Header" style={{ marginBottom: 50 }}>
         <Row>
           <Col cols={[10]} offsets={[1]}>
-            {mainTitle && <MainTitle
+            {<MainTitle
               isBuilder={isBuilder}
               onEditable={onShowPopupEditTitle}
               darkMode={darkMode}
-              mainTitle={mainTitle}
+              mainTitle={mainTitle ?? ''}
               colorMainTitle={colorMainTitle}
               alignMainTitle={alignMainTitle}
               fontSizeMainTitle={fontSizeMainTitle}
               styleMainTitle={{ ...styleMainTitle, marginBottom: 20 }}
               classMainTitle={classMainTitle}
             />}
-            {text && <Text
+            {<Text
               isBuilder={isBuilder}
               onEditable={onShowPopUpEditText}
-              text={text}
+              text={text ?? ''}
               alignText={alignText}
               colorText={colorText}
               fontSizeText={fontSizeText}

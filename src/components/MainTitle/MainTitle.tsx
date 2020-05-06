@@ -41,7 +41,9 @@ const SectionTitle: FC<MainTitleProps> = ({
       <PopOverText
         onEdit={onEditable}
         component={
-          <div onClick={onEditable} className={` ${styles.isBuilder} ${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{ ...style, color: colorMainTitle }}>
+          <div onClick={onEditable}
+            className={`${!!mainTitle ? null : styles.empty} ${styles.isBuilder} ${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`}
+            style={{ ...style, color: colorMainTitle }}>
             {mainTitle}
             {children}
           </div>
@@ -49,12 +51,15 @@ const SectionTitle: FC<MainTitleProps> = ({
       />
     );
   }
-  return (
-    <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{ ...style, color: colorMainTitle }}>
-      {mainTitle}
-      {children}
-    </div>
-  );
+  if (!!mainTitle) {
+    return (
+      <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{ ...style, color: colorMainTitle }}>
+        {mainTitle}
+        {children}
+      </div>
+    );
+  }
+  return null;
 };
 
 export default SectionTitle;

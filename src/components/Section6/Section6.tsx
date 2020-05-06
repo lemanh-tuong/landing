@@ -31,11 +31,11 @@ const Section6: FC<Section6Props> = ({
     <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
       <Row>
         <Col cols={[10]} offsets={[1]}>
-          {mainTitle && <MainTitle
+          {<MainTitle
             isBuilder={isBuilder}
             onEditable={onShowPopupEditTitle}
             darkMode={darkMode}
-            mainTitle={mainTitle}
+            mainTitle={mainTitle ?? ''}
             colorMainTitle={colorMainTitle}
             alignMainTitle={alignMainTitle}
             fontSizeMainTitle={fontSizeMainTitle}
