@@ -61,7 +61,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
         style={{ width: '100%', margin: '5px 0' }}
       />;
     case 'input-text-2':
-      return <InputText2 disabled={arg.disabled} addonAfter={arg.addonAfter} addonBefore={arg.addonBefore} defaultValue={arg.defaultValue} placeholder={arg.placeholder} onChange={onChange} />;
+      return <InputText2 disabled={arg.disabled} addonAfter={arg.addonAfter} addonBefore={arg.addonBefore} defaultValue={arg.defaultValue} placeholder={arg.placeholder} key={arg.fieldId} onChange={onChange} />;
     case 'number':
       return <InputNumber key={arg.fieldId} fieldName={arg.fieldName} min={arg.min} max={arg.max} onChange={onChange} defaultNumber={arg.defaultNumber} />;
     case 'radio':
@@ -75,7 +75,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'select':
       return arg.optionsGroup ? <Select key={arg.fieldId} defaultSelect={arg.defaultSelect} fieldName={arg.fieldName} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null;
     case 'select-button':
-      return arg.options ? <SelectButtonType fieldName={arg.fieldName} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
+      return arg.options ? <SelectButtonType key={arg.fieldId} fieldName={arg.fieldName} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
     case 'color-picker-gradient':
       return <ColorPickerGradient key={arg.fieldId} fieldName={arg.fieldName} onChange={onChange} />;
     default:

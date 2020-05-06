@@ -1,8 +1,11 @@
 import logoImg from 'assets/img/logo.png';
 import { NavProps } from 'components/Nav/Nav';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
+import { ActionAddNavItemPayload } from '../actions/actionsNav/actionAddNavItem/actionAddNavItem';
 import { ActionChangeInputNavPayload } from '../actions/actionsNav/actionChangeInputNav/actionChangeInputNav';
+import { ActionDeleteNavItemPayload } from '../actions/actionsNav/actionDeleteNavItem/actionDeleteNavItem';
 import { actionGetDataNav } from '../actions/actionsNav/actionGetDataNav/actionGetDataNav';
+import { ActionMoveNavItemPayload } from '../actions/actionsNav/actionMoveNavItem/actionMoveNavItem';
 
 export interface NavReducer {
   readonly statusRequestNav: 'loading' | 'success' | 'failure';
@@ -69,6 +72,31 @@ const navReducer = createReducer<NavReducer, ActionTypes<typeof actionGetDataNav
       logo: {
         imgSrc: action.payload.imgSrc
       }
+    };
+  }),
+  handleAction('MOVE_NAV_ITEM', (state, action) => {
+    const { navData } = action.payload as ActionMoveNavItemPayload;
+    return {
+      ...state,
+      navItems: [...navData]
+    };
+  }),
+  handleAction('ADD_NAV_ITEM', (state, action) => {
+    const { newItem, indexInsert } = action.payload as ActionAddNavItemPayload;
+    const navData = state.navItems;
+    const newData = [...navData.slice(0, indexInsert + 1), {...newItem}, ...navData.slice(indexInsert + 1, navData.length)];
+    return {
+      ...state,
+      navItems: [...newData]
+    };
+  }),
+  handleAction('DELETE_NAV_ITEM', (state, action) => {
+    const { indexDelete } = action.payload as ActionDeleteNavItemPayload;
+    const navData = state.navItems;
+    const newData = [...navData.slice(0, indexDelete), ...navData.slice(indexDelete + 1, navData.length)];
+    return {
+      ...state,
+      navItems: [...newData]
     };
   })
 ]);

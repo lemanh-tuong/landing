@@ -1,4 +1,3 @@
-import Image from 'components/Image/Image';
 import Loading from 'components/Loading/Loading';
 import Nav from 'components/Nav/Nav';
 import PopUp from 'components/PopUp/PopUp';
@@ -7,8 +6,8 @@ import { logoImg, navItems, statusRequestNav } from 'pages/SettingsPage/selector
 import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import FormNav from '../OtherForm/FormNav/FormNav';
+import { Redirect } from 'react-router-dom';
+import FormNav2 from '../OtherForm/FormNav/FormNav2';
 
 const NavEditable: FC = () => {
   //Dispatch
@@ -19,30 +18,22 @@ const NavEditable: FC = () => {
   const statusRequest = useSelector(statusRequestNav);
   const messageRequest = useSelector(statusRequestNav);
 
-  const handleShowPopupEditButton = (nowIndex: number) => {
-    PopUp.show(`nav-item-${nowIndex}`)();
-  };
-
-  const handleShowPopupEditLogoImg = () => {
-    PopUp.show(`logo-image`)();
-  };
-
-  const _renderButtonPopUp = (nowIndex: number) => {
-    return <PopUp key={`popup-nav-${nowIndex}`} id={`nav-item-${nowIndex}`}>
-      <FormNav nowIndex={nowIndex} />
-    </PopUp>;
+  const handleShowPopupEditNav = () => {
+    PopUp.show(`form-nav`)();
   };
 
   const _renderSuccess = () => {
     return (
       <div className="NavEditable">
-        <Nav style={{ zIndex: 99 }} logo={logo} navItems={navList} isBuilder={true} onShowPopupEditButton={handleShowPopupEditButton} onShowPopupEditLogo={handleShowPopupEditLogoImg} />
-        <PopUp id={`logo-image`}>
-          <Link to={`/gallery?type=logoImg&multiple=false`} style={{ display: 'inline-block', background: 'grey' }}>
-            <Image imgSrc={logo.imgSrc} type='tagImg' />
-          </Link>
+        <Nav
+          style={{ zIndex: 99 }}
+          logo={logo}
+          navItems={navList}
+          isBuilder={true}
+          onShowpopupEditNav={handleShowPopupEditNav} />
+        <PopUp id="form-nav">
+          <FormNav2 />
         </PopUp>
-        {navList.map((_item, index) => _renderButtonPopUp(index))}
       </div>
     );
   };

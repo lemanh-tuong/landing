@@ -1,10 +1,8 @@
 import Loading from 'components/Loading/Loading';
 import Nav from 'components/Nav/Nav';
 import { useMount } from 'hooks/useMount';
-import ComponentPage from 'pages/ComponentPage/ComponentPage';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import HomePage from 'pages/HomePage/HomePage';
-import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
@@ -12,13 +10,12 @@ import TestPage from 'pages/TestPage/TestPage';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { logoImg, messageRequestNav, navItems, statusRequestNav, token } from 'selectors';
-import PrivateRoute from './PrivateRoute/PrivateRoute';
+import { logoImg, messageRequestNav, navItems, statusRequestNav } from 'selectors';
 
 const Routes = () => {
   const location = useLocation();
   // Selector
-  const tokenLogin = useSelector(token);
+  // const tokenLogin = useSelector(token);
   const statusRequestNavBar = useSelector(statusRequestNav);
   const messageRequestNavBar = useSelector(messageRequestNav);
   const logo = useSelector(logoImg);
@@ -56,7 +53,7 @@ const Routes = () => {
         <Route exact path='/admin/login'>
           <LoginPage />
         </Route>
-        <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
+        {/* <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
           component={
             <>
               <Route exact path="/admin/builder">
@@ -70,10 +67,10 @@ const Routes = () => {
               </Route>
             </>
           }
-        />
-        {/* <Route exact path="/admin/builder">
+        /> */}
+        <Route exact path="/admin/builder">
           <SettingsPage />
-        </Route> */}
+        </Route>
         <Route
           path="/test"
           component={TestPage}

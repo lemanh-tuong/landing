@@ -78,7 +78,28 @@
   }
 }
 
+.isBuilder {
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s all;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover {
+    transform: scale(0.9);
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}
+
 .isBuilderEmpty {
+  cursor: pointer;
   padding: 5px 20px;
   border: 2px solid wheat;
 }

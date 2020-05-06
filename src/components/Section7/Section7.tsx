@@ -42,7 +42,7 @@ const Section7: FC<Section7Props> = ({
 }) => {
 
   const _handleAddRate = (nowIndexRate: number) => {
-    return () => onAddRate?.(nowIndexRate);
+    return () => onAddRate?.(nowIndexRate + 1);
   };
 
   const _handleDeleteRate = (nowIndexRate: number) => {

@@ -26,6 +26,7 @@ $aspectRatio: (11: 100%, 169: 56.25%, 43: 75%, 32: 66.66%, 85: 62.5%);
 }
 .isBuilder {
   position: relative;
+  cursor: pointer;
   &:before {
     content: '';
     position: absolute;

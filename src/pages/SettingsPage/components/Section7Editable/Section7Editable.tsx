@@ -1,5 +1,10 @@
+
+import avatar from 'assets/img/web_icons/envato.svg';
 import PopUp from 'components/PopUp/PopUp';
+import { RateProps } from 'components/Rate/Rate';
 import Section7, { Section7Props } from 'components/Section7/Section7';
+import thunkAddRate from 'pages/SettingsPage/thunks/thunksRate/thunkAddRate/thunkAddRate';
+import thunkDeleteRate from 'pages/SettingsPage/thunks/thunksRate/thunkDeleteRate/thunkDeleteRate';
 import React, { FC, useState } from 'react';
 import FormButton from '../OtherForm/FormButton/FormButton';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
@@ -11,16 +16,16 @@ export type Section7EditableProps = {
   nowIndexSection: number;
 } & Omit<Section7Props, 'onShowPopupEditTitle' | 'onShowPopUpEditText' | 'onShowPopUpEditRate' | 'onShowPopUpEditButton'>;
 
-// const rateDefault: RateProps = {
-//   authorAvatar: {
-//     imgSrc: authorAvatar,
-//     href: '##'
-//   },
-//   authorName: 'SergeyX',
-//   purpose: 'Feature availability',
-//   rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
-//   stars: 5,
-// }
+const rateDefault: RateProps = {
+  authorAvatar: {
+    imgSrc: avatar,
+    href: '##',
+  },
+  authorName: 'SergeyX',
+  purpose: 'Feature availability',
+  rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
+  stars: 5,
+};
 
 const Section7Editable: FC<Section7EditableProps> = ({
   nowIndexSection, sectionId,
@@ -32,13 +37,14 @@ const Section7Editable: FC<Section7EditableProps> = ({
   textButton, hrefButton, backgroundButton, colorTextButton, styleButton, typeButton
 }) => {
   const [indexRate, setIndexRate] = useState(-1);
-
+  const addRate = thunkAddRate();
+  const deleteRate = thunkDeleteRate();
   const handleAddRate = (nowIndexRate: number) => {
-    console.log(nowIndexRate);
+    addRate({ nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate, rateProperty: rateDefault });
   };
 
   const handleDeleteRate = (nowIndexRate: number) => {
-    console.log(nowIndexRate);
+    deleteRate({ nowIndexRate: nowIndexRate, nowIndexSection: nowIndexSection });
   };
 
   const handleShowPopupEditTitle = () => {

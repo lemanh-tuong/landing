@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Nav.module.scss';
 
-interface NavItemType {
+export interface NavItemType {
   id: string | number;
   href: string;
   text: string;
@@ -20,26 +20,20 @@ export interface NavProps {
   navItems: NavItemType[];
   style?: CSSProperties;
   isBuilder?: boolean;
-  onShowPopupEditButton?: (indexButton: number) => void;
   onShowPopupEditLogo?: () => void;
+  onShowpopupEditNav?: () => void;
 }
 
-const Nav: FC<NavProps> = ({ logo, navItems, style, isBuilder, onShowPopupEditButton, onShowPopupEditLogo }) => {
+const Nav: FC<NavProps> = ({ logo, navItems, style, isBuilder, onShowPopupEditLogo, onShowpopupEditNav }) => {
   const [active, setActive] = useState(true);
 
-  const handleShowPopupEditButton = (indexButton: number) => {
-    return () => onShowPopupEditButton?.(indexButton);
-  };
-
-  const _renderLink = (text: string, href: string, indexButton: number) => {
+  const _renderLink = (text: string, href: string) => {
     if (isBuilder) {
-      return <PopOverText onEdit={handleShowPopupEditButton(indexButton)} component={
-        <a href="###" onClick={e => {
-          e.preventDefault(); handleShowPopupEditButton(indexButton)();
-        }} className={`${styles.navLink} ${!!text ? null : styles.isBuilderEmpty}`}>
+      return (
+        <a href="###" onClick={e => e.preventDefault()} className={`${styles.navLink} ${!!text ? null : styles.isBuilderEmpty}`}>
           {text}
         </a>
-      } />;
+      );
     }
     if (!!text && href.startsWith('/')) {
       return (
@@ -58,10 +52,10 @@ const Nav: FC<NavProps> = ({ logo, navItems, style, isBuilder, onShowPopupEditBu
     return null;
   };
 
-  const _renderNavItem = ({ text, href }: NavItemType, indexButton: number) => {
+  const _renderNavItem = ({ text, href }: NavItemType) => {
     return (
       <li className={styles.navItem} key={uuidv4()}>
-        {_renderLink(text, href, indexButton)}
+        {_renderLink(text, href)}
       </li>
     );
   };
@@ -96,13 +90,44 @@ const Nav: FC<NavProps> = ({ logo, navItems, style, isBuilder, onShowPopupEditBu
     }
   });
 
+  if (isBuilder) {
+    return (
+      <PopOverText onEdit={onShowpopupEditNav}
+        component={
+          <div onClick={onShowpopupEditNav} style={style} className={`${styles.isBuilder} ${styles.navHeader} ${active ? styles.active : ''}`}>
+            {_renderLogo()}
+            <div className={styles.navigation}>
+              <nav className={styles.nav}>
+                <ul className={styles.menu}>
+                  {navItems.map(item => _renderNavItem(item))}
+                </ul>
+                <ButtonGroup className={styles.navButtonGroup}>
+                  <Button type='primary'>
+                    <i className="fas fa-shopping-cart" style={{ marginRight: '7px' }}></i>
+              Purchase Now
+            </Button>
+                  <Button type='white'>
+                    Try Demo
+            </Button>
+                </ButtonGroup>
+                <button className={`${styles.collapseBtn}`}>
+                  <i className={`fas fa-bars `}></i>
+                </button>
+              </nav>
+            </div>
+          </div>
+        }
+      />
+    );
+  }
+
   return (
     <div style={style} className={`${styles.navHeader} ${active ? styles.active : ''}`}>
       {_renderLogo()}
       <div className={styles.navigation}>
         <nav className={styles.nav}>
           <ul className={styles.menu}>
-            {navItems.map((item, index) => _renderNavItem(item, index))}
+            {navItems.map(item => _renderNavItem(item))}
           </ul>
           <ButtonGroup className={styles.navButtonGroup}>
             <Button type='primary'>

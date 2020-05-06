@@ -565,12 +565,12 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
 
   //Rate
   handleAction('ADD_RATE', (state, action) => {
-    const { nowIndexSection, nowIndexRate, rateProperty} = action.payload; // as ActionAddRatePayload;
+    const { nowIndexSection, nowIndexRate, rateProperty } = action.payload; // as ActionAddRatePayload;
     const nowElement = state.elements[nowIndexSection];
     const nowRateList = nowElement.rateList;
     const newElement = {
       ...nowElement,
-      rateList: nowRateList ? [...nowRateList.slice(0, nowIndexRate), {...rateProperty}, ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)] : [].concat(rateProperty)
+      rateList: nowRateList ? [...nowRateList.slice(0, nowIndexRate + 1), {...rateProperty}, ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)] : [].concat(rateProperty)
     };
     return {
       ...state,

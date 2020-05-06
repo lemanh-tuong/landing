@@ -13,7 +13,7 @@ import thunkChangeRadioCardForm from 'pages/SettingsPage/thunks/thunksCard/thunk
 import thunkDeleteCard from 'pages/SettingsPage/thunks/thunksCard/thunkDeleteCard/thunkDeleteCard';
 import thunkMoveCard from 'pages/SettingsPage/thunks/thunksCard/thunkMoveCard/thunkMoveCard';
 import React, { FC, memo, useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FormCard.module.scss';
@@ -88,7 +88,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
       }
     };
   };
-  const handleMove = (result: any) => {
+  const handleMove = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
@@ -227,7 +227,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
       <DragDropContext onDragEnd={handleMove}>
         <Droppable droppableId={sectionId} type="card drop">
           {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} onMouseUp={handleMove}>
+            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
               <div className={styles.listCard}>
                 {element.cards?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
                 <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
