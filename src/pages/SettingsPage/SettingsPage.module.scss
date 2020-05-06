@@ -43,8 +43,13 @@
 
 .section {
   position: relative;
+  cursor: initial!important;
   &:hover .sectionBottom {
     display: block;
+  }
+  &.startDrag {
+    cursor: grab;
+    cursor: -webkit-grab;
   }
 }
 .sectionTop {

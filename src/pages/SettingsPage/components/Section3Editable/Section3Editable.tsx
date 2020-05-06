@@ -62,7 +62,7 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
         onShowPopupEditTitle={handleShowPopupEditMainTitle}
         onShowPopupEditText={handleShowPopupEditText}
         onShowPopupEditImage={handleShowPopupEditImage}
-      />;
+      />
       <PopUp id={`mainTitle-${sectionId}`} >
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>

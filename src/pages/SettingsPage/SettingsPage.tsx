@@ -100,6 +100,7 @@ const SettingsPage = () => {
   const handleDragStart = (result: DragStart) => {
     const { draggableId } = result;
     const patternProperty = patterns.find(pattern => pattern.id === draggableId);
+    setStartDrag(true);
     if (!!patternProperty) {
       handlePrepairAdd({ ...patternProperty, sectionName: patternProperty.sectionName });
     }
@@ -139,14 +140,14 @@ const SettingsPage = () => {
   const _renderSection = (element: Option, indexSection: number) => {
     const { sectionId } = element;
     return (
-      <Draggable draggableId={sectionId} index={indexSection} key={sectionId} >
+      <Draggable draggableId={sectionId} index={indexSection} key={sectionId}>
         {provided => {
           return (
-            <div className={`${styles.section} `}
+            <div className={`${styles.section} ${startDrag ? styles.startDrag : null}`}
               key={sectionId}
-              {...startDrag ? provided.dragHandleProps : {}}
-              {...provided.draggableProps}
-              ref={startDrag ? provided.innerRef : null}
+              {...provided.dragHandleProps}
+              {...startDrag ? provided.draggableProps : {}}
+              ref={provided.innerRef}
             >
               <div className={styles.sectionTop}>
                 {sectionDragging === indexSection ? null : <ButtonFunc onStartDrag={handleSetStartDrag} nowIndexSection={indexSection} elementProperty={element} />}
