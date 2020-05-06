@@ -15,10 +15,11 @@ import { Redirect, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
-import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, imageSectionCol, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
+import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
 import thunkChangeAvatarAuthor from './thunks/thunkChangeAvatarAuthor/thunkChangeAvatarAuthor';
 import thunkChangeIconCard2 from './thunks/thunkChangeIconCard2/thunkChangeIconCard2';
 import thunkChangeIconInCol from './thunks/thunkChangeIconInCol/thunkChangeIconInCol';
+import thunkChangeLogoImg from './thunks/thunkChangeLogoImg/thunkChangeLogoImg';
 
 type GetQueryType = 'type' | 'nowIndexSection' | 'nowIndexCard' | 'nowIndexSlide' | 'nowIndexRate' | 'multiple';
 
@@ -34,6 +35,7 @@ const ImageGalleryPage = () => {
   const avatarAuthor = useSelector(avatarAuthorGallery);
   const iconImgInCol = useSelector(iconImgInColGallery);
   const sliderSectionImg = useSelector(sliderSectionImgGallery);
+  const logoImg = useSelector(logoImgGallery);
 
   // -Request Gallery
   const statusRequestGallery = useSelector(statusRequestImage);
@@ -54,12 +56,16 @@ const ImageGalleryPage = () => {
   const chooseImgSlide = thunkChangeImgSlide();
   const chooseAvatarAuthor = thunkChangeAvatarAuthor();
   const chooseSliderImgSection = thunkChangeImgSlide2();
+  const chooseLogoImg = thunkChangeLogoImg();
   const save = thunkSaveAll();
   const upload = thunkUploadFile();
 
   // Handle
   const handleChoose = (fieldName: string) => {
     return (result: any) => {
+      if (type === 'logoImg') {
+        chooseLogoImg(result.imgSrc);
+      }
       if (type === 'iconImg') {
         chooseIcon({ fieldName: fieldName, imgSrc: result, nowIndexSection: parseInt(nowIndexSection), nowIndexCard: parseInt(nowIndexCard) });
       }
@@ -82,14 +88,14 @@ const ImageGalleryPage = () => {
       if (type === 'sliderSectionImg') {
         chooseSliderImgSection({ imgSrc: result.imgSrc, nowIndexSection: parseInt(nowIndexSection), nowIndexSlide: parseInt(nowIndexSlide) });
       }
-      return (result: any) => {
+      if (type === 'imageSectionCol') {
         chooseImage({ fieldName: fieldName, src: result, nowIndexSection: parseInt(nowIndexSection) });
-      };
+      }
     };
   };
 
-  const handleUploadFile = (typeImage: 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg') => {
-    if (!!nowIndexSection) {
+  const handleUploadFile = (typeImage: 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg' | 'logoImg') => {
+    if (!!typeImage) {
       return (result: File[]) => {
         upload({ path: typeImage, files: result });
       };
@@ -101,7 +107,7 @@ const ImageGalleryPage = () => {
 
   useMount(() => {
     if (!!type) {
-      getImage(type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg');
+      getImage(type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg');
     }
   });
 
@@ -113,8 +119,8 @@ const ImageGalleryPage = () => {
             : type === 'avatarAuthor' ? avatarAuthor
               : type === 'iconImgInCol' ? iconImgInCol
                 : type === 'sliderSectionImg' ? sliderSectionImg
-                  : imageSection;
-      console.log(listImg);
+                  : type === 'logoImg' ? logoImg
+                    : imageSection;
       switch (statusRequestGallery) {
         case 'success':
           return <RollSelect
@@ -136,14 +142,14 @@ const ImageGalleryPage = () => {
   };
 
   return (
-    <>
+    <div className="ImageGalleryPage" style={{ width: '100%', height: '100%', background: '#EEE' }}>
       {_renderSwitch()}
       <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
         <Link to='/admin/builder'>
           <i className="fas fa-arrow-left"></i>
         </Link>
       </Button>
-    </>
+    </div>
   );
 
 };

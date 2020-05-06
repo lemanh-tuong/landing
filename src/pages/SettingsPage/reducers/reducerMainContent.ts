@@ -486,7 +486,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   }),
   handleAction('CHANGE_IMAGE_SLIDE', (state, action) => {
     const { elements } = state;
-    const { data, nowIndexSection, nowIndexSlide } = action.payloadl; // as ActionChangeImgSlidePayload;
+    const { data, nowIndexSection, nowIndexSlide } = action.payload; // as ActionChangeImgSlidePayload;
     const nowElement = elements[nowIndexSection];
     if(typeof nowIndexSlide === 'number') {
       const nowSlide = nowElement.sliderImgs ? nowElement.sliderImgs?.[nowIndexSlide] : {};

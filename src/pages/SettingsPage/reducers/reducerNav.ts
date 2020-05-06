@@ -63,6 +63,14 @@ const navReducer = createReducer<NavReducer, ActionTypes<typeof actionGetDataNav
       navItems: [...newNavItems]
     };
   }),
+  handleAction('CHANGE_LOGO_IMG', (state, action) => {
+    return {
+      ...state,
+      logo: {
+        imgSrc: action.payload.imgSrc
+      }
+    };
+  })
 ]);
 
 export { navReducer };

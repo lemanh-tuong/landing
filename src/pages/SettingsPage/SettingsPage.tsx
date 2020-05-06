@@ -141,7 +141,6 @@ const SettingsPage = () => {
     return (
       <Draggable draggableId={sectionId} index={indexSection} key={sectionId} >
         {provided => {
-          console.log(provided);
           return (
             <div className={`${styles.section} `}
               key={sectionId}

@@ -77,7 +77,6 @@ const ComponentPage = () => {
   };
 
   useMount(() => {
-    console.log('AA');
     getPatternSection('section');
   });
   const _renderSwitch = () => {

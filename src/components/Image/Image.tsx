@@ -38,7 +38,7 @@ const Image: FC<ImageProps> = ({ isBuilder, onEditable, imgSrc, type, aspectRati
   const _renderImgTag = (className?: string) => {
     return (
       <div className={`${className} ${styles.image} ${className}`} style={{ ...style }}>
-        <img src={imgSrc} alt="" onDragStart={(e) => e.preventDefault()} />
+        <img src={imgSrc} alt="ALT IMAGE" onDragStart={(e) => e.preventDefault()} />
         {children}
       </div>
     );

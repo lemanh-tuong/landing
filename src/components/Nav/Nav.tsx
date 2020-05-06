@@ -69,7 +69,7 @@ const Nav: FC<NavProps> = ({ logo, navItems, style, isBuilder, onShowPopupEditBu
   const _renderLogo = () => {
     if (isBuilder) {
       return <PopOverText onEdit={onShowPopupEditLogo} component={
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={onShowPopupEditLogo} style={{ cursor: 'pointer' }}>
           <img src={logo.imgSrc} alt="##" />
         </div>
       } />;

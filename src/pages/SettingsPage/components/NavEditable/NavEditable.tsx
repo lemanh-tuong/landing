@@ -38,7 +38,7 @@ const NavEditable: FC = () => {
       <div className="NavEditable">
         <Nav style={{ zIndex: 99 }} logo={logo} navItems={navList} isBuilder={true} onShowPopupEditButton={handleShowPopupEditButton} onShowPopupEditLogo={handleShowPopupEditLogoImg} />
         <PopUp id={`logo-image`}>
-          <Link to='/type=logoImg' style={{ display: 'block', background: 'grey' }}>
+          <Link to={`/gallery?type=logoImg&multiple=false`} style={{ display: 'inline-block', background: 'grey' }}>
             <Image imgSrc={logo.imgSrc} type='tagImg' />
           </Link>
         </PopUp>

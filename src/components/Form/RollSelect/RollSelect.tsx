@@ -38,7 +38,6 @@ export interface RollSelectProps extends InputFileProps {
 
 
 const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading, statusUploadFile, messageUpload }) => {
-
   const _renderImg = (item: ImgType, orderSelected: number, onChange?: (result: any) => void) => {
     const { imgSrc } = item;
     const isSelected = orderSelected !== -1 ? true : false;

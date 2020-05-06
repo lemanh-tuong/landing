@@ -37,7 +37,6 @@ const FormAndroidSimulator: FC<FormAndroidSimulatorProps> = ({ nowIndexSection }
             fieldType: 'input-text-2',
             addonBefore: 'exp://expo.io/',
             defaultValue: androidParams?.replace('exp://expo.io/', ''),
-            disabled: true
           }
         ]}
         onChange={handleChangeForm}
