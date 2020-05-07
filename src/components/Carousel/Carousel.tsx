@@ -46,7 +46,7 @@ const Carousel = <ItemT extends any>({
   hasNav, hasDots, dotClass, navClass, classActive,
   margin = 30, responsive, itemShow = 2, fluid }: CarouselProps<ItemT>) => {
 
-  const { items, nowPosition, reseting, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
+  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
 
   const _renderNavSlide = () => {
     return (
@@ -74,35 +74,31 @@ const Carousel = <ItemT extends any>({
     return <Image imgSrc={imgSrc} />;
   };
 
-  const _renderSlide = () => {
-    return sliderImgs.map((item, index) => {
-      return (
-        <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
-          {renderItem ? renderItem(item, index) : _renderDefault(item.imgSrc)}
-        </div>
-      );
-    });
+  const _renderSlide = (item: any, index: number) => {
+    return (
+      <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, margin: `0px ${margin / 2}px` }}>
+        {renderItem ? renderItem(item, index) : _renderDefault(item.imgSrc)}
+      </div>
+    );
+  };
+
+  const _renderSlides = () => {
+    return sliderImgs.map((item, index) => _renderSlide(item, index));
   };
 
   const _renderLast = () => {
-    return [...sliderImgs.slice(sliderImgs.length - (items > 1 ? items : 2), sliderImgs.length)].map(item => (
-      <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
-        {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
-      </div>
-    ));
-  };
-  const _renderFirst = () => {
-    return [...sliderImgs.slice(0, items > 1 ? items : 2)].map(item => (
-      <div key={uuidv4()} className={styles.slideItem} style={{ width: `${100 / items}%`, padding: `0px ${margin}px` }}>
-        {renderItem ? renderItem(item) : _renderDefault(item.imgSrc)}
-      </div>
-    ));
+    return [...sliderImgs.slice(sliderImgs.length - (items > 1 ? items : 2), sliderImgs.length)].map((item, index) => _renderSlide(item, index));
   };
 
+  const _renderFirst = () => {
+    return [...sliderImgs.slice(0, items > 1 ? items : 2)].map((item, index) => _renderSlide(item, index));
+  };
 
   const position: CSSProperties = {
-    transform: `translate3d(calc(${-(currentSlide + 2) * (100 / items)}% - ${(currentSlide + 2) * 2 * margin + margin - nowPosition + startPosition}px), 0, 0)`,
+    transform: `translate3d(calc(${-(currentSlide + 2) * (100 / items)}% + ${-(currentSlide + 2.5) * margin + nowPosition - startPosition}px), 0, 0)`,
   };
+
+  console.log(position);
   if (isBuilder) {
     return (
       <PopOverText onEdit={onEditable} component={
@@ -110,7 +106,7 @@ const Carousel = <ItemT extends any>({
           <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`}>
             <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
               {_renderLast()}
-              {_renderSlide()}
+              {_renderSlides()}
               {_renderFirst()}
             </div>
           </div>
@@ -122,10 +118,10 @@ const Carousel = <ItemT extends any>({
   }
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={reseting ? undefined : dragStart} onMouseUp={reseting ? undefined : dragEnd} onMouseMove={reseting ? undefined : dragging}>
+      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>
         <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
           {_renderLast()}
-          {_renderSlide()}
+          {_renderSlides()}
           {_renderFirst()}
         </div>
       </div>

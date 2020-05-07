@@ -1,5 +1,5 @@
 import { breakpoint } from 'components/Carousel/Carousel';
-import { useCallback, useEffect, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 
 const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint) => {
   const [items, setItems] = useState(itemShow);
@@ -9,7 +9,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   const [startPosition, setStartMousePosition] = useState(0);
   const [nowPosition, setMousePosition] = useState(0);
   const [reseting, setResetting] = useState(false);
-
+  const CSS = useRef<CSSProperties>({});
   const nextSlide = useCallback(() => {
     setAnimated(true);
     if (currentSlide > imgsLength - 2) {
@@ -44,22 +44,23 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
     setCurrentSlide(order);
   };
 
-  const dragStart = (e: any) => {
-    e.persist();
-    setAnimated(false);
-    setIsDragging(true);
-    setStartMousePosition(e.clientX);
-    setMousePosition(e.clientX);
-  };
-
-  const dragging = (e: any) => {
-    if (isDragging) {
+  const dragStart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if(!reseting) {
+      setAnimated(false);
+      setIsDragging(true);
+      setStartMousePosition(e.clientX);
       setMousePosition(e.clientX);
     }
   };
 
-  const dragEnd = (e: any) => {
-    if (isDragging) {
+  const dragging = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (isDragging && !reseting) {
+      setMousePosition(e.clientX);
+    }
+  };
+
+  const dragEnd = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (isDragging && !reseting) {
       const space = e.clientX - startPosition;
       if (space < -50) {
         nextSlide();
@@ -71,7 +72,6 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       setStartMousePosition(0);
     }
   };
-
 
   const handleResize = useCallback(() => {
     if (responsive) {
@@ -86,17 +86,17 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       }
     }
   }, [responsive]);
-
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    // const interval = setInterval(nextSlide, 5000);
     if(responsive) {
       window.addEventListener('resize', handleResize);
     }
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearInterval(interval);
+      // clearInterval(interval);
     };
   }, [items, animated, currentSlide, nextSlide, responsive, handleResize]);
-  return { items, nowPosition, startPosition, animated, reseting, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
+
+  return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
 };
 export default useSlide;
