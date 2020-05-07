@@ -8,53 +8,35 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   const [isDragging, setIsDragging] = useState(false);
   const [startPosition, setStartMousePosition] = useState(0);
   const [nowPosition, setMousePosition] = useState(0);
+  const [reseting, setResetting] = useState(false);
+
   const nextSlide = useCallback(() => {
     setAnimated(true);
-    if(items > 1) {
-      if (currentSlide > imgsLength - 2) {
-        setCurrentSlide(currentSlide + 1);
-        setTimeout(() => {
-          setAnimated(false);
-          setCurrentSlide(0);
-        }, 500);
-      } else {
-        setCurrentSlide(currentSlide + 1);
-      }
+    if (currentSlide > imgsLength - 2) {
+      setCurrentSlide(currentSlide + 1);
+      setResetting(true);
+      setTimeout(() => {
+        setAnimated(false);
+        setCurrentSlide(currentSlide + 1 - imgsLength);
+        setResetting(false);
+      }, 300);
     } else {
-      if (currentSlide > imgsLength - items - 1) {
-        setCurrentSlide(currentSlide + 1);
-        setTimeout(() => {
-          setAnimated(false);
-          setCurrentSlide(0);
-        }, 500);
-      } else {
-        setCurrentSlide(currentSlide + 1);
-      }
+      setCurrentSlide(currentSlide + 1);
     }
-  }, [currentSlide, imgsLength, items]);
+  }, [currentSlide, imgsLength]);
 
   const prevSlide = () => {
     setAnimated(true);
-    if(items > 1) {
-      if (currentSlide > 0) {
-        setCurrentSlide(currentSlide - 1);
-      } else {
-        setCurrentSlide(currentSlide - 1);
-        setTimeout(() => {
-          setAnimated(false);
-          setCurrentSlide(imgsLength - 1);
-        }, 500);
-      }
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
     } else {
-      if (currentSlide > 0) {
-        setCurrentSlide(currentSlide - 1);
-      } else {
-        setCurrentSlide(currentSlide - 1);
-        setTimeout(() => {
-          setAnimated(false);
-          setCurrentSlide(imgsLength - items);
-        }, 500);
-      }
+      setCurrentSlide(currentSlide - 1);
+      setResetting(true);
+      setTimeout(() => {
+        setAnimated(false);
+        setCurrentSlide(currentSlide + imgsLength - 1);
+        setResetting(false);
+      }, 300);
     }
   };
 
@@ -115,6 +97,6 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       clearInterval(interval);
     };
   }, [items, animated, currentSlide, nextSlide, responsive, handleResize]);
-  return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
+  return { items, nowPosition, startPosition, animated, reseting, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
 };
 export default useSlide;

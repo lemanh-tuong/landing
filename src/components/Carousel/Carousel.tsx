@@ -46,7 +46,7 @@ const Carousel = <ItemT extends any>({
   hasNav, hasDots, dotClass, navClass, classActive,
   margin = 30, responsive, itemShow = 2, fluid }: CarouselProps<ItemT>) => {
 
-  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
+  const { items, nowPosition, reseting, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
 
   const _renderNavSlide = () => {
     return (
@@ -122,7 +122,7 @@ const Carousel = <ItemT extends any>({
   }
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>
+      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={reseting ? undefined : dragStart} onMouseUp={reseting ? undefined : dragEnd} onMouseMove={reseting ? undefined : dragging}>
         <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
           {_renderLast()}
           {_renderSlide()}
