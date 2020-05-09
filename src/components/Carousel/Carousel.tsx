@@ -98,7 +98,6 @@ const Carousel = <ItemT extends any>({
     transform: `translate3d(calc(${-(currentSlide + 2) * (100 / items)}% + ${-(currentSlide + 2.5) * margin + nowPosition - startPosition}px), 0, 0)`,
   };
 
-  console.log(position);
   if (isBuilder) {
     return (
       <PopOverText onEdit={onEditable} component={

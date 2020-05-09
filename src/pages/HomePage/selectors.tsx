@@ -4,5 +4,6 @@ export const statusRequestHomePageSections = (state: AppState) => state.reducerH
 export const messageRequestHomePageSections = (state: AppState) => state.reducerHomePage.messageRequestaSections;
 export const nav = (state: AppState) => state.navReducer.navItems;
 export const logo = (state: AppState) => state.navReducer.logo;
+export const buttons = (state: AppState) => state.navReducer.buttons;
 export const statusRequestNav = (state: AppState) => state.navReducer.statusRequestNav;
 export const messageRequestNav = (state: AppState) => state.navReducer.messageRequestNav;

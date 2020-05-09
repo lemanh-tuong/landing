@@ -9,9 +9,9 @@ import thunkUploadFile from 'pages/ImageGalleryPage/thunks/thunkUploadFile/thunk
 import thunkChangeImgSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkChangeImgSlide2/thunkChangeImgSlide2';
 import thunkSaveAll from 'pages/SettingsPage/thunks/thunksSection/thunkSaveAll/thunkSaveAll';
 import thunkChangeImgSlide from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeImgSlide/thunkChangeImgSlide';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
+import { Redirect, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
@@ -21,10 +21,11 @@ import thunkChangeIconCard2 from './thunks/thunkChangeIconCard2/thunkChangeIconC
 import thunkChangeIconInCol from './thunks/thunkChangeIconInCol/thunkChangeIconInCol';
 import thunkChangeLogoImg from './thunks/thunkChangeLogoImg/thunkChangeLogoImg';
 
-type GetQueryType = 'type' | 'nowIndexSection' | 'nowIndexCard' | 'nowIndexSlide' | 'nowIndexRate' | 'multiple';
+// type GetQueryType = 'type' | 'nowIndexSection' | 'nowIndexCard' | 'nowIndexSlide' | 'nowIndexRate' | 'multiple';
 
 const ImageGalleryPage = () => {
-  const history = useHistory();
+  const location = useLocation();
+  const [param, setParam] = useState<any>({});
   // Selector
 
   // -Gallery
@@ -44,9 +45,6 @@ const ImageGalleryPage = () => {
   const statusUpload = useSelector(statusUploadFile);
   const messageUpload = useSelector(messageUploadFileFailure);
 
-  // Destructoring
-  const { type, nowIndexSection, nowIndexCard, nowIndexSlide, nowIndexRate, multiple } = getQuery<GetQueryType>(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'multiple']);
-
   // Dispatch
   const getImage = thunkGetImageGallery();
   const chooseImage = thunkChooseImage();
@@ -62,6 +60,7 @@ const ImageGalleryPage = () => {
 
   // Handle
   const handleChoose = (fieldName: string) => {
+    const { type, nowIndexSection, nowIndexCard, nowIndexSlide, nowIndexRate } = param;
     return (result: any) => {
       if (type === 'logoImg') {
         chooseLogoImg(result.imgSrc);
@@ -101,17 +100,25 @@ const ImageGalleryPage = () => {
       };
     }
   };
+
   const handleSaveAll = () => {
     save();
   };
 
   useMount(() => {
-    if (!!type) {
-      getImage(type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg');
-    }
+    setParam(() => {
+      const res = getQuery(location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'multiple']);
+      if (!!res.type) {
+        getImage(res.type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg');
+      }
+      return {
+        ...res
+      };
+    });
   });
 
   const _renderSwitch = () => {
+    const { type, multiple } = param;
     if (!!type) {
       const listImg = type === 'iconImg' ? icon
         : type === 'iconCard2' ? iconCard2

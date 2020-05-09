@@ -1,5 +1,5 @@
 import { breakpoint } from 'components/Carousel/Carousel';
-import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint) => {
   const [items, setItems] = useState(itemShow);
@@ -9,7 +9,6 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   const [startPosition, setStartMousePosition] = useState(0);
   const [nowPosition, setMousePosition] = useState(0);
   const [reseting, setResetting] = useState(false);
-  const CSS = useRef<CSSProperties>({});
   const nextSlide = useCallback(() => {
     setAnimated(true);
     if (currentSlide > imgsLength - 2) {

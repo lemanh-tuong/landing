@@ -7,6 +7,7 @@ export const messageRequestElements = (state: AppState) => state.settingMainCont
 //NavReducers
 export const logoImg = (state: AppState) => state.navReducer.logo;
 export const navItems = (state: AppState) => state.navReducer.navItems;
+export const buttons = (state: AppState) => state.navReducer.buttons;
 export const statusRequestNav = (state: AppState) => state.navReducer.statusRequestNav;
 export const messageRequestNav = (state: AppState) => state.navReducer.messageRequestNav;
 

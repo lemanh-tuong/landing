@@ -17,7 +17,7 @@ export interface RollSelectBaseProps<T> {
   renderItem: RenderItemRollSelect<T>;
   multiple?: boolean;
   onChoose?: OnChooseFunc<T>;
-  onResult?: (result: T | T[]) => void;
+  onResult: (result: T | T[]) => void;
 }
 
 const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = false, onChoose, onResult, renderItem }: RollSelectBaseProps<T>) => {

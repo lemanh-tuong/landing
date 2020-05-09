@@ -38,6 +38,7 @@ export interface RollSelectProps extends InputFileProps {
 
 
 const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading, statusUploadFile, messageUpload }) => {
+
   const _renderImg = (item: ImgType, orderSelected: number, onChange?: (result: any) => void) => {
     const { imgSrc } = item;
     const isSelected = orderSelected !== -1 ? true : false;
@@ -49,24 +50,26 @@ const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defa
       </div>
     );
   };
-
-  return (
-    <div className={`${width ? styles.rollSelectOptimize : styles.rollSelect}`}>
-      <div className={styles.galleryName}>{fieldName}</div>
-      <div className={`${styles.rollSelectList} ${styles[fieldName]}`}>
-        <RollSelectBase
-          data={statusLazy === 'success' ? listImg : initArray(ammountLazyLoading ?? 0)}
-          defaultSelected={defaultSelected}
-          multiple={multiple}
-          renderItem={(item, index, onChoose) => _renderImg(item, index, onChoose)}
-          onResult={onChoose}
-        />
+  if (onChoose) {
+    return (
+      <div className={`${width ? styles.rollSelectOptimize : styles.rollSelect}`}>
+        <div className={styles.galleryName}>{fieldName}</div>
+        <div className={`${styles.rollSelectList} ${styles[fieldName]}`}>
+          <RollSelectBase
+            data={statusLazy === 'success' ? listImg : initArray(ammountLazyLoading ?? 0)}
+            defaultSelected={defaultSelected}
+            multiple={multiple}
+            renderItem={(item, index, onChoose) => _renderImg(item, index, onChoose)}
+            onResult={onChoose}
+          />
+        </div>
+        <div className={styles.input}>
+          <InputFile onChange={onUploadFile} statusUploadFile={statusUploadFile} messageUpload={messageUpload} />
+        </div>
       </div>
-      <div className={styles.input}>
-        <InputFile onChange={onUploadFile} statusUploadFile={statusUploadFile} messageUpload={messageUpload} />
-      </div>
-    </div>
-  );
+    );
+  }
+  return null;
 };
 
 export default memo(RollSelect);

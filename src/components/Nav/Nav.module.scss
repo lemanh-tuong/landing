@@ -79,7 +79,6 @@
 }
 
 .isBuilder {
-  cursor: pointer;
   position: relative;
   transition: 0.3s all;
   &:before {
@@ -90,9 +89,6 @@
     right: -5px;
     bottom: -5px;
   }
-  &:hover {
-    transform: scale(0.9);
-  }
   &:hover:before {
     border: 2px solid;
   }
@@ -102,4 +98,32 @@
   cursor: pointer;
   padding: 5px 20px;
   border: 2px solid wheat;
+}
+
+.addNavItem {
+  margin: 0 20px;
+  padding: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #fff;
+  transition: 0.3s all;
+  border-radius: 20px;
+  border: 1px dashed #fff;
+  cursor: pointer;
+  position: relative;
+  z-index: 123123123;
+  &:hover {
+    transform: scale(0.8);
+  }
+}
+.addNavButton {
+  cursor: pointer;
+  position: relative!important;
+  z-index: 123123123!important;
+  border: 1px dashed #fff!important;
+  color: white!important;
+  transition: 0.3s all;
+  &:hover {
+    transform: scale(0.9)
+  }
 }

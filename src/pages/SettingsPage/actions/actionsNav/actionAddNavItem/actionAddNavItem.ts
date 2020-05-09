@@ -1,8 +1,9 @@
-import { NavItemType } from 'components/Nav/Nav';
+import { ButtonNav, NavItemType } from 'components/Nav/Nav';
 import { createAction } from 'utils/functions/reduxActions';
 
 export interface ActionAddNavItemPayload {
-  newItem: NavItemType;
+  type: 'buttons' | 'navItems';
+  newItem: NavItemType | ButtonNav;
   indexInsert: number;
 }
 

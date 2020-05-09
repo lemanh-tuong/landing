@@ -1,3 +1,18 @@
+.inner {
+  display: flex;
+}
+
+.listNavItems {
+  flex: 1 1;
+  width: 50%;
+  box-sizing: border-box;
+  padding-right: 20px;
+}
+.form {
+  flex: 1 1;
+  width: 50%;
+}
+
 .editNavItem {
   margin-bottom: 10px;
 }
