@@ -108,7 +108,7 @@ const FormEditButtonNav = () => {
               <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
                 <div className={styles.listNavItems}>
                   {buttonGroup.map((item, index) => _renderLabelLink(item, index))}
-                  {buttonGroup.length < 4 && _renderAddButton()}
+                  {buttonGroup.length < 2 && _renderAddButton()}
                 </div>
                 <div className={styles.form}>
                   {_renderSettingsBox()}

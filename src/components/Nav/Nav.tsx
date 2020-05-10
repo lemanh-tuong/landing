@@ -88,13 +88,6 @@ const Nav: FC<NavProps> = ({ logo, navItems, buttons, style, isBuilder, onShowPo
 
   // Logo
   const _renderLogo = () => {
-    if (isBuilder) {
-      return <PopOverText onEdit={onShowPopupEditLogo} component={
-        <div className={styles.logo} onClick={onShowPopupEditLogo} style={{ cursor: 'pointer' }}>
-          <img src={logo.imgSrc} alt="##" />
-        </div>
-      } />;
-    }
     return (
       <div className={styles.logo}>
         <Link to="/">
@@ -108,7 +101,7 @@ const Nav: FC<NavProps> = ({ logo, navItems, buttons, style, isBuilder, onShowPo
   const _renderButton = ({ type, backgroundColor, text, iconClass }: typeof buttons[0]) => {
     return (
       <Button type={type} backgroundColor={backgroundColor} key={uuidv4()}>
-        <i className={iconClass} style={{ marginRight: '7px' }}></i>
+        {iconClass && <i className={iconClass} style={{ marginRight: '7px' }}></i>}
         {text}
       </Button>
     );

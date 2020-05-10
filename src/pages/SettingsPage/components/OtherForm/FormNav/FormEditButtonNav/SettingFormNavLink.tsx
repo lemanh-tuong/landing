@@ -8,15 +8,10 @@ export interface SettingFormButtonProps extends ButtonNav {
   nowIndex: number;
 }
 
-const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, href, text, type, backgroundColor }) => {
-  const [isGradient, setIsGradient] = useState(false);
+const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, href, text, type }) => {
   const [typeHref, setTypeHref] = useState<TypeHref>('external');
 
   const changeInput = thunkChangeInputNav();
-
-  const handleGradient = (result: boolean) => {
-    setIsGradient(result);
-  };
 
   const handleTypeHref = (result: TypeHref) => {
     setTypeHref(result);
@@ -27,10 +22,7 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, hr
       if (fieldType === 'radio' && fieldName === 'Type Href') {
         handleTypeHref(result);
       }
-      if (fieldType === 'radio' && fieldName === 'isGradient') {
-        handleGradient(result);
-      }
-      if (fieldType === 'input' || fieldType === 'select') {
+      if (fieldType === 'input' || fieldType === 'select-button') {
         // Value of input
         changeInput({ fieldName: fieldName, value: result, nowIndex: nowIndex, type: type });
       }
@@ -116,26 +108,6 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, hr
             ],
             defaultSelect: type,
           },
-          {
-            fieldId: 'is-backgorund-button-nav',
-            fieldType: 'checkbox',
-            fieldName: 'isGradient',
-            defaultChecked: isGradient
-          },
-          {
-            fieldId: 'background-button-nav',
-            fieldName: 'backgroundColor',
-            fieldType: 'color-picker',
-            defaultColor: backgroundColor,
-            hidden: isGradient
-          },
-          {
-            fieldId: 'background-gradient-button-nav',
-            fieldName: 'backgroundColor',
-            fieldType: 'color-picker-gradient',
-            defaultColor: backgroundColor,
-            hidden: !isGradient
-          }
         ]}
         onChange={handleChangeForm('buttons')}
       />
