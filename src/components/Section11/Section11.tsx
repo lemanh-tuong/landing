@@ -18,19 +18,21 @@ export type Section11Props = {
   };
   hasDivider?: boolean;
   sectionId: string;
+} & SectionPatternBase
+  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>;
+
+export interface Section11PropsBuilder {
   isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
   onShowPopupEditDivider?: () => void;
   onShowPopupEditText?: () => void;
   onShowPopupEditImage?: () => void;
   onShowPopupEditIcon?: () => void;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>;
+}
 
-
-const Section11: FC<Section11Props> = ({
+const Section11: FC<Section11Props & Section11PropsBuilder> = ({
   isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditMainTitle, onShowPopupEditImage, onShowPopupEditIcon,
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
   imageSectionCol,

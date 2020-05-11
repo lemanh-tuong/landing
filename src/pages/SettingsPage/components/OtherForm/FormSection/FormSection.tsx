@@ -3,22 +3,20 @@ import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeSelect from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeSelect/thunkChangeSelect';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './FormSection.module.scss';
 
 export interface FormSectionProps {
   nowIndexSection: number;
   canReverseCol?: boolean;
-  canHasDivider?: boolean;
 }
 
-const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = false, canHasDivider = false }) => {
+const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = false }) => {
   const [isGradient, setIsGradient] = useState(false);
-  console.log(canHasDivider);
   //Selector
   const element = useSelector(sections)[nowIndexSection];
-
+  console.log(element);
   // Destructoring
   const { backgroundColor, animation, positionAnimation, reverse } = element;
 
@@ -43,7 +41,7 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = fa
     };
   };
 
-  const handleChangeAnimationForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
+  const handleChangeOptionSection = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'checkbox') {
         changeCheckBox({ checked: result, fieldName: fieldName, nowIndexSection: nowIndexSection });
@@ -55,18 +53,6 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = fa
     };
   };
 
-  const handleChangeReverse = ({ fieldName, fieldType }: OnChangeFuncArg) => {
-    return (result: any) => {
-      if (fieldType === 'checkbox') {
-        changeCheckBox({ checked: result, fieldName: fieldName, nowIndexSection: nowIndexSection });
-      }
-    };
-  };
-
-  useEffect(() => {
-
-  }, [isGradient]);
-
   return (
     <div className={styles.formSection}>
       <div className={styles.formContent}>
@@ -74,30 +60,7 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = fa
           <h2>Section Setting</h2>
         </div>
         <div className={styles.form}>
-          <Form
-            fields={[
-              {
-                fieldId: 'checkbox-toggle-color',
-                fieldName: 'isGradient',
-                fieldType: 'checkbox',
-                defaultChecked: isGradient,
-              },
-              {
-                fieldId: 'color-1',
-                fieldName: 'backgroundColor',
-                fieldType: 'color-picker',
-                defaultColor: backgroundColor,
-                hidden: !!isGradient
-              },
-              {
-                fieldId: 'gradient-1',
-                fieldName: 'backgroundColor',
-                fieldType: 'color-picker-gradient',
-                hidden: !isGradient
-              }
-            ]}
-            onChange={handleChangeBackgroundForm}
-          />
+
           <Form
             fields={[
               {
@@ -125,22 +88,41 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = fa
                     }
                   ]
                 }
+              },
+              {
+                fieldId: 'reserve-section',
+                fieldName: 'reverse',
+                fieldType: 'checkbox',
+                defaultChecked: reverse,
+                hidden: !canReverseCol
               }
             ]}
-            onChange={handleChangeAnimationForm}
+            onChange={handleChangeOptionSection}
           />
-          {canReverseCol ?
-            <Form
-              fields={[
-                {
-                  fieldId: 'canReverse-section',
-                  fieldName: 'reverse',
-                  fieldType: 'checkbox',
-                  defaultChecked: reverse
-                },
-              ]}
-              onChange={handleChangeReverse}
-            /> : null}
+          <Form
+            fields={[
+              {
+                fieldId: 'checkbox-toggle-color',
+                fieldName: 'isGradient',
+                fieldType: 'checkbox',
+                defaultChecked: isGradient,
+              },
+              {
+                fieldId: 'color-1',
+                fieldName: 'backgroundColor',
+                fieldType: 'color-picker',
+                defaultColor: backgroundColor,
+                hidden: !!isGradient
+              },
+              {
+                fieldId: 'gradient-1',
+                fieldName: 'backgroundColor',
+                fieldType: 'color-picker-gradient',
+                hidden: !isGradient
+              }
+            ]}
+            onChange={handleChangeBackgroundForm}
+          />
         </div>
       </div>
     </div>

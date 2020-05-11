@@ -1,13 +1,12 @@
 import { Button } from 'antd';
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
-import { SlideType } from 'components/MockUp/MockUp';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeTypeMockup from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeTypeMockup/thunkChangeTypeMockup';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import FormSlide from '../FormSlide/FormSlide';
+import { FormSlides } from '../FormSlides/FormSlides';
 import styles from './FormMockup.module.scss';
 
 export type FormMockUpField = FieldType;
@@ -19,9 +18,9 @@ export interface FormMockUpProps {
 export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
 
   // State;
-  const [nowTab, setTab] = useState<'general' | 'detail'>('general');
+  const [nowTab, setTab] = useState<'mockup' | 'slides'>('mockup');
 
-  const _handleChangeTab = (tabName: 'general' | 'detail') => {
+  const _handleChangeTab = (tabName: 'mockup' | 'slides') => {
     return () => setTab(tabName);
   };
 
@@ -32,7 +31,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { sliderImgs, typeMockUp } = element;
+  const { typeMockUp } = element;
 
   const handleChangeFormGeneral = ({ fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
@@ -47,12 +46,6 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
     return (
       <Form
         fields={[
-          {
-            fieldId: 1,
-            fieldName: 'timeSlider',
-            fieldType: 'input',
-            defaultValue: '1000',
-          },
           {
             fieldId: 2,
             fieldName: 'typeMockUp',
@@ -83,25 +76,24 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
 
   const _renderDetailSettings = () => {
     return (
-      <>
-        {sliderImgs?.map((slideProperty: SlideType, index: number) => <FormSlide slideProperty={slideProperty} key={`slide-${index}`} nowIndexSection={nowIndexSection} nowIndexSlide={index} />)}
-      </>
+      <FormSlides nowIndexSection={nowIndexSection} hasDotField={false} hasNavField={false} responsiveField={false} />
     );
   };
+
   return (
     <div className={styles.formMockup}>
       <div className={styles.formMockUpTop}>
-        <div className={`${styles.tabList} ${nowTab === 'general' ? styles.tab1 : styles.tab2}`}>
-          <div className={styles.tab} onClick={_handleChangeTab('general')}>
-            General Settings
+        <div className={`${styles.tabList} ${nowTab === 'mockup' ? styles.tab1 : styles.tab2}`}>
+          <div className={styles.tab} onClick={_handleChangeTab('mockup')}>
+            Mock Up Setting
           </div>
-          <div className={styles.tab} onClick={_handleChangeTab('detail')}>
-            Detail Settings
+          <div className={styles.tab} onClick={_handleChangeTab('slides')}>
+            Slides Setting
           </div>
         </div>
       </div>
       <div className={styles.formMockUpContent}>
-        {nowTab === 'general' ? _renderGeneralSettings() : _renderDetailSettings()}
+        {nowTab === 'mockup' ? _renderGeneralSettings() : _renderDetailSettings()}
       </div>
     </div>
   );

@@ -67,7 +67,7 @@ const Section2Editable: FC<Section2EditableProps> = ({
         <FormCard nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
     </div>
   );

@@ -13,17 +13,20 @@ export type Section3Props = {
   hasDivider?: boolean;
   imageSectionCol: ImageProps;
   sectionId: string;
-  isBuilder?: boolean;
-  onShowPopupEditTitle?: () => void;
-  onShowPopupEditDivider?: () => void;
-  onShowPopupEditText?: () => void;
-  onShowPopupEditImage?: () => void;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>
   & Omit<TextProps, 'text' | 'isBuilder' | 'onEditable'>;
 
-const Section3: FC<Section3Props> = ({
+export interface Section3PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditTitle?: () => void;
+  onShowPopupEditDivider?: () => void;
+  onShowPopupEditText?: () => void;
+  onShowPopupEditImage?: () => void;
+}
+
+const Section3: FC<Section3Props & Section3PropsBuilder> = ({
   isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditTitle, onShowPopupEditImage, animation, positionAnimation,
   backgroundColor, backgroundImage,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,

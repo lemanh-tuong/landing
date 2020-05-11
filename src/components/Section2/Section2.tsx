@@ -5,7 +5,7 @@ import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styles from './Section2.module.scss';
 
 export interface Section2Option extends SectionPatternBase {
@@ -17,23 +17,26 @@ export type Section2Props = {
   sectionId: string;
   slider?: boolean;
   renderItem?: (item: CardProps) => ReactNode;
-  isBuilder?: boolean;
-  onShowPopupEditTitle?: () => void;
-  onShowPopupEditCard?: (nowIndexCard: number) => void;
-  onAddCard?: (nowIndexCard: number) => void;
-  onDeleteCard?: (nowIndexCard: number) => void;
 } & Section2Option
   & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Pick<CardProps, 'onEditable' | 'isBuilder'>
   & Omit<CarouselOptions, 'sliderImgs' | 'onEditable' | 'isBuilder'>;
 
+export interface Section2PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditTitle?: () => void;
+  onShowPopupEditCard?: (nowIndexCard: number) => void;
+  onAddCard?: (nowIndexCard: number) => void;
+  onDeleteCard?: (nowIndexCard: number) => void;
+}
 
-const Section2 = ({
+
+const Section2: FC<Section2Props & Section2PropsBuilder> = ({
   onShowPopupEditTitle, onShowPopupEditCard, onAddCard, onDeleteCard, isBuilder, animation, positionAnimation, backgroundColor, backgroundImage,
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, classMainTitle, styleMainTitle,
   cards, slider, hasDots, hasNav, dotClass, navClass, itemShow, responsive,
   renderItem,
-  darkMode }: Section2Props) => {
+  darkMode }) => {
 
   const _handleAddCard = (nowIndexCard: number) => {
     return () => onAddCard?.(nowIndexCard);

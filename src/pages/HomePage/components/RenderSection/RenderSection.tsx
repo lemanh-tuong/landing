@@ -42,7 +42,7 @@ const RenderSection = (option: Option) => {
     switch (sectionName) {
       case 'Section 1':
         return <Section1
-          animation={animation}
+          animation={animation} reverse={reverse}
           positionAnimation={positionAnimation}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
@@ -91,7 +91,7 @@ const RenderSection = (option: Option) => {
         />;
       case 'Section 3':
         return <Section3
-          animation={animation}
+          animation={animation} reverse={reverse}
           positionAnimation={positionAnimation}
           backgroundImage={backgroundImage}
           backgroundColor={backgroundColor}
@@ -190,7 +190,7 @@ const RenderSection = (option: Option) => {
         />;
       case 'Section 8':
         return <Section8
-          sectionId={sectionId}
+          sectionId={sectionId} reverse={reverse}
           animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
           card2s={card2s ?? [] as any}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
@@ -201,7 +201,7 @@ const RenderSection = (option: Option) => {
       case 'Section 9':
         return <Section9
           animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage}
-          sectionId={sectionId}
+          sectionId={sectionId} reverse={reverse}
           darkMode={darkMode}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor}
@@ -221,13 +221,13 @@ const RenderSection = (option: Option) => {
         />;
       case 'Section 11':
         return <Section11
-          sectionId={sectionId}
+          sectionId={sectionId} reverse={reverse}
           animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor}
           imageSectionCol={imageSectionCol ?? { imgSrc: sectionImg1 }}
           text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-          reverse={reverse} iconImg={iconImg ?? { imgSrc: iconNotifycation }}
+          iconImg={iconImg ?? { imgSrc: iconNotifycation }}
         />;
       case 'Section 12':
         return <Section12

@@ -78,7 +78,7 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
         <FormImage nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
     </>
   );

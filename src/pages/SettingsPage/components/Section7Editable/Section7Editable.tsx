@@ -29,7 +29,6 @@ const rateDefault: RateProps = {
 
 const Section7Editable: FC<Section7EditableProps> = ({
   nowIndexSection, sectionId,
-  isBuilder,
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
   mainTitle, alignMainTitle, colorMainTitle, styleMainTitle, classMainTitle, fontSizeMainTitle,
   text, alignText, colorText, styleText, classText, fontSizeText,
@@ -69,7 +68,7 @@ const Section7Editable: FC<Section7EditableProps> = ({
       <Section7
         darkMode={darkMode}
         typeButton={typeButton}
-        isBuilder={isBuilder} sectionId={sectionId}
+        isBuilder={true} sectionId={sectionId}
         onShowPopupEditTitle={handleShowPopupEditTitle}
         onShowPopUpEditText={handleShowPopUpEditText}
         onShowPopUpEditRate={handleShowPopUpEditRate}

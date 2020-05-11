@@ -26,13 +26,16 @@ export interface NavProps {
   navItems: NavItemType[];
   buttons: ButtonNav[];
   style?: CSSProperties;
+}
+
+export interface NavPropsBuilder {
   isBuilder?: boolean;
   onShowPopupEditLogo?: () => void;
   onShowpopupEditNav?: () => void;
   onAddItem?: (item: NavItemType | ButtonNav, type: 'buttons' | 'navItems') => void;
 }
 
-const Nav: FC<NavProps> = ({ logo, navItems, buttons, style, isBuilder, onShowPopupEditLogo, onShowpopupEditNav, onAddItem }) => {
+const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, isBuilder, onShowPopupEditLogo, onShowpopupEditNav, onAddItem }) => {
   const [active, setActive] = useState(true);
 
   const handleAddItem = (type: 'buttons' | 'navItems') => {

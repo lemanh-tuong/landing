@@ -19,24 +19,28 @@ interface ButtonType {
 
 export type Secction9Props = {
   sectionId: string;
-  isBuilder?: boolean;
+  reverse?: boolean;
   hasDivider?: boolean;
   buttons: ButtonType[];
   iphoneParams: string;
   androidParams: string;
+} & SectionPatternBase
+  & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
+  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
+  & Omit<DividerProps, 'onEditable' | 'isBuilder'>;
+
+export interface Section9PropsBuilder {
+  isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
   onShowPopupEditText?: () => void;
   onShowPopupEditDivider?: () => void;
   onShowPopupEditButton?: (indexBtn: number) => void;
   onShowPopupEditIphoneSimulator?: () => void;
   onShowPopupEditAndroidSimulator?: () => void;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
-  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
-  & Omit<DividerProps, 'onEditable' | 'isBuilder'>;
+}
 
-const Section9: FC<Secction9Props> = ({
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
+const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
+  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
   isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditMainTitle, onShowPopupEditButton, onShowPopupEditIphoneSimulator, onShowPopupEditAndroidSimulator,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   hasDivider, dividerColor,
@@ -91,7 +95,7 @@ const Section9: FC<Secction9Props> = ({
   return (
     <Section animation={animation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} positionAnimation={positionAnimation}>
       <Row>
-        <Col cols={[12, 12, 5]}>
+        <Col cols={[12, 12, 5]} className={`${reverse ? 'order-last' : ''}`}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
             {<MainTitle
               mainTitle={mainTitle ?? ''}
@@ -121,7 +125,7 @@ const Section9: FC<Secction9Props> = ({
             </ButtonGroup>
           </div>
         </Col>
-        <Col cols={[12, 12, 7]}>
+        <Col cols={[12, 12, 7]} className={`${reverse ? 'order-first' : ''}`}>
           <div className={styles.phones}>
             <div className={`${styles.phone} ${styles.iphone}`}>
               <Iphone params={iphoneParams} isBuilder={isBuilder} onEditable={onShowPopupEditIphoneSimulator} />

@@ -24,24 +24,27 @@ export type Section1Props = {
   colorTextButton?: ButtonProps['color'];
   typeButton?: ButtonProps['type'];
   sectionId: string;
-  isBuilder?: boolean;
-  onShowPopupEditMainTitle?: () => void;
-  onShowPopupEditText?: () => void;
-  onShowPopupEditButton?: () => void;
-  onShowPopupEditDivider?: () => void;
-  onShowPopupEditMockUp?: () => void;
 } & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
   & Omit<DividerProps, 'onEditable' | 'isBuilder'>
   & Omit<MockUpProps, 'onEditable' | 'isBuilder'>
   & Section1Option;
 
-const Section1: FC<Section1Props> = ({
+export interface Section1PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditMainTitle?: () => void;
+  onShowPopupEditText?: () => void;
+  onShowPopupEditButton?: () => void;
+  onShowPopupEditDivider?: () => void;
+  onShowPopupEditMockUp?: () => void;
+}
+
+const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditButton, onShowPopupEditDivider, onShowPopupEditMockUp, darkMode, reverse, animation, positionAnimation, backgroundColor,
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor,
-  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, itemShow, responsive,
+  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, fluid, classActive,
   textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton, typeButton
 }) => {
 
@@ -49,8 +52,8 @@ const Section1: FC<Section1Props> = ({
     return <MockUp
       isBuider={isBuilder} onEditable={onShowPopupEditMockUp}
       styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      sliderImgs={sliderImgs} slider={slider} margin={margin} itemShow={itemShow} responsive={responsive}
-      navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots}
+      sliderImgs={sliderImgs} slider={slider} margin={margin}
+      navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots} fluid={fluid} classActive={classActive}
     />;
   };
 

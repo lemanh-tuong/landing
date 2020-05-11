@@ -8,12 +8,15 @@ export type Section12Props = {
   sliderSection: Section3Props[];
   sectionId: string;
   darkMode?: boolean;
+} & SectionPatternBase
+  & Omit<CarouselProps<Section3Props>, 'isBuilder' | 'onEditable' | 'sliderImgs'>;
+
+export interface Section12PropsBuilder {
   isBuilder?: boolean;
   onShowPopUpEditSlide?: () => void;
-} & SectionPatternBase
-  & Omit<CarouselProps<Section3Props>, 'sliderImgs'>;
+}
 
-const Section12: FC<Section12Props> = ({
+const Section12: FC<Section12Props & Section12PropsBuilder> = ({
   animation, backgroundColor, positionAnimation, backgroundImage,
   sliderSection, itemShow = 1, fluid, margin = 0, hasNav, dotClass, navClass, isBuilder, onShowPopUpEditSlide
 }) => {

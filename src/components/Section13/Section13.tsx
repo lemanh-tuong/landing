@@ -11,20 +11,23 @@ interface TypeSlideSection13 {
 export type Section13Props = {
   sectionId: string;
   sliderImgs: TypeSlideSection13[];
-  isBuilder?: boolean;
-  onShowPopupEditMainTitle?: () => void;
-  onShowPopupEditText?: () => void;
-  onShowPopupEditMockUp?: () => void;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<MockUpProps, 'isBuilder' | 'onEditable'>>;
 
-const Section13: FC<Section13Props> = ({
+export interface Section13PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditMainTitle?: () => void;
+  onShowPopupEditText?: () => void;
+  onShowPopupEditMockUp?: () => void;
+}
+
+const Section13: FC<Section13Props & Section13PropsBuilder> = ({
   isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditMockUp,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  slider, sliderImgs, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
+  slider, sliderImgs, dotClass, hasDots, hasNav, navClass, margin, fluid,
   styleMockUp, typeMockUp, classMockUp,
   backgroundColor, backgroundImage, darkMode, animation, positionAnimation
 }) => {
@@ -33,7 +36,7 @@ const Section13: FC<Section13Props> = ({
     return <MockUp
       isBuider={isBuilder} onEditable={onShowPopupEditMockUp}
       styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      sliderImgs={sliderImgs} slider={slider} margin={margin} itemShow={itemShow} responsive={responsive}
+      sliderImgs={sliderImgs} slider={slider} margin={margin}
       navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots}
       fluid={fluid}
     />;

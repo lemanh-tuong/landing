@@ -70,10 +70,10 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`slides-${sectionId}`}>
-        <FormSlides nowIndexSection={nowIndexSection} />
+        <FormSlides nowIndexSection={nowIndexSection} hasNavField={true} hasDotField={true} responsiveField={true} />
       </PopUp>
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
     </>
   );

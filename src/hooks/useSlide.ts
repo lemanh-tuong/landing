@@ -2,7 +2,7 @@ import { breakpoint } from 'components/Carousel/Carousel';
 import { useCallback, useEffect, useState } from 'react';
 
 const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint) => {
-  const [items, setItems] = useState(itemShow);
+  const [items, setItems] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animated, setAnimated] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -85,14 +85,19 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       }
     }
   }, [responsive]);
+
   useEffect(() => {
-    // const interval = setInterval(nextSlide, 5000);
+    setItems(itemShow);
+  }, [itemShow]);
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
     if(responsive) {
       window.addEventListener('resize', handleResize);
     }
     return () => {
       window.removeEventListener('resize', handleResize);
-      // clearInterval(interval);
+      clearInterval(interval);
     };
   }, [items, animated, currentSlide, nextSlide, responsive, handleResize]);
 

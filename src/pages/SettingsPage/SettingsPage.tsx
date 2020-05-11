@@ -153,7 +153,7 @@ const SettingsPage = () => {
                 {sectionDragging === indexSection ? null : <ButtonFunc onStartDrag={handleSetStartDrag} nowIndexSection={indexSection} elementProperty={element} />}
               </div>
               <div className={`content ${sectionDragging === indexSection ? styles.dragging : null}`}>
-                {RenderSection({ option: element, isBuilder: true, nowIndexSection: indexSection })}
+                {RenderSection({ option: element, nowIndexSection: indexSection })}
               </div>
               <div className={styles.sectionBottom}>
                 {sectionDragging === indexSection ? null :

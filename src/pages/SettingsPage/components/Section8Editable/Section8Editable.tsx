@@ -15,8 +15,7 @@ export type Section8EditableProps = {
 
 const Section8Editable: FC<Section8EditableProps> = ({
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage,
-  isBuilder,
+  animation, positionAnimation, backgroundColor, backgroundImage, reverse,
   card2s,
   mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
   hasDivider, dividerColor,
@@ -47,7 +46,8 @@ const Section8Editable: FC<Section8EditableProps> = ({
       <Section8
         sectionId={sectionId}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
-        isBuilder={isBuilder} onShowPopupEditButton={handleShowPopUpEditButton} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        reverse={reverse}
+        isBuilder={true} onShowPopupEditButton={handleShowPopUpEditButton} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
         onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditCard={handleShowPopupEditCard}
         card2s={card2s}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
@@ -71,7 +71,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
         <FormCard2 nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
       </PopUp>
     </div>
   );

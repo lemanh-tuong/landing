@@ -21,7 +21,7 @@ export interface SlideType {
   videoUrl?: string;
 }
 
-export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>, 'responsive, itemShow'> {
+export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>, 'isBuilder' | 'onEditable' | 'responsive' | 'itemShow'> {
   isBuider?: boolean;
   onEditable?: () => void;
 }
@@ -29,7 +29,7 @@ export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>
 const MockUp: FC<MockUpProps> = ({
   onEditable, isBuider,
   sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp,
-  dotClass, navClass, hasDots, hasNav, margin, fluid }
+  dotClass, navClass, hasDots, hasNav, margin, fluid, classActive }
 ) => {
 
   const _renderPlayBtn = (videoUrl: string) => {
@@ -57,6 +57,7 @@ const MockUp: FC<MockUpProps> = ({
         hasNav={hasNav}
         sliderImgs={sliderImgs}
         itemShow={1}
+        classActive={classActive}
         fluid={fluid}
         renderItem={({ imgSrc, videoUrl, hasVideo }) => {
           return (

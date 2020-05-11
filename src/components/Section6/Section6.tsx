@@ -13,14 +13,17 @@ export type Section6Props = {
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
-  isBuilder?: boolean;
   sectionId: string;
-  onShowPopupEditTitle?: () => void;
-  onShowPopupEditButton?: () => void;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>;
 
-const Section6: FC<Section6Props> = ({
+export interface Section6PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditTitle?: () => void;
+  onShowPopupEditButton?: () => void;
+}
+
+const Section6: FC<Section6Props & Section6PropsBuilder> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditButton, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   textButton, hrefButton, styleButton, backgroundButton, colorTextButton, typeButton,

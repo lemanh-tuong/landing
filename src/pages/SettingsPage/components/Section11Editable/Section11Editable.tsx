@@ -14,7 +14,7 @@ export type Section11EditableProps = {
 
 const Section11Editable: FC<Section11EditableProps> = ({
   nowIndexSection,
-  sectionId, isBuilder,
+  sectionId,
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
   imageSectionCol,
   iconImg,
@@ -46,7 +46,7 @@ const Section11Editable: FC<Section11EditableProps> = ({
     <div className="Section11Editable">
       <Section11
         sectionId={sectionId}
-        isBuilder={isBuilder} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        isBuilder={true} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
         onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditImage={handleShowPopUpEditImage} onShowPopupEditIcon={handleShowPopUpEditIcon}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}

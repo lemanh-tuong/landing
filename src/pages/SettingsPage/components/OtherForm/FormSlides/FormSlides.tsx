@@ -15,9 +15,12 @@ export type FormSlides = FieldType;
 
 export interface FormSlidesProps {
   nowIndexSection: number;
+  hasNavField: boolean;
+  hasDotField: boolean;
+  responsiveField: boolean;
 }
 
-export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
+export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, hasDotField, responsiveField }) => {
 
   // State;
   const [nowTab, setTab] = useState<'general' | 'detail'>('general');
@@ -55,6 +58,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
             fieldName: 'hasNav',
             fieldType: 'checkbox',
             defaultChecked: hasNav,
+            hidden: !hasNavField
           },
           {
             fieldId: 2,
@@ -68,6 +72,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection }) => {
             fieldName: 'hasDots',
             fieldType: 'checkbox',
             defaultChecked: hasDots,
+            hidden: !hasDotField
           },
           {
             fieldId: 4,

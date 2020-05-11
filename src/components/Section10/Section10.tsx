@@ -18,18 +18,21 @@ export type Section10Props = {
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
+} & SectionPatternBase
+  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>;
+
+export interface Section10PropsBuilder {
   isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
   onShowPopupEditDivider?: () => void;
   onShowPopupEditImage?: () => void;
   onShowPopupEditText?: () => void;
   onShowPopupEditButton?: () => void;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>;
+}
 
-const Section10: FC<Section10Props> = ({
+const Section10: FC<Section10Props & Section10PropsBuilder> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, style, className, darkMode,
   isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditImage, onShowPopupEditButton, onShowPopupEditDivider,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,

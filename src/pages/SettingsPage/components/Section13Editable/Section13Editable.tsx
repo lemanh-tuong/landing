@@ -12,7 +12,7 @@ export type Section13EditableProps = {
 
 const Section13Editable: FC<Section13EditableProps> = ({
   nowIndexSection,
-  sectionId, isBuilder,
+  sectionId,
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   text, alignText, colorText, fontSizeText, classText, styleText,
@@ -32,7 +32,7 @@ const Section13Editable: FC<Section13EditableProps> = ({
   return (
     <div className="Section13Editable">
       <Section13
-        isBuilder={isBuilder} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle} onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditMockUp={handleShowPopUpEditMockUp}
+        isBuilder={true} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle} onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditMockUp={handleShowPopUpEditMockUp}
         sectionId={sectionId}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         typeMockUp={typeMockUp}
@@ -41,7 +41,7 @@ const Section13Editable: FC<Section13EditableProps> = ({
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
       />
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
       <PopUp id={`mainTitle-${sectionId}`}>
         <FormMainTitle nowIndexSection={nowIndexSection} />

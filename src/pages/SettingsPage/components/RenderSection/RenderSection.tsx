@@ -25,10 +25,9 @@ import Section9Editable from '../Section9Editable/Section9Editable';
 export interface RenderSectionArg {
   option: Option;
   nowIndexSection: number;
-  isBuilder?: boolean;
 }
 
-const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg) => {
+const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
   const {
     backgroundColor, backgroundImage, animation, positionAnimation, darkMode, reverse,
     sectionName, sectionId,
@@ -36,7 +35,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
     cards, slider, hasDivider, dividerColor,
-    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive,
+    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton,
     typeMockUp,
     rateList,
@@ -85,12 +84,14 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
             }
           ]}
           margin={0}
+          classActive={classActive}
+          fluid={fluid} hasDots={hasDots} hasNav={hasNav} dotClass={dotClass} navClass={navClass}
+          reverse={reverse}
           textButton={textButton}
           styleButton={styleButton}
           hrefButton={hrefButton}
           backgroundButton={backgroundButton}
           colorTextButton={colorTextButton}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 2':
@@ -108,7 +109,6 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           fontSizeMainTitle={fontSizeMainTitle}
           styleMainTitle={styleMainTitle}
           cards={cards ? cards : []}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 3':
@@ -134,7 +134,6 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           styleText={styleText}
           hasDivider={hasDivider}
           dividerColor={dividerColor ?? '#f06292'}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 4':
@@ -164,7 +163,6 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           styleText={styleText}
           classText={classText}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 5':
@@ -188,6 +186,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           styleText={styleText}
           fontSizeText={fontSizeText}
           sliderImgs={sliderImgs}
+          responsive={responsive}
           fluid={fluid}
           margin={margin}
           itemShow={itemShow}
@@ -195,7 +194,6 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           navClass={navClass}
           hasDots={hasDots}
           dotClass={dotClass}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 6':
@@ -218,7 +216,6 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           textButton={textButton}
           styleButton={styleButton}
           nowIndexSection={nowIndexSection}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 7':
@@ -248,25 +245,23 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           textButton={textButton}
           typeButton={typeButton}
           nowIndexSection={nowIndexSection}
-          isBuilder={isBuilder}
           sectionId={sectionId}
         />;
       case 'Section 8':
         return <Section8Editable
           nowIndexSection={nowIndexSection}
-          sectionId={sectionId}
+          sectionId={sectionId} reverse={reverse}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           card2s={card2s ?? [] as any}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
-          isBuilder={isBuilder}
           backgroundButton={backgroundButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
         />;
       case 'Section 9':
         return <Section9Editable
           nowIndexSection={nowIndexSection}
-          sectionId={sectionId}
+          sectionId={sectionId} reverse={reverse}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor}
@@ -274,12 +269,11 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
           buttons={buttons ?? []}
           androidParams={androidParams ?? ''}
           iphoneParams={iphoneParams ?? ''}
-          isBuilder={isBuilder}
         />;
       case 'Section 10':
         return <Section10Editable
           nowIndexSection={nowIndexSection}
-          sectionId={sectionId} isBuilder={isBuilder}
+          sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor}
@@ -290,8 +284,8 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
       case 'Section 11':
         return <Section11Editable
           nowIndexSection={nowIndexSection}
-          sectionId={sectionId} isBuilder={isBuilder}
-          backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode} reverse={reverse}
+          sectionId={sectionId} reverse={reverse}
+          backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           hasDivider={hasDivider} dividerColor={dividerColor}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           iconImg={iconImg ?? { imgSrc: iconNotifycation }}
@@ -301,7 +295,7 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
       case 'Section 12':
         return <Section12Editable
           nowIndexSection={nowIndexSection}
-          sectionId={sectionId} isBuilder={isBuilder}
+          sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
           backgroundImage={backgroundImage} darkMode={darkMode}
           sliderSection={sliderSection ?? []}
@@ -311,12 +305,12 @@ const RenderSection = ({ option, nowIndexSection, isBuilder }: RenderSectionArg)
       case 'Section 13':
         return <Section13Editable
           nowIndexSection={nowIndexSection}
-          sectionId={sectionId} isBuilder={isBuilder}
+          sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
           backgroundImage={backgroundImage} darkMode={darkMode}
           typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []}
           hasNav={hasNav} navClass={navClass} hasDots={hasDots} dotClass={dotClass} classActive={classActive}
-          fluid={fluid} itemShow={itemShow} margin={margin}
+          fluid={fluid} margin={margin}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
         />;

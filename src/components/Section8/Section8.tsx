@@ -13,6 +13,7 @@ import styles from './Section8.module.scss';
 
 export type Section8Props = {
   sectionId: string;
+  reverse?: boolean;
   textButton?: ButtonProps['text'];
   hrefButton?: ButtonProps['href'];
   backgroundButton?: ButtonProps['backgroundColor'];
@@ -21,19 +22,22 @@ export type Section8Props = {
   typeButton?: ButtonProps['type'];
   card2s: [CardProps, CardProps, CardProps];
   hasDivider?: boolean;
+} & SectionPatternBase
+  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
+  & Omit<DividerProps, 'isBuilder' | 'onEditable'>
+  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>;
+
+export interface Section8PropsBuilder {
   isBuilder?: boolean;
   onShowPopupEditMainTitle?: () => void;
   onShowPopupEditText?: () => void;
   onShowPopupEditDivider?: () => void;
   onShowPopupEditButton?: () => void;
   onShowPopupEditCard?: (nowIndexCard: number) => void;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Omit<DividerProps, 'isBuilder' | 'onEditable'>
-  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>;
+}
 
-const Section8: FC<Section8Props> = ({
-  animation, positionAnimation, backgroundImage, backgroundColor, darkMode,
+const Section8: FC<Section8Props & Section8PropsBuilder> = ({
+  animation, positionAnimation, backgroundImage, backgroundColor, darkMode, reverse,
   isBuilder, onShowPopupEditCard, onShowPopupEditMainTitle, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditButton,
   card2s,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
@@ -49,7 +53,7 @@ const Section8: FC<Section8Props> = ({
   return (
     <Section animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage}>
       <Row>
-        <Col cols={[12, 12, 7]}>
+        <Col cols={[12, 12, 7]} className={`${reverse ? 'order-last' : ''}`}>
           <Row>
             <Col cols={[12, 6, 6]} className={styles.contentCenter}>
               {card2s && <Card hasIcon={true} {...card2s[0]} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(0)} />}
@@ -59,7 +63,7 @@ const Section8: FC<Section8Props> = ({
             </Col>
           </Row>
         </Col>
-        <Col cols={[12, 12, 5]}>
+        <Col cols={[12, 12, 5]} className={`${reverse ? 'order-first' : ''}`}>
           <div className={styles.contentCenter}>
             {<MainTitle
               mainTitle={mainTitle ?? ''}

@@ -15,8 +15,7 @@ export type Section9EditableProps = {
 
 const Section9Editable: FC<Section9EditableProps> = ({
   nowIndexSection,
-  animation, positionAnimation, backgroundColor, backgroundImage, sectionId,
-  isBuilder,
+  animation, positionAnimation, backgroundColor, backgroundImage, sectionId, reverse,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   hasDivider, dividerColor,
   text, alignText, colorText, fontSizeText, classText, styleText,
@@ -50,8 +49,8 @@ const Section9Editable: FC<Section9EditableProps> = ({
     <div className="Section9Editable">
       <Section9
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage}
-        sectionId={sectionId}
-        isBuilder={isBuilder} onShowPopupEditButton={handleShowPopupEditButton}
+        sectionId={sectionId} reverse={reverse}
+        isBuilder={true} onShowPopupEditButton={handleShowPopupEditButton}
         onShowPopupEditMainTitle={handleShowPopUpEditMainTitle} onShowPopupEditText={handleShowPopUpEditText}
         onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditIphoneSimulator={handleShowPopUpEditIphoneSimulator} onShowPopupEditAndroidSimulator={handleShowPopUpEditAndroidSimulator}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
@@ -61,7 +60,7 @@ const Section9Editable: FC<Section9EditableProps> = ({
         iphoneParams={iphoneParams} androidParams={androidParams}
       />
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
       </PopUp>
       <PopUp id={`mainTitle-${sectionId}`}>
         <FormMainTitle nowIndexSection={nowIndexSection} />

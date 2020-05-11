@@ -20,18 +20,21 @@ export type Section7Props = {
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
   rateList: RateProps[];
-  isBuilder?: boolean;
-  onShowPopupEditTitle?: () => void;
-  onShowPopUpEditText?: () => void;
-  onShowPopUpEditRate?: (nowIndexRate: number) => void;
-  onShowPopUpEditButton?: () => void;
   onAddRate?: (nowIndexRate: number) => void;
   onDeleteRate?: (nowIndexRate: number) => void;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>;
 
-const Section7: FC<Section7Props> = ({
+export interface Section7PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditTitle?: () => void;
+  onShowPopUpEditText?: () => void;
+  onShowPopUpEditRate?: (nowIndexRate: number) => void;
+  onShowPopUpEditButton?: () => void;
+}
+
+const Section7: FC<Section7Props & Section7PropsBuilder> = ({
   animation, positionAnimation, backgroundImage, backgroundColor, className, style, darkMode,
   isBuilder, onShowPopupEditTitle, onShowPopUpEditRate, onShowPopUpEditText, onShowPopUpEditButton, onAddRate, onDeleteRate,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,

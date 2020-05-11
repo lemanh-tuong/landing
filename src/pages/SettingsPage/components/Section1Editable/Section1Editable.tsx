@@ -14,7 +14,7 @@ export interface Section1EditableProps extends Section1Props {
 }
 
 const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
-  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation,
+  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse,
   mainTitle, alignMainTitle, colorMainTitle,
   hasDivider, dividerColor,
   text, alignText, colorText,
@@ -46,7 +46,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
   return (
     <>
       <Section1
-        animation={animation}
+        animation={animation} reverse={reverse}
         positionAnimation={positionAnimation}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
@@ -104,7 +104,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         <FormMockUp nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`section-${sectionId}`}>
-        <FormSection nowIndexSection={nowIndexSection} />
+        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
       </PopUp>
     </>
   );

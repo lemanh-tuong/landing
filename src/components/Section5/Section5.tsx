@@ -15,17 +15,20 @@ export interface TypeSlideSection5 {
 export type Section5Props = {
   sliderImgs?: TypeSlideSection5[];
   slider?: boolean;
-  isBuilder?: boolean;
   sectionId: string;
-  onShowPopupEditTitle?: () => void;
-  onShowPopupEditText?: () => void;
-  onShowPopupEditSlides?: () => void;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
   & Omit<CarouselProps<TypeSlideSection5>, 'sliderImgs' | 'isBuilder' | 'onEditable'>;
 
-const Section5: FC<Section5Props> = ({
+export interface Section5PropsBuilder {
+  isBuilder?: boolean;
+  onShowPopupEditTitle?: () => void;
+  onShowPopupEditText?: () => void;
+  onShowPopupEditSlides?: () => void;
+}
+
+const Section5: FC<Section5Props & Section5PropsBuilder> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditSlides, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
