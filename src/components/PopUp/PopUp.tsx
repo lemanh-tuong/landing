@@ -1,3 +1,5 @@
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
 import React, { CSSProperties, PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './PopUp.module.scss';
@@ -92,11 +94,9 @@ class PopUp extends PureComponent<PopUpProps> {
       return null;
     }
     return createPortal(<div className={styles.popUp}>
-      <div className={styles.overlay} onClick={this.handleHide} />
-      <div className={styles.closeBtn} onClick={this.handleHide} >
-        <button className={styles.btn}>Close</button>
-      </div>
-      <div className={styles.content} style={style}>{children}</div>
+      <Modal centered visible={visible} closeIcon={<i></i>} onOk={this.handleHide} onCancel={this.handleHide} className={styles.content}>
+        {children}
+      </Modal>
     </div>, body as Element);
   }
 }
