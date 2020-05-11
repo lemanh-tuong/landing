@@ -13,7 +13,7 @@ const Section6Editable: FC<Section6EditableProps & Section6Props> = ({ nowIndexS
   sectionId, darkMode,
   backgroundColor, backgroundImage, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, classMainTitle, styleMainTitle, fontSizeMainTitle,
-  textButton, hrefButton, styleButton, backgroundButton, colorTextButton, typeButton }) => {
+  textButton, hrefButton, styleButton, backgroundButton, colorTextButton, typeButton, sizeButton }) => {
 
   const handleShowPopupEditButton = () => {
     PopUp.show(`button-${sectionId}`)();
@@ -26,7 +26,7 @@ const Section6Editable: FC<Section6EditableProps & Section6Props> = ({ nowIndexS
   return (
     <>
       <Section6
-        typeButton={typeButton}
+        typeButton={typeButton} sizeButton={sizeButton}
         backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation} isBuilder={true}
         mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
         textButton={textButton} hrefButton={hrefButton} colorTextButton={colorTextButton} styleButton={styleButton} backgroundButton={backgroundButton}

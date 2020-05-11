@@ -36,7 +36,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     imageSectionCol,
     cards, slider, hasDivider, dividerColor,
     sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive,
-    textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton,
+    textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
     rateList,
     card2s,
@@ -48,6 +48,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     switch (sectionName) {
       case 'Section 1':
         return <Section1Editable
+          sizeButton={sizeButton}
           nowIndexSection={nowIndexSection}
           typeButton={typeButton}
           darkMode={darkMode}
@@ -154,7 +155,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           textButton={textButton}
           colorTextButton={colorTextButton}
           hrefButton={hrefButton}
-          styleButton={styleButton}
+          styleButton={styleButton} sizeButton={sizeButton}
           typeButton={typeButton}
           text={text ?? ''}
           alignText={alignText}
@@ -214,7 +215,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           typeButton={typeButton}
           hrefButton={hrefButton}
           textButton={textButton}
-          styleButton={styleButton}
+          styleButton={styleButton} sizeButton={sizeButton}
           nowIndexSection={nowIndexSection}
           sectionId={sectionId}
         />;
@@ -243,13 +244,13 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           colorTextButton={colorTextButton}
           hrefButton={hrefButton}
           textButton={textButton}
-          typeButton={typeButton}
+          typeButton={typeButton} sizeButton={sizeButton}
           nowIndexSection={nowIndexSection}
           sectionId={sectionId}
         />;
       case 'Section 8':
         return <Section8Editable
-          nowIndexSection={nowIndexSection}
+          nowIndexSection={nowIndexSection} sizeButton={sizeButton}
           sectionId={sectionId} reverse={reverse}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           card2s={card2s ?? [] as any}
@@ -279,7 +280,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           hasDivider={hasDivider} dividerColor={dividerColor}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
-          backgroundButton={backgroundButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
+          backgroundButton={backgroundButton} sizeButton={sizeButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
         />;
       case 'Section 11':
         return <Section11Editable

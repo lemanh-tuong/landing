@@ -19,6 +19,7 @@ export type Section7Props = {
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
+  sizeButton?: ButtonProps['size'];
   rateList: RateProps[];
   onAddRate?: (nowIndexRate: number) => void;
   onDeleteRate?: (nowIndexRate: number) => void;
@@ -40,7 +41,7 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   text, colorText, alignText, fontSizeText, classText, styleText,
   rateList,
-  backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton
+  backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton, sizeButton
 
 }) => {
 
@@ -131,7 +132,7 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
       </Row>
       <ButtonGroup>
         <Button
-          type={typeButton}
+          type={typeButton} size={sizeButton}
           text={textButton}
           backgroundColor={backgroundButton}
           color={colorTextButton}

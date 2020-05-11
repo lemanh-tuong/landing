@@ -37,6 +37,12 @@ export interface NavPropsBuilder {
 
 const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, isBuilder, onShowPopupEditLogo, onShowpopupEditNav, onAddItem }) => {
   const [active, setActive] = useState(true);
+  const [show, setShow] = useState(false);
+
+  const handleShow = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    setShow(!show);
+  };
 
   const handleAddItem = (type: 'buttons' | 'navItems') => {
     return () => {
@@ -46,10 +52,11 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
   };
 
   // NAV ITEM
-  const _renderLink = ({ href, text, target }: NavItemType) => {
+  const _renderLink = ({ href, text, target }: NavItemType, isMobile?: boolean) => {
     if (isBuilder) {
       return (
         <a href="###" onClick={e => e.preventDefault()} className={`${styles.navLink} ${!!text ? null : styles.isBuilderEmpty}`}>
+          {isMobile ? <i className="fas fa-caret-right"></i> : null}
           {text}
         </a>
       );
@@ -57,6 +64,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     if (!!text && href.startsWith('/')) {
       return (
         <Link to={href} target={target} className={`${styles.navLink}`}>
+          {isMobile ? <i className="fas fa-caret-right"></i> : null}
           {text}
         </Link>
       );
@@ -64,6 +72,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     if (!!text) {
       return (
         <a href={href} target={target} className={styles.navLink}>
+          {isMobile ? <i className="fas fa-caret-right"></i> : null}
           {text}
         </a>
       );
@@ -71,10 +80,10 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     return null;
   };
 
-  const _renderNavItem = ({ text, href, id, target }: NavItemType) => {
+  const _renderNavItem = ({ text, href, id, target }: NavItemType, isMobile?: boolean) => {
     return (
       <li className={styles.navItem} key={uuidv4()}>
-        {_renderLink({ text: text, id: id, target: target, href: href })}
+        {_renderLink({ text: text, id: id, target: target, href: href }, isMobile)}
       </li>
     );
   };
@@ -101,9 +110,9 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
   };
 
   // ButtonGroup
-  const _renderButton = ({ type, backgroundColor, text, iconClass }: typeof buttons[0]) => {
+  const _renderButton = ({ type, size, backgroundColor, text, iconClass }: typeof buttons[0]) => {
     return (
-      <Button type={type} backgroundColor={backgroundColor} key={uuidv4()}>
+      <Button size={size} type={type} backgroundColor={backgroundColor} key={uuidv4()}>
         {iconClass && <i className={iconClass} style={{ marginRight: '7px' }}></i>}
         {text}
       </Button>
@@ -147,7 +156,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
                   {buttons.map(item => _renderButton(item))}
                   {buttons.length < 2 && _renderAddButton()}
                 </ButtonGroup>
-                <button className={`${styles.collapseBtn}`}>
+                <button className={`${styles.collapseBtn}`} onClick={handleShow}>
                   <i className={`fas fa-bars `}></i>
                 </button>
               </nav>
@@ -158,23 +167,35 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     );
   }
 
+  const _renderOverlay = () => {
+    return <div className={styles.overlay} onClick={handleShow} />;
+  };
+
   return (
-    <div style={style} className={`${styles.navHeader} ${active ? styles.active : ''}`}>
-      {_renderLogo()}
-      <div className={styles.navigation}>
-        <nav className={styles.nav}>
-          <ul className={styles.menu}>
-            {navItems.map(item => _renderNavItem(item))}
-          </ul>
-          <ButtonGroup className={styles.navButtonGroup}>
-            {buttons.map(item => _renderButton(item))}
-          </ButtonGroup>
-          <button className={`${styles.collapseBtn}`}>
-            <i className={`fas fa-bars `}></i>
-          </button>
-        </nav>
+    <>
+      <div style={style} className={`${styles.navHeader} ${active ? styles.active : ''}`}>
+        {_renderLogo()}
+        <div className={styles.navigation}>
+          <nav className={styles.nav}>
+            <ul className={styles.menu}>
+              {navItems.map(item => _renderNavItem(item))}
+            </ul>
+            <ButtonGroup className={styles.navButtonGroup}>
+              {buttons.map(item => _renderButton(item))}
+            </ButtonGroup>
+            <button className={`${styles.collapseBtn}`} onClick={handleShow}>
+              <i className={`fas fa-bars `}></i>
+            </button>
+          </nav>
+        </div>
       </div>
-    </div>
+      <div className={styles.navMobile} style={{ transform: `translateX(${show ? '0px' : '-100%'})` }}>
+        <ul className={styles.navMenu}>
+          {navItems.map(item => _renderNavItem(item, true))}
+        </ul>
+      </div>
+      {show ? _renderOverlay() : null}
+    </>
   );
 };
 

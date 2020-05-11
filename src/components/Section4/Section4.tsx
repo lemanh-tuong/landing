@@ -16,6 +16,7 @@ export type Section4Props = {
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
+  sizeButton?: ButtonProps['size'];
   sectionId: string;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
@@ -32,7 +33,7 @@ export interface Section4PropsBuilder {
 const Section4: FC<Section4Props & Section4PropsBuilder> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditImage, onShowPopupEditButton, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton,
+  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
   text, colorText, alignText, fontSizeText, styleText, classText,
   imageSectionCol,
   backgroundColor, backgroundImage, style, className, darkMode
@@ -63,7 +64,7 @@ const Section4: FC<Section4Props & Section4PropsBuilder> = ({
         </Col>
         {_renderImage()}
         <ButtonGroup align='center'>
-          <Button type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
+          <Button size={sizeButton} type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
         </ButtonGroup>
       </Row>
     </Section>

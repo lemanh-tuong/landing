@@ -20,7 +20,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
   mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
   hasDivider, dividerColor,
   text, colorText, fontSizeText, alignText, classText, styleText,
-  hrefButton, backgroundButton, colorTextButton, textButton, styleButton, typeButton, darkMode, nowIndexSection
+  hrefButton, backgroundButton, colorTextButton, textButton, styleButton, typeButton, sizeButton, darkMode, nowIndexSection
 }) => {
   const [indexCard, setIndexCard] = useState(-1);
 
@@ -44,7 +44,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
   return (
     <div className='Section8Editable'>
       <Section8
-        sectionId={sectionId}
+        sectionId={sectionId} sizeButton={sizeButton}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         reverse={reverse}
         isBuilder={true} onShowPopupEditButton={handleShowPopUpEditButton} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}

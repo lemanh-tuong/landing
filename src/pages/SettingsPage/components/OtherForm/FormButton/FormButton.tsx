@@ -2,6 +2,7 @@ import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
+import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
 import thunkChangeSelect from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeSelect/thunkChangeSelect';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -30,12 +31,13 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
   const element = useSelector(sections)[nowIndex];
 
   // Destructoring
-  const { textButton, hrefButton, backgroundButton, typeButton } = element;
+  const { textButton, hrefButton, backgroundButton, typeButton, sizeButton } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeColor = thunkChangeColor();
   const changeSelect = thunkChangeSelect();
+  const changeRadio = thunkChangeRadio();
 
   //Handle
   const handleChangeTextButtonForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
@@ -57,7 +59,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
     };
   };
 
-  const handleChangeBackgroundButton = ({ fieldName, fieldType }: OnChangeFuncArg) => {
+  const handleChangeOptionButton = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'checkbox') {
         handleGradient(result);
@@ -69,6 +71,9 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
       if (fieldType === 'color-picker-gradient') {
         //string
         changeColor({ fieldName: fieldName, color: result, nowIndexSection: nowIndex });
+      }
+      if (fieldType === 'radio2') {
+        changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndex });
       }
     };
   };
@@ -157,6 +162,30 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
       <Form
         fields={[
           {
+            fieldId: 'size-button',
+            fieldName: 'sizeButton',
+            fieldType: 'radio2',
+            data: [
+              {
+                name: 'size button',
+                value: 'default'
+              },
+              {
+                name: 'size button',
+                value: 'small'
+              },
+              {
+                name: 'size button',
+                value: 'middle'
+              },
+              {
+                name: 'size button',
+                value: 'large'
+              }
+            ],
+            defaultCheckedValue: sizeButton
+          },
+          {
             fieldId: 'isGradient',
             fieldName: 'Gradient',
             fieldType: 'checkbox',
@@ -177,7 +206,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
             defaultColor: backgroundButton,
           }
         ]}
-        onChange={handleChangeBackgroundButton}
+        onChange={handleChangeOptionButton}
       />
     </div>
   );

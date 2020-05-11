@@ -19,7 +19,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
   hasDivider, dividerColor,
   text, alignText, colorText,
   sliderImgs,
-  textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton,
+  textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
   typeMockUp
 }) => {
 
@@ -78,7 +78,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         hrefButton={hrefButton}
         backgroundButton={backgroundButton}
         colorTextButton={colorTextButton}
-        typeButton={typeButton}
+        typeButton={typeButton} sizeButton={sizeButton}
         isBuilder={true}
         sectionId={sectionId}
         isBuider={true}

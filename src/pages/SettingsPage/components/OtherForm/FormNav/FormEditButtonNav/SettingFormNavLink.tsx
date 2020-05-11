@@ -8,7 +8,7 @@ export interface SettingFormButtonProps extends ButtonNav {
   nowIndex: number;
 }
 
-const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, href, text, type }) => {
+const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, href, text, size, type }) => {
   const [typeHref, setTypeHref] = useState<TypeHref>('external');
 
   const changeInput = thunkChangeInputNav();
@@ -22,7 +22,7 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, hr
       if (fieldType === 'radio' && fieldName === 'Type Href') {
         handleTypeHref(result);
       }
-      if (fieldType === 'input' || fieldType === 'select-button') {
+      if (fieldType === 'input' || fieldType === 'select-button' || fieldType === 'radio2') {
         // Value of input
         changeInput({ fieldName: fieldName, value: result, nowIndex: nowIndex, type: type });
       }
@@ -107,6 +107,30 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, hr
               },
             ],
             defaultSelect: type,
+          },
+          {
+            fieldId: 'size-button-nav',
+            fieldName: 'size',
+            fieldType: 'radio2',
+            data: [
+              {
+                name: 'size button',
+                value: 'default'
+              },
+              {
+                name: 'size button',
+                value: 'small'
+              },
+              {
+                name: 'size button',
+                value: 'middle'
+              },
+              {
+                name: 'size button',
+                value: 'large'
+              }
+            ],
+            defaultCheckedValue: size
           },
         ]}
         onChange={handleChangeForm('buttons')}

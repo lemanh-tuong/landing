@@ -19,6 +19,7 @@ export type Section8Props = {
   backgroundButton?: ButtonProps['backgroundColor'];
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
+  sizeButton?: ButtonProps['size'];
   typeButton?: ButtonProps['type'];
   card2s: [CardProps, CardProps, CardProps];
   hasDivider?: boolean;
@@ -43,7 +44,7 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   dividerColor, hasDivider,
   text, alignText, colorText, fontSizeText, classText, styleText,
-  backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton
+  backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton, sizeButton
 }) => {
 
   const handleShowPopupEditCard = (nowIndexCard: number) => {
@@ -95,6 +96,7 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
             }
             <ButtonGroup align='left'>
               <Button
+                size={sizeButton}
                 type={typeButton}
                 text={textButton}
                 href={hrefButton}

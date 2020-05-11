@@ -23,6 +23,7 @@ export type Section1Props = {
   backgroundButton?: ButtonProps['backgroundColor'];
   colorTextButton?: ButtonProps['color'];
   typeButton?: ButtonProps['type'];
+  sizeButton?: ButtonProps['size'];
   sectionId: string;
 } & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
@@ -45,7 +46,7 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor,
   typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, fluid, classActive,
-  textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton, typeButton
+  textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton, typeButton, sizeButton
 }) => {
 
   const _renderMockUp = () => {
@@ -108,7 +109,7 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   const _renderButton = () => {
     return (
       <Button
-        href={hrefButton ?? ''} style={styleButton} text={textButton}
+        href={hrefButton ?? ''} style={styleButton} text={textButton} size={sizeButton}
         isBuilder={isBuilder} onEditable={onShowPopupEditButton}
         backgroundColor={backgroundButton} color={colorTextButton}
         type={typeButton}

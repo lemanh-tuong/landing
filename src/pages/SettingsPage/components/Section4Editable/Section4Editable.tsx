@@ -15,7 +15,7 @@ export interface Section4EditableProps extends Section4Props {
 
 const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle,
-  backgroundButton, colorTextButton, textButton, hrefButton, typeButton,
+  backgroundButton, colorTextButton, textButton, hrefButton, typeButton, sizeButton,
   text, alignText, colorText,
   imageSectionCol,
   backgroundImage, backgroundColor }) => {
@@ -49,7 +49,7 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
         backgroundButton={backgroundButton}
         hrefButton={hrefButton}
         colorTextButton={colorTextButton}
-        typeButton={typeButton}
+        typeButton={typeButton} sizeButton={sizeButton}
         textButton={textButton}
         text={text ?? ''}
         alignText={alignText}

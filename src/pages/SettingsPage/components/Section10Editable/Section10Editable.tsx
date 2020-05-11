@@ -19,7 +19,7 @@ const Section10Editable: FC<Section10EditableProps> = ({
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   hasDivider, dividerColor,
   imageSectionCol,
-  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton,
+  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
   text, colorText, alignText, fontSizeText, styleText, classText,
 }) => {
 
@@ -54,7 +54,7 @@ const Section10Editable: FC<Section10EditableProps> = ({
         hasDivider={hasDivider} dividerColor={dividerColor}
         imageSectionCol={imageSectionCol}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-        textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
+        sizeButton={sizeButton} textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
       />
       <PopUp id={`section-${sectionId}`}>
         <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />

@@ -13,6 +13,7 @@ export type Section6Props = {
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
+  sizeButton?: ButtonProps['size'];
   sectionId: string;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>;
@@ -26,7 +27,7 @@ export interface Section6PropsBuilder {
 const Section6: FC<Section6Props & Section6PropsBuilder> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditButton, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  textButton, hrefButton, styleButton, backgroundButton, colorTextButton, typeButton,
+  textButton, hrefButton, styleButton, backgroundButton, colorTextButton, typeButton, sizeButton,
   backgroundColor, backgroundImage, style, className, darkMode,
 }) => {
 
@@ -48,6 +49,7 @@ const Section6: FC<Section6Props & Section6PropsBuilder> = ({
         </Col>
         <ButtonGroup align='center' >
           <Button
+            size={sizeButton}
             type={typeButton}
             isBuilder={isBuilder}
             onEditable={onShowPopupEditButton}

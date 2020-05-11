@@ -5,6 +5,7 @@ import styles from './Button.module.scss';
 
 export interface ButtonProps {
   type?: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
+  size?: 'default' | 'large' | 'middle' | 'small';
   color?: string;
   backgroundColor?: string;
   dark?: boolean;
@@ -23,7 +24,7 @@ export interface ButtonProps {
 
 const Button = ({
   isBuilder = false, children, onEditable, backgroundColor,
-  text, href, className, style, color = '', type = 'white', dark, onClick
+  text, href, className, style, color = '', type = 'white', size = 'default', dark, onClick
 }: ButtonProps) => {
   const darkMode = dark ? styles['dark'] : '';
   const cssBackground: CSSProperties = backgroundColor ? { background: backgroundColor } : {};
@@ -34,7 +35,7 @@ const Button = ({
         <a href={href} style={{ ...style, ...cssBackground, ...cssColor }} onClick={(e) => {
           e.preventDefault(); onEditable?.();
         }}
-          className={`${styles.isBuilder} ${styles[type]} ${styles.button} ${styles.defaultStyle} ${darkMode} ${className}`}>
+          className={`${styles.isBuilder} ${styles[size]} ${styles[type]} ${styles.button} ${styles.defaultStyle} ${darkMode} ${className}`}>
           {text}
           {children}
         </a>
@@ -43,7 +44,7 @@ const Button = ({
   }
   return (
     <a href={href} style={{ ...style, ...cssBackground, ...cssColor }} onClick={onClick && onClick}
-      className={`${styles.defaultStyle} ${styles[type]} ${styles.button} ${darkMode} ${className}`}>
+      className={`${styles.defaultStyle} ${styles[size]} ${styles[type]} ${styles.button} ${darkMode} ${className}`}>
       {text}
       {children}
     </a>

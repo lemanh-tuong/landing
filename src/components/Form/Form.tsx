@@ -9,6 +9,7 @@ import Input, { InputProps } from './Input/Input';
 import InputNumber, { InputNumberProps } from './InputNumber/InputNumber';
 import InputText2, { InputText2Props } from './InputText2/InputText2';
 import Radio, { RadioProps } from './Radio/Radio';
+import Radio2 from './Radio2/Radio2';
 import Select, { SelectProps } from './Select/Select';
 import SelectButtonType, { SelectButtonTypeProps } from './SelectButtonType/SelectButtonType';
 
@@ -26,7 +27,7 @@ export type FieldType = Partial<InputProps>
   & Partial<SelectButtonTypeProps>
   & {
     hidden?: boolean;
-    fieldType: 'input' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2';
+    fieldType: 'input' | 'radio2' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2';
     fieldName: string;
     fieldId: string | number;
   };
@@ -66,6 +67,8 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return <InputNumber key={arg.fieldId} fieldName={arg.fieldName} min={arg.min} max={arg.max} onChange={onChange} defaultNumber={arg.defaultNumber} />;
     case 'radio':
       return <Radio fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
+    case 'radio2':
+      return <Radio2 fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
     case 'checkbox':
       return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />;
     case 'file':
