@@ -10,7 +10,7 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './FormEditButtonNav.module.scss';
-import SettingFormButton from './SettingFormNavLink';
+import SettingFormButton from './SettingFormButtonNav';
 
 export const buttonDefault: ButtonNav = {
   text: 'Purchase Now',

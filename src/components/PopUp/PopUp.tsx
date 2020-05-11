@@ -8,6 +8,7 @@ interface PopUpProps {
   children: ReactNode;
   id: string;
   style?: CSSProperties;
+  type?: 'default' | 'antd';
 }
 
 interface PopUpState {
@@ -45,7 +46,6 @@ class Event {
 const controller = new Event();
 
 class PopUp extends PureComponent<PopUpProps> {
-
   static show(id: string) {
     return () => {
       controller.emit(`show-${id}`);
@@ -57,6 +57,10 @@ class PopUp extends PureComponent<PopUpProps> {
       controller.emit(`hide-${id}`);
     };
   }
+
+  static defaultProps = {
+    type: 'default'
+  };
 
   state: PopUpState = {
     visible: false
@@ -87,16 +91,38 @@ class PopUp extends PureComponent<PopUpProps> {
     });
   };
 
+  _renderSwitch = () => {
+    const { type, children, style } = this.props;
+    const { visible } = this.state;
+    switch (type) {
+      case 'default':
+        return (
+          <>
+            <div className={styles.overlay} onClick={this.handleHide} />
+            <div className={styles.closeBtn} onClick={this.handleHide} >
+              <button className={styles.btn}>Close</button>
+            </div>
+            <div className={styles.content2} style={style}>{children}</div>
+          </>
+        );
+      case 'antd':
+        return (
+          <Modal centered visible={visible} closeIcon={<i></i>} onOk={this.handleHide} onCancel={this.handleHide} className={styles.content}>
+            {children}
+          </Modal>
+        );
+      default:
+        return null;
+    }
+  };
+
   render() {
-    const { children, style } = this.props;
     const { visible } = this.state;
     if (!visible) {
       return null;
     }
     return createPortal(<div className={styles.popUp}>
-      <Modal centered visible={visible} closeIcon={<i></i>} onOk={this.handleHide} onCancel={this.handleHide} className={styles.content}>
-        {children}
-      </Modal>
+      {this._renderSwitch()}
     </div>, body as Element);
   }
 }

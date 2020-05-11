@@ -7,6 +7,16 @@
   z-index: 1000;
 }
 .content {
+  height: 80vh;
+  overflow: auto;
+  min-width: 550px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.content2 {
   width: 95%;
   height: 80vh;
   overflow: auto;
@@ -15,6 +25,10 @@
   border-radius: 10px;
   padding: 30px;
   box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .overlay {

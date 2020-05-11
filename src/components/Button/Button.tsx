@@ -4,7 +4,7 @@ import React, { CSSProperties, MouseEvent } from 'react';
 import styles from './Button.module.scss';
 
 export interface ButtonProps {
-  type?: 'gradient' | 'primary' | 'border' | 'white' | 'transparent';
+  type?: 'gradient' | 'gradient2' | 'gradient3' | 'primary' | 'border' | 'white' | 'transparent';
   size?: 'default' | 'large' | 'middle' | 'small';
   color?: string;
   backgroundColor?: string;

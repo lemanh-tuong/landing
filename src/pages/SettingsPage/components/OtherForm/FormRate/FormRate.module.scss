@@ -6,11 +6,11 @@
   display: flex;
 }
 .listRate {
-  flex: 1 1;
+  width: 35%;
   margin-right: 20px;
 }
 .form {
-  flex: 1 1;
+  flex: 1 1 auto;
 }
 .rateFormName {
   display: flex;
@@ -26,19 +26,20 @@
   }
   & .rateName {
     font-weight: bold;
-    min-width: 100px;
-    max-width: 500px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   & .rateDesc {
+    flex: 1 1 100%;
+    width: 20%;
+    height: 100%;
     display: flex;
     align-items: center;
-    width: 100%;
     height: 100%;
     cursor: pointer;
     padding: 9px 0;
+    margin-right: 8px;
   }
 }
 

@@ -59,25 +59,25 @@ const Section9Editable: FC<Section9EditableProps> = ({
         buttons={buttons}
         iphoneParams={iphoneParams} androidParams={androidParams}
       />
-      <PopUp id={`section-${sectionId}`}>
+      <PopUp id={`section-${sectionId}`} type='antd'>
         <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
       </PopUp>
-      <PopUp id={`mainTitle-${sectionId}`}>
+      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`divider-${sectionId}`}>
+      <PopUp id={`divider-${sectionId}`} type='antd'>
         <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`text-${sectionId}`}>
+      <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`button2-${sectionId}`}>
+      <PopUp id={`button2-${sectionId}`} type='antd'>
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`simulator-iphone-${sectionId}`}>
+      <PopUp id={`simulator-iphone-${sectionId}`} type='antd'>
         <FormIphoneSimulator nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`simulator-android-${sectionId}`}>
+      <PopUp id={`simulator-android-${sectionId}`} type='antd'>
         <FormAndroidSimulator nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>

@@ -49,7 +49,7 @@ const Routes = () => {
 
   return (
     <div className="page">
-      {/* {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()} */}
+      {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
         <Route exact path="/">
           <HomePage />

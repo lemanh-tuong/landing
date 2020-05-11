@@ -56,6 +56,7 @@ const initialState: ComponentPageReducers =  {
   patternComponent: [
     {
       previewImg: previewSection1,
+      backgroundColor: 'linear-gradient(90deg, rgb(249, 120, 95) 0%,rgb(240, 98, 146)  100%)',
       sectionName: 'Section 1',
       mainTitle: defaultTitle,
       alignMainTitle: 'left',

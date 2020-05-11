@@ -1,27 +1,18 @@
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { ButtonNav } from 'components/Nav/Nav';
 import thunkChangeInputNav from 'pages/SettingsPage/thunks/thunksNav/thunkChangeInputNav/thunkChangeInputNav';
-import React, { FC, useState } from 'react';
-import { TypeHref } from '../../FormButton/FormButton';
+import React, { FC } from 'react';
 
 export interface SettingFormButtonProps extends ButtonNav {
   nowIndex: number;
 }
 
 const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, href, text, size, type }) => {
-  const [typeHref, setTypeHref] = useState<TypeHref>('external');
 
   const changeInput = thunkChangeInputNav();
 
-  const handleTypeHref = (result: TypeHref) => {
-    setTypeHref(result);
-  };
-
   const handleChangeForm = (type: 'buttons' | 'navItems') => ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldType === 'radio' && fieldName === 'Type Href') {
-        handleTypeHref(result);
-      }
       if (fieldType === 'input' || fieldType === 'select-button' || fieldType === 'radio2') {
         // Value of input
         changeInput({ fieldName: fieldName, value: result, nowIndex: nowIndex, type: type });
@@ -46,39 +37,10 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, hr
             defaultValue: iconClass
           },
           {
-            fieldId: `type-href-button-nnav`,
-            fieldType: 'radio',
-            fieldName: 'Type Href',
-            data: [
-              {
-                name: 'type href',
-                value: 'external',
-              },
-              {
-                name: 'type href',
-                value: 'internal',
-              },
-            ],
-            defaultCheckedValue: typeHref,
-          },
-          {
             fieldType: 'input',
             fieldName: 'href',
             defaultValue: href,
             fieldId: 'href-button-nav',
-            hidden: !(typeHref === 'external')
-          },
-          {
-            fieldType: 'select',
-            fieldName: 'href',
-            defaultValue: href,
-            fieldId: 3,
-            optionsGroup: {
-              groupName: 'Link',
-              options: [{ label: '/about', value: '/about' }, { value: '/', label: '/' }]
-            },
-            defaultSelect: '/',
-            hidden: !(typeHref === 'internal')
           },
           {
             fieldId: 'type-button-nav',

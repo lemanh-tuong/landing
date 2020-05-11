@@ -98,19 +98,19 @@ const Section7Editable: FC<Section7EditableProps> = ({
         textButton={textButton}
         styleButton={styleButton}
       />
-      <PopUp id={`mainTitle-${sectionId}`}>
+      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`text-${sectionId}`}>
+      <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`rate-${sectionId}`}>
         <FormRate nowIndexSection={nowIndexSection} nowIndexRate={indexRate} />
       </PopUp>
-      <PopUp id={`button-${sectionId}`}>
+      <PopUp id={`button-${sectionId}`} type='antd'>
         <FormButton nowIndex={nowIndexSection} />
       </PopUp>
-      <PopUp id={`section-${sectionId}`}>
+      <PopUp id={`section-${sectionId}`} type='antd'>
         <FormSection nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>

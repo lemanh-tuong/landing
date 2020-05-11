@@ -40,13 +40,13 @@ const Section13Editable: FC<Section13EditableProps> = ({
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
       />
-      <PopUp id={`section-${sectionId}`}>
+      <PopUp id={`section-${sectionId}`} type='antd'>
         <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
-      <PopUp id={`mainTitle-${sectionId}`}>
+      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`text-${sectionId}`}>
+      <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`mockup-${sectionId}`}>

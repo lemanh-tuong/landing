@@ -57,22 +57,22 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         onShowPopupEditTitle={handleShowPopupEditMainTitle}
         onShowPopupEditSlides={handleShowPopupEditSlides}
       />
-      <PopUp id={`mainTitle-${sectionId}`} >
+      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`text-${sectionId}`} >
+      <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`button-${sectionId}`} >
+      <PopUp id={`button-${sectionId}`} type='antd' >
         <FormButton nowIndex={nowIndexSection} />
       </PopUp>
-      <PopUp id={`divider-${sectionId}`} >
+      <PopUp id={`divider-${sectionId}`} type='antd' >
         <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`slides-${sectionId}`}>
         <FormSlides nowIndexSection={nowIndexSection} hasNavField={true} hasDotField={true} responsiveField={true} />
       </PopUp>
-      <PopUp id={`section-${sectionId}`}>
+      <PopUp id={`section-${sectionId}`} type='antd'>
         <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
     </>

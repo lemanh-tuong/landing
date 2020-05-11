@@ -37,7 +37,7 @@ const SelectButtonType: FC<SelectButtonTypeProps> = ({ fieldName, options, defau
     <div className={styles.selectComponent}>
       <div className={styles.content}>
         <div className={styles.name}>{fieldName}</div>
-        <SelectAntd size='large' className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
+        <SelectAntd maxTagTextLength={520} size='large' className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
           {options.map(option => _renderOption(option))}
         </SelectAntd>
       </div>

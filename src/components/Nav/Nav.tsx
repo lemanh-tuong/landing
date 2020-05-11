@@ -110,9 +110,9 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
   };
 
   // ButtonGroup
-  const _renderButton = ({ type, size, backgroundColor, text, iconClass }: typeof buttons[0]) => {
+  const _renderButton = ({ type, href, size, backgroundColor, text, iconClass }: typeof buttons[0]) => {
     return (
-      <Button size={size} type={type} backgroundColor={backgroundColor} key={uuidv4()}>
+      <Button href={href} size={size} type={type} backgroundColor={backgroundColor} key={uuidv4()}>
         {iconClass && <i className={iconClass} style={{ marginRight: '7px' }}></i>}
         {text}
       </Button>

@@ -55,22 +55,22 @@ const Section11Editable: FC<Section11EditableProps> = ({
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         reverse={reverse} iconImg={iconImg}
       />
-      <PopUp id={`section-${sectionId}`}>
+      <PopUp id={`section-${sectionId}`} type='antd'>
         <FormSection canReverseCol={true} nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`image-${sectionId}`}>
+      <PopUp id={`image-${sectionId}`} type='antd'>
         <FormImage nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`mainTitle-${sectionId}`}>
+      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`text-${sectionId}`}>
+      <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`divider-${sectionId}`}>
+      <PopUp id={`divider-${sectionId}`} type='antd'>
         <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`icon-${sectionId}`}>
+      <PopUp id={`icon-${sectionId}`} type='antd'>
         <FormIcon nowIndexSection={nowIndexSection} />
       </PopUp>
 

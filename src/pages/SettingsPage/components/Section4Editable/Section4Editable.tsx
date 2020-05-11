@@ -62,22 +62,22 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
         onShowPopupEditTitle={handleShowPopupEditMainTitle}
         onShowPopupEditButton={handleShowPopupEditButton}
       />
-      <PopUp id={`mainTitle-${sectionId}`} >
+      <PopUp id={`mainTitle-${sectionId}`} type='antd' >
         <FormMainTitle nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`text-${sectionId}`} >
+      <PopUp id={`text-${sectionId}`} type='antd' >
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`button-${sectionId}`} >
+      <PopUp id={`button-${sectionId}`} type='antd' >
         <FormButton nowIndex={nowIndexSection} />
       </PopUp>
-      <PopUp id={`divider-${sectionId}`} >
+      <PopUp id={`divider-${sectionId}`} type='antd' >
         <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`image-${sectionId}`}>
+      <PopUp id={`image-${sectionId}`} type='antd'>
         <FormImage nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`section-${sectionId}`}>
+      <PopUp id={`section-${sectionId}`} type='antd'>
         <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
       </PopUp>
     </>
