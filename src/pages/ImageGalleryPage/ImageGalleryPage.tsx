@@ -11,8 +11,7 @@ import thunkSaveAll from 'pages/SettingsPage/thunks/thunksSection/thunkSaveAll/t
 import thunkChangeImgSlide from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeImgSlide/thunkChangeImgSlide';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
 import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
@@ -24,7 +23,7 @@ import thunkChangeLogoImg from './thunks/thunkChangeLogoImg/thunkChangeLogoImg';
 // type GetQueryType = 'type' | 'nowIndexSection' | 'nowIndexCard' | 'nowIndexSlide' | 'nowIndexRate' | 'multiple';
 
 const ImageGalleryPage = () => {
-  const location = useLocation();
+  const history = useHistory();
   const [param, setParam] = useState<any>({});
   // Selector
 
@@ -103,11 +102,12 @@ const ImageGalleryPage = () => {
 
   const handleSaveAll = () => {
     save();
+    history.goBack();
   };
 
   useMount(() => {
     setParam(() => {
-      const res = getQuery(location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'multiple']);
+      const res = getQuery(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'multiple']);
       if (!!res.type) {
         getImage(res.type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg');
       }
@@ -152,9 +152,9 @@ const ImageGalleryPage = () => {
     <div className="ImageGalleryPage" style={{ width: '100%', height: '100%', background: '#EEE' }}>
       {_renderSwitch()}
       <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
-        <Link to='/admin/builder'>
+        <a onClick={e => e.preventDefault()}>
           <i className="fas fa-arrow-left"></i>
-        </Link>
+        </a>
       </Button>
     </div>
   );

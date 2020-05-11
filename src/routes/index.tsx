@@ -3,9 +3,10 @@ import Nav from 'components/Nav/Nav';
 import { useMount } from 'hooks/useMount';
 import ComponentPage from 'pages/ComponentPage/ComponentPage';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
-import HomePage from 'pages/HomePage/HomePage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
+import ListPage from 'pages/ListPage/ListPage';
 import LoginPage from 'pages/LoginPage/LoginPage';
+import MainPage from 'pages/MainPage/MainPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
 import TestPage from 'pages/TestPage/TestPage';
@@ -51,11 +52,14 @@ const Routes = () => {
     <div className="page">
       {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
-        <Route exact path="/">
-          <HomePage />
+        <Route exact path="/(|HomePage|AboutPage)/">
+          <MainPage />
         </Route>
         <Route exact path='/admin/login'>
           <LoginPage />
+        </Route>
+        <Route exact path="/list">
+          <ListPage />
         </Route>
         <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
           component={
@@ -78,7 +82,10 @@ const Routes = () => {
         <Route exact path="/test" >
           <TestPage />
         </Route>
-        <Route path='/error'>
+        <Route exact path='/error'>
+          <ErrorPage />
+        </Route>
+        <Route>
           <ErrorPage />
         </Route>
       </Switch>

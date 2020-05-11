@@ -4,18 +4,21 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 import { Option } from '../../../SettingsPage';
 
 type ThunkAddSection = ThunkAction<typeof actionAddSection>;
+
 export interface ThunkAddSectionArg {
   nowSections: Option[];
-  arg: Option;
+  newSection: Option;
+  pageName: string;
   index?: number;
 }
-const thunkAddSection = ({nowSections, arg, index}: ThunkAddSectionArg): ThunkAddSection => dispatch => {
+
+const thunkAddSection = ({nowSections, newSection, index, pageName}: ThunkAddSectionArg): ThunkAddSection => dispatch => {
   if(typeof index === 'number') {
-    addToPage({pageName: 'HomePage', elements: nowSections, newSection: arg, indexInsert: index});
-    dispatch(actionAddSection({...arg}, index));
+    addToPage({pageName: pageName, elements: nowSections, newSection: newSection, indexInsert: index});
+    dispatch(actionAddSection({...newSection}, index));
   } else {
-    addToPage({pageName: 'HomePage', elements: nowSections, newSection: arg});
-    dispatch(actionAddSection(arg));
+    addToPage({pageName: pageName, elements: nowSections, newSection: newSection});
+    dispatch(actionAddSection(newSection));
   }
 };
 

@@ -1,15 +1,14 @@
 import database from './myFirebase';
 
-export interface WriteFirebaseArg {
+export interface WriteFirebaseArg<T = object> {
   ref: string;
-  value: object;
+  value: T;
 }
 
-const writeFirebase = ({ref, value}: WriteFirebaseArg) => {
-  database.ref(ref).set({
+const writeFirebase = <T extends any>({ref, value}: WriteFirebaseArg<T>) => {
+  return database.ref(ref).set({
     ...value
-  }).then(() => 'Added')
-  .catch(err => err);
+  });
 };
 
 export { writeFirebase };

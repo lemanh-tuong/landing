@@ -2,19 +2,19 @@ import { Option } from 'pages/SettingsPage/SettingsPage';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { getDataSections } from '../actions/actionGetSections';
 
-export interface HomePageReducer {
+export interface MainPageReducer {
   readonly sections: Option[];
   readonly statusRequestSections: 'loading' | 'success' | 'failure';
   readonly messageRequestaSections: string;
 }
 
-const initialState: HomePageReducer = {
+const initialState: MainPageReducer = {
   sections: [],
   statusRequestSections: 'loading',
   messageRequestaSections: '',
 };
 
-const reducerHomePage = createReducer<HomePageReducer, ActionTypes<typeof getDataSections>>(initialState, [
+const mainPageReducers = createReducer<MainPageReducer, ActionTypes<typeof getDataSections>>(initialState, [
   handleAction('@getDataSectionsRequest', state => {
     return {
       ...state,
@@ -38,4 +38,4 @@ const reducerHomePage = createReducer<HomePageReducer, ActionTypes<typeof getDat
   })
 ]);
 
-export default reducerHomePage;
+export default mainPageReducers;

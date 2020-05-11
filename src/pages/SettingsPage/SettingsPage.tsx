@@ -18,6 +18,7 @@ import { DragDropContext, Draggable, DragStart, Droppable, DropResult } from 're
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import getQuery from 'utils/functions/getQuery';
 import { v4 as uuidv4 } from 'uuid';
 import { Section1Props } from '../../components/Section1/Section1';
 import { Section2Props } from '../../components/Section2/Section2';
@@ -57,6 +58,8 @@ const defaultSection: Option = {
 const SettingsPage = () => {
   const history = useHistory();
   const prepairAddProperty = useRef<Option>({ ...defaultSection });
+  const nowPageEditing = history.location.search;
+  const { pageName } = getQuery(nowPageEditing, ['pageName']);
 
   //State
   const [sectionDragging, setSectionDragging] = useState(-1);
@@ -92,7 +95,7 @@ const SettingsPage = () => {
 
   const handleAdd = (indexSection?: number) => {
     if (!!prepairAddProperty.current.sectionId) {
-      addSection({ nowSections: elements, arg: { ...prepairAddProperty.current }, index: indexSection });
+      addSection({ nowSections: elements, newSection: { ...prepairAddProperty.current }, pageName: pageName, index: indexSection });
       prepairAddProperty.current = Object.assign({}, defaultSection);
     }
   };
@@ -158,7 +161,7 @@ const SettingsPage = () => {
               <div className={styles.sectionBottom}>
                 {sectionDragging === indexSection ? null :
                   <Button className={styles.addComponentBtn}>
-                    <Link to={`/admin/component?nowIndexSection=${indexSection}`}>
+                    <Link to={`/admin/component?pageName=HomePage&nowIndexSection=${indexSection}`}>
                       <i className="fas fa-plus"></i>
                     </Link>
                   </Button>
@@ -225,8 +228,13 @@ const SettingsPage = () => {
 
   // Lifecycle
   useMount(() => {
-    getData({ pageName: 'HomePage' });
+    getData({ pageName: pageName });
   });
+
+  if (!nowPageEditing.includes('Page')) {
+    history.push('/list');
+    return null;
+  }
 
   return (
     <>

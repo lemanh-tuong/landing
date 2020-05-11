@@ -28,13 +28,13 @@ const ComponentPage = () => {
   const getPatternSection = thunkGetComponent();
   const addSection = thunkAddSection();
 
-  const { nowIndexSection } = getQuery<'nowIndexSection'>(history.location.search, ['nowIndexSection']);
+  const { nowIndexSection, pageName } = getQuery(history.location.search, ['nowIndexSection', 'pageName']);
 
   //Handle
   const handleAdd = (property: Option) => {
     return () => {
-      addSection({ nowSections: elements, arg: property, index: parseInt(nowIndexSection) + 1 });
-      history.push('/admin/builder');
+      addSection({ nowSections: elements, newSection: property, pageName: pageName, index: parseInt(nowIndexSection) + 1 });
+      history.goBack();
     };
   };
 

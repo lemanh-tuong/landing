@@ -9,6 +9,8 @@ interface PopUpProps {
   id: string;
   style?: CSSProperties;
   type?: 'default' | 'antd';
+  onOk?: () => void;
+  onCancel?: () => void;
 }
 
 interface PopUpState {
@@ -91,6 +93,21 @@ class PopUp extends PureComponent<PopUpProps> {
     });
   };
 
+  handleOk = () => {
+    const { onOk } = this.props;
+    onOk?.();
+    this.setState({
+      visible: false
+    });
+  };
+  handleCancel = () => {
+    const { onCancel } = this.props;
+    onCancel?.();
+    this.setState({
+      visible: false
+    });
+  };
+
   _renderSwitch = () => {
     const { type, children, style } = this.props;
     const { visible } = this.state;
@@ -107,7 +124,7 @@ class PopUp extends PureComponent<PopUpProps> {
         );
       case 'antd':
         return (
-          <Modal centered visible={visible} closeIcon={<i></i>} onOk={this.handleHide} onCancel={this.handleHide} className={styles.content}>
+          <Modal centered visible={visible} closeIcon={<i></i>} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.content}>
             {children}
           </Modal>
         );

@@ -1,19 +1,22 @@
 import Loading from 'components/Loading/Loading';
 import { useMount } from 'hooks/useMount';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
+import { Redirect, useLocation } from 'react-router';
 import RenderSection from './components/RenderSection/RenderSection';
-import { homePageSections, messageRequestHomePageSections, statusRequestHomePageSections } from './selectors';
+import { listSections, messageRequestMainPageSections, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
 
 
 const HomePage = () => {
-
+  const [nowPage, setNowPage] = useState('');
+  const location = useLocation();
+  const pageName = location.pathname.substring(1) || 'HomePage';
+  console.log(pageName);
   // Selectors
-  const sections = useSelector(homePageSections);
-  const statusRequest = useSelector(statusRequestHomePageSections);
-  const messageRequest = useSelector(messageRequestHomePageSections);
+  const sections = useSelector(listSections);
+  const messageRequest = useSelector(messageRequestMainPageSections);
+  const statusRequest = useSelector(statusRequestMainPageSections);
 
   //Dispatch
   const getData = thunkGetSections();
@@ -41,11 +44,15 @@ const HomePage = () => {
   };
 
   useMount(() => {
-    getData({ pageName: 'HomePage' });
+    getData({ pageName: pageName });
   });
 
+  useEffect(() => {
+    setNowPage(pageName);
+  }, [pageName]);
+
   return (
-    <div className="MainTitle">
+    <div className={pageName}>
       {_renderMainContentSwitch()}
     </div>
   );

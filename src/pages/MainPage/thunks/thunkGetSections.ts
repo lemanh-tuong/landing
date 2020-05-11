@@ -4,7 +4,7 @@ import { getDataSections } from '../actions/actionGetSections';
 
 type ThunkGetSections = ThunkAction<typeof getDataSections>;
 export interface ThunkGetSectionsArg {
-  pageName: 'HomePage';
+  pageName: string;
 }
 const thunkGetSections = ({pageName}: ThunkGetSectionsArg): ThunkGetSections => async dispatch => {
   dispatch(getDataSections.request(null));
