@@ -189,13 +189,16 @@ const SettingsPage = () => {
               <div className={`${styles.sideBar} ${active ? styles.active : null}`}>
                 <SideBar />
               </div>
-              <div className={`${styles.mainContent} ${active ? styles.active : null}`}>
+              <div className={`${styles.mainContent} ${active ? styles.active : null}`} >
                 <Droppable droppableId="2">
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef}
                       {...provided.droppableProps}
-                      style={getListStyle(snapshot.isDraggingOver)}>
+                      className={elements.length == 0 ? styles.empty : ''}
+                      style={getListStyle(snapshot.isDraggingOver)}
+                    >
                       {elements.map((element: any, index: number) => _renderSection(element, index))}
+                      {provided.placeholder}
                     </div>
                   )}
                 </Droppable>

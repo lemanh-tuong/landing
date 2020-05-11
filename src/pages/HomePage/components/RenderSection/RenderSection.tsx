@@ -29,8 +29,8 @@ const RenderSection = (option: Option) => {
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
     cards, hasDivider, dividerColor,
-    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive,
-    textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton,
+    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive,
+    textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
     rateList,
     card2s,
@@ -75,6 +75,7 @@ const RenderSection = (option: Option) => {
           backgroundButton={backgroundButton}
           colorTextButton={colorTextButton}
           typeButton={typeButton}
+          sizeButton={sizeButton}
           sectionId={sectionId}
         />;
       case 'Section 2':
@@ -150,7 +151,7 @@ const RenderSection = (option: Option) => {
           navClass={navClass}
           dotClass={dotClass}
           fluid={fluid}
-          margin={margin}
+          margin={margin} responsive={responsive}
           itemShow={itemShow}
           sectionId={sectionId}
         />;
@@ -158,7 +159,7 @@ const RenderSection = (option: Option) => {
         return <Section6
           backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}
           mainTitle={mainTitle} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
-          textButton={textButton} typeButton={typeButton} hrefButton={hrefButton} colorTextButton={colorTextButton} styleButton={styleButton} backgroundButton={backgroundButton}
+          textButton={textButton} typeButton={typeButton} sizeButton={sizeButton} hrefButton={hrefButton} colorTextButton={colorTextButton} styleButton={styleButton} backgroundButton={backgroundButton}
           sectionId={sectionId} darkMode={darkMode}
         />;
       case 'Section 7':
@@ -187,6 +188,7 @@ const RenderSection = (option: Option) => {
           typeButton={typeButton}
           textButton={textButton}
           styleButton={styleButton}
+          sizeButton={sizeButton}
         />;
       case 'Section 8':
         return <Section8
@@ -196,7 +198,7 @@ const RenderSection = (option: Option) => {
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor}
           text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-          textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
+          textButton={textButton} typeButton={typeButton} sizeButton={sizeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
         />;
       case 'Section 9':
         return <Section9
@@ -217,7 +219,7 @@ const RenderSection = (option: Option) => {
           hasDivider={hasDivider} dividerColor={dividerColor}
           imageSectionCol={imageSectionCol}
           text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-          textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
+          textButton={textButton} typeButton={typeButton} sizeButton={sizeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
         />;
       case 'Section 11':
         return <Section11

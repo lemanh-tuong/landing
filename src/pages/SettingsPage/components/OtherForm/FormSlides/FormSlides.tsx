@@ -5,6 +5,7 @@ import { SlideType } from 'components/MockUp/MockUp';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
+import thunkResponsiveSlides from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkResponsiveSlides/thunkResponsiveSlides';
 import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,11 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
 
   // State;
   const [nowTab, setTab] = useState<'general' | 'detail'>('general');
+  const [canResponsive, setCanResponsive] = useState(false);
+
+  const _handleChangeCanResponsive = (result: boolean) => {
+    setCanResponsive(result);
+  };
 
   const _handleChangeTab = (tabName: 'general' | 'detail') => {
     return () => setTab(tabName);
@@ -34,17 +40,26 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeCheckBox = thunkChangeCheckBox();
+  const responsiveSlides = thunkResponsiveSlides();
   //Destructoring
-  const { sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin } = element;
+  const { sliderImgs, responsive, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin } = element;
 
   const handleChangeFormGeneral = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldType === 'input' || 'number') {
+      if (fieldType === 'input-text-2' || 'number') {
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
+      }
+      if (fieldType === 'checkbox' && fieldName === 'canResponsive') {
+        _handleChangeCanResponsive(result);
       }
       if (fieldType === 'checkbox') {
         changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection });
       }
+    };
+  };
+  const handleResponsiveSlides = ({ fieldName }: OnChangeFuncArg) => {
+    return (result: any) => {
+      responsiveSlides({ value: result, nowIndexSection: nowIndexSection, minWidth: fieldName });
     };
   };
 
@@ -63,7 +78,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 2,
             fieldName: 'navClass',
-            fieldType: 'input',
+            fieldType: 'input-text-2',
             defaultValue: navClass,
             hidden: !hasNav
           },
@@ -77,7 +92,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 4,
             fieldName: 'dotClass',
-            fieldType: 'input',
+            fieldType: 'input-text-2',
             defaultValue: dotClass,
             hidden: !hasDots
           },
@@ -109,9 +124,50 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
             fieldType: 'input',
             defaultValue: '1000',
           },
+          {
+            fieldId: 9,
+            fieldName: 'canResponsive',
+            fieldType: 'checkbox',
+            defaultChecked: canResponsive,
+            hidden: !responsiveField
+          },
         ]}
         onChange={handleChangeFormGeneral}
       >
+        {canResponsive ?
+          <>
+            <h1>Responsive</h1>
+            <Form
+              fields={[
+                {
+                  fieldId: '576px',
+                  fieldName: '576px',
+                  fieldType: 'number',
+                  defaultNumber: responsive?.['576px'] ?? 0
+                },
+                {
+                  fieldId: '768px',
+                  fieldName: '768px',
+                  fieldType: 'number',
+                  defaultNumber: responsive?.['768px'] ?? 0
+                },
+                {
+                  fieldId: '992px',
+                  fieldName: '992px',
+                  fieldType: 'number',
+                  defaultNumber: responsive?.['992px'] ?? 0
+                },
+                {
+                  fieldId: '1200px',
+                  fieldName: '1200px',
+                  fieldType: 'number',
+                  defaultNumber: responsive?.['1200px'] ?? 0
+                },
+              ]}
+              onChange={handleResponsiveSlides}
+            />
+          </> : null
+        }
         <Button shape='round' size='large' danger>
           <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
             Change Image

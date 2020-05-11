@@ -115,3 +115,25 @@
     transform: translate(-30%, -50%) rotate(180deg);
   }
 }
+
+.empty {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding: 15px;
+  box-sizing: border-box;
+  &:before {
+    content: 'Drag Section Here';
+    position: absolute;
+    width: 50%;
+    height: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border: 3px dashed black;
+
+  }
+}

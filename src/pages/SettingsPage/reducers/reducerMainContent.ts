@@ -34,6 +34,7 @@ import { ActionChangeHrefPayload } from '../actions/actionsSlide&MockUp/actionCh
 import { ActionChangeTypeMockupPayload } from '../actions/actionsSlide&MockUp/actionChangeTypeMockup/actionChangeTypeMockup';
 import { ActionChangeVideoUrlPayload } from '../actions/actionsSlide&MockUp/actionChangeVideoUrl/actionChangeVideoUrl';
 import { ActionDeleteSlidePayload } from '../actions/actionsSlide&MockUp/actionDeleteSlide/actionDeleteSlide';
+import { ActionResponsiveSlidesPayload } from '../actions/actionsSlide&MockUp/actionResponsiveSlides/actionResponsiveSlides';
 import { Option } from '../SettingsPage';
 
 export interface SettingMainContentReducers {
@@ -556,6 +557,25 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = {
       ...nowElement,
       sliderImgs: [...newSlides],
+    };
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    };
+  }),
+  handleAction('RESPONSIVE_SLIDES', ( state, action) => {
+    const { value, minWidth, nowIndexSection} = action.payload as ActionResponsiveSlidesPayload;
+    const nowElement = state.elements[nowIndexSection];
+    const nowResponsiveData = nowElement.responsive;
+    const newResponsive = nowResponsiveData ? {
+      ...nowResponsiveData,
+      [minWidth]: value
+    } : {
+      [minWidth]: value
+    };
+    const newElement = {
+      ...nowElement,
+      responsive: {...newResponsive}
     };
     return {
       ...state,

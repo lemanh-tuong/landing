@@ -1,10 +1,13 @@
 .inputNumberComponent {
-  position: relative
+  position: relative;
+  margin-bottom: 5px;
 }
 .content {
   display: flex;
+  align-items: center;
 }
 
 .fieldName {
   text-transform: capitalize;
+  margin-right: 10px;
 }

@@ -1,5 +1,6 @@
 import { breakpoint } from 'components/Carousel/Carousel';
 import { useCallback, useEffect, useState } from 'react';
+import { useMount } from './useMount';
 
 const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint) => {
   const [items, setItems] = useState(0);
@@ -74,14 +75,16 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
 
   const handleResize = useCallback(() => {
     if (responsive) {
-      if(responsive['576px'] && window.innerWidth >= 576 && window.innerWidth < 768) {
-        setItems(responsive?.['576px']);
-      } else if(responsive['768px'] && window.innerWidth >= 768 && window.innerWidth < 992) {
-        setItems(responsive?.['768px']);
-      } else if(responsive['992px'] && window.innerWidth >= 992 && window.innerWidth < 1200) {
-        setItems(responsive?.['992px']);
-      } else if(responsive['1200px'] && window.innerWidth >= 1200) {
+      if(responsive['1200px'] && window.innerWidth >= 1200) {
         setItems(responsive?.['1200px']);
+      } else if(responsive['992px'] && window.innerWidth >= 992) {
+        setItems(responsive?.['992px']);
+      } else if(responsive['768px'] && window.innerWidth >= 768) {
+        setItems(responsive?.['768px']);
+      } else if(responsive['576px'] && window.innerWidth >= 576) {
+        setItems(responsive?.['576px']);
+      } else if(window.innerWidth <= 576) {
+        setItems(1);
       }
     }
   }, [responsive]);
@@ -100,6 +103,10 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       clearInterval(interval);
     };
   }, [items, animated, currentSlide, nextSlide, responsive, handleResize]);
+
+  useMount(() => {
+    handleResize();
+  });
 
   return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
 };

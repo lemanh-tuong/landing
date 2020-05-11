@@ -22,9 +22,7 @@ const InputText2: FC<InputText2Props> = ({ addonBefore, addonAfter, disabled, pl
   };
 
   useEffect(() => {
-    if (value) {
-      onChangeRef.current?.(value);
-    }
+    onChangeRef.current?.(value);
   }, [onChangeRef, value]);
 
   return (

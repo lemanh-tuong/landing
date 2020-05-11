@@ -47,7 +47,6 @@ const Carousel = <ItemT extends any>({
   margin = 30, responsive, itemShow = 2, fluid }: CarouselProps<ItemT>) => {
 
   const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
-
   const _renderNavSlide = () => {
     return (
       <div className={`${styles.navCarousel} ${navClass}`}>
