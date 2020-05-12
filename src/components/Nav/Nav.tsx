@@ -5,7 +5,7 @@ import Image from 'components/Image/Image';
 import { buttonDefault } from 'pages/SettingsPage/components/OtherForm/FormNav/FormEditButtonNav/FormEditButtonNav';
 import { navItemDefault } from 'pages/SettingsPage/components/OtherForm/FormNav/FormEditNavLink/FormEditNavLink';
 import React, { CSSProperties, FC, memo, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Nav.module.scss';
 
@@ -63,10 +63,10 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     }
     if (!!text && href.startsWith('/')) {
       return (
-        <Link to={href} className={`${styles.navLink}`}>
+        <NavLink activeStyle={{ color: 'wheat' }} to={href} className={`${styles.navLink}`}>
           {isMobile ? <i className="fas fa-caret-right"></i> : null}
           {text}
-        </Link>
+        </NavLink>
       );
     }
     if (!!text) {
