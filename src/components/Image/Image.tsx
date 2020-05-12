@@ -38,7 +38,7 @@ const Image: FC<ImageProps> = ({ isBuilder, onEditable, imgSrc, type, aspectRati
   const _renderImgTag = (className?: string) => {
     return (
       <div className={`${className} ${styles.image} ${className}`} style={{ ...style }}>
-        <img src={imgSrc} alt="ALT IMAGE" onDragStart={(e) => e.preventDefault()} />
+        <img src={imgSrc} alt="ALT" onDragStart={(e) => e.preventDefault()} />
         {children}
       </div>
     );
@@ -47,7 +47,7 @@ const Image: FC<ImageProps> = ({ isBuilder, onEditable, imgSrc, type, aspectRati
   if (isBuilder) {
     if (type === 'tagImg') return (
       <div className={`${className} ${styles.image} ${className}`} onClick={onEditable} >
-        <PopOverText component={<img src={imgSrc} alt="ALT IMAGE" onDragStart={(e) => e.preventDefault()} />} onEdit={onEditable} />
+        <PopOverText component={<img src={imgSrc} alt="ALT" onDragStart={(e) => e.preventDefault()} />} onEdit={onEditable} />
       </div>
     );
     return <PopOverText component={_renderBackground(styles.isBuilder)} onEdit={onEditable} />;

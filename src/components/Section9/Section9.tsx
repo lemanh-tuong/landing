@@ -50,7 +50,10 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
 }) => {
 
   const handleShowPopupEditButton = (indexButton: number) => {
-    return () => onShowPopupEditButton?.(indexButton);
+    return (e?: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      e?.preventDefault();
+      onShowPopupEditButton?.(indexButton);
+    };
   };
 
   const _renderDivider = () => {
@@ -79,7 +82,7 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
         <PopOverText
           key={uuidv4()}
           onEdit={handleShowPopupEditButton(index)}
-          component={<a onClick={handleShowPopupEditButton(index)} className={`${styles.storeBtn} ${styles.isBuilder}`}>
+          component={<a href="###" onClick={handleShowPopupEditButton(index)} className={`${styles.storeBtn} ${styles.isBuilder}`}>
             <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
           </a>}
         />

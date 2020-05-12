@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { NavItemType } from 'components/Nav/Nav';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
-import { logoImg, navItems } from 'pages/SettingsPage/selectors';
+import { navItems } from 'pages/SettingsPage/selectors';
 import thunkAddNavItem from 'pages/SettingsPage/thunks/thunksNav/thunkAddNavItem/thunkAddNavItem';
 import thunkDeleteNavItem from 'pages/SettingsPage/thunks/thunksNav/thunkDeleteNavItem/thunkDeleteNavItem';
 import thunkMoveNavItem from 'pages/SettingsPage/thunks/thunksNav/thunkMoveNavItem/thunkMoveNavItem';
@@ -34,7 +34,7 @@ const FormEditNavLink = () => {
   };
   // Selector
   const navData = useSelector(navItems);
-  const logo = useSelector(logoImg);
+
   // Dispatch
   const moveNavItem = thunkMoveNavItem();
   const addNavItem = thunkAddNavItem();

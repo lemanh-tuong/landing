@@ -10,3 +10,8 @@ export const navItems = (state: AppState) => state.navReducer.navItems;
 export const buttons = (state: AppState) => state.navReducer.buttons;
 export const statusRequestNav = (state: AppState) => state.navReducer.statusRequestNav;
 export const messageRequestNav = (state: AppState) => state.navReducer.messageRequestNav;
+
+// List Page
+export const listPage = (state: AppState) => state.listPageReducers.data;
+export const statusRequestPage = (state: AppState) => state.listPageReducers.statusRequest;
+export const messageRequestPageErr = (state: AppState) => state.listPageReducers.messageRequestErr;

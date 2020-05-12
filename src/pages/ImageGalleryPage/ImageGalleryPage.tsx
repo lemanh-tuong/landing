@@ -152,7 +152,7 @@ const ImageGalleryPage = () => {
     <div className="ImageGalleryPage" style={{ width: '100%', height: '100%', background: '#EEE' }}>
       {_renderSwitch()}
       <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
-        <a onClick={e => e.preventDefault()}>
+        <a href="####" onClick={e => e.preventDefault()}>
           <i className="fas fa-arrow-left"></i>
         </a>
       </Button>

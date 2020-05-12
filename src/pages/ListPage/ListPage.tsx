@@ -8,7 +8,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './ListPage.module.scss';
-import { data, message, statusRequest } from './selectors';
+import { listPage, message, statusRequest } from './selectors';
 import thunkAddNewPage from './thunks/thunkAddNewPage/thunkAddNewPage';
 import thunkGetListPageName from './thunks/thunkGetListPageName/thunkGetListPageName';
 
@@ -26,7 +26,7 @@ const ListPage = () => {
 
   //Selectors
   const status = useSelector(statusRequest);
-  const listPageName = useSelector(data);
+  const listPageName = useSelector(listPage);
   const messageErr = useSelector(message);
 
   const getListPageName = thunkGetListPageName();
@@ -44,7 +44,7 @@ const ListPage = () => {
     return (
       <Link to={`/admin/builder?pageName=${pageName}`} key={uuidv4()}>
         <div className={styles.page}>
-          <p>{pageName}s</p>
+          <p>{pageName}</p>
         </div>
       </Link>
     );

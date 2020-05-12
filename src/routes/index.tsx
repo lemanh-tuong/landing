@@ -5,6 +5,7 @@ import ComponentPage from 'pages/ComponentPage/ComponentPage';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import ListPage from 'pages/ListPage/ListPage';
+import thunkGetListPageName from 'pages/ListPage/thunks/thunkGetListPageName/thunkGetListPageName';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import MainPage from 'pages/MainPage/MainPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
@@ -13,7 +14,7 @@ import TestPage from 'pages/TestPage/TestPage';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { buttons, logoImg, messageRequestNav, navItems, statusRequestNav, token } from 'selectors';
+import { buttons, listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusRequestNav, statusRequestPage, token } from 'selectors';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const Routes = () => {
@@ -26,8 +27,13 @@ const Routes = () => {
   const nav = useSelector(navItems);
   const buttonGroupData = useSelector(buttons);
 
+  const listPageName = useSelector(listPage);
+  const statusRequestPageName = useSelector(statusRequestPage);
+  const messageRequestPageNameErr = useSelector(messageRequestPageErr);
+
   // Dispatch
   const getDataNav = thunkGetDataNav();
+  const getListPageName = thunkGetListPageName();
 
   const _renderNavBar = () => {
     return <Nav buttons={buttonGroupData} logo={logo} navItems={nav} />;
@@ -46,13 +52,18 @@ const Routes = () => {
 
   useMount(() => {
     getDataNav();
+    getListPageName();
   });
 
+  if (statusRequestPageName === 'failure') {
+    return <Redirect to={{ state: messageRequestPageNameErr, pathname: '/error' }} />;
+  }
+
   return (
-    <div className="page">
+    <>
       {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
-        <Route exact path="/(|HomePage|AboutPage)/">
+        <Route exact path={`/(|${listPageName.join('|')})/`}>
           <MainPage />
         </Route>
         <Route exact path='/admin/login'>
@@ -89,7 +100,7 @@ const Routes = () => {
           <ErrorPage />
         </Route>
       </Switch>
-    </div>
+    </>
   );
 };
 

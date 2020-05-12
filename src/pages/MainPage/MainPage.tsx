@@ -1,6 +1,5 @@
 import Loading from 'components/Loading/Loading';
-import { useMount } from 'hooks/useMount';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router';
 import RenderSection from './components/RenderSection/RenderSection';
@@ -9,10 +8,8 @@ import thunkGetSections from './thunks/thunkGetSections';
 
 
 const HomePage = () => {
-  const [nowPage, setNowPage] = useState('');
   const location = useLocation();
   const pageName = location.pathname.substring(1) || 'HomePage';
-  console.log(pageName);
   // Selectors
   const sections = useSelector(listSections);
   const messageRequest = useSelector(messageRequestMainPageSections);
@@ -43,16 +40,14 @@ const HomePage = () => {
     }
   };
 
-  useMount(() => {
-    getData({ pageName: pageName });
-  });
-
+  console.log(pageName);
   useEffect(() => {
-    setNowPage(pageName);
+    getData({ pageName: pageName });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageName]);
 
   return (
-    <div className={pageName}>
+    <div className={pageName} style={{ marginTop: 80 }}>
       {_renderMainContentSwitch()}
     </div>
   );

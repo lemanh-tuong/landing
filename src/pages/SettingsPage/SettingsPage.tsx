@@ -197,7 +197,7 @@ const SettingsPage = () => {
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef}
                       {...provided.droppableProps}
-                      className={elements.length == 0 ? styles.empty : ''}
+                      className={elements.length === 0 ? styles.empty : ''}
                       style={getListStyle(snapshot.isDraggingOver)}
                     >
                       {elements.map((element: any, index: number) => _renderSection(element, index))}
