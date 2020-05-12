@@ -6,18 +6,18 @@ import { Option } from '../../../SettingsPage';
 type ThunkAddSection = ThunkAction<typeof actionAddSection>;
 
 export interface ThunkAddSectionArg {
-  nowSections: Option[];
   newSection: Option;
-  pageName: string;
   index?: number;
 }
 
-const thunkAddSection = ({nowSections, newSection, index, pageName}: ThunkAddSectionArg): ThunkAddSection => dispatch => {
+const thunkAddSection = ({ newSection, index }: ThunkAddSectionArg): ThunkAddSection => (dispatch, getState) => {
+  const { settingMainContentReducers } = getState();
+  const { id, elements, pathName, pageName  } = settingMainContentReducers;
   if(typeof index === 'number') {
-    addToPage({pageName: pageName, elements: nowSections, newSection: newSection, indexInsert: index});
+    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, indexInsert: index});
     dispatch(actionAddSection({...newSection}, index));
   } else {
-    addToPage({pageName: pageName, elements: nowSections, newSection: newSection});
+    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection});
     dispatch(actionAddSection(newSection));
   }
 };

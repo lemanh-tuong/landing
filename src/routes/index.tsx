@@ -27,9 +27,10 @@ const Routes = () => {
   const nav = useSelector(navItems);
   const buttonGroupData = useSelector(buttons);
 
-  const listPageName = useSelector(listPage);
   const statusRequestPageName = useSelector(statusRequestPage);
   const messageRequestPageNameErr = useSelector(messageRequestPageErr);
+  const generalDataPage = useSelector(listPage);
+  const paths = generalDataPage.map(item => item.pathName.substring(1));
 
   // Dispatch
   const getDataNav = thunkGetDataNav();
@@ -63,7 +64,7 @@ const Routes = () => {
     <>
       {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
-        <Route exact path={`/(|${listPageName.join('|')})/`}>
+        <Route exact path={`/(|${paths.join('|')})/`}>
           <MainPage />
         </Route>
         <Route exact path='/admin/login'>
@@ -71,6 +72,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/list">
           <ListPage />
+        </Route>
+        <Route exact path='/error'>
+          <ErrorPage />
         </Route>
         <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
           component={
@@ -93,11 +97,8 @@ const Routes = () => {
         <Route exact path="/test" >
           <TestPage />
         </Route>
-        <Route exact path='/error'>
-          <ErrorPage />
-        </Route>
         <Route>
-          <ErrorPage />
+          <div>404</div>
         </Route>
       </Switch>
     </>

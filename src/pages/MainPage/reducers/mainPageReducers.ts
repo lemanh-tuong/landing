@@ -4,12 +4,16 @@ import { getDataSections } from '../actions/actionGetSections';
 
 export interface MainPageReducer {
   readonly sections: Option[];
+  readonly pageName: string;
+  readonly pathName: string;
   readonly statusRequestSections: 'loading' | 'success' | 'failure';
   readonly messageRequestaSections: string;
 }
 
 const initialState: MainPageReducer = {
   sections: [],
+  pageName: '',
+  pathName: '',
   statusRequestSections: 'loading',
   messageRequestaSections: '',
 };
@@ -22,11 +26,14 @@ const mainPageReducers = createReducer<MainPageReducer, ActionTypes<typeof getDa
     };
   }),
   handleAction('@getDataSectionsSuccess', (state, action) => {
-    const {elements} = action.payload;
+    const { elements, pathName, id, pageName } = action.payload;
     return {
       ...state,
-      sections: [...elements] || [],
+      sections: elements ? [...elements] : [],
       statusRequestSections: 'success',
+      pathName,
+      id,
+      pageName
     };
   }),
   handleAction('@getDataSectionsFailure', (state, action) => {

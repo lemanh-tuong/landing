@@ -1,8 +1,9 @@
 import { createReducer, handleAction } from 'utils/functions/reduxActions';
+import { PageGeneralData } from '../ListPageType/type';
 
 export interface ListPageReducers {
   statusRequest: 'loading' | 'success' | 'failure';
-  data: string[];
+  data: PageGeneralData[];
   messageRequestErr: string;
   statusCreatePage?: 'creating' | 'created' | 'createFail';
 }
@@ -21,7 +22,7 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
   handleAction('@getListPageNameSuccess', (state, action) => ({
     ...state,
     statusRequest: 'success',
-    data: action.payload,
+    data: action.payload || [],
   })),
   handleAction('@getListPageNameFailure', (state, action) => ({
     ...state,

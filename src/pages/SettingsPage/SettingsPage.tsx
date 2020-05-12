@@ -37,6 +37,8 @@ import thunkSaveAll from './thunks/thunksSection/thunkSaveAll/thunkSaveAll';
 
 export interface PageProps {
   pageName: string;
+  pathName: string;
+  id: string;
   elements: Option[];
 }
 
@@ -59,6 +61,7 @@ const SettingsPage = () => {
   const history = useHistory();
   const prepairAddProperty = useRef<Option>({ ...defaultSection });
   const nowPageEditing = history.location.search;
+
   const { pageName } = getQuery(nowPageEditing, ['pageName']);
 
   //State
@@ -95,7 +98,7 @@ const SettingsPage = () => {
 
   const handleAdd = (indexSection?: number) => {
     if (!!prepairAddProperty.current.sectionId) {
-      addSection({ nowSections: elements, newSection: { ...prepairAddProperty.current }, pageName: pageName, index: indexSection });
+      addSection({ newSection: { ...prepairAddProperty.current }, index: indexSection });
       prepairAddProperty.current = Object.assign({}, defaultSection);
     }
   };
@@ -217,16 +220,17 @@ const SettingsPage = () => {
     switch (statusRequestSection) {
       case 'loading':
         return <Loading />;
-      case 'failure':
-        return <Redirect to={{ pathname: '/error', state: messageRequestSection }} />;
       case 'success':
         return renderSuccess();
+      case 'failure':
+        return <Redirect to={{ pathname: '/error', state: messageRequestSection }} />;
       default:
         return null;
     }
   };
 
   // Lifecycle
+
   useMount(() => {
     getData({ pageName: pageName });
   });

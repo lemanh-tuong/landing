@@ -3,7 +3,6 @@ import Row from 'components/Grid/Row/Row';
 import Image from 'components/Image/Image';
 import Loading from 'components/Loading/Loading';
 import { useMount } from 'hooks/useMount';
-import { sections } from 'pages/SettingsPage/selectors';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkAddSection from 'pages/SettingsPage/thunks/thunksSection/thunkAddSection/thunkAddSection';
 import React from 'react';
@@ -23,17 +22,17 @@ const ComponentPage = () => {
   const pattern = useSelector(components);
   const status = useSelector(statusRequestComponents);
   const message = useSelector(messageRequestComponents);
-  const elements = useSelector(sections);
+
   //Dispatch
   const getPatternSection = thunkGetComponent();
   const addSection = thunkAddSection();
 
-  const { nowIndexSection, pageName } = getQuery(history.location.search, ['nowIndexSection', 'pageName']);
+  const { nowIndexSection } = getQuery(history.location.search, ['nowIndexSection']);
 
   //Handle
   const handleAdd = (property: Option) => {
     return () => {
-      addSection({ nowSections: elements, newSection: property, pageName: pageName, index: parseInt(nowIndexSection) + 1 });
+      addSection({ newSection: property, index: parseInt(nowIndexSection) + 1 });
       history.goBack();
     };
   };

@@ -40,6 +40,8 @@ import { Option } from '../SettingsPage';
 export interface SettingMainContentReducers {
   readonly pageName: string;
   readonly elements: Option[];
+  readonly pathName: string;
+  readonly id: string;
   readonly statusRequestElements: 'loading' | 'success' | 'failure';
   readonly messageRequestElements: string;
 }
@@ -47,6 +49,8 @@ export interface SettingMainContentReducers {
 
 const initialState: SettingMainContentReducers = {
   pageName: '',
+  pathName: '',
+  id: '',
   elements: [],
   statusRequestElements: 'loading',
   messageRequestElements: '',
@@ -57,12 +61,17 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     ...state,
     statusRequestElements: 'loading'
   })),
-  handleAction('@getDataSectionSuccess', (state, action) => ({
-    ...state,
-    elements: !!action.payload.elements ? [...action.payload.elements] : [],
-    pageName: action.payload.pageName,
-    statusRequestElements: 'success'
-  })),
+  handleAction('@getDataSectionSuccess', (state, action) => {
+    const { id, elements, pathName, pageName } = action.payload;
+    return {
+      ...state,
+      elements: !!elements ? [...elements] : [],
+      pageName,
+      id,
+      pathName,
+      statusRequestElements: 'success'
+    };
+  }),
   handleAction('@getDataSectionFailure', (state) => ({
     ...state,
     statusRequestElements: 'failure',

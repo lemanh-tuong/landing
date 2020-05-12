@@ -76,7 +76,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) =
             fieldId: 3,
             optionsGroup: {
               groupName: 'Link',
-              options: listPageName.map(page => ({ value: `/${page}`, label: `/${page}` }))
+              options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
             },
             defaultSelect: '/',
             hidden: !(typeHref === 'internal')

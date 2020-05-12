@@ -6,10 +6,10 @@ import RenderSection from './components/RenderSection/RenderSection';
 import { listSections, messageRequestMainPageSections, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
 
-
 const HomePage = () => {
-  const location = useLocation();
-  const pageName = location.pathname.substring(1) || 'HomePage';
+  const { state } = useLocation();
+  const pageName = state ? state : 'HomePage';
+
   // Selectors
   const sections = useSelector(listSections);
   const messageRequest = useSelector(messageRequestMainPageSections);
@@ -41,13 +41,13 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getData({ pageName: pageName });
+    getData({ pageName: pageName as string });
     window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageName]);
 
   return (
-    <div className={pageName} style={{ marginTop: 80 }}>
+    <div className={pageName as string}>
       {_renderMainContentSwitch()}
     </div>
   );

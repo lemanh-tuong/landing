@@ -6,9 +6,7 @@ export interface WriteFirebaseArg<T = object> {
 }
 
 const writeFirebase = <T extends any>({ref, value}: WriteFirebaseArg<T>) => {
-  return database.ref(ref).set({
-    ...value
-  });
+  return database.ref(ref).set(value);
 };
 
 export { writeFirebase };

@@ -11,15 +11,9 @@ export interface ThunkGetDataSectionArg {
 const thunkGetDataSection = ({pageName}: ThunkGetDataSectionArg): ThunkGetDataSection => async dispatch => {
   dispatch(getDataSection.request(null));
   try {
-    const data = await readFireBase(pageName);
-    if(data) {
-      dispatch(getDataSection.success(data));
-    } else {
-      dispatch(getDataSection.success({
-        elements: [],
-        pageName: ''
-      }));
-    }
+    const data = await readFireBase(`/PagesDetail/${pageName}`);
+    console.log(pageName);
+    dispatch(getDataSection.success(data));
   } catch(err) {
     dispatch(getDataSection.failure('Error'));
   }

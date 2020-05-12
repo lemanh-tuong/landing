@@ -63,7 +63,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     }
     if (!!text && href.startsWith('/')) {
       return (
-        <NavLink activeStyle={{ color: 'wheat' }} to={href} className={`${styles.navLink}`}>
+        <NavLink activeStyle={{ color: 'wheat' }} to={{ pathname: href, state: href }} className={`${styles.navLink}`}>
           {isMobile ? <i className="fas fa-caret-right"></i> : null}
           {text}
         </NavLink>

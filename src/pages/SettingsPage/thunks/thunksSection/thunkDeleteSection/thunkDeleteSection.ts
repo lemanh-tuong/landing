@@ -6,12 +6,19 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 type ThunkDeleteSection = ThunkAction<typeof deleteSection>;
 export interface ThunkDeleteSectionArg {
   arg: Option;
-  elements: Option[];
   nowIndexSection: number;
 }
 
-const thunkDeleteSection = ({arg, elements, nowIndexSection}: ThunkDeleteSectionArg): ThunkDeleteSection => dispatch => {
-  deleteSectionInFirebase({pageName: 'HomePage', elements: elements, indexDelete: nowIndexSection});
+const thunkDeleteSection = ({ arg, nowIndexSection }: ThunkDeleteSectionArg): ThunkDeleteSection => (dispatch, getState) => {
+  const { settingMainContentReducers } = getState();
+  const { elements, pathName, pageName, id } = settingMainContentReducers;
+  deleteSectionInFirebase({
+    pageName,
+    pathName,
+    id,
+    elements,
+    indexDelete: nowIndexSection
+  });
   dispatch(deleteSection(arg));
 };
 

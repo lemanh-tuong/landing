@@ -6,18 +6,12 @@ type ThunkGetSections = ThunkAction<typeof getDataSections>;
 export interface ThunkGetSectionsArg {
   pageName: string;
 }
+
 const thunkGetSections = ({pageName}: ThunkGetSectionsArg): ThunkGetSections => async dispatch => {
   dispatch(getDataSections.request(null));
   try {
-    const data = await readFireBase(pageName);
-    if(data) {
-      dispatch(getDataSections.success(data));
-    } else {
-      dispatch(getDataSections.success({
-        elements: [],
-        pageName: ''
-      }));
-    }
+    const data = await readFireBase(`/PagesDetail/${pageName}`);
+    dispatch(getDataSections.success(data));
   } catch(err) {
     dispatch(getDataSections.failure('Error'));
   }
