@@ -1,8 +1,10 @@
 import { Input } from 'antd';
 import Loading from 'components/Loading/Loading';
+import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
 import { useMount } from 'hooks/useMount';
-import React, { ChangeEvent, useState } from 'react';
+import { statusCreatePage } from 'pages/SettingsPage/selectors';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -17,7 +19,7 @@ const ListPage = () => {
 
   const [pathName, setPathName] = useState('');
   const [pageName, setPageName] = useState('');
-
+  const [error, setError] = useState('');
   const handleChangePathName = (e: ChangeEvent<HTMLInputElement>) => {
     setPathName(e.target.value);
   };
@@ -27,14 +29,26 @@ const ListPage = () => {
 
   //Selectors
   const status = useSelector(statusRequest);
-  const listPageName = useSelector(listPage);
-  const messageErr = useSelector(message);
+  const statusCreate = useSelector(statusCreatePage);
+  const pages = useSelector(listPage);
+  const messageRequestErr = useSelector(message);
 
   const getListPageName = thunkGetListPageName();
   const addNewPage = thunkAddNewPage();
 
   const handleAddNewPage = () => {
-    addNewPage({ pageName: pageName, pathName: pathName, id: uuidv4() });
+    const id = uuidv4();
+    const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
+    if (!isExisted) {
+      addNewPage({ pageName, pathName, id: id });
+      const interval = setInterval(() => {
+        if (statusCreate === 'created') {
+          clearInterval(interval);
+        }
+      }, 1000);
+    } else {
+      setError('Page Name or Path Name existed');
+    }
   };
 
   useMount(() => {
@@ -52,12 +66,42 @@ const ListPage = () => {
   };
 
   const _renderPages = () => {
-    return listPageName.map(page => _renderPage(page));
+    return pages.map(page => _renderPage(page));
   };
+
+  const _renderCreateSwitch = () => {
+    if (statusCreate === 'creating') return <LoadingCircle />;
+    if (statusCreate === 'createFail') return <Redirect to={{ pathname: '/error', state: messageRequestErr }} />;
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (error) setError('');
+    }, 3000);
+  }, [error]);
+
+  const handleClose = () => {
+    setError('');
+  };
+
+  if (error) {
+    return <div onClick={handleClose}
+      style={{
+        position: 'fixed',
+        background: 'rgba(0,0,0,0.3)',
+        width: '100%', height: '100%',
+        top: 0, left: 0, display: 'flex',
+        justifyContent: 'center', alignItems: 'center',
+        fontSize: 20, color: 'white'
+      }}>
+      {error}
+    </div>;
+  }
 
   const _renderSuccess = () => {
     return <>
       {_renderPages()}
+      {_renderCreateSwitch()}
       <div className={styles.addPage} onClick={PopUp.show('add-page-form')}> Add Page </div>
       <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
         <Input required addonBefore="pathName" onChange={handleChangePathName} />
@@ -71,7 +115,7 @@ const ListPage = () => {
       case 'loading':
         return <Loading />;
       case 'failure':
-        return <Redirect to={{ pathname: '/error', state: messageErr }} />;
+        return <Redirect to={{ pathname: '/error', state: messageRequestErr }} />;
       case 'success':
         return <div className={styles.ListPage}>{_renderSuccess()}</div>;
       default:
