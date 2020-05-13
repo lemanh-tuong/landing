@@ -1,15 +1,10 @@
-import Image from 'components/Image/Image';
-import { useMount } from 'hooks/useMount';
-import { messageRequestPatternSection, patternSection, statusRequestPatternSection } from 'pages/SettingsPage/selectors';
-import thunkGetDataSideBar from 'pages/SettingsPage/thunks/thunksSideBar/thunkGetDataSideBar/thunkGetDataSideBar';
-import React, { CSSProperties, FC } from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router';
-import { v4 as uuidv4 } from 'uuid';
+import { Button } from 'antd';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import React, { CSSProperties, FC, useState } from 'react';
 import { Option } from '../../SettingsPage';
+import PageTab from './PageTab/PageTab';
+import SectionTab from './SectionTab/SectionTab';
 import styles from './SideBar.module.scss';
-
 export interface SideBarProps {
   className?: string;
   style?: CSSProperties;
@@ -19,77 +14,44 @@ export interface ItemSideBar extends Omit<Option, 'sectionId'> {
   id: string;
 }
 
-const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: 20,
-});
+type TabsName = 'section' | 'page';
 
 const SideBar: FC<SideBarProps> = ({ className }) => {
-  //Selector
-  const pattern = useSelector(patternSection);
-  const status = useSelector(statusRequestPatternSection);
-  const message = useSelector(messageRequestPatternSection);
 
-  //Dispatch
-  const getPatternSection = thunkGetDataSideBar();
-  const _renderItem = (property: ItemSideBar & { previewImg: string }, key: number) => {
-    return (
-      <Draggable draggableId={property.id} index={key} key={uuidv4()}>
-        {provided => (
-          <div className={styles.sidebarItem}
-            ref={provided.innerRef}
-            key={key}
-            {...provided.dragHandleProps}
-            {...provided.draggableProps}>
-            <Image type='tagImg' imgSrc={property.previewImg} />
-          </div>
-        )}
-      </Draggable>
-    );
+  const [nowTab, setNowTab] = useState<TabsName>('section');
+
+  const handleChangeTab = (tabName: TabsName) => {
+    return () => setNowTab(tabName);
   };
 
-  const _renderSuccess = () => {
-    return (
-      <Droppable droppableId="1">
-        {(provided, snapshot) => (
-          <div className={`${styles.sideBar} ${className}`}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            <div className={styles.menuGroup}>
-              <div className={styles.menuName}>
-                Section
-              </div>
-              <ul className={styles.nav}>
-                {pattern.map((item, index) => _renderItem(item, index))}
-              </ul>
-            </div>
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    );
+  const _renderSectionTab = () => {
+    return <SectionTab className={className} />;
   };
 
-  useMount(() => {
-    getPatternSection();
-  });
+  const _renderPageTab = () => {
+    return <PageTab />;
+  };
 
   const _renderSwitch = () => {
-    switch (status) {
-      case 'loading':
-        return <div>Loading</div>;
-      case 'success':
-        return _renderSuccess();
-      case 'failure':
-        return <Redirect to={{ pathname: '/error', state: message }} />;
+    switch (nowTab) {
+      case 'page':
+        return _renderPageTab();
+      case 'section':
+        return _renderSectionTab();
       default:
         return null;
     }
   };
 
-  return _renderSwitch();
+  return (
+    <div className={styles.sideBar}>
+      <ButtonGroup scroll={true}>
+        <Button className={styles.btn} onClick={handleChangeTab('section')}>Section</Button>
+        <Button className={styles.btn} onClick={handleChangeTab('page')}>Page</Button>
+      </ButtonGroup>
+      {_renderSwitch()}
+    </div>
+  );
 };
 
 export default SideBar;

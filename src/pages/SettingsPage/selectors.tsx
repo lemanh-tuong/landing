@@ -15,3 +15,8 @@ export const messageRequestNav = (state: AppState) => state.navReducer.messageRe
 export const patternSection = (state: AppState) => state.sidebarReducers.patternSection;
 export const statusRequestPatternSection = (state: AppState) => state.sidebarReducers.statusRequestSideBar;
 export const messageRequestPatternSection = (state: AppState) => state.sidebarReducers.messageRequestSideBar;
+
+// List Page
+export const statusRequestListPage = (state: AppState) => state.listPageReducers.statusRequest;
+export const listPage = (state: AppState) => state.listPageReducers.data;
+export const messageRequestListPage = (state: AppState) => state.listPageReducers.messageRequestErr;
