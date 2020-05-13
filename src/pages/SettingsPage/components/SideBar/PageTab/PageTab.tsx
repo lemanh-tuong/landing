@@ -7,12 +7,16 @@ import { listPage, messageRequestListPage, statusRequestListPage } from 'pages/S
 import thunkDeletePage from 'pages/SettingsPage/thunks/thunkPage/thunkDeletePage/thunkDeletePage';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import getQuery from 'utils/functions/getQuery';
 import FormAddNewPage from '../../OtherForm/FormAddNewPage/FormAddNewPage';
-import FormDuplicatePage from '../../OtherForm/FormDuplicateNewPage/FormDuplicateNewPage';
+import FormChangeGeneralDataPage from '../../OtherForm/FormChangeGeneralDataPage/FormChangeGeneralDataPage';
+import FormDuplicatePage from '../../OtherForm/FormDuplicatePage/FormDuplicatePage';
 import styles from './PageTab.module.scss';
 
 const PageTab = () => {
+  const history = useHistory();
+  const nowPage = getQuery(history.location.search, ['pageName']);
   const listPages = useSelector(listPage);
   const status = useSelector(statusRequestListPage);
   const messageErr = useSelector(messageRequestListPage);
@@ -20,19 +24,40 @@ const PageTab = () => {
   const deletePage = thunkDeletePage();
 
   const handleDeletePage = (indexDelete: number) => {
-    return () => deletePage(indexDelete);
+    return () => {
+      deletePage(indexDelete);
+      history.push('/list');
+    };
   };
 
+
   const _renderPage = ({ id, pageName, pathName }: PageGeneralData, index: number) => {
-    return (
-      <NavLink className={styles.btn} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
-        <div className={styles.pageName}>
-          {pageName}
+    if (nowPage.pageName === pageName) {
+      return (
+        <div className={`${styles.page}  ${styles.active}`}>
+          <Link className={`${styles.link}`} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
+            <div className={styles.pageName}>
+              {pageName}
+            </div>
+          </Link>
+          <ButtonGroup style={{ flex: '1 0' }}>
+            <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show('duplicate-page-form')} />
+            <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={handleDeletePage(index)} />
+            <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+          </ButtonGroup>
+          <FormChangeGeneralDataPage pageId={id} />
         </div>
-        <Button onClick={handleDeletePage(index)}>
-          handleDeletePage
-        </Button>
-      </NavLink>
+      );
+    }
+    return (
+      <div className={styles.page}>
+        <Link className={`${styles.btn}`} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
+          <div className={styles.pageName}>
+            {pageName}
+          </div>
+        </Link>
+        <FormChangeGeneralDataPage pageId={id} />
+      </div>
     );
   };
 
@@ -44,11 +69,8 @@ const PageTab = () => {
     return <>
       {_renderPages()}
       <ButtonGroup>
-        <Button size='large' shape='round' danger onClick={PopUp.show('add-page-form')}>
+        <Button size='middle' shape='round' danger onClick={PopUp.show('add-page-form')}>
           Add New Page
-        </Button>
-        <Button size='large' shape='round' danger onClick={PopUp.show('duplicate-page-form')}>
-          Duplicate Page
         </Button>
       </ButtonGroup>
       <FormAddNewPage />

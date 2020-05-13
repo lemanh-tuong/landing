@@ -1,6 +1,5 @@
 import { writeFirebase } from 'firebase/database/writeFirebase';
 import { PageDetailData, PageGeneralData } from 'pages/ListPage/ListPageType/type';
-import { actionAddNewPage } from 'pages/SettingsPage/actions/actionPage/actionAddNewPage/actionAddNewPage';
 import { actionDuplicatePage } from 'pages/SettingsPage/actions/actionPage/actionDuplicatePage/actionDuplicatePage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 
@@ -23,7 +22,6 @@ const thunkDuplicatePage = ({pathName, pageName, id}: ThunkDuplicatePageArg): Th
     }});
     await writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: data.concat({id, pathName, pageName})});
     dispatch(actionDuplicatePage.success({elements, id, pageName, pathName}));
-    dispatch(actionAddNewPage.success({id, pathName, pageName}) as any) ;
   } catch (err) {
     dispatch(actionDuplicatePage.failure(err.message));
   }

@@ -1,10 +1,20 @@
-.btn {
+.page {
   margin: 5px;
   padding: 10px;
-  display: block;
   transition: 0.3s all;
+  display: flex;
+  align-items: center;
   &:hover {
     background: #eee;
     color: black;
   }
+}
+
+.active {
+  background: #eee;
+  color: black;
+}
+
+.btn {
+  margin: 3px;
 }

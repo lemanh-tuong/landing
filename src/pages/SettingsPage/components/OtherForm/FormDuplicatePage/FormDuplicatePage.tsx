@@ -24,8 +24,8 @@ const FormDuplicatePage = () => {
 
   return (
     <PopUp id="duplicate-page-form" type='antd' onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
-      <Input required addonBefore="pathName" onChange={handleChangePathName} />
-      <Input required addonBefore="Page Name" onChange={handleChangePageName} />
+      <Input style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
+      <Input style={{ margin: 5 }} required addonBefore="Page Name" onChange={handleChangePageName} />
     </PopUp>
   );
 };

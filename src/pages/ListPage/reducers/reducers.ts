@@ -1,3 +1,4 @@
+import { ActionChangeGeneralDataPagePayload } from 'pages/SettingsPage/actions/actionPage/actionChangeGeneralDataPage/actionChangeGeneralDataPage';
 import { createReducer, handleAction } from 'utils/functions/reduxActions';
 import { PageGeneralData } from '../ListPageType/type';
 
@@ -69,7 +70,21 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
   }),
   handleAction('@duplicateFail', state => ({
     ...state
-  }))
+  })),
+  handleAction('CHANGE_GENERAL_DATA_PAGE', (state, action) => {
+    const { newPathName, newPageName, id } = action.payload as ActionChangeGeneralDataPagePayload;
+    const { data } = state;
+    const indexNowPage = data.findIndex(item => item.id === id);
+    const newData: PageGeneralData = {
+      ...data[indexNowPage],
+      pathName: newPathName,
+      pageName: newPageName
+    };
+    return {
+      ...state,
+      data: [...data.slice(0, indexNowPage), {...newData}, ...data.slice(indexNowPage+1, data.length)]
+    };
+  })
 ]);
 
 export default listPageReducers;
