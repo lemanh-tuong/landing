@@ -8,7 +8,6 @@ import thunkAddSection from 'pages/SettingsPage/thunks/thunksSection/thunkAddSec
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import getQuery from 'utils/functions/getQuery';
 import { v4 as uuidv4 } from 'uuid';
 import { ActionGetComponentSuccess } from './actions/actionGetComponent/actionGetComponent';
@@ -46,9 +45,7 @@ const ComponentPage = () => {
           </div>
           <div className={styles.addBtn}>
             <button className={styles.btn} onClick={handleAdd({ ...property, sectionName: property.sectionName, sectionId: uuidv4() })}>
-              <Link to='/admin/builder'>
-                Add
-              </Link>
+              Add
             </button>
           </div>
         </div>
