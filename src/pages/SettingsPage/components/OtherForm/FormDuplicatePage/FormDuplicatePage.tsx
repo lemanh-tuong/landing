@@ -44,7 +44,7 @@ const FormDuplicatePage = () => {
     }
   };
 
-  const _renderCreateSwitch = () => {
+  const _renderDuplicateSwitch = () => {
     if (statusDuplicate === 'duplicating') return <LoadingCircle />;
     if (statusDuplicate === 'duplicateFail') return <Redirect to={{ pathname: '/error', state: messageRequestErr }} />;
   };
@@ -75,7 +75,7 @@ const FormDuplicatePage = () => {
 
   return (
     <>
-      {_renderCreateSwitch()}
+      {_renderDuplicateSwitch()}
       <PopUp id="duplicate-page-form" type='antd' onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
         <Input style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
         <Input style={{ margin: 5 }} required addonBefore="Page Name" onChange={handleChangePageName} />

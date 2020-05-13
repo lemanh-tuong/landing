@@ -76,7 +76,7 @@ const FormAddNewPage = () => {
     <>
       {_renderCreateSwitch()}
       <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
-        <Input style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
+        <Input defaultValue="/" style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
         <Input style={{ margin: 5 }} required addonBefore="Page Name" onChange={handleChangePageName} />
       </PopUp>
     </>

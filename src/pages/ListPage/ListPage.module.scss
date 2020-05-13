@@ -1,9 +1,10 @@
 .ListPage {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 70px;
 }
 .page {
-  width: 400px;
+  min-width: 400px;
   height: 400px;
   margin: 10px;
   background: black;
@@ -15,7 +16,7 @@
 }
 
 .addPage {
-  width: 400px;
+  min-width: 400px;
   height: 400px;
   margin: 10px;
   border: 2px dashed black;
