@@ -1,4 +1,5 @@
-import { createAction } from 'utils/functions/reduxActions';
+import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
+import { createAsyncAction } from 'utils/functions/reduxActions';
 
 export interface ActionChangeGeneralDataPagePayload {
   newPathName: string;
@@ -6,7 +7,7 @@ export interface ActionChangeGeneralDataPagePayload {
   id: string;
 }
 
-const actionChangeGeneralDataPage = createAction('CHANGE_GENERAL_DATA_PAGE', (payload: ActionChangeGeneralDataPagePayload) => ({...payload}));
+const actionChangeGeneralDataPage = createAsyncAction(['@changing', '@changed', '@changeFail'])<null, PageGeneralData, string>();
 
 export { actionChangeGeneralDataPage };
 

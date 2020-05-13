@@ -6,7 +6,8 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkChangeGeneralDataPage = ThunkAction<typeof actionChangeGeneralDataPage>;
 
-const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => (dispatch, getState) => {
+const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => async (dispatch, getState) => {
+  dispatch(actionChangeGeneralDataPage.request());
   const { listPageReducers, settingMainContentReducers } = getState();
   const { elements, pageName } = settingMainContentReducers;
   const { data } = listPageReducers;
@@ -17,15 +18,19 @@ const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChange
     pageName: newPageName
   };
   const newData = [...data.slice(0, indexNowPage), {...newPageData}, ...data.slice(indexNowPage+1, data.length)];
-  writeFirebase({ref: '/ListPage', value: newData});
-  removeFirebase({ref: `/PagesDetail/${pageName}`});
-  writeFirebase({ref: `/PagesDetail/${newPageName}`, value: {
-    elements: elements,
-    id: id,
-    pageName: newPageName,
-    pathName: newPathName
-  } as PageDetailData});
-  dispatch(actionChangeGeneralDataPage({newPageName, newPathName, id}));
+  try {
+    await writeFirebase({ref: '/ListPage', value: newData});
+    await removeFirebase({ref: `/PagesDetail/${pageName}`});
+    await writeFirebase({ref: `/PagesDetail/${newPageName}`, value: {
+      elements: elements,
+      id: id,
+      pageName: newPageName,
+      pathName: newPathName
+    } as PageDetailData});
+    dispatch(actionChangeGeneralDataPage.success(newPageData));
+  } catch(err) {
+    dispatch(actionChangeGeneralDataPage.failure(err.message));
+  }
 };
 
 export default createDispatchAction(thunkChangeGeneralDataPage);

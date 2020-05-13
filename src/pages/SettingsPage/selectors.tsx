@@ -20,3 +20,7 @@ export const messageRequestPatternSection = (state: AppState) => state.sidebarRe
 export const statusRequestListPage = (state: AppState) => state.listPageReducers.statusRequest;
 export const listPage = (state: AppState) => state.listPageReducers.data;
 export const messageRequestListPage = (state: AppState) => state.listPageReducers.messageRequestErr;
+export const statusDeletePage = (state: AppState) => state.listPageReducers.statusDeletePage;
+export const statusCreatePage = (state: AppState) => state.listPageReducers.statusCreatePage;
+export const statusChangeGeneralDataPage = (state: AppState) => state.listPageReducers.statusChangeGeneralDataPage;
+export const statusDuplicatePage = (state: AppState) => state.listPageReducers.statusDuplicatePage;

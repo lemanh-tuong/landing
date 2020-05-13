@@ -64,7 +64,7 @@ const Routes = () => {
     <>
       {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
       <Switch>
-        <Route exact path={`/(|${paths.join('|')})/`}>
+        <Route exact path={`/(/|${paths.join('|')})/`}>
           <MainPage />
         </Route>
         <Route exact path='/admin/login'>

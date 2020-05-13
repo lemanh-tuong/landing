@@ -8,7 +8,7 @@ import thunkGetSections from './thunks/thunkGetSections';
 
 const HomePage = () => {
   const { state } = useLocation();
-  const pageName = state ? state : 'HomePage';
+  const pathName = state;
 
   // Selectors
   const sections = useSelector(listSections);
@@ -41,13 +41,13 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getData({ pageName: pageName as string });
+    getData({ pathName: pathName as string });
     window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageName]);
+  }, [pathName]);
 
   return (
-    <div className={pageName as string}>
+    <div className={pathName as string}>
       {_renderMainContentSwitch()}
     </div>
   );

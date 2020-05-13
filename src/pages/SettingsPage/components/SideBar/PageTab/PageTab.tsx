@@ -1,9 +1,10 @@
 import { Button } from 'antd';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Loading from 'components/Loading/Loading';
+import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
 import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
-import { listPage, messageRequestListPage, statusRequestListPage } from 'pages/SettingsPage/selectors';
+import { listPage, messageRequestListPage, statusDeletePage, statusRequestListPage } from 'pages/SettingsPage/selectors';
 import thunkDeletePage from 'pages/SettingsPage/thunks/thunkPage/thunkDeletePage/thunkDeletePage';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -18,7 +19,8 @@ const PageTab = () => {
   const history = useHistory();
   const nowPage = getQuery(history.location.search, ['pageName']);
   const listPages = useSelector(listPage);
-  const status = useSelector(statusRequestListPage);
+  const statusRequest = useSelector(statusRequestListPage);
+  const statusDelete = useSelector(statusDeletePage);
   const messageErr = useSelector(messageRequestListPage);
 
   const deletePage = thunkDeletePage();
@@ -26,7 +28,12 @@ const PageTab = () => {
   const handleDeletePage = (indexDelete: number) => {
     return () => {
       deletePage(indexDelete);
-      history.push('/list');
+      const interval = setInterval(() => {
+        if (statusDelete === 'deleted') {
+          history.push('/list');
+          clearInterval(interval);
+        }
+      }, 1000);
     };
   };
 
@@ -79,7 +86,7 @@ const PageTab = () => {
   };
 
   const _renderSwitch = () => {
-    switch (status) {
+    switch (statusRequest) {
       case 'loading':
         return <Loading />;
       case 'failure':
@@ -91,7 +98,18 @@ const PageTab = () => {
     }
   };
 
-  return _renderSwitch();
+  const _renderDeleteSwitch = () => {
+    if (statusDelete === 'deleting') return <LoadingCircle />;
+    if (statusDelete === 'deleteFail') return <Redirect to={{ pathname: '/error', state: messageErr }} />;
+    else return null;
+  };
+
+  return (
+    <>
+      {_renderDeleteSwitch()}
+      {_renderSwitch()}
+    </>
+  );
 };
 
 export default PageTab;
