@@ -16,7 +16,6 @@ const thunkSaveAll = (): ThunkSaveAll => async (dispatch, getState) => {
   const { navReducer, settingMainContentReducers } = getState();
   const  { navItems, logo, buttons } = navReducer;
   const { pageName, elements, id, pathName } = settingMainContentReducers;
-  console.log(settingMainContentReducers);
   await addToPage({
     id,
     pathName,

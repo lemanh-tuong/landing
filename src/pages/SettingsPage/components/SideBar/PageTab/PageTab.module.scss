@@ -1,0 +1,10 @@
+.btn {
+  margin: 5px;
+  padding: 10px;
+  display: block;
+  transition: 0.3s all;
+  &:hover {
+    background: #eee;
+    color: black;
+  }
+}

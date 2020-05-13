@@ -16,7 +16,6 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, canReverseCol = fa
   const [isGradient, setIsGradient] = useState(false);
   //Selector
   const element = useSelector(sections)[nowIndexSection];
-  console.log(element);
   // Destructoring
   const { backgroundColor, animation, positionAnimation, reverse } = element;
 

@@ -12,10 +12,9 @@ const thunkGetDataSection = ({pageName}: ThunkGetDataSectionArg): ThunkGetDataSe
   dispatch(getDataSection.request(null));
   try {
     const data = await readFireBase(`/PagesDetail/${pageName}`);
-    console.log(pageName);
     dispatch(getDataSection.success(data));
   } catch(err) {
-    dispatch(getDataSection.failure('Error'));
+    dispatch(getDataSection.failure(err.message));
   }
 };
 
