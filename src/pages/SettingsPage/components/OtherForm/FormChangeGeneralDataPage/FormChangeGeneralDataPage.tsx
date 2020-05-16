@@ -54,6 +54,7 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
   const _renderChangeSwitch = () => {
     if (statusChangeData === 'changing') return <LoadingCircle />;
     if (statusChangeData === 'changeFail') return <Redirect to={{ pathname: '/error', state: messageRequestErr }} />;
+    return null;
   };
 
   useEffect(() => {
@@ -66,23 +67,28 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
     setError('');
   };
 
-  if (error) {
-    return <div onClick={handleClose}
-      style={{
-        position: 'fixed',
-        background: 'rgba(0,0,0,0.3)',
-        width: '100%', height: '100%',
-        top: 0, left: 0, display: 'flex',
-        justifyContent: 'center', alignItems: 'center',
-        fontSize: 20, color: 'white'
-      }}>
-      {error}
-    </div>;
+  const _renderValidateError = () => {
+    if (error) {
+      return <div onClick={handleClose}
+        style={{
+          position: 'fixed',
+          background: 'rgba(0,0,0,0.8)',
+          width: '100%', height: '100%',
+          top: 0, left: 0, display: 'flex',
+          justifyContent: 'center', alignItems: 'center',
+          fontSize: 20, color: 'white',
+          zIndex: 11111111
+        }}>
+        {error}
+      </div>;
+    }
+    return null;
   }
 
   return (
     <>
       {_renderChangeSwitch()}
+      {_renderValidateError()}
       <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleChangeGeneralDataPage}>
         <Input style={{ margin: 5 }} defaultValue={nowPage.pathName} required addonBefore="New Path Name" onChange={handleChangeNewPathName} />
         <Input style={{ margin: 5 }} defaultValue={nowPage.pageName} required addonBefore="New Page Name" onChange={handleChangeNewPageName} />

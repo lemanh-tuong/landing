@@ -101,6 +101,7 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
     };
     return {
       ...state,
+      statusChangeGeneralDataPage: 'changed',
       data: [...data.slice(0, indexNowPage), {...newData}, ...data.slice(indexNowPage+1, data.length)]
     };
   }),

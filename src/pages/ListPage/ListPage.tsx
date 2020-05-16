@@ -77,29 +77,36 @@ const ListPage = () => {
   useEffect(() => {
     setTimeout(() => {
       if (error) setError('');
-    }, 3000);
+    }, 2000);
   }, [error]);
 
   const handleClose = () => {
     setError('');
   };
 
-  if (error) {
-    return <div onClick={handleClose}
-      style={{
-        position: 'fixed',
-        background: 'rgba(0,0,0,0.3)',
-        width: '100%', height: '100%',
-        top: 0, left: 0, display: 'flex',
-        justifyContent: 'center', alignItems: 'center',
-        fontSize: 20, color: 'white'
-      }}>
-      {error}
-    </div>;
+  const _renderValidateError = () => {
+    if (error) {
+      return <div onClick={handleClose}
+        style={{
+          position: 'fixed',
+          background: 'rgba(0,0,0,0.8)',
+          width: '100%', height: '100%',
+          top: 0, left: 0, display: 'flex',
+          justifyContent: 'center', alignItems: 'center',
+          fontSize: 20, color: 'white',
+          zIndex: 111111,
+        }}>
+        {error}
+      </div>;
+    }
+    return null;
   }
+
+
 
   const _renderSuccess = () => {
     return <>
+      {_renderValidateError()}
       {_renderPages()}
       {_renderCreateSwitch()}
       <div className={styles.addPage} onClick={PopUp.show('add-page-form')}> Add Page </div>

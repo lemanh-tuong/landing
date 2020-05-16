@@ -59,22 +59,28 @@ const FormDuplicatePage = () => {
     setError('');
   };
 
-  if (error) {
-    return <div onClick={handleClose}
-      style={{
-        position: 'fixed',
-        background: 'rgba(0,0,0,0.3)',
-        width: '100%', height: '100%',
-        top: 0, left: 0, display: 'flex',
-        justifyContent: 'center', alignItems: 'center',
-        fontSize: 20, color: 'white'
-      }}>
-      {error}
-    </div>;
+  const _renderValidateError = () => {
+    if (error) {
+      return <div onClick={handleClose}
+        style={{
+          position: 'fixed',
+          background: 'rgba(0,0,0,0.8)',
+          width: '100%', height: '100%',
+          top: 0, left: 0, display: 'flex',
+          justifyContent: 'center', alignItems: 'center',
+          fontSize: 20, color: 'white',
+          zIndex: 1111111
+        }}>
+        {error}
+      </div>;
+    }
+    return null;
   }
+
 
   return (
     <>
+      {_renderValidateError()}
       {_renderDuplicateSwitch()}
       <PopUp id="duplicate-page-form" type='antd' onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
         <Input style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
