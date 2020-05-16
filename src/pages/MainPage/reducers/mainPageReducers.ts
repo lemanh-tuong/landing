@@ -31,7 +31,7 @@ const mainPageReducers = createReducer<MainPageReducer, ActionTypes<typeof getDa
       ...state,
       sections: elements ? [...elements] : [],
       statusRequestSections: 'success',
-      pathName,
+      pathName: pathName,
       id,
       pageName
     };

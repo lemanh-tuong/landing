@@ -66,9 +66,9 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     return {
       ...state,
       elements: !!elements ? [...elements] : [],
-      pageName,
-      id,
-      pathName,
+      pageName: pageName || '',
+      id: id || '',
+      pathName: pathName || '',
       statusRequestElements: 'success'
     };
   }),
