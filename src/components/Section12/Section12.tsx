@@ -18,7 +18,7 @@ export interface Section12PropsBuilder {
 
 const Section12: FC<Section12Props & Section12PropsBuilder> = ({
   animation, backgroundColor, positionAnimation, backgroundImage,
-  sliderSection, itemShow = 1, fluid, margin = 0, hasNav, dotClass, navClass, isBuilder, onShowPopUpEditSlide
+  sliderSection, itemShow = 1, fluid, margin = 0, hasNav, dotClass, navClass, draggable, isBuilder, onShowPopUpEditSlide
 }) => {
 
   const _renderSlide = (slideProperty: Section3Props) => {
@@ -41,7 +41,7 @@ const Section12: FC<Section12Props & Section12PropsBuilder> = ({
         dotClass={`${dotClass} ${styles.dot}`} hasDots={true}
         classActive={styles.active}
         navClass={navClass} hasNav={hasNav} margin={margin}
-        isBuilder={isBuilder}
+        isBuilder={isBuilder} draggable={draggable}
         onEditable={onShowPopUpEditSlide}
       />
     </Section>

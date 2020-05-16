@@ -19,9 +19,10 @@ export interface FormSlidesProps {
   hasNavField: boolean;
   hasDotField: boolean;
   responsiveField: boolean;
+  draggableField: boolean;
 }
 
-export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, hasDotField, responsiveField }) => {
+export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, hasDotField, responsiveField, draggableField }) => {
 
   // State;
   const [nowTab, setTab] = useState<'general' | 'detail'>('general');
@@ -42,7 +43,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
   const changeCheckBox = thunkChangeCheckBox();
   const responsiveSlides = thunkResponsiveSlides();
   //Destructoring
-  const { sliderImgs, responsive, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin } = element;
+  const { sliderImgs, responsive, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, draggable } = element;
 
   const handleChangeFormGeneral = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
@@ -101,6 +102,13 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
             fieldType: 'checkbox',
             fieldName: 'fluid',
             defaultChecked: fluid,
+          },
+          {
+            fieldId: 'draggable-slides',
+            fieldType: 'checkbox',
+            fieldName: 'draggable',
+            defaultChecked: !!draggable,
+            hidden: !draggableField,
           },
           {
             fieldId: 6,

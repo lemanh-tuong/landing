@@ -154,6 +154,7 @@ const initialState: ComponentPageReducers =  {
       classText: '',
       styleText: {},
       backgroundColor: 'linear-gradient(90deg, rgb(250, 111, 152) 0%, rgb(255, 189, 55) 100%)',
+      draggable: true,
       sliderImgs: [
         {
           imgSrc: client,
@@ -427,6 +428,7 @@ const initialState: ComponentPageReducers =  {
         {imgSrc: screen8},
         {imgSrc: screen9},
       ],
+      draggable: true,
       mainTitle: 'App Screenshot',
       alignMainTitle: 'center',
       colorMainTitle: '#fff',

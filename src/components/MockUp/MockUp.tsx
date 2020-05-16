@@ -28,7 +28,7 @@ export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>
 
 const MockUp: FC<MockUpProps> = ({
   onEditable, isBuider,
-  sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp,
+  sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp, draggable,
   dotClass, navClass, hasDots, hasNav, margin, fluid, classActive }
 ) => {
 
@@ -36,7 +36,7 @@ const MockUp: FC<MockUpProps> = ({
     return (
       <div className={styles.playBtn}>
         <div className="pos-a-center">
-          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show(videoUrl)} styleIcon={{ zIndex: 1000 }}>
+          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show(videoUrl)} styleIcon={{ zIndex: 100000 }}>
             <i className="fas fa-play" style={{ color: 'white' }}></i>
           </Icon>
           <PopUp id={videoUrl}>
@@ -59,6 +59,7 @@ const MockUp: FC<MockUpProps> = ({
         itemShow={1}
         classActive={classActive}
         fluid={fluid}
+        draggable={draggable}
         renderItem={({ imgSrc, videoUrl, hasVideo }) => {
           return (
             <Fragment>

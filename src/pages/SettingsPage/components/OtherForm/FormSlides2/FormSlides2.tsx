@@ -18,6 +18,7 @@ import styles from './FormSlides2.module.scss';
 
 export interface FormSlides2Props {
   nowIndexSection: number;
+  draggableField: boolean;
 }
 
 const slidePropertyDefault: Omit<Section3Props, 'sectionid'> = {
@@ -31,7 +32,7 @@ const slidePropertyDefault: Omit<Section3Props, 'sectionid'> = {
   text: 'Insert Listing Locations and Listing Categories block to your app by using App Term Boxes shortcode.',
 };
 
-const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection }) => {
+const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) => {
   // State;
   const [nowTab, setTab] = useState<'general' | 'detail'>('general');
   const [formShown, setFormShown] = useState(-1);
@@ -48,7 +49,7 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection }) => {
   const element = useSelector(sections)[nowIndexSection];
 
   // Destructoring
-  const { sliderSection, fluid, itemShow, margin } = element;
+  const { sliderSection, fluid, itemShow, margin, draggable } = element;
 
   // Dispatch
   const changeCheckBox = thunkChangeCheckBox();
@@ -131,6 +132,13 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection }) => {
             fieldType: 'checkbox',
             defaultChecked: fluid,
           },
+          {
+            fieldId: 'draggable-slides-2',
+            fieldName: 'draggable',
+            fieldType: 'checkbox',
+            defaultChecked: draggable,
+            hidden: !draggableField
+          }
         ]}
       >
         <Button shape='round' size='large' danger>

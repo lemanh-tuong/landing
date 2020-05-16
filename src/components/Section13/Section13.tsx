@@ -27,7 +27,7 @@ const Section13: FC<Section13Props & Section13PropsBuilder> = ({
   isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditMockUp,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  slider, sliderImgs, dotClass, hasDots, hasNav, navClass, margin, fluid,
+  slider, sliderImgs, dotClass, hasDots, hasNav, navClass, margin, fluid, draggable,
   styleMockUp, typeMockUp, classMockUp,
   backgroundColor, backgroundImage, darkMode, animation, positionAnimation
 }) => {
@@ -36,7 +36,7 @@ const Section13: FC<Section13Props & Section13PropsBuilder> = ({
     return <MockUp
       isBuider={isBuilder} onEditable={onShowPopupEditMockUp}
       styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      sliderImgs={sliderImgs} slider={slider} margin={margin}
+      sliderImgs={sliderImgs} slider={slider} margin={margin} draggable={draggable}
       navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots}
       fluid={fluid}
     />;

@@ -197,6 +197,7 @@ const initialState: SideBarReducers =  {
           href: ''
         }
       ] as TypeSlideSection5[],
+      draggable: true,
       darkMode: false,
       id: 'Btn Section 5'
     },
@@ -438,6 +439,7 @@ const initialState: SideBarReducers =  {
         },
       ],
       fluid: false,
+      draggable: true,
       itemShow: 1,
       hasDots: true,
       dotClass: '',
@@ -459,6 +461,7 @@ const initialState: SideBarReducers =  {
         {imgSrc: screen8},
         {imgSrc: screen9},
       ],
+      draggable: true,
       mainTitle: 'App Screenshot',
       alignMainTitle: 'center',
       colorMainTitle: '#fff',

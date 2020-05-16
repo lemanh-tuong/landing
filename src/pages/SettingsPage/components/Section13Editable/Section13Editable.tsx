@@ -16,7 +16,7 @@ const Section13Editable: FC<Section13EditableProps> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   text, alignText, colorText, fontSizeText, classText, styleText,
-  sliderImgs, typeMockUp, fluid, margin, hasDots, dotClass, classActive, navClass, hasNav
+  sliderImgs, typeMockUp, fluid, margin, hasDots, dotClass, classActive, navClass, hasNav, draggable
 }) => {
 
   const handleShowPopUpEditMainTitle = () => {
@@ -36,7 +36,7 @@ const Section13Editable: FC<Section13EditableProps> = ({
         sectionId={sectionId}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         typeMockUp={typeMockUp}
-        sliderImgs={sliderImgs} fluid={fluid} margin={margin} classActive={classActive} navClass={navClass} hasNav={hasNav} hasDots={hasDots} dotClass={dotClass}
+        sliderImgs={sliderImgs} draggable={draggable} fluid={fluid} margin={margin} classActive={classActive} navClass={navClass} hasNav={hasNav} hasDots={hasDots} dotClass={dotClass}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
       />
@@ -50,7 +50,7 @@ const Section13Editable: FC<Section13EditableProps> = ({
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`mockup-${sectionId}`}>
-        <FormMockUp nowIndexSection={nowIndexSection} />
+        <FormMockUp draggableField={true} nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>
   );

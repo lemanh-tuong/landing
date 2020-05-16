@@ -30,6 +30,7 @@ export interface CarouselOptions {
   responsive?: breakpoint;
   itemShow?: number;
   fluid?: boolean;
+  draggable?: boolean;
 }
 
 type RenderType<ItemT> = (arg: ItemT, index?: number) => ReactNode;
@@ -44,7 +45,7 @@ export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 
 const Carousel = <ItemT extends any>({
   isBuilder, onEditable, sliderImgs, renderItem,
   hasNav, hasDots, dotClass, navClass, classActive,
-  margin = 30, responsive, itemShow = 2, fluid }: CarouselProps<ItemT>) => {
+  margin = 30, responsive, itemShow = 2, fluid, draggable }: CarouselProps<ItemT>) => {
 
   const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd } = useSlide(sliderImgs.length, itemShow, responsive);
   const _renderNavSlide = () => {
@@ -61,7 +62,7 @@ const Carousel = <ItemT extends any>({
   };
 
   const _renderDot = (order: number) => {
-    const nowSlide = currentSlide < sliderImgs.length ? currentSlide : currentSlide - sliderImgs.length;
+    const nowSlide = currentSlide > sliderImgs.length - 1 ? 0 : currentSlide < 0 ? sliderImgs.length - 1 : currentSlide;
     const actived = (order === nowSlide) ? classActive ?? styles.active : '';
     return <div key={uuidv4()} className={`${actived} ${dotClass ?? styles.dot}`} onClick={() => pickSlide(order)}></div>;
   };
@@ -117,7 +118,7 @@ const Carousel = <ItemT extends any>({
   }
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={dragStart} onMouseUp={dragEnd} onMouseMove={dragging}>
+      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={draggable ? dragStart : undefined} onMouseUp={dragEnd} onMouseMove={dragging}>
         <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
           {_renderLast()}
           {_renderSlides()}

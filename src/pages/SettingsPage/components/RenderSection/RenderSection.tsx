@@ -35,7 +35,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
     cards, slider, hasDivider, dividerColor,
-    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive,
+    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
     rateList,
@@ -187,6 +187,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           styleText={styleText}
           fontSizeText={fontSizeText}
           sliderImgs={sliderImgs}
+          draggable={draggable}
           responsive={responsive}
           fluid={fluid}
           margin={margin}
@@ -301,7 +302,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           backgroundImage={backgroundImage} darkMode={darkMode}
           sliderSection={sliderSection ?? []}
           hasNav={hasNav} navClass={navClass} hasDots={hasDots} dotClass={dotClass} classActive={classActive}
-          fluid={fluid} itemShow={itemShow} margin={margin}
+          fluid={fluid} itemShow={itemShow} margin={margin} draggable={draggable}
         />;
       case 'Section 13':
         return <Section13Editable
@@ -310,7 +311,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
           backgroundImage={backgroundImage} darkMode={darkMode}
           typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []}
-          hasNav={hasNav} navClass={navClass} hasDots={hasDots} dotClass={dotClass} classActive={classActive}
+          hasNav={hasNav} navClass={navClass} hasDots={hasDots} dotClass={dotClass} classActive={classActive} draggable={draggable}
           fluid={fluid} margin={margin}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}

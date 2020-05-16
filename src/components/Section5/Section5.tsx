@@ -32,7 +32,7 @@ const Section5: FC<Section5Props & Section5PropsBuilder> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditSlides, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  sliderImgs, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid,
+  sliderImgs, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid, draggable,
   backgroundColor, backgroundImage, style, className, darkMode
 }) => {
 
@@ -60,7 +60,7 @@ const Section5: FC<Section5Props & Section5PropsBuilder> = ({
             hasDots={hasDots}
             hasNav={hasNav}
             renderItem={_renderSlide}
-            margin={margin}
+            margin={margin} draggable={draggable}
             responsive={responsive}
             itemShow={itemShow}
             isBuilder={isBuilder}

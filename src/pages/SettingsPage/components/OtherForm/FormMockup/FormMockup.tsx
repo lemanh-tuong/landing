@@ -13,9 +13,10 @@ export type FormMockUpField = FieldType;
 
 export interface FormMockUpProps {
   nowIndexSection: number;
+  draggableField: boolean;
 }
 
-export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
+export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableField }) => {
 
   // State;
   const [nowTab, setTab] = useState<'mockup' | 'slides'>('mockup');
@@ -76,7 +77,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection }) => {
 
   const _renderDetailSettings = () => {
     return (
-      <FormSlides nowIndexSection={nowIndexSection} hasDotField={false} hasNavField={false} responsiveField={false} />
+      <FormSlides nowIndexSection={nowIndexSection} draggableField={draggableField} hasDotField={false} hasNavField={false} responsiveField={false} />
     );
   };
 

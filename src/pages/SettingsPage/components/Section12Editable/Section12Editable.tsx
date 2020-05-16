@@ -11,7 +11,7 @@ export type Section12EditableProps = {
 const Section12Editable: FC<Section12EditableProps> = ({
   nowIndexSection,
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
+  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, draggable,
   sliderSection, fluid, margin, itemShow, hasDots, hasNav, navClass, dotClass, classActive
 }) => {
 
@@ -25,7 +25,7 @@ const Section12Editable: FC<Section12EditableProps> = ({
         isBuilder={true}
         sliderSection={sliderSection}
         fluid={fluid} itemShow={itemShow} margin={margin}
-        hasDots={hasDots} hasNav={hasNav} classActive={classActive} dotClass={dotClass} navClass={navClass}
+        hasDots={hasDots} hasNav={hasNav} classActive={classActive} dotClass={dotClass} navClass={navClass} draggable={draggable}
         sectionId={sectionId}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         onShowPopUpEditSlide={handleShowPopUpEditSlides}
@@ -34,7 +34,7 @@ const Section12Editable: FC<Section12EditableProps> = ({
         <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
       </PopUp>
       <PopUp id={`slides-${sectionId}`}>
-        <FormSlides2 nowIndexSection={nowIndexSection} />
+        <FormSlides2 nowIndexSection={nowIndexSection} draggableField={true} />
       </PopUp>
     </div>
   );
