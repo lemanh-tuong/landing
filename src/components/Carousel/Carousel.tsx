@@ -61,7 +61,8 @@ const Carousel = <ItemT extends any>({
   };
 
   const _renderDot = (order: number) => {
-    const actived = order === currentSlide ? classActive ?? styles.active : '';
+    const nowSlide = currentSlide < sliderImgs.length ? currentSlide : currentSlide - sliderImgs.length;
+    const actived = (order === nowSlide) ? classActive ?? styles.active : '';
     return <div key={uuidv4()} className={`${actived} ${dotClass ?? styles.dot}`} onClick={() => pickSlide(order)}></div>;
   };
 
