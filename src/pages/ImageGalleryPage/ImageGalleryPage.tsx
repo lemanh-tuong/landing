@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
-import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
+import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, id, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
 import thunkChangeAvatarAuthor from './thunks/thunkChangeAvatarAuthor/thunkChangeAvatarAuthor';
 import thunkChangeIconCard2 from './thunks/thunkChangeIconCard2/thunkChangeIconCard2';
 import thunkChangeIconInCol from './thunks/thunkChangeIconInCol/thunkChangeIconInCol';
@@ -43,6 +43,7 @@ const ImageGalleryPage = () => {
   // -Upload File
   const statusUpload = useSelector(statusUploadFile);
   const messageUpload = useSelector(messageUploadFileFailure);
+  const pageId = useSelector(id);
 
   // Dispatch
   const getImage = thunkGetImageGallery();
@@ -147,6 +148,10 @@ const ImageGalleryPage = () => {
       }
     }
   };
+
+  if (!pageId) {
+    return <Redirect to={{ pathname: '/list' }} />
+  }
 
   return (
     <div className="ImageGalleryPage" style={{ width: '100%', height: '100%', background: '#EEE' }}>

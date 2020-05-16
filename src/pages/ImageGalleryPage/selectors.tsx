@@ -17,3 +17,6 @@ export const messageRequestImageFailure = (state: AppState) => state.imageGaller
 //Upload
 export const statusUploadFile = (state: AppState) => state.imageGallery.statusUpload;
 export const messageUploadFileFailure = (state: AppState) => state.imageGallery.messageUploadAction;
+
+// Data SettingPage
+export const id = (state: AppState) => state.settingMainContentReducers.id;
