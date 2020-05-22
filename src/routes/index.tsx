@@ -76,6 +76,9 @@ const Routes = () => {
         <Route exact path='/error'>
           <ErrorPage />
         </Route>
+        <Route exact path="/test" >
+          <TestPage />
+        </Route>
         <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
           component={
             <>
@@ -94,9 +97,6 @@ const Routes = () => {
         {/* <Route exact path="/admin/builder">
           <SettingsPage />
         </Route> */}
-        <Route exact path="/test" >
-          <TestPage />
-        </Route>
         <Route>
           <div>404</div>
         </Route>

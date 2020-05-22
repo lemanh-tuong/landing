@@ -104,6 +104,10 @@ const PageTab = () => {
     else return null;
   };
 
+  const _renderAlertConfirm = (indexDelete: number) => {
+    return <PopUp id="alert-confirm" type='antd' onOk={handleDeletePage(indexDelete)}>Confirm</PopUp>
+  }
+
   return (
     <>
       {_renderDeleteSwitch()}

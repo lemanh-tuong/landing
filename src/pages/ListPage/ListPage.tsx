@@ -1,4 +1,7 @@
 import { Input } from 'antd';
+import Col from 'components/Grid/Column/Column';
+import Container from 'components/Grid/Container/Container';
+import Row from 'components/Grid/Row/Row';
 import Loading from 'components/Loading/Loading';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
@@ -57,16 +60,27 @@ const ListPage = () => {
 
   const _renderPage = ({ id, pageName, pathName }: PageGeneralData) => {
     return (
-      <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={uuidv4()}>
-        <div className={styles.page}>
-          <p>{pageName}</p>
-        </div>
-      </Link>
+      <Col cols={[12, 4, 3]}>
+        <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={uuidv4()}>
+          <div className={styles.page}>
+            {pageName}
+          </div>
+        </Link>
+      </Col>
     );
   };
 
   const _renderPages = () => {
-    return pages.map(page => _renderPage(page));
+    return (
+      <Container>
+        <Row>
+          {pages.map(page => _renderPage(page))}
+          <Col cols={[12, 4, 3]}>
+            <div className={styles.addPage} onClick={PopUp.show('add-page-form')}> Add Page </div>
+          </Col>
+        </Row>
+      </Container>
+    );
   };
 
   const _renderCreateSwitch = () => {
@@ -109,9 +123,8 @@ const ListPage = () => {
       {_renderValidateError()}
       {_renderPages()}
       {_renderCreateSwitch()}
-      <div className={styles.addPage} onClick={PopUp.show('add-page-form')}> Add Page </div>
       <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
-        <Input required addonBefore="pathName" onChange={handleChangePathName} />
+        <Input defaultValue="/" required addonBefore="pathName" onChange={handleChangePathName} />
         <Input required addonBefore="Page Name" onChange={handleChangePageName} />
       </PopUp>
     </>;
