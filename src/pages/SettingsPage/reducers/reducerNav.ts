@@ -33,9 +33,9 @@ const navReducer = createReducer<NavReducer, ActionTypes<typeof actionGetDataNav
   handleAction('@getDataNavSuccess', (state, action) => ({
     ...state,
     statusRequestNav: 'success',
-    logo: {...action.payload.logo} || {...initialState.logo},
-    navItems: action.payload.navItems ? [...action.payload.navItems] : [...initialState.navItems],
-    buttons: action.payload.buttons ? [...action.payload.buttons] : [...initialState.buttons]
+    logo: action.payload && action.payload.logo? {...action.payload.logo} : {...initialState.logo},
+    navItems: action.payload && action.payload.navItems ? [...action.payload.navItems] : [...initialState.navItems],
+    buttons: action.payload && action.payload.buttons ? [...action.payload.buttons] : [...initialState.buttons]
   })),
   handleAction('@getDataNavFailure', (state, action) => ({
     ...state,

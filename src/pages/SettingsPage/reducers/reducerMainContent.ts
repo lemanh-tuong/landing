@@ -62,14 +62,13 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     statusRequestElements: 'loading'
   })),
   handleAction('@getDataSectionSuccess', (state, action) => {
-    const { id, elements, pathName, pageName } = action.payload;
     return {
       ...state,
-      elements: !!elements ? [...elements] : [],
-      pageName: pageName || '',
-      id: id || '',
-      pathName: pathName || '',
-      statusRequestElements: 'success'
+      statusRequestElements: 'success',
+      elements: action.payload && action.payload.elements ? [...action.payload.elements]: [],
+      pageName: action.payload && action.payload.pageName ? action.payload.pageName : '',
+      id: action.payload && action.payload.id ? action.payload.id : [],
+      pathName: action.payload && action.payload.pathName ? action.payload.pathName : '',
     };
   }),
   handleAction('@getDataSectionFailure', (state) => ({

@@ -25,15 +25,14 @@ const mainPageReducers = createReducer<MainPageReducer, ActionTypes<typeof getDa
       statusRequestSections: 'loading',
     };
   }),
-  handleAction('@getDataSectionsSuccess', (state, action) => {
-    const { elements, pathName, id, pageName } = action.payload;
+  handleAction('@getDataSectionsSuccess', (state: any, action) => {
     return {
       ...state,
-      sections: elements ? [...elements] : [],
       statusRequestSections: 'success',
-      pathName: pathName,
-      id,
-      pageName
+      sections: action.payload ? [...action.payload.elements] || [] : [],
+      pathName: action.payload? action.payload.pathName || '' : [],
+      id: action.payload ? action.payload.id || '' : '',
+      pageName: action.payload ? action.payload.pageName || '' : ''
     };
   }),
   handleAction('@getDataSectionsFailure', (state, action) => {

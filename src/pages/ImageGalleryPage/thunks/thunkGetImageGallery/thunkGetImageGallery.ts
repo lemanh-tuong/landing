@@ -13,9 +13,7 @@ const thunkGetImageGallery = (type: ActionUploadFilePayload['type']): ThunkGetIm
     const imgs = data.map(item => ({
       imgSrc: item
     }));
-    if(data) {
-      dispatch(actionGetImageGallery.success({type, imgs}));
-    }
+    dispatch(actionGetImageGallery.success({type, imgs}));
   } catch(err) {
     dispatch(actionGetImageGallery.failure('Error'));
   }

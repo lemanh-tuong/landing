@@ -64,6 +64,14 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection, onS
 
   return (
     <ButtonGroup style={{ display: 'flex' }} align='right'>
+      <Popover placement='top' content="Drag Section" >
+        <div className={styles.dragBtn} onMouseOver={handleDragStart(true)}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseOut={mouseDown ? () => { } : handleDragStart(false)}>
+          <i className="fas fa-arrows-alt"></i>
+        </div>
+      </Popover>
       <Popover placement='top' content="Move Up Section">
         <Button className={styles.buttonFunc} onClick={handleMoveUpSection(nowIndexSection)} shape='circle' size='large' >
           <i className="fas fa-angle-up" />
@@ -86,16 +94,8 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ elementProperty, nowIndexSection, onS
       </Popover>
       <Popover placement='top' content="Delete Section">
         <Button className={styles.buttonFunc} onClick={handleDelete({ ...elementProperty }, nowIndexSection)} shape='circle' size='large' >
-          <i className="fas fa-times" />
+          <i className="fas fa-trash"></i>
         </Button>
-      </Popover>
-      <Popover placement='top' content="Drag Section" >
-        <div className={styles.dragBtn} onMouseOver={handleDragStart(true)}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseOut={mouseDown ? () => { } : handleDragStart(false)}>
-          <i className="fas fa-arrows-alt"></i>
-        </div>
       </Popover>
     </ButtonGroup>
   );

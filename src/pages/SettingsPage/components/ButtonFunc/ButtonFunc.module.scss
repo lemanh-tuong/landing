@@ -7,9 +7,11 @@
   height: 0;
   width: 0;
   background: white;
-  border: 1px solid;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: grab;
+  &:hover {
+    color: blue;
+  }
 }
