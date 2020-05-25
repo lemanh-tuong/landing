@@ -18,7 +18,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection }) => {
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { text, alignText, colorText } = element;
+  const { text, alignText, colorText, fontSizeText } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -28,11 +28,11 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection }) => {
   //Handle
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldType === 'input') {
+      if (fieldType === 'input' || fieldType === 'rich-text-editor') {
         // Value of input
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldType === 'radio') {
+      if (fieldType === 'radio' || fieldType === 'radio3') {
         // Result = value of radio's checking
         changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
@@ -48,7 +48,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection }) => {
       <Form
         fields={[
           {
-            fieldType: 'input',
+            fieldType: 'rich-text-editor',
             fieldName: 'text',
             fieldId: 'section-1-field-4',
             horizontal: true,
@@ -73,6 +73,12 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection }) => {
                 name: 'align text'
               },
             ],
+          },
+          {
+            fieldName: 'fontSizeText',
+            fieldType: 'radio3',
+            fieldId: 'font-size-text',
+            defaultCheckedValue: fontSizeText
           },
           {
             fieldType: 'color-picker',

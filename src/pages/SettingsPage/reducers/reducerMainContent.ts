@@ -1,5 +1,6 @@
 import { ActionChangeAvatarAuthorPayload } from 'pages/ImageGalleryPage/actions/actionChangeAvatarAuthor/actionChangeAvatarAuthor';
 import { ActionChangeIconImgInColPayload } from 'pages/ImageGalleryPage/actions/actionChangeIconInCol/actionChangeIconInCol';
+import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { ActionChangeInputButton2Payload } from '../actions/actionButton2/actionChangeInputButton2/actionChangeInputButton2';
 import { ActionChangeColorCard2TextPayload } from '../actions/actionCard2/actionChangeColorCard2Text/actionChangeColorCard2Text';
@@ -22,6 +23,7 @@ import { ActionChangeRadio } from '../actions/actionsInFormSection/actionChangeR
 import { ActionChangeSelectPayload } from '../actions/actionsInFormSection/actionChangeSelect/actionChangeSelect';
 import { ActionAddSlide2Payload } from '../actions/actionSlide2/actionAddSlide2/actionAddSlide2';
 import { ActionChangeCheckBoxSlide2Payload } from '../actions/actionSlide2/actionChangeCheckBoxSlide2/actionChangeCheckBoxSlide2';
+import { ActionChangeColorSlide2Payload } from '../actions/actionSlide2/actionChangeColorSlide2/actionChangeColorSlide2';
 import { ActionChangeImgSlide2Payload } from '../actions/actionSlide2/actionChangeImgSlide2/actionChangeImgSlide2';
 import { ActionChangeInputSlide2Payload } from '../actions/actionSlide2/actionChangeInputSlide2/actionChangeInputSlide2';
 import { ActionDeleteSlide2Payload } from '../actions/actionSlide2/actionDeleteSlide2/actionDeleteSlide2';
@@ -37,11 +39,8 @@ import { ActionDeleteSlidePayload } from '../actions/actionsSlide&MockUp/actionD
 import { ActionResponsiveSlidesPayload } from '../actions/actionsSlide&MockUp/actionResponsiveSlides/actionResponsiveSlides';
 import { Option } from '../SettingsPage';
 
-export interface SettingMainContentReducers {
-  readonly pageName: string;
+export interface SettingMainContentReducers extends PageGeneralData {
   readonly elements: Option[];
-  readonly pathName: string;
-  readonly id: string;
   readonly statusRequestElements: 'loading' | 'success' | 'failure';
   readonly messageRequestElements: string;
 }
@@ -51,6 +50,7 @@ const initialState: SettingMainContentReducers = {
   pageName: '',
   pathName: '',
   id: '',
+  titlePage: '',
   elements: [],
   statusRequestElements: 'loading',
   messageRequestElements: '',
@@ -722,11 +722,13 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...nowSlideSection,
       [fieldName]: checked,
     } : {};
+    console.log("AAAA");
     const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
     };
+
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
@@ -740,6 +742,25 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newSlideSection = nowSlideSection ? {
       ...nowSlideSection,
       [fieldName]: value,
+    } : {};
+    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
+    const newElement = {
+      ...nowElement,
+      sliderSection: [...newSlides],
+    };
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    };
+  }),
+  handleAction('CHANGE_COLOR_SLIDE_2', (state: any, action) => {
+    const { color, fieldName, nowIndexSection, nowIndexSlide } = action.payload as ActionChangeColorSlide2Payload;
+    const nowElement = state.elements[nowIndexSection];
+    const nowSlides = nowElement.sliderSection;
+    const nowSlideSection = nowSlides?.[nowIndexSlide];
+    const newSlideSection = nowSlideSection ? {
+      ...nowSlideSection,
+      [fieldName]: color,
     } : {};
     const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
     const newElement = {

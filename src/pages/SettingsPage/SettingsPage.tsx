@@ -12,8 +12,10 @@ import { Secction9Props } from 'components/Section9/Section9';
 import SideBar from 'pages/SettingsPage/components/SideBar/SideBar';
 import React, { useRef, useState } from 'react';
 import { DragDropContext, DragStart, DropResult } from 'react-beautiful-dnd';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import getQuery from 'utils/functions/getQuery';
 import { v4 as uuidv4 } from 'uuid';
 import { Section1Props } from '../../components/Section1/Section1';
 import { Section2Props } from '../../components/Section2/Section2';
@@ -22,7 +24,7 @@ import { Section4Props } from '../../components/Section4/Section4';
 import MainContent from './components/MainContent/MainContent';
 import NavEditable from './components/NavEditable/NavEditable';
 import { reorder } from './DragDropFunction';
-import { patternSection, sections } from './selectors';
+import { listPage, patternSection, sections } from './selectors';
 import styles from './SettingsPage.module.scss';
 import thunkAddSection from './thunks/thunksSection/thunkAddSection/thunkAddSection';
 import thunkMoveSection from './thunks/thunksSection/thunkMoveSection/thunkMoveSection';
@@ -51,7 +53,9 @@ const defaultSection: Option = {
 const SettingsPage = () => {
   const history = useHistory();
   const prepairAddProperty = useRef<Option>({ ...defaultSection });
-  const nowPageEditing = history.location.search;
+  const nowPageEditingParams = history.location.search;
+
+  const { id } = getQuery(nowPageEditingParams, ['id'])
 
   //State
   const [sectionDragging, setSectionDragging] = useState(-1);
@@ -69,6 +73,10 @@ const SettingsPage = () => {
   // Selector
   const patterns = useSelector(patternSection);
   const elements = useSelector(sections);
+  const pages = useSelector(listPage);
+
+  const titleNowPageEditing = pages.find(page => page.id === id)?.titlePage as string;
+
   // Dispatch
   const moveSection = thunkMoveSection();
   const addSection = thunkAddSection();
@@ -121,13 +129,16 @@ const SettingsPage = () => {
     }
   };
 
-  if (!nowPageEditing.includes('Page')) {
+  if (!id) {
     history.push('/list');
     return null;
   }
 
   return (
     <div className="Page">
+      <Helmet>
+        <title>{titleNowPageEditing || ''} Builder</title>
+      </Helmet>
       <Button
         onClick={handleActive}
         shape='circle'

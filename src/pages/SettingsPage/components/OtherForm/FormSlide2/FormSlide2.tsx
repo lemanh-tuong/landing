@@ -30,7 +30,7 @@ const slidePropertyDefault: Omit<Section3Props, 'sectionid'> = {
 };
 
 const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, nowIndexSlide }) => {
-  const { mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, imageSectionCol } = sectionProperty;
+  const { reverse, mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, imageSectionCol } = sectionProperty;
   //Dispatch
   const changeInput = thunkChangeInputSlide2();
   const changeCheckBox = thunkChangeCheckBoxSlide2();
@@ -46,7 +46,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
       }
       if (fieldType === 'checkbox') {
-        changeCheckBox({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
+        changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
       }
       if (fieldType === 'radio') {
         changeRadio({ value: result, fieldName: fieldName, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
@@ -72,6 +72,12 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
       <Form
         onChange={handleChangeForm}
         fields={[
+          {
+            fieldId: 'checkbox-reverse-section-slide-2',
+            fieldName: 'reverse',
+            fieldType: 'checkbox',
+            defaultChecked: !!reverse,
+          },
           {
             fieldId: 'input-title-slide-2',
             fieldName: 'mainTitle',
@@ -147,6 +153,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
             fieldName: 'dividerColor',
             fieldType: 'color-picker',
             defaultColor: dividerColor,
+            hidden: !hasDivider
           },
         ]}
       >

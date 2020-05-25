@@ -72,9 +72,9 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
     statusDuplicatePage: 'duplicating'
   })),
   handleAction('@duplicated', (state, action) => {
-    const { id, pageName, pathName } = action.payload;
+    const { id, pageName, pathName, titlePage } = action.payload;
     const { data } = state;
-    const newData = data.concat({id, pathName, pageName});
+    const newData = data.concat({id, pathName, pageName, titlePage: titlePage});
     return {
       ...state,
       data: [...newData],

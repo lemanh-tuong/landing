@@ -51,58 +51,75 @@ const Routes = () => {
     }
   };
 
+  const _renderContentSuccess = () => {
+    return (
+      <>
+        {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
+        <Switch>
+          <Route exact path={`/(/|${paths.join('|')})/`}>
+            <MainPage />
+          </Route>
+          <Route exact path='/admin/login'>
+            <LoginPage />
+          </Route>
+          <Route exact path="/list">
+            <ListPage />
+          </Route>
+          <Route exact path='/error'>
+            <ErrorPage />
+          </Route>
+          <Route exact path="/test" >
+            <TestPage />
+          </Route>
+          <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
+            component={
+              <>
+                <Route exact path="/admin/builder">
+                  <SettingsPage />
+                </Route>
+                <Route exact path="/gallery">
+                  <ImageGalleryPage />
+                </Route>
+                <Route exact path="/admin/component">
+                  <ComponentPage />
+                </Route>
+              </>
+            }
+          />
+          {/* <Route exact path="/admin/builder">
+            <SettingsPage />
+          </Route> */}
+          <Route>
+            <div>404</div>
+          </Route>
+        </Switch>
+      </>
+    );
+  }
+
+  const _renderContentSwitch = () => {
+    switch (statusRequestPageName) {
+      case 'loading':
+        return <Loading />;
+      case 'success':
+        return _renderContentSuccess();
+      case 'failure':
+        return <Redirect to={{ state: messageRequestPageNameErr, pathname: '/error' }} />;
+      default:
+        return null;
+    }
+  }
+
   useMount(() => {
-    getDataNav();
     getListPageName();
+    getDataNav();
   });
 
   if (statusRequestPageName === 'failure') {
-    return <Redirect to={{ state: messageRequestPageNameErr, pathname: '/error' }} />;
-  }
 
-  return (
-    <>
-      {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
-      <Switch>
-        <Route exact path={`/(/|${paths.join('|')})/`}>
-          <MainPage />
-        </Route>
-        <Route exact path='/admin/login'>
-          <LoginPage />
-        </Route>
-        <Route exact path="/list">
-          <ListPage />
-        </Route>
-        <Route exact path='/error'>
-          <ErrorPage />
-        </Route>
-        <Route exact path="/test" >
-          <TestPage />
-        </Route>
-        <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
-          component={
-            <>
-              <Route exact path="/admin/builder">
-                <SettingsPage />
-              </Route>
-              <Route exact path="/gallery">
-                <ImageGalleryPage />
-              </Route>
-              <Route exact path="/admin/component">
-                <ComponentPage />
-              </Route>
-            </>
-          }
-        />
-        {/* <Route exact path="/admin/builder">
-          <SettingsPage />
-        </Route> */}
-        <Route>
-          <div>404</div>
-        </Route>
-      </Switch>
-    </>
-  );
+  }
+  return _renderContentSwitch()
+
 };
 
 export default Routes;

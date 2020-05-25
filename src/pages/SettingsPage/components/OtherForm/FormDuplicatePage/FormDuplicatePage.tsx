@@ -13,6 +13,7 @@ const FormDuplicatePage = () => {
   const history = useHistory();
   const [pageName, setPageName] = useState('');
   const [pathName, setPathName] = useState('');
+  const [titlePage, setTitlePage] = useState('');
   const [error, setError] = useState('');
 
   const duplicatePage = thunkDuplicatePage();
@@ -27,12 +28,15 @@ const FormDuplicatePage = () => {
   const handleChangePathName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPathName(e.target.value);
   };
+  const handleChangeTitlePage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitlePage(e.target.value)
+  }
 
   const handleDuplicatePage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
     if (!isExisted) {
-      duplicatePage({ pageName, pathName, id: id });
+      duplicatePage({ pageName, pathName, id: id, titlePage: titlePage });
       const interval = setInterval(() => {
         if (statusDuplicate === 'duplicated') {
           history.push(`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`);
@@ -83,8 +87,9 @@ const FormDuplicatePage = () => {
       {_renderValidateError()}
       {_renderDuplicateSwitch()}
       <PopUp id="duplicate-page-form" type='antd' onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
-        <Input style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
+        <Input style={{ margin: 5 }} required addonBefore="Path Name" defaultValue='/' onChange={handleChangePathName} />
         <Input style={{ margin: 5 }} required addonBefore="Page Name" onChange={handleChangePageName} />
+        <Input style={{ margin: 5 }} required addonBefore="Title Page" onChange={handleChangeTitlePage} />
       </PopUp>
     </>
   );

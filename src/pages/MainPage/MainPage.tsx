@@ -1,19 +1,25 @@
 import Loading from 'components/Loading/Loading';
+import configureApp from 'configureApp.json';
 import React, { Fragment, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router';
+import { listPage } from 'selectors';
 import RenderSection from './components/RenderSection/RenderSection';
 import { listSections, messageRequestMainPageSections, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
 
 const HomePage = () => {
   const { state } = useLocation();
-  const pathName = state;
+  const pathName = state || '/';
 
   // Selectors
   const sections = useSelector(listSections);
   const messageRequest = useSelector(messageRequestMainPageSections);
   const statusRequest = useSelector(statusRequestMainPageSections);
+  const pages = useSelector(listPage);
+
+  const pageName = pages.find(page => page.pathName === pathName)?.titlePage || 'Home Page';
 
   //Dispatch
   const getData = thunkGetSections();
@@ -48,6 +54,9 @@ const HomePage = () => {
 
   return (
     <div className={pathName as string}>
+      <Helmet>
+        <title>{configureApp.landingName}</title>
+      </Helmet>
       {_renderMainContentSwitch()}
     </div>
   );

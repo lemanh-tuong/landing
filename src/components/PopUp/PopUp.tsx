@@ -124,7 +124,7 @@ class PopUp extends PureComponent<PopUpProps> {
         );
       case 'antd':
         return (
-          <Modal centered visible={visible} closeIcon={<i></i>} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.content}>
+          <Modal style={style} centered visible={visible} closeIcon={<i></i>} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.content}>
             {children}
           </Modal>
         );
@@ -138,9 +138,11 @@ class PopUp extends PureComponent<PopUpProps> {
     if (!visible) {
       return null;
     }
-    return createPortal(<div className={styles.popUp}>
-      {this._renderSwitch()}
-    </div>, body as Element);
+    return createPortal(
+      <div className={styles.popUp}>
+        {this._renderSwitch()}
+      </div>, body as Element
+    );
   }
 }
 

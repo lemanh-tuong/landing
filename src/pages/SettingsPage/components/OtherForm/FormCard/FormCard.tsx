@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 import 'antd/es/style/css';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
@@ -100,9 +100,13 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     moveChild({ data: newElements, nowIndexSection: nowIndexSection });
   };
 
+  const handleChangeBgIcon = (nowIndexCard: number) => {
+    return (result: string) => changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result })
+  }
+
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
-    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon } = element.cards?.[nowIndexCard] as CardProps;
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon, bgColorIcon } = element.cards?.[nowIndexCard] as CardProps;
     return (
       <Form
         fields={[
@@ -190,12 +194,24 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
                 value: 'center'
               },
             ]
-          }
+          },
         ]}
         onChange={handleChangeCardForm(nowIndexCard)}
       >
+        <div className="bgIcon">
+          <p>Background Icon</p>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a person"
+            onChange={handleChangeBgIcon(nowIndexCard)}
+          >
+            <Select.Option value="transparent">Transparent</Select.Option>
+            <Select.Option value="gradient-pink-orange">Gradient</Select.Option>
+          </Select>,
+        </div>
         <Link className={styles.link} to={`/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
-          <Icon iconImg={iconImg} bgColorIcon={'gradient-pink-orange'} />
+          <Icon iconImg={iconImg} bgColorIcon={bgColorIcon} />
           <i className={`far fa-images ${styles.icon}`}></i>
         </Link>
       </Form>
@@ -208,7 +224,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     return (
       <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`}>
         {provided => (
-          <div className={styles.cardFormName} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+          <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : null}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
             <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
               <i className="fas fa-plus"></i>
               <div className={styles.cardName}>{titleCard}</div>

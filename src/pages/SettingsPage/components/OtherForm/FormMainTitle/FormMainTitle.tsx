@@ -18,7 +18,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection }) => {
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { mainTitle, alignMainTitle, colorMainTitle } = element;
+  const { mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -32,7 +32,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection }) => {
         // Value of input
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
-      if (fieldType === 'radio') {
+      if (fieldType === 'radio' || fieldType === 'radio3') {
         // Result = value of radio's checking
         changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
@@ -73,6 +73,12 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection }) => {
                 name: 'align title'
               },
             ],
+          },
+          {
+            fieldId: 'fontSizeMainTitle',
+            fieldType: 'radio3',
+            fieldName: 'fontSizeMainTitle',
+            defaultCheckedValue: fontSizeMainTitle,
           },
           {
             fieldType: 'color-picker',

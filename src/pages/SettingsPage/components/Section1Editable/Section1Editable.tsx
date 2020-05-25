@@ -15,9 +15,9 @@ export interface Section1EditableProps extends Section1Props {
 
 const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
   nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse,
-  mainTitle, alignMainTitle, colorMainTitle,
+  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   hasDivider, dividerColor,
-  text, alignText, colorText,
+  text, alignText, colorText, fontSizeText,
   sliderImgs,
   textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
   typeMockUp
@@ -51,12 +51,13 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
         hasDivider={hasDivider}
         dividerColor={dividerColor}
         text={text ?? ''}
         alignText={alignText}
         colorText={colorText}
-        fontSizeText='sm'
+        fontSizeText={fontSizeText}
         backgroundColor={backgroundColor}
         backgroundImage={backgroundImage}
         typeMockUp={typeMockUp}

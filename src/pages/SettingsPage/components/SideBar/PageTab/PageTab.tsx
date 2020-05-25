@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Loading from 'components/Loading/Loading';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
+import PopOver from 'components/PopOver/PopOver';
 import PopUp from 'components/PopUp/PopUp';
 import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { listPage, messageRequestListPage, statusDeletePage, statusRequestListPage } from 'pages/SettingsPage/selectors';
@@ -47,11 +48,13 @@ const PageTab = () => {
               {pageName}
             </div>
           </Link>
-          <ButtonGroup style={{ flex: '1 0' }}>
-            <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show('duplicate-page-form')} />
-            <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={handleDeletePage(index)} />
-            <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
-          </ButtonGroup>
+          <PopOver id={id} content={_renderPopOverSetting(pageName, id, index)} trigger='click'>
+            <Button
+              className={`${styles.btn}`}
+              icon={<i className="fas fa-ellipsis-h"></i>}
+              size='middle' shape='round' danger
+            />
+          </PopOver>
           <FormChangeGeneralDataPage pageId={id} />
         </div>
       );
@@ -104,8 +107,23 @@ const PageTab = () => {
     else return null;
   };
 
-  const _renderAlertConfirm = (indexDelete: number) => {
-    return <PopUp id="alert-confirm" type='antd' onOk={handleDeletePage(indexDelete)}>Confirm</PopUp>
+  const _renderAlertConfirm = (pageName: string, indexDelete: number) => {
+    return <PopUp id="alert-confirm" style={{ height: 400 }} type='antd' onOk={handleDeletePage(indexDelete)}>
+      <p style={{ textAlign: 'center' }}>Delete
+        <span style={{ fontSize: 20, fontWeight: 800, marginLeft: 10 }}>{pageName}?</span>
+      </p>
+    </PopUp>
+  }
+
+  const _renderPopOverSetting = (pageName: string, id: string, index: number) => {
+    return (
+      <>
+        <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show('duplicate-page-form')} />
+        <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show('alert-confirm')} />
+        <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+        {_renderAlertConfirm(pageName, index)}
+      </>
+    )
   }
 
   return (

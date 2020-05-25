@@ -21,13 +21,16 @@ export interface InputProps extends InputOption {
 const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizontal, autoSize, style, onChange }) => {
   const onChangeRef = useRef(onChange);
   const [value, setValue] = useState(defaultValue ?? '');
-
+  let timeout: Timeout;
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+    clearTimeout(timeout);
   };
 
   useEffect(() => {
-    onChangeRef.current?.(value);
+    timeout = setTimeout(() => {
+      onChangeRef.current?.(value);
+    }, 1000);
   }, [onChangeRef, value]);
 
   const _renderTextArea = () => {

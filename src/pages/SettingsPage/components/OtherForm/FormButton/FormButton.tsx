@@ -1,5 +1,5 @@
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
-import { sections } from 'pages/SettingsPage/selectors';
+import { listPage, sections } from 'pages/SettingsPage/selectors';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
@@ -29,7 +29,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
 
   // Selector
   const element = useSelector(sections)[nowIndex];
-
+  const listPageName = useSelector(listPage);
   // Destructoring
   const { textButton, hrefButton, backgroundButton, typeButton, sizeButton } = element;
 
@@ -118,7 +118,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
             fieldId: 3,
             optionsGroup: {
               groupName: 'Link',
-              options: [{ label: '/about', value: '/about' }, { value: '/', label: '/' }]
+              options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
             },
             defaultSelect: '/',
             hidden: !(typeHref === 'internal')

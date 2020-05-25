@@ -30,11 +30,11 @@ const Text: FC<TextProps> = ({ isBuilder, text = '', colorText, fontSizeText, al
   if (isBuilder) {
     return (
       <PopOverText onEdit={onEditable} component={
-        <div className={`${!!text ? null : styles.empty} ${styles.isBuilder} ${styles.text} ${styles[fontSize]} ${styles[color]} ${styles[align]} ${classT} ${dark} `}
+        <div className={`${classText} ${!!text ? null : styles.empty} ${styles.isBuilder} ${styles.text} ${styles[fontSize]} ${styles[color]} ${styles[align]} ${classT} ${dark} `}
           style={{ ...style, color: color, fontSize: fontSize }}
           onClick={onEditable}
+          dangerouslySetInnerHTML={{ __html: text }}
         >
-          {text}
           {children}
         </div>
       } />
@@ -42,8 +42,14 @@ const Text: FC<TextProps> = ({ isBuilder, text = '', colorText, fontSizeText, al
   }
   if (!!text) {
     return (
-      <div className={`${styles.text} ${styles[fontSize]} ${styles[color]} ${styles[align]} ${classT} ${dark} `} style={{ ...style, color: color, fontSize: fontSize }}>
-        {text}
+      <div
+        className={`${styles.text}
+          ${classText}
+          ${styles[fontSize]} ${styles[color]}
+          ${styles[align]} ${classT} ${dark} `}
+        style={{ ...style, color: color, fontSize: fontSize }}
+        dangerouslySetInnerHTML={{ __html: text }}
+      >
         {children}
       </div>
     );

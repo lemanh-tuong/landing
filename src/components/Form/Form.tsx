@@ -10,6 +10,8 @@ import InputNumber, { InputNumberProps } from './InputNumber/InputNumber';
 import InputText2, { InputText2Props } from './InputText2/InputText2';
 import Radio, { RadioProps } from './Radio/Radio';
 import Radio2 from './Radio2/Radio2';
+import Radio3 from './Radio3/Radio3';
+import RichTextEditor from './RichTextEditor/RichTextEditor';
 import Select, { SelectProps } from './Select/Select';
 import SelectButtonType, { SelectButtonTypeProps } from './SelectButtonType/SelectButtonType';
 
@@ -27,7 +29,7 @@ export type FieldType = Partial<InputProps>
   & Partial<SelectButtonTypeProps>
   & {
     hidden?: boolean;
-    fieldType: 'input' | 'radio2' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2';
+    fieldType: 'input' | 'radio2' | 'radio3' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2' | 'rich-text-editor';
     fieldName: string;
     fieldId: string | number;
   };
@@ -69,6 +71,8 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return <Radio fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
     case 'radio2':
       return <Radio2 fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
+    case 'radio3':
+      return <Radio3 fieldName={arg.fieldName} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />
     case 'checkbox':
       return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />;
     case 'file':
@@ -81,6 +85,8 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return arg.options ? <SelectButtonType key={arg.fieldId} fieldName={arg.fieldName} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
     case 'color-picker-gradient':
       return <ColorPickerGradient key={arg.fieldId} fieldName={arg.fieldName} onChange={onChange} />;
+    case 'rich-text-editor':
+      return <RichTextEditor fieldName={arg.fieldName} onChange={onChange} placeholder={arg.placeholder} defaultValue={arg.defaultValue} className={arg.className} style={arg.style} key={arg.fieldId} />
     default:
       return null;
   }

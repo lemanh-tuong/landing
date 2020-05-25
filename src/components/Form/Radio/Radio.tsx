@@ -10,7 +10,7 @@ export interface RadioButton {
 export interface RadioOption {
   fieldName: string;
   data: RadioButton[];
-  defaultCheckedValue: string;
+  defaultCheckedValue?: string;
   onClick?: (value: string) => void;
 }
 

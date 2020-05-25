@@ -61,7 +61,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           colorMainTitle={colorMainTitle}
           classMainTitle={classMainTitle}
           styleMainTitle={styleMainTitle}
-          fontSizeMainTitle={fontSizeMainTitle}
+          fontSizeMainTitle={fontSizeMainTitle ?? 'md'}
           hasDivider={hasDivider}
           dividerColor={dividerColor}
           text={text ?? ''}

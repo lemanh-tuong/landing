@@ -185,7 +185,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     return (
       <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`}>
         {provided => (
-          <div className={styles.cardFormName} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+          <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
             <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
               <i className="fas fa-plus"></i>
               <div className={styles.cardName}>{titleCard}</div>

@@ -46,13 +46,16 @@ const RenderSection = (option: Option) => {
           positionAnimation={positionAnimation}
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
+          fontSizeMainTitle={fontSizeMainTitle}
           colorMainTitle={colorMainTitle}
           hasDivider={hasDivider}
           dividerColor={dividerColor}
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
-          fontSizeText='sm'
+          styleText={styleText}
+          classText={classText}
+          fontSizeText={fontSizeText}
           backgroundColor={backgroundColor}
           backgroundImage={backgroundImage}
           typeMockUp={typeMockUp}
@@ -85,6 +88,7 @@ const RenderSection = (option: Option) => {
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          fontSizeMainTitle={fontSizeMainTitle}
           backgroundImage={backgroundImage}
           backgroundColor={backgroundColor}
           cards={cards ? cards : []}
@@ -122,6 +126,7 @@ const RenderSection = (option: Option) => {
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          fontSizeMainTitle={fontSizeMainTitle}
           backgroundButton={backgroundButton}
           hrefButton={hrefButton}
           colorTextButton={colorTextButton}
@@ -130,6 +135,7 @@ const RenderSection = (option: Option) => {
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
+          fontSizeText={fontSizeText}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           sectionId={sectionId}
         />;
@@ -142,9 +148,11 @@ const RenderSection = (option: Option) => {
           mainTitle={mainTitle}
           alignMainTitle={alignMainTitle}
           colorMainTitle={colorMainTitle}
+          fontSizeMainTitle={fontSizeMainTitle}
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
+          fontSizeText={fontSizeText}
           sliderImgs={sliderImgs}
           hasNav={hasNav}
           hasDots={hasDots}

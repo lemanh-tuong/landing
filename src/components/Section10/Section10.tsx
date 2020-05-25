@@ -99,7 +99,7 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
       {_renderMainTitle()}
       {_renderDivider()}
       {_renderImage()}
-      {<Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />}
+      {<Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={{ ...styleText, marginTop: 45 }} classText={classText} />}
       <ButtonGroup align='center'>
         <Button size={sizeButton} type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
       </ButtonGroup>

@@ -95,7 +95,7 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
     return (
       <Draggable index={nowIndexSlide} draggableId={`card-${nowIndexSlide}`}>
         {provided => (
-          <div className={styles.sliderSection} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps} onClick={handleFormShown(nowIndexSlide)}>
+          <div className={`${styles.sliderSection} ${nowIndexSlide === formShown ? styles.active : ''}`} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps} onClick={handleFormShown(nowIndexSlide)}>
             <div className={styles.sectionDesc} >
               <i className="fas fa-plus"></i>
               <div className={styles.sectionMainTitle}>{mainTitle}</div>

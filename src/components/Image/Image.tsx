@@ -27,17 +27,17 @@ const defaultProps: ImageProps = {
 const Image: FC<ImageProps> = ({ isBuilder, onEditable, imgSrc, type, aspectRatio, parallax, className, style, children } = { ...defaultProps }) => {
   const aspectRatioStyle = !!aspectRatio ? styles[aspectRatio] : '';
 
-  const _renderBackground = (className?: string) => {
+  const _renderBackground = (classNameBuilder?: string) => {
     return (
-      <div className={`${className} ${styles.imageWrap} ${aspectRatioStyle}`}>
+      <div className={`${className} ${classNameBuilder} ${styles.imageWrap} ${aspectRatioStyle}`}>
         <div className={`${styles.image}`} style={{ ...style, backgroundImage: `url(${imgSrc})`, backgroundAttachment: `${parallax ? 'fixed' : ''}` }}>{children}</div>
       </div>
     );
   };
 
-  const _renderImgTag = (className?: string) => {
+  const _renderImgTag = (classNameBuilder?: string) => {
     return (
-      <div className={`${className} ${styles.image} ${className}`} style={{ ...style }}>
+      <div className={`${className} ${classNameBuilder} ${styles.image} ${className}`} style={{ ...style }}>
         <img src={imgSrc} alt="ALT" onDragStart={(e) => e.preventDefault()} />
         {children}
       </div>

@@ -5,10 +5,16 @@
     text-align: center;
   }
   &.left {
-    text-align: left;
+    text-align: center;
+    @media (min-width: 768px) {
+      text-align: left;
+    }
   }
   &.right {
-    text-align: right;
+    text-align: center;
+    @media (min-width: 768px) {
+      text-align: right;
+    }
   }
 }
 .scroll {

@@ -13,8 +13,8 @@ export interface Section5EditableProps extends Section5Props {
 }
 
 const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
-  mainTitle, alignMainTitle, colorMainTitle,
-  text, alignText, colorText,
+  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
+  text, alignText, colorText, fontSizeText,
   sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, margin, itemShow, responsive, draggable,
   backgroundImage, backgroundColor }) => {
 
@@ -39,10 +39,10 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         backgroundColor={backgroundColor}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
-        colorMainTitle={colorMainTitle}
+        colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle}
         text={text ?? ''}
         alignText={alignText}
-        colorText={colorText}
+        colorText={colorText} fontSizeText={fontSizeText}
         sliderImgs={sliderImgs}
         hasNav={hasNav}
         hasDots={hasDots}

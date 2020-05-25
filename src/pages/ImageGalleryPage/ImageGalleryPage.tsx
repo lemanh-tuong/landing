@@ -103,7 +103,7 @@ const ImageGalleryPage = () => {
 
   const handleSaveAll = () => {
     save();
-    history.goBack();
+    history.push('/list');
   };
 
   useMount(() => {

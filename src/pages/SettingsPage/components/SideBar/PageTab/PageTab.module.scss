@@ -4,6 +4,7 @@
   transition: 0.3s all;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   &:hover {
     background: #eee;
     color: black;

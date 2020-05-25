@@ -101,7 +101,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     return (
       <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`}>
         {provided => (
-          <div className={styles.rateFormName} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+          <div className={`${styles.rateFormName} ${nowIndexRate === formShown.nowIndexRate ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
             <div className={styles.rateDesc} onClick={handleFormShown(rateProperty, nowIndexRate)} >
               <i className="fas fa-plus"></i>
               <div className={styles.rateName}>{rateContent}</div>

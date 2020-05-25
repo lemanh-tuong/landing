@@ -1,4 +1,5 @@
 import Button, { ButtonProps } from 'components/Button/Button';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Divide, { DividerProps } from 'components/Divide/Divide';
 import Col from 'components/Grid/Column/Column';
 import Row from 'components/Grid/Row/Row';
@@ -7,6 +8,7 @@ import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { FC } from 'react';
+import styles from './Section1.module.scss';
 
 interface Section1Option extends SectionPatternBase {
   backgroundColor?: SectionPatternBase['backgroundColor'];
@@ -98,7 +100,7 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
       colorText={colorText}
       fontSizeText={fontSizeText}
       alignText={alignText}
-      styleText={styleText}
+      styleText={{ ...styleText, marginBottom: 0 }}
       classText={classText}
       darkMode={darkMode}
       onEditable={onShowPopupEditText}
@@ -109,7 +111,7 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   const _renderButton = () => {
     return (
       <Button
-        href={hrefButton ?? ''} style={styleButton} text={textButton} size={sizeButton}
+        href={hrefButton ?? ''} style={{ ...styleButton, margin: '30px 0' }} text={textButton} size={sizeButton}
         isBuilder={isBuilder} onEditable={onShowPopupEditButton}
         backgroundColor={backgroundButton} color={colorTextButton}
         type={typeButton}
@@ -121,13 +123,15 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
     <>
       <Section backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}>
         <Row>
-          <Col cols={[12, 6, 6]} className={reverse ? 'order-2' : ''}>
-            <>
+          <Col cols={[12, 6, 6]} className={`${reverse ? 'order-2' : ''} ${styles.column}`}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
               {_renderMainTitle()}
               {_renderDivider()}
               {_renderText()}
-              {_renderButton()}
-            </>
+              <ButtonGroup align='left'>
+                {_renderButton()}
+              </ButtonGroup>
+            </div>
           </Col>
           <Col style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }} cols={[12, 6, 6]} className={reverse ? 'order-1' : ''}>
             <>

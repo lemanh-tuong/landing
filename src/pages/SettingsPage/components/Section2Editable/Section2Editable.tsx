@@ -21,7 +21,7 @@ const cardDefault: CardProps = {
 };
 const Section2Editable: FC<Section2EditableProps> = ({
   nowIndexSection, sectionId, animation, positionAnimation,
-  mainTitle, alignMainTitle, colorMainTitle,
+  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   cards, backgroundImage, backgroundColor }) => {
   const [indexCard, setIndexCard] = useState(-1);
   //Dispatch
@@ -50,6 +50,7 @@ const Section2Editable: FC<Section2EditableProps> = ({
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
         backgroundImage={backgroundImage}
         backgroundColor={backgroundColor}
         cards={cards ? cards : []}

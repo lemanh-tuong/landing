@@ -6,7 +6,7 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkChangeGeneralDataPage = ThunkAction<typeof actionChangeGeneralDataPage>;
 
-const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => async (dispatch, getState) => {
+const thunkChangeGeneralDataPage = ({newPageName, newPathName, newTitlePage, id}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => async (dispatch, getState) => {
   dispatch(actionChangeGeneralDataPage.request());
   const { listPageReducers, settingMainContentReducers } = getState();
   const { elements, pageName } = settingMainContentReducers;
@@ -15,7 +15,8 @@ const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChange
   const newPageData: PageGeneralData = {
     ...data[indexNowPage],
     pathName: newPathName,
-    pageName: newPageName
+    pageName: newPageName,
+    titlePage: newTitlePage
   };
   const newData = [...data.slice(0, indexNowPage), {...newPageData}, ...data.slice(indexNowPage+1, data.length)];
   try {
@@ -25,7 +26,8 @@ const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChange
       elements: elements,
       id: id,
       pageName: newPageName,
-      pathName: newPathName
+      pathName: newPathName,
+      titlePage: newTitlePage
     } as PageDetailData});
     dispatch(actionChangeGeneralDataPage.success(newPageData));
   } catch(err) {

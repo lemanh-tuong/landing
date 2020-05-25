@@ -67,7 +67,7 @@ const FormEditNavLink = () => {
       <div className={styles.settingsBox} key={uuidv4()}>
         <Draggable index={index} draggableId={`${navItemProperty.text}-${index}`} key={uuidv4()}>
           {provided => (
-            <div className={styles.navItemDesc} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.navItemDesc} ${index === formShown ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
               <div className={styles.navItemName} onClick={handleFormShown(index)} >
                 <i className="fas fa-plus"></i>
                 <div className={styles.name}>{navItemProperty.text}</div>

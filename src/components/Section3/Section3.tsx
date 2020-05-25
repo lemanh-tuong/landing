@@ -6,6 +6,7 @@ import Image, { ImageProps } from 'components/Image/Image';
 import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { FC } from 'react';
+import styles from './Section3.module.scss';
 
 export type Section3Props = {
   text?: string;
@@ -38,7 +39,7 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
 
   const _renderLeftDefault = () => {
     const { imgSrc, zoom, aspectRatio } = imageSectionCol;
-    return <Image isBuilder={isBuilder} onEditable={onShowPopupEditImage} imgSrc={imgSrc} className={className} aspectRatio={aspectRatio} style={style} zoom={zoom} type='tagImg' />;
+    return <Image isBuilder={isBuilder} onEditable={onShowPopupEditImage} imgSrc={imgSrc} className={`${className} ${styles.imageCol}`} aspectRatio={aspectRatio} style={style} zoom={zoom} type='tagImg' />;
   };
 
   const _renderText = () => {
@@ -49,7 +50,7 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
       colorText={colorText}
       alignText={alignText}
       fontSizeText={fontSizeText}
-      classText={classText}
+      classText={`${classText} ${styles.text}`}
       styleText={styleText}
       darkMode={darkMode} />;
   };
@@ -63,13 +64,14 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle}
         fontSizeMainTitle={fontSizeMainTitle}
-        classMainTitle={classMainTitle}
+        classMainTitle={`${classMainTitle} ${styles.mainTitle}`}
         styleMainTitle={styleMainTitle}
         darkMode={darkMode} />
       }
       {hasDivider ? <Divide
         dividerColor={dividerColor}
         isBuilder={isBuilder}
+        className={styles.divider}
         onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
       }
       {_renderText()}
@@ -79,10 +81,10 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
   return (
     <Section className={`section3 ${dark}`} backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}>
       <Row>
-        <Col cols={[12, 12, 6]} className={`${reverse ? 'order-last' : ''}`}>
+        <Col cols={[12, 12, 6]} className={`order-sm-1 ${reverse ? 'order-lg-last' : ''}`}>
           {_renderLeftDefault()}
         </Col>
-        <Col cols={[12, 12, 5]} offsets={[0, 0, 1]} className={`${reverse ? 'order-first' : ''}`} >
+        <Col cols={[12, 12, 5]} offsets={[0, 0, 1]} className={`order-sm-2   ${reverse ? 'order-lg-first' : ''}`} >
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
             {_renderRightDefault()}
           </div>

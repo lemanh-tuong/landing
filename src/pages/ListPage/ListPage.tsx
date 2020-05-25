@@ -8,6 +8,7 @@ import PopUp from 'components/PopUp/PopUp';
 import { useMount } from 'hooks/useMount';
 import { statusCreatePage } from 'pages/SettingsPage/selectors';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -22,6 +23,7 @@ const ListPage = () => {
 
   const [pathName, setPathName] = useState('');
   const [pageName, setPageName] = useState('');
+  const [titlePage, setTitlePage] = useState('');
   const [error, setError] = useState('');
   const handleChangePathName = (e: ChangeEvent<HTMLInputElement>) => {
     setPathName(e.target.value);
@@ -29,6 +31,10 @@ const ListPage = () => {
   const handleChangePageName = (e: ChangeEvent<HTMLInputElement>) => {
     setPageName(e.target.value);
   };
+
+  const handleChangeTitlePage = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitlePage(e.target.value)
+  }
 
   //Selectors
   const status = useSelector(statusRequest);
@@ -43,7 +49,7 @@ const ListPage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
     if (!isExisted) {
-      addNewPage({ pageName, pathName, id: id });
+      addNewPage({ pageName, pathName, id: id, titlePage: titlePage });
       const interval = setInterval(() => {
         if (statusCreate === 'created') {
           clearInterval(interval);
@@ -55,13 +61,15 @@ const ListPage = () => {
   };
 
   useMount(() => {
-    getListPageName();
+    if (!pages) {
+      getListPageName();
+    }
   });
 
   const _renderPage = ({ id, pageName, pathName }: PageGeneralData) => {
     return (
-      <Col cols={[12, 4, 3]}>
-        <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={uuidv4()}>
+      <Col cols={[12, 4, 3]} key={uuidv4()}>
+        <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} >
           <div className={styles.page}>
             {pageName}
           </div>
@@ -120,12 +128,16 @@ const ListPage = () => {
 
   const _renderSuccess = () => {
     return <>
+      <Helmet>
+        <title>List Page</title>
+      </Helmet>
       {_renderValidateError()}
       {_renderPages()}
       {_renderCreateSwitch()}
       <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
-        <Input defaultValue="/" required addonBefore="pathName" onChange={handleChangePathName} />
+        <Input defaultValue="/" required addonBefore="Path Name" onChange={handleChangePathName} />
         <Input required addonBefore="Page Name" onChange={handleChangePageName} />
+        <Input required addonBefore="Title Page" onChange={handleChangeTitlePage} />
       </PopUp>
     </>;
   };

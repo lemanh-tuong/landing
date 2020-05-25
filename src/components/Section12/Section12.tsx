@@ -20,7 +20,6 @@ const Section12: FC<Section12Props & Section12PropsBuilder> = ({
   animation, backgroundColor, positionAnimation, backgroundImage,
   sliderSection, itemShow = 1, fluid, margin = 0, hasNav, dotClass, navClass, draggable, isBuilder, onShowPopUpEditSlide
 }) => {
-
   const _renderSlide = (slideProperty: Section3Props) => {
     return (
       <Section3 {...slideProperty} />

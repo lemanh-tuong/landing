@@ -4,6 +4,7 @@ import { createAsyncAction } from 'utils/functions/reduxActions';
 export interface ActionChangeGeneralDataPagePayload {
   newPathName: string;
   newPageName: string;
+  newTitlePage: string;
   id: string;
 }
 
