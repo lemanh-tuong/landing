@@ -73,7 +73,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     };
   };
 
-  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
+  const handleChangeForm = (nowIndexRate: number) => ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input' || fieldType === 'number') {
         // Value of input
@@ -97,7 +97,6 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
   // Render
   const _renderLabel = (rateProperty: RateProps, nowIndexRate: number) => {
     const { rateContent } = rateProperty;
-
     return (
       <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`}>
         {provided => (
@@ -145,7 +144,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
             defaultNumber: stars,
           }
         ]}
-        onChange={handleChangeForm}
+        onChange={handleChangeForm(formShown.nowIndexRate)}
       >
         <Link className={styles.link} to={`/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}>
           <Icon iconImg={authorAvatar} bgColorIcon={'gradient-pink-orange'} />

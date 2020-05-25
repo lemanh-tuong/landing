@@ -5,11 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { RadioProps } from '../Radio/Radio';
 import styles from './Radio3.module.scss';
 
-export type Radio3Button = {
+export interface Radio3Button {
   value: 'xs' | 'sm' | 'md' | 'lg';
   name: string;
 }
-type RenderRadioItemParam = {
+
+interface RenderRadioItemParam {
   name: Radio3Button['name'];
   value: Radio3Button['value'];
   index: number;
@@ -33,7 +34,7 @@ const radioButtons: Radio3Button[] = [
     value: 'lg',
     name: 'fontSize'
   }
-]
+];
 
 type RenderRadioItem = (param: RenderRadioItemParam) => JSX.Element;
 
@@ -45,6 +46,18 @@ const Radio3: FC<Omit<RadioProps, 'data'>> = ({ fieldName, onClick, defaultCheck
     };
   };
 
+
+  const _renderSwitch = (fieldName: string, value: Radio3Button['value']) => {
+    switch (fieldName) {
+      case 'fontSizeText':
+        return <Text text="Text" fontSizeText={value} styleText={{ margin: 0 }} />;
+      case 'fontSizeMainTitle':
+        return <MainTitle mainTitle="Title" fontSizeMainTitle={value} styleMainTitle={{ margin: 0 }} />;
+      default:
+        return null;
+    }
+  };
+
   const _renderRadioItem: RenderRadioItem = ({ index, name, value, defaultChecked }) => {
     return (
       <label htmlFor={`${value} ${name}`} className={styles.radioBtn} key={uuidv4()} onClick={handleClick(value)}>
@@ -53,17 +66,6 @@ const Radio3: FC<Omit<RadioProps, 'data'>> = ({ fieldName, onClick, defaultCheck
       </label>
     );
   };
-
-  const _renderSwitch = (fieldName: string, value: Radio3Button['value']) => {
-    switch (fieldName) {
-      case 'fontSizeText':
-        return <Text text="Text" fontSizeText={value} styleText={{ margin: 0 }} />
-      case 'fontSizeMainTitle':
-        return <MainTitle mainTitle="Title" fontSizeMainTitle={value} styleMainTitle={{ margin: 0 }} />
-      default:
-        return null;
-    }
-  }
 
   const _renderRadioList = () => {
     return radioButtons?.map((item, index) => _renderRadioItem({ ...item, index: index, defaultChecked: item.value === defaultCheckedValue }));

@@ -8,10 +8,10 @@ export type DeleteSectionInFireBase = PageProps & PageGeneralData & {
 
 function deleteSectionInFirebase({pageName, id, pathName,  elements,  indexDelete}: DeleteSectionInFireBase) {
   const newElements = [...elements.slice(0, indexDelete), ...elements.slice(indexDelete + 1, elements.length)];
-  database.ref(`PagesDetail/${pathName}`).set({
-    pathName,
-    id,
+  database.ref(`PagesDetail/${pageName}`).set({
     pageName,
+    id,
+    pathName,
     elements: [...newElements]
   }).then(() => 'Added')
   .catch(err => err);

@@ -25,7 +25,7 @@ const modules = {
   clipboard: {
     matchVisual: false,
   },
-}
+};
 
 const formats = [
   'header',
@@ -43,13 +43,13 @@ const formats = [
   'image',
   'video',
   'code-block',
-]
+];
 
 const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, fieldName, style, className, defaultValue, children }) => {
 
   const handleChange = (html: string) => {
     onChange?.(html);
-  }
+  };
 
   return (
     <div className={`${styles.richTextEditor} ${className}`} style={style}>
@@ -64,7 +64,7 @@ const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, fieldN
       />
       {children}
     </div>
-  )
-}
+  );
+};
 
 export default RichTextEditor;

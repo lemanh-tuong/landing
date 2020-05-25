@@ -1,9 +1,9 @@
 import Loading from 'components/Loading/Loading';
-import configureApp from 'configureApp.json';
 import React, { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router';
+import configureApp from '../../../configureApp.json';
 import RenderSection from './components/RenderSection/RenderSection';
 import { listSections, messageRequestMainPageSections, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';

@@ -51,7 +51,7 @@ const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defa
           {statusLazy === 'success' ? <div className={`${styles.image}`} style={{ backgroundImage: `url(${imgSrc})` }}></div> : null}
           {isSelected ? <div className={styles.number}>{multiple ? orderSelected : <i className="fas fa-check"></i>}</div> : null}
         </div>
-      )
+      );
     }
 
     return (

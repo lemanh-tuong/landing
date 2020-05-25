@@ -9,20 +9,19 @@ export interface ThunkDuplicatePageArg {
   pathName: string;
   pageName: string;
   id: string;
-  titlePage: string;
 }
 
-const thunkDuplicatePage = ({pathName, pageName, id, titlePage}: ThunkDuplicatePageArg): ThunkDuplicatePage => async (dispatch, getState) => {
+const thunkDuplicatePage = ({pathName, pageName, id}: ThunkDuplicatePageArg): ThunkDuplicatePage => async (dispatch, getState) => {
   const { listPageReducers, settingMainContentReducers } = getState();
   const { data } = listPageReducers;
   const { elements } = settingMainContentReducers;
   dispatch(actionDuplicatePage.request());
   try {
     await writeFirebase<PageDetailData>({ref: `PagesDetail/${pageName}`, value: {
-      elements,  pathName, pageName, id, titlePage
+      elements,  pathName, pageName, id
     }});
-    await writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: data.concat({id, pathName, pageName, titlePage})});
-    dispatch(actionDuplicatePage.success({elements, id, pageName, pathName, titlePage}));
+    await writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: data.concat({id, pathName, pageName })});
+    dispatch(actionDuplicatePage.success({elements, id, pageName, pathName }));
   } catch (err) {
     dispatch(actionDuplicatePage.failure(err.message));
   }

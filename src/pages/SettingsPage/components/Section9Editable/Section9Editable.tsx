@@ -71,7 +71,7 @@ const Section9Editable: FC<Section9EditableProps> = ({
       <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`button2-${sectionId}`} type='antd'>
+      <PopUp id={`button2-${sectionId}`}>
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`simulator-iphone-${sectionId}`} type='antd'>

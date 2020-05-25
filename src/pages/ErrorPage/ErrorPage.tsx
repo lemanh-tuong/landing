@@ -13,7 +13,7 @@ const ErrorPage = () => {
       </Helmet>
       <Error message={message as string} />
     </div>
-  )
+  );
 };
 
 export default ErrorPage;

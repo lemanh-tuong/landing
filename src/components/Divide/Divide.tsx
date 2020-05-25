@@ -8,7 +8,7 @@ export interface DividerOption {
   darkMode?: true | false;
   style?: CSSProperties;
   className?: string;
-  align?: align
+  align?: align;
 }
 
 export interface DividerProps extends DividerOption {

@@ -1,6 +1,7 @@
-const webpack = require('webpack');
+// @ts-ignore
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CreateLazyComponent = require('./webpack-plugins/CreateLazyComponent');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 
 const configuration = {
   jsOutput: {
@@ -83,6 +84,7 @@ function rewireDevelopment(config) {
 
 module.exports = function override(config, env) {
   const isDev = env === 'development';
+  config.resolve.plugins = config.resolve.plugins.filter(plugin => !(plugin instanceof ModuleScopePlugin));
   if (isDev) {
     return rewireDevelopment(config);
   }

@@ -55,7 +55,7 @@ const SettingsPage = () => {
   const prepairAddProperty = useRef<Option>({ ...defaultSection });
   const nowPageEditingParams = history.location.search;
 
-  const { id } = getQuery(nowPageEditingParams, ['id'])
+  const { id } = getQuery(nowPageEditingParams, ['id']);
 
   //State
   const [sectionDragging, setSectionDragging] = useState(-1);
@@ -75,7 +75,7 @@ const SettingsPage = () => {
   const elements = useSelector(sections);
   const pages = useSelector(listPage);
 
-  const titleNowPageEditing = pages.find(page => page.id === id)?.titlePage as string;
+  const pageNameEditing = pages.find(page => page.id === id)?.pageName as string;
 
   // Dispatch
   const moveSection = thunkMoveSection();
@@ -137,7 +137,7 @@ const SettingsPage = () => {
   return (
     <div className="Page">
       <Helmet>
-        <title>{titleNowPageEditing || ''} Builder</title>
+        <title>{pageNameEditing || ''} Builder</title>
       </Helmet>
       <Button
         onClick={handleActive}

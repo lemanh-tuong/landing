@@ -33,7 +33,7 @@ const cardDefault: CardProps = {
 };
 
 const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
-  const [formShown, setFormShown] = useState<CardProps & { nowIndexCard: number }>({ nowIndexCard: indexCard });
+  const [formShown, setFormShown] = useState<{ nowIndexCard: number }>({ nowIndexCard: indexCard });
 
   const handleFormShown = (cardProperty: CardProps, nowIndexCard: number) => {
     return () => {
@@ -101,8 +101,8 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
   };
 
   const handleChangeBgIcon = (nowIndexCard: number) => {
-    return (result: string) => changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result })
-  }
+    return (result: string) => changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result });
+  };
 
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
@@ -141,7 +141,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             fieldType: 'color-picker',
             fieldName: 'colorTitleCard',
             fieldId: 'change-card-field-3',
-            defaultValue: colorTitleCard ?? '#000'
+            defaultColor: colorTitleCard
           },
           {
             fieldType: 'input',
@@ -173,7 +173,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             fieldType: 'color-picker',
             fieldName: 'colorText',
             fieldId: 'change-card-field-6',
-            defaultValue: colorText ?? '#000',
+            defaultColor: colorText,
           },
           {
             fieldType: 'radio',

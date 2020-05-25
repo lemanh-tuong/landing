@@ -50,7 +50,6 @@ const initialState: SettingMainContentReducers = {
   pageName: '',
   pathName: '',
   id: '',
-  titlePage: '',
   elements: [],
   statusRequestElements: 'loading',
   messageRequestElements: '',
@@ -721,7 +720,6 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...nowSlideSection,
       [fieldName]: checked,
     } : {};
-    console.log("AAAA");
     const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
     const newElement = {
       ...nowElement,

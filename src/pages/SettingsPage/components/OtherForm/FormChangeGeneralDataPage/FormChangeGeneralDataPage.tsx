@@ -25,7 +25,6 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
 
   const [newPageName, setNewPageName] = useState(nowPage.pageName);
   const [newPathName, setNewPathName] = useState(nowPage.pathName);
-  const [titlePage, setTitlePage] = useState(nowPage.titlePage);
   const [error, setError] = useState('');
 
   const changeGeneralDataPage = thunkChangeGeneralDataPage();
@@ -36,14 +35,11 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
   const handleChangeNewPathName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPathName(e.target.value);
   };
-  const handleChangeTitleaPage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitlePage(e.target.value)
-  }
 
   const handleChangeGeneralDataPage = () => {
     const isExisted = generalDataPage.find(item => (item.pageName === newPageName && pageId !== item.id) || (item.pathName === newPathName && pageId !== item.id));
     if (!isExisted) {
-      changeGeneralDataPage({ newPageName, newPathName, id: pageId, newTitlePage: titlePage });
+      changeGeneralDataPage({ newPageName, newPathName, id: pageId });
       const interval = setInterval(() => {
         if (statusChangeData === 'changed') {
           history.push(`/admin/builder?pageName=${newPageName}&pathName=${newPathName}&id=${pageId}`);
@@ -87,7 +83,7 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
       </div>;
     }
     return null;
-  }
+  };
 
   return (
     <>
@@ -96,7 +92,6 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
       <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleChangeGeneralDataPage}>
         <Input style={{ margin: 5 }} defaultValue={nowPage.pathName} required addonBefore="New Path Name" onChange={handleChangeNewPathName} />
         <Input style={{ margin: 5 }} defaultValue={nowPage.pageName} required addonBefore="New Page Name" onChange={handleChangeNewPageName} />
-        <Input style={{ margin: 5 }} defaultValue={nowPage.pageName} required addonBefore="New Page Name" onChange={handleChangeTitleaPage} />
       </PopUp>
     </>
   );

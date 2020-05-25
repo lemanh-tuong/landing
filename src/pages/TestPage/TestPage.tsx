@@ -1,4 +1,3 @@
-
 import RichTextEditor from 'components/Form/RichTextEditor/RichTextEditor';
 import React from 'react';
 
@@ -8,7 +7,7 @@ const TestPage = () => {
     <div style={{ marginTop: 80 }}>
       <RichTextEditor fieldName="Test" />
     </div>
-  )
+  );
 };
 
 

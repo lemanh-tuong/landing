@@ -5,14 +5,13 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkAddNewPage =ThunkAction<typeof actionAddNewPage>;
 
-const thunkAddNewPage = ({pageName, id, pathName, titlePage}: PageGeneralData): ThunkAddNewPage => async (dispatch, getState) => {
+const thunkAddNewPage = ({pageName, id, pathName}: PageGeneralData): ThunkAddNewPage => async (dispatch, getState) => {
   const  { listPageReducers} = getState();
   const { data } = listPageReducers;
   const newPageProperty = {
     pageName,
     id,
     pathName,
-    titlePage
   };
   dispatch(actionAddNewPage.request());
   try {

@@ -12,7 +12,6 @@ const FormAddNewPage = () => {
   const history = useHistory();
   const [pageName, setPageName] = useState('');
   const [pathName, setPathName] = useState('');
-  const [titlePage, setTitlePage] = useState('');
   const [error, setError] = useState('');
 
   const addNewPage = thunkAddNewPage();
@@ -27,15 +26,12 @@ const FormAddNewPage = () => {
   const handleChangePathName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPathName(e.target.value);
   };
-  const handleChangeTitlePage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitlePage(e.target.value)
-  }
 
   const handleAddNewPage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
     if (!isExisted) {
-      addNewPage({ pageName, pathName, id: id, titlePage: titlePage });
+      addNewPage({ pageName, pathName, id: id });
       const interval = setInterval(() => {
         if (statusCreate === 'created') {
           history.push(`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`);
@@ -78,7 +74,7 @@ const FormAddNewPage = () => {
       </div>;
     }
     return null;
-  }
+  };
 
   return (
     <>
@@ -87,7 +83,6 @@ const FormAddNewPage = () => {
       <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
         <Input defaultValue="/" style={{ margin: 5 }} required addonBefore="Path Name" onChange={handleChangePathName} />
         <Input style={{ margin: 5 }} required addonBefore="Page Name" onChange={handleChangePageName} />
-        <Input style={{ margin: 5 }} required addonBefore="Title Page" onChange={handleChangeTitlePage} />
       </PopUp>
     </>
   );

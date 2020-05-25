@@ -72,7 +72,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'radio2':
       return <Radio2 fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
     case 'radio3':
-      return <Radio3 fieldName={arg.fieldName} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />
+      return <Radio3 fieldName={arg.fieldName} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />;
     case 'checkbox':
       return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />;
     case 'file':
@@ -86,7 +86,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'color-picker-gradient':
       return <ColorPickerGradient key={arg.fieldId} fieldName={arg.fieldName} onChange={onChange} />;
     case 'rich-text-editor':
-      return <RichTextEditor fieldName={arg.fieldName} onChange={onChange} placeholder={arg.placeholder} defaultValue={arg.defaultValue} className={arg.className} style={arg.style} key={arg.fieldId} />
+      return <RichTextEditor fieldName={arg.fieldName} onChange={onChange} placeholder={arg.placeholder} defaultValue={arg.defaultValue} className={arg.className} style={arg.style} key={arg.fieldId} />;
     default:
       return null;
   }

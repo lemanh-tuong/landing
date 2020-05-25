@@ -12,12 +12,12 @@ export interface ThunkAddSectionArg {
 
 const thunkAddSection = ({ newSection, index }: ThunkAddSectionArg): ThunkAddSection => (dispatch, getState) => {
   const { settingMainContentReducers } = getState();
-  const { id, elements, pathName, pageName, titlePage } = settingMainContentReducers;
+  const { id, elements, pathName, pageName } = settingMainContentReducers;
   if(typeof index === 'number') {
-    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, indexInsert: index, titlePage: titlePage});
+    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, indexInsert: index });
     dispatch(actionAddSection({...newSection}, index));
   } else {
-    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, titlePage: titlePage});
+    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection });
     dispatch(actionAddSection(newSection));
   }
 };

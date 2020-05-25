@@ -23,7 +23,7 @@ const ListPage = () => {
 
   const [pathName, setPathName] = useState('');
   const [pageName, setPageName] = useState('');
-  const [titlePage, setTitlePage] = useState('');
+
   const [error, setError] = useState('');
   const handleChangePathName = (e: ChangeEvent<HTMLInputElement>) => {
     setPathName(e.target.value);
@@ -31,10 +31,6 @@ const ListPage = () => {
   const handleChangePageName = (e: ChangeEvent<HTMLInputElement>) => {
     setPageName(e.target.value);
   };
-
-  const handleChangeTitlePage = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitlePage(e.target.value)
-  }
 
   //Selectors
   const status = useSelector(statusRequest);
@@ -49,7 +45,7 @@ const ListPage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
     if (!isExisted) {
-      addNewPage({ pageName, pathName, id: id, titlePage: titlePage });
+      addNewPage({ pageName, pathName, id: id });
       const interval = setInterval(() => {
         if (statusCreate === 'created') {
           clearInterval(interval);
@@ -122,9 +118,7 @@ const ListPage = () => {
       </div>;
     }
     return null;
-  }
-
-
+  };
 
   const _renderSuccess = () => {
     return <>
@@ -137,7 +131,6 @@ const ListPage = () => {
       <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
         <Input defaultValue="/" required addonBefore="Path Name" onChange={handleChangePathName} />
         <Input required addonBefore="Page Name" onChange={handleChangePageName} />
-        <Input required addonBefore="Title Page" onChange={handleChangeTitlePage} />
       </PopUp>
     </>;
   };

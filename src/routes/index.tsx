@@ -54,7 +54,7 @@ const Routes = () => {
   const _renderContentSuccess = () => {
     return (
       <>
-        {!location.pathname.includes('/admin') && !location.pathname.includes('/gallery') && _renderHeader()}
+        {!location.pathname.includes('/admin') && !location.pathname.includes('/list') && !location.pathname.includes('/gallery') && _renderHeader()}
         <Switch>
           <Route exact path={`/(/|${paths.join('|')})/`}>
             <MainPage />
@@ -95,7 +95,7 @@ const Routes = () => {
         </Switch>
       </>
     );
-  }
+  };
 
   const _renderContentSwitch = () => {
     switch (statusRequestPageName) {
@@ -108,7 +108,7 @@ const Routes = () => {
       default:
         return null;
     }
-  }
+  };
 
   useMount(() => {
     getListPageName();
@@ -116,9 +116,10 @@ const Routes = () => {
   });
 
   if (statusRequestPageName === 'failure') {
-
+    return <Redirect to={{ pathname: '/error', state: 'Error Request Pagename' }} />;
   }
-  return _renderContentSwitch()
+
+  return _renderContentSwitch();
 
 };
 

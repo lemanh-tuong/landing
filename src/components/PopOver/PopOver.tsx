@@ -33,7 +33,7 @@ class PopOver extends PureComponent<PopoverProps & { id: string }, PopOverState>
         style={style}>
         {children}
       </Popover>
-    )
+    );
   }
 }
 

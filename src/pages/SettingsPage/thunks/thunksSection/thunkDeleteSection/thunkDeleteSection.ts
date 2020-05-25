@@ -11,13 +11,12 @@ export interface ThunkDeleteSectionArg {
 
 const thunkDeleteSection = ({ arg, nowIndexSection }: ThunkDeleteSectionArg): ThunkDeleteSection => (dispatch, getState) => {
   const { settingMainContentReducers } = getState();
-  const { elements, pathName, pageName, id, titlePage } = settingMainContentReducers;
+  const { elements, pathName, pageName, id } = settingMainContentReducers;
   deleteSectionInFirebase({
     pageName,
     pathName,
     id,
     elements,
-    titlePage,
     indexDelete: nowIndexSection
   });
   dispatch(deleteSection(arg));
