@@ -3,7 +3,6 @@ import PopUp from 'components/PopUp/PopUp';
 import React, { FC } from 'react';
 import Section4, { Section4Props } from '../../../../components/Section4/Section4';
 import FormButton from '../OtherForm/FormButton/FormButton';
-import { FormDivider } from '../OtherForm/FormDivider/FormDivider';
 import FormImage from '../OtherForm/FormImage/FormImage';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import FormSection from '../OtherForm/FormSection/FormSection';
@@ -71,9 +70,6 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
       </PopUp>
       <PopUp id={`button-${sectionId}`} >
         <FormButton nowIndex={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`divider-${sectionId}`} type='antd' >
-        <FormDivider nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`image-${sectionId}`} type='antd'>
         <FormImage nowIndexSection={nowIndexSection} />

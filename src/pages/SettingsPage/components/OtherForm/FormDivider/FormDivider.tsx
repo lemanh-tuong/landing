@@ -3,6 +3,7 @@ import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
+import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
 import React, { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -17,11 +18,12 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { hasDivider, dividerColor } = element;
+  const { hasDivider, dividerColor, alignDivider } = element;
 
   // Dispatch
   const changeCheckBox = thunkChangeCheckBox();
   const changeColor = thunkChangeColor();
+  const changeRadio = thunkChangeRadio();
 
   //Handle
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
@@ -33,6 +35,9 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
       if (fieldType === 'checkbox') {
         // Result = true | false
         changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection });
+      }
+      if (fieldType === 'radio') {
+        changeRadio({ fieldName: fieldName, nowIndexSection: nowIndexSection, value: result });
       }
     };
   };
@@ -55,6 +60,27 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
             defaultValue: dividerColor,
             hidden: !hasDivider,
           },
+          {
+            fieldType: 'radio',
+            fieldName: 'alignDivider',
+            fieldId: 'align-divider-section-3-field-8',
+            defaultCheckedValue: alignDivider ?? 'left',
+            hidden: !hasDivider,
+            data: [
+              {
+                name: 'alignDivider',
+                value: 'left',
+              },
+              {
+                name: 'alignDivider',
+                value: 'center',
+              },
+              {
+                name: 'alignDivider',
+                value: 'right',
+              }
+            ]
+          }
         ]}
         onChange={handleChangeForm}
       />

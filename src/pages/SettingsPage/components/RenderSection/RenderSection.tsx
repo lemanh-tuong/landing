@@ -18,10 +18,6 @@ import Section7Editable from '../Section7Editable/Section7Editable';
 import Section8Editable from '../Section8Editable/Section8Editable';
 import Section9Editable from '../Section9Editable/Section9Editable';
 
-// const RenderSection = ({ sectionName, mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-//   text, alignText, colorText, fontSizeText, classText, styleText, darkMode
-// }: Option) => {
-
 export interface RenderSectionArg {
   option: Option;
   nowIndexSection: number;
@@ -34,7 +30,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
-    cards, slider, hasDivider, dividerColor,
+    cards, slider, hasDivider, dividerColor, alignDivider,
     sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
@@ -63,7 +59,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           styleMainTitle={styleMainTitle}
           fontSizeMainTitle={fontSizeMainTitle ?? 'md'}
           hasDivider={hasDivider}
-          dividerColor={dividerColor}
+          dividerColor={dividerColor} alignDivider={alignDivider}
           text={text ?? ''}
           alignText={alignText}
           colorText={colorText}
@@ -134,7 +130,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           fontSizeText={fontSizeText}
           styleText={styleText}
           hasDivider={hasDivider}
-          dividerColor={dividerColor ?? '#f06292'}
+          dividerColor={dividerColor ?? '#f06292'} alignDivider={alignDivider}
           sectionId={sectionId}
         />;
       case 'Section 4':
@@ -256,7 +252,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           card2s={card2s ?? [] as any}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
-          hasDivider={hasDivider} dividerColor={dividerColor}
+          hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
           backgroundButton={backgroundButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
         />;
@@ -266,7 +262,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           sectionId={sectionId} reverse={reverse}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
-          hasDivider={hasDivider} dividerColor={dividerColor}
+          hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
           buttons={buttons ?? []}
           androidParams={androidParams ?? ''}
@@ -278,7 +274,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
-          hasDivider={hasDivider} dividerColor={dividerColor}
+          hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
           backgroundButton={backgroundButton} sizeButton={sizeButton} typeButton={typeButton} textButton={textButton} hrefButton={hrefButton} styleButton={styleButton} colorTextButton={colorTextButton}
@@ -288,7 +284,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           nowIndexSection={nowIndexSection}
           sectionId={sectionId} reverse={reverse}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation} backgroundImage={backgroundImage} darkMode={darkMode}
-          hasDivider={hasDivider} dividerColor={dividerColor}
+          hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
           imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
           iconImg={iconImg ?? { imgSrc: iconNotifycation }}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}

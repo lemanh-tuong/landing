@@ -17,7 +17,7 @@ const Section9Editable: FC<Section9EditableProps> = ({
   nowIndexSection,
   animation, positionAnimation, backgroundColor, backgroundImage, sectionId, reverse,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider, dividerColor,
+  hasDivider, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText, classText, styleText,
   buttons,
   iphoneParams, androidParams,
@@ -54,7 +54,7 @@ const Section9Editable: FC<Section9EditableProps> = ({
         onShowPopupEditMainTitle={handleShowPopUpEditMainTitle} onShowPopupEditText={handleShowPopUpEditText}
         onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditIphoneSimulator={handleShowPopUpEditIphoneSimulator} onShowPopupEditAndroidSimulator={handleShowPopUpEditAndroidSimulator}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor}
+        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         buttons={buttons}
         iphoneParams={iphoneParams} androidParams={androidParams}

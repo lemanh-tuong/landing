@@ -17,7 +17,7 @@ const Section10Editable: FC<Section10EditableProps> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
   sectionId,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  hasDivider, dividerColor,
+  hasDivider, dividerColor, alignDivider,
   imageSectionCol,
   backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
   text, colorText, alignText, fontSizeText, styleText, classText,
@@ -51,7 +51,7 @@ const Section10Editable: FC<Section10EditableProps> = ({
         onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditImage={handleShowPopUpEditImage}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor}
+        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
         imageSectionCol={imageSectionCol}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         sizeButton={sizeButton} textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}

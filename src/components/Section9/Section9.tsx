@@ -24,10 +24,11 @@ export type Secction9Props = {
   buttons: ButtonType[];
   iphoneParams: string;
   androidParams: string;
+  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
-  & Omit<DividerProps, 'onEditable' | 'isBuilder'>;
+  & Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'>;
 
 export interface Section9PropsBuilder {
   isBuilder?: boolean;
@@ -43,7 +44,7 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
   isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditMainTitle, onShowPopupEditButton, onShowPopupEditIphoneSimulator, onShowPopupEditAndroidSimulator,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider, dividerColor,
+  hasDivider, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText, classText, styleText,
   buttons,
   iphoneParams, androidParams,
@@ -60,18 +61,18 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
     if (isBuilder) {
       return (
         <>
-          {hasDivider ? <Divide
+          {hasDivider ? <Divide align={alignDivider}
             dividerColor={dividerColor}
             isBuilder={isBuilder}
             onEditable={onShowPopupEditDivider} />
-            : <Divide
+            : <Divide align={alignDivider}
               dividerColor='transparent'
               isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
             />}
         </>
       );
     } else if (hasDivider) {
-      return <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+      return <Divide align={alignDivider} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
     }
     return null;
   };

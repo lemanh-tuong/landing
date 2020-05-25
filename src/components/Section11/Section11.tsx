@@ -18,10 +18,11 @@ export type Section11Props = {
   };
   hasDivider?: boolean;
   sectionId: string;
+  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>;
+  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>;
 
 export interface Section11PropsBuilder {
   isBuilder?: boolean;
@@ -38,7 +39,7 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
   imageSectionCol,
   iconImg,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider = false, dividerColor,
+  hasDivider = false, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText, classText, styleText,
 }) => {
 
@@ -64,16 +65,16 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
         <>
           {hasDivider ? <Divide
             dividerColor={dividerColor}
-            isBuilder={isBuilder}
+            isBuilder={isBuilder} align={alignDivider}
             onEditable={onShowPopupEditDivider} />
             : <Divide
-              dividerColor='transparent'
+              dividerColor='transparent' align={alignDivider}
               isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', marginBottom: 0, zIndex: 123, cursor: 'pointer' }}
             />}
         </>
       );
     } else if (hasDivider) {
-      return <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+      return <Divide align={alignDivider} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
     }
     return null;
   };

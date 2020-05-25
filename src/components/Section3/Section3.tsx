@@ -14,9 +14,10 @@ export type Section3Props = {
   hasDivider?: boolean;
   imageSectionCol: ImageProps;
   sectionId: string;
+  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>
+  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>
   & Omit<TextProps, 'text' | 'isBuilder' | 'onEditable'>;
 
 export interface Section3PropsBuilder {
@@ -32,7 +33,7 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
   backgroundColor, backgroundImage,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   text, alignText, colorText, fontSizeText, classText, styleText,
-  hasDivider = false, dividerColor,
+  hasDivider = false, dividerColor, alignDivider,
   imageSectionCol,
   className, style, reverse, darkMode }) => {
   const dark = darkMode ? 'dark' : '';
@@ -69,10 +70,10 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
         darkMode={darkMode} />
       }
       {hasDivider ? <Divide
-        dividerColor={dividerColor}
+        dividerColor={dividerColor} align={alignDivider}
         isBuilder={isBuilder}
         className={styles.divider}
-        onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
+        onEditable={onShowPopupEditDivider} /> : <Divide align={alignDivider} dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
       }
       {_renderText()}
     </>;

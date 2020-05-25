@@ -30,7 +30,7 @@ const slidePropertyDefault: Omit<Section3Props, 'sectionid'> = {
 };
 
 const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, nowIndexSlide }) => {
-  const { reverse, mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, imageSectionCol } = sectionProperty;
+  const { reverse, mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, alignDivider, imageSectionCol } = sectionProperty;
   //Dispatch
   const changeInput = thunkChangeInputSlide2();
   const changeCheckBox = thunkChangeCheckBoxSlide2();
@@ -155,6 +155,27 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
             defaultColor: dividerColor,
             hidden: !hasDivider
           },
+          {
+            fieldId: 'align-divider-slide-2',
+            fieldName: 'alignDivider',
+            fieldType: 'radio',
+            defaultCheckedValue: alignDivider ?? 'left',
+            hidden: !hasDivider,
+            data: [
+              {
+                name: 'alignDividerSlide2',
+                value: 'left',
+              },
+              {
+                name: 'alignDividerSlide2',
+                value: 'center',
+              },
+              {
+                name: 'alignDividerSlide2',
+                value: 'right',
+              },
+            ]
+          }
         ]}
       >
         <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />

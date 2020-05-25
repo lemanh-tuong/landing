@@ -19,10 +19,11 @@ export type Section10Props = {
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
+  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable'>>;
+  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>;
 
 export interface Section10PropsBuilder {
   isBuilder?: boolean;
@@ -37,7 +38,7 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, style, className, darkMode,
   isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditImage, onShowPopupEditButton, onShowPopupEditDivider,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  hasDivider, dividerColor,
+  hasDivider, dividerColor, alignDivider,
   imageSectionCol,
   backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
   text, colorText, alignText, fontSizeText, styleText, classText,
@@ -64,18 +65,17 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
       return (
         <>
           {hasDivider ? <Divide
-            style={{ marginRight: 'auto', marginLeft: 'auto' }}
             dividerColor={dividerColor}
             isBuilder={isBuilder}
-            onEditable={onShowPopupEditDivider} />
+            onEditable={onShowPopupEditDivider} align={alignDivider} />
             : <Divide
-              dividerColor='transparent'
+              dividerColor='transparent' align={alignDivider}
               isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', marginBottom: 0, marginRight: 'auto', marginLeft: 'auto', zIndex: 123, cursor: 'pointer' }}
             />}
         </>
       );
     } else if (hasDivider) {
-      return <Divide style={{ marginRight: 'auto', marginLeft: 'auto' }} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+      return <Divide align={alignDivider} style={{ marginRight: 'auto', marginLeft: 'auto' }} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
     }
     return null;
   };

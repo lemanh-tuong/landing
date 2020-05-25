@@ -16,7 +16,7 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
   mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
   text, alignText, colorText, classText, fontSizeText, styleText,
   imageSectionCol,
-  hasDivider, dividerColor, backgroundImage, backgroundColor }) => {
+  hasDivider, dividerColor, alignDivider, backgroundImage, backgroundColor }) => {
 
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
@@ -55,7 +55,7 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
         classText={classText}
         fontSizeText={fontSizeText}
         styleText={styleText}
-        hasDivider={hasDivider}
+        hasDivider={hasDivider} alignDivider={alignDivider}
         dividerColor={dividerColor ?? '#f06292'}
         isBuilder={true}
         sectionId={sectionId}

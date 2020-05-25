@@ -26,6 +26,7 @@ import { ActionChangeCheckBoxSlide2Payload } from '../actions/actionSlide2/actio
 import { ActionChangeColorSlide2Payload } from '../actions/actionSlide2/actionChangeColorSlide2/actionChangeColorSlide2';
 import { ActionChangeImgSlide2Payload } from '../actions/actionSlide2/actionChangeImgSlide2/actionChangeImgSlide2';
 import { ActionChangeInputSlide2Payload } from '../actions/actionSlide2/actionChangeInputSlide2/actionChangeInputSlide2';
+import { ActionChangeRadioSlide2Payload } from '../actions/actionSlide2/actionChangeRadioSlide2/actionChangeRadioSlide2';
 import { ActionDeleteSlide2Payload } from '../actions/actionSlide2/actionDeleteSlide2/actionDeleteSlide2';
 import { ActinChangeInputRateFormPayload } from '../actions/actionsRate/actionChangeInputRateForm/actionChangeInputRateForm';
 import { ActionDeleteRatePayload } from '../actions/actionsRate/actionDeleteRate/actionDeleteRate';
@@ -764,6 +765,26 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...nowElement,
       sliderSection: [...newSlides],
     };
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    };
+  }),
+  handleAction('CHANGE_RADIO_SLIDE_2', (state: any, action) => {
+    const { value, fieldName, nowIndexSection, nowIndexSlide } = action.payload as ActionChangeRadioSlide2Payload;
+    const nowElement = state.elements[nowIndexSection];
+    const nowSlides = nowElement.sliderSection;
+    const nowSlideSection = nowSlides?.[nowIndexSlide];
+    const newSlideSection = nowSlideSection ? {
+      ...nowSlideSection,
+      [fieldName]: value,
+    } : {};
+    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
+    const newElement = {
+      ...nowElement,
+      sliderSection: [...newSlides],
+    };
+
     return {
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]

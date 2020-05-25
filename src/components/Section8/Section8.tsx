@@ -23,9 +23,10 @@ export type Section8Props = {
   typeButton?: ButtonProps['type'];
   card2s: [CardProps, CardProps, CardProps];
   hasDivider?: boolean;
+  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Omit<DividerProps, 'isBuilder' | 'onEditable'>
+  & Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>
   & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>;
 
 export interface Section8PropsBuilder {
@@ -42,7 +43,7 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
   isBuilder, onShowPopupEditCard, onShowPopupEditMainTitle, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditButton,
   card2s,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  dividerColor, hasDivider,
+  dividerColor, hasDivider, alignDivider,
   text, alignText, colorText, fontSizeText, classText, styleText,
   backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton, sizeButton
 }) => {
@@ -78,9 +79,9 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
               darkMode={darkMode}
             />}
             {hasDivider ? <Divide
-              dividerColor={dividerColor}
+              dividerColor={dividerColor} align={alignDivider}
               isBuilder={isBuilder}
-              onEditable={onShowPopupEditDivider} /> : <Divide dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
+              onEditable={onShowPopupEditDivider} /> : <Divide align={alignDivider} dividerColor='transparent' isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }} />
             }
             {text && <Text
               text={text}

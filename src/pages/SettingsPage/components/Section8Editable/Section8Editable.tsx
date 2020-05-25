@@ -18,7 +18,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, reverse,
   card2s,
   mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
-  hasDivider, dividerColor,
+  hasDivider, dividerColor, alignDivider,
   text, colorText, fontSizeText, alignText, classText, styleText,
   hrefButton, backgroundButton, colorTextButton, textButton, styleButton, typeButton, sizeButton, darkMode, nowIndexSection
 }) => {
@@ -51,7 +51,7 @@ const Section8Editable: FC<Section8EditableProps> = ({
         onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditCard={handleShowPopupEditCard}
         card2s={card2s}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor}
+        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
       />
