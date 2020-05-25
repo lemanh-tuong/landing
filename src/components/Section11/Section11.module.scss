@@ -1,0 +1,22 @@
+.contentCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.isBuilder {
+  position: relative;
+  cursor: pointer;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}

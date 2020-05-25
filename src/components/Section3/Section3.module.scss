@@ -1,0 +1,29 @@
+.imageCol {
+  margin-bottom: 50px;
+  @media (min-width: 992px) {
+    margin-bottom: 0;
+  }
+}
+
+// .text {
+//   text-align: center!important;
+//   @media (min-width: 992px) {
+//     text-align: initial;
+//   }
+// }
+
+// .mainTitle {
+//   text-align: center!important;
+//   @media (min-width: 992px) {
+//     text-align: initial;
+//   }
+// }
+
+// .divider {
+//   margin-left: auto;
+//   margin-right: auto;
+//   @media (min-width: 992px) {
+//     margin-left: initial;
+//     margin-right: initial;
+//   }
+// }

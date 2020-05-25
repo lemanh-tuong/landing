@@ -1,0 +1,67 @@
+@import 'styles/abstracts/functions.scss';
+@import 'styles/abstracts/variables.scss';
+
+.mockUp {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  & .mockUpImg {
+    position: relative;
+    z-index: 2;
+  }
+}
+.mockUpContent {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  &.fluid {
+    overflow: initial;
+  }
+  &.Iphone {
+    width: 86.7%;
+    height: 75%;
+    left: 6.7%;
+    top: 12.5%;
+  }
+  &.Mac {
+    width: 75%;
+    height: 82%;
+    left: 12.4%;
+    top: 9%;
+  }
+  &.Iphone {
+  }
+  & .video {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+.slides {
+  transition: 0.3s;
+  display: flex;
+  flex-wrap: nowrap;
+  & img {
+    width: 100%
+  }
+}
+
+.isBuilder {
+  position: relative;
+  cursor: pointer;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid white;
+  }
+}

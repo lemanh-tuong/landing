@@ -1,0 +1,68 @@
+@import '../../styles/abstracts/variables.scss';
+.settingsPage {
+  display: flex;
+}
+.sideBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: lightgrey;
+  width: 0%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: none;
+  z-index: 100;
+  transition: 0.3s all;
+}
+.active.sideBar {
+  width: 350px;
+}
+.mainContent {
+  width: 100%;
+  margin-left: 0%;
+  min-height: 100vh;
+  transition: 0.3s all;
+}
+.active.mainContent {
+  width: 80%;
+  margin-left: 20%;
+}
+.btn {
+  display: inline-block;
+  min-width: 190px;
+  padding: 10px 30px;
+  text-align: center;
+  vertical-align: middle;
+  outline: none;
+  border: none;
+  border-radius: 100px;
+  background-color: $color-white;
+  text-decoration: none!important;
+  color: $color-black-4;
+  background-color: $color-primary;
+}
+
+.openSideBar {
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border-radius: 50%;
+  position: fixed;
+  top: 50%;
+  left: 10px;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  transition: 0.3s all;
+  & i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -50%);
+    font-size: 30px;
+    transition: 0.3s all;
+  }
+  &.actived i {
+    transform: translate(-30%, -50%) rotate(180deg);
+  }
+}
+

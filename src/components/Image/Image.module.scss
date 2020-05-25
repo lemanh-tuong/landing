@@ -1,0 +1,41 @@
+.image {
+  vertical-align: middle;
+  text-align: center;
+}
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  & .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-size: cover;
+    background-position: center;
+  }
+}
+$aspectRatio: (11: 100%, 169: 56.25%, 43: 75%, 32: 66.66%, 85: 62.5%);
+
+@each $ratio, $value in $aspectRatio {
+  .aspectRatio-#{$ratio} {
+    padding-top: $value;
+  }
+}
+.isBuilder {
+  position: relative;
+  cursor: pointer;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}

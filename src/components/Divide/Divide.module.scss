@@ -1,0 +1,52 @@
+@import '../../styles/abstracts/variables.scss';
+.divide {
+  width: 64px;
+  background-color: $color-white;
+  height: 3px;
+  display: block;
+  margin-bottom: 45px;
+  margin-right: auto;
+  margin-left: auto;
+  &.left {
+    margin-right: auto;
+    margin-left: auto;
+    @media (min-width: 768px) {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+  &.right {
+    margin-right: auto;
+    margin-left: auto;
+    @media (min-width: 768px) {
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+  &.center {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+.pink {
+  background-color: $color-pink;
+}
+.dark {
+  background-color: $color-white-3;
+}
+
+.isBuilder {
+  position: relative;
+  cursor: pointer;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid;
+  }
+}

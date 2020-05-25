@@ -1,0 +1,70 @@
+.rate {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.rateIcon {
+  flex: none;
+  margin-top: 7px;
+  margin-right: 20px;
+  width: 50px;
+  height: 50px;
+  @media (min-width: 992px) {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+.rateContent {
+
+}
+
+.contentHeader {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stars {
+  color: orange;
+  margin-right: 10px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.contentTitle {
+  font-size: 18px;
+  color: rgba(0,0,0,.6);
+  & span {
+    color: rgba(0,0,0,.9);
+    margin-right: 5px;
+  }
+}
+
+.contentBody {
+  & .paragraph {
+    margin-bottom: 15px;
+  }
+  & .author {
+    & span {
+      color: rgba(0,0,0,.9);
+      text-transform: capitalize;
+    }
+  }
+}
+
+.isBuilder {
+  position: relative;
+  cursor: pointer;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+  &:hover:before {
+    border: 2px solid lightgrey;
+  }
+}

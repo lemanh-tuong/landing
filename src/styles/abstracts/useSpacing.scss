@@ -1,0 +1,45 @@
+@mixin useSpacing($type, $vals) {
+	@each $val in $vals {
+		@if ($type == 'margin') {
+			.m-#{$val} {
+				margin: $val * 1px !important;
+			}
+		} @else if ($type == 'margin-left') {
+			.ml-#{$val} {
+				margin-left: $val * 1px !important;
+			}
+		} @else if ($type == 'margin-right') {
+			.mr-#{$val} {
+				margin-right: $val * 1px !important;
+			}
+		} @else if ($type == 'margin-top') {
+			.mt-#{$val} {
+				margin-top: $val * 1px !important;
+			}
+		} @else if ($type == 'margin-bottom') {
+			.mb-#{$val} {
+				margin-bottom: $val * 1px !important;
+			}
+		} @else if ($type == 'padding') {
+			.p-#{$val} {
+				padding: $val * 1px !important;
+			}
+		} @else if ($type == 'padding-left') {
+			.pl-#{$val} {
+				padding-left: $val * 1px !important;
+			}
+		} @else if ($type == 'padding-right') {
+			.pr-#{$val} {
+				padding-right: $val * 1px !important;
+			}
+		} @else if ($type == 'padding-top') {
+			.pt-#{$val} {
+				padding-top: $val * 1px !important;
+			}
+		} @else if ($type == 'padding-bottom') {
+			.pb-#{$val} {
+				padding-bottom: $val * 1px !important;
+			}
+		}
+	}
+}

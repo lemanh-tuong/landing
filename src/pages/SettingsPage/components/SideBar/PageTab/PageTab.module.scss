@@ -1,0 +1,25 @@
+.page {
+  margin: 5px;
+  transition: 0.3s all;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+  &:hover {
+    background: #eee;
+    color: black;
+  }
+  & a {
+    flex: 1 1 auto;
+    padding: 10px;
+  }
+}
+
+.active {
+  background: #eee;
+  color: black;
+}
+
+.btn {
+  margin: 3px;
+}

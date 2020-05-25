@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="35px" viewBox="0 0 30 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="App-Landing-Page" transform="translate(-177.000000, -6396.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="review" transform="translate(0.000000, 6118.000000)">
+                <g id="Group-18" transform="translate(160.000000, 259.000000)">
+                    <g id="Avatar" transform="translate(0.000000, 4.000000)">
+                        <g id="envato" transform="translate(17.000000, 15.000000)">
+                            <path d="M25.4593114,0.391167665 C24.2035329,-0.282934132 21.2823054,-0.0766167665 17.8485629,0.938892216 C15.2399102,3.04356287 6.74946108,10.6107485 6.6489521,20.0204192 C6.64086826,20.7808383 5.60281437,20.9934431 5.30245509,20.2947305 C4.4938024,18.4136228 3.83667665,15.2738623 4.7241018,10.4475449 C4.85532934,9.73365269 3.94886228,9.3145509 3.4888024,9.87592814 C3.17973054,10.2530838 2.88655689,10.640479 2.61125749,11.0379341 C-2.80329341,18.8557186 1.06814371,28.8756287 7.43946108,32.3582335 C13.8107784,35.8409281 23.2805389,35.0651497 27.8417964,26.7206587 C32.4030539,18.3763473 28.6363473,2.09649701 25.4593114,0.391167665 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

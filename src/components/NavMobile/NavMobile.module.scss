@@ -1,0 +1,42 @@
+@import '../../styles/abstracts/variables.scss';
+.navMobile {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 300px;
+  padding: 30px 0;
+  background-color: rgb(0, 27, 68);
+  transition: all .3s ease;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,.2), 0 4px 20px 0 rgba(0,0,0,.19);
+  overflow-y: auto;
+  z-index: 1001;
+  @media (min-width: 1400px) {
+    display: none;
+  }
+}
+
+.navMenu {
+  padding: 0;
+}
+
+.navItem {
+  list-style-type: none;
+}
+
+.navLink {
+  color: $color-white;
+  display: block;
+  padding: 20px 10px 20px 20px;
+  text-decoration: none;
+  border-bottom: 1px dashed hsla(0,0%,100%,.2);
+  transition: all .3s ease;
+  &:hover {
+    opacity: 0.8;
+    color: $color-white;
+  }
+  & i {
+    margin-right: 10px;
+  }
+}

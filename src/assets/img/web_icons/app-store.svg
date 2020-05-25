@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="40px" viewBox="0 0 120 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>App Store</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="App-Landing" transform="translate(-160.000000, -512.000000)">
+            <g id="App-Store" transform="translate(160.000000, 512.000000)">
+                <rect id="Rectangle-4" fill="#000000" x="0" y="0" width="120" height="40" rx="3"></rect>
+                <g id="_Group_2" transform="translate(8.000000, 8.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g id="_Group_3">
+                        <path d="M15.76888,12.30068 C15.790737,10.6042091 16.6801229,9.03718611 18.12544,8.14862 C17.2095126,6.84051277 15.730392,6.04087835 14.13428,5.99094 C12.45504,5.81468 10.82709,6.99577 9.97138,6.99577 C9.09911,6.99577 7.78161,6.00844 6.36288,6.03763 C4.49620126,6.09793842 2.79813717,7.13352548 1.88996,8.7655 C-0.04404,12.11392 1.39855,17.03497 3.25116,19.74158 C4.17806,21.06693 5.26134,22.54738 6.67879,22.49488 C8.06585,22.43735 8.58389,21.6104 10.25819,21.6104 C11.91695,21.6104 12.40298,22.49488 13.84919,22.4615 C15.33757,22.43734 16.27532,21.13026 17.1697,19.79236 C17.8356761,18.8479997 18.3481437,17.8042759 18.68812,16.69985 C16.9203766,15.9521813 15.7709432,14.2200343 15.76888,12.30068 Z" id="_Path_"></path>
+                        <path d="M13.03725,4.21089 C13.8487766,3.23668191 14.248585,1.98450245 14.15177,0.72027 C12.9119378,0.850490487 11.7666802,1.44304968 10.94419,2.37988 C10.1320187,3.30418903 9.72057463,4.51343268 9.80048,5.74127 C11.0569368,5.75420677 12.2499161,5.19015322 13.03725,4.21089 Z" id="_Path_2"></path>
+                    </g>
+                </g>
+                <text id="Download-on-the" font-family=".AppleSystemUIFont" font-size="9" font-weight="normal" letter-spacing="-0.1285714" fill="#FFFFFF">
+                    <tspan x="33" y="16">Download on the</tspan>
+                </text>
+                <text font-family=".AppleSystemUIFont" font-size="17" font-weight="normal" letter-spacing="-1.284444" fill="#FFFFFF">
+                    <tspan x="33" y="31">App Store</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

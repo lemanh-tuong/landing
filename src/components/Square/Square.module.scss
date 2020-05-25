@@ -1,0 +1,29 @@
+@import '../../styles/abstracts/variables.scss';
+.square {
+  position: absolute;
+  width: 30%;
+  top: 15%;
+  left: 0;
+  border-radius: 50px;
+  background: $color-pink;
+  z-index: -1;
+  perspective: 1000px;
+  animation: move 5s infinite;
+  &:after {
+    content: "";
+    padding-top: 100%;
+    display: block;
+  }
+}
+
+@keyframes move{
+  0%{
+    transform:scale(1) translate3d(-10px, -10px , -10px) rotate(45deg);opacity:0.15
+  }
+  50% {
+    transform:scale(2) translate3d(0px, 0px , 0px) rotate(45deg);opacity:0
+  }
+  100% {
+    transform:scale(1) translate3d(-10px, -10px , -10px) rotate(45deg);opacity:0.15
+  }
+}

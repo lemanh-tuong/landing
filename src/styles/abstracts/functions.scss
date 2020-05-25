@@ -1,0 +1,8 @@
+@function mathSizeImage($type, $parent, $child) {
+    @if ($type == 'size') {
+      @return $child / $parent * 100%;
+    }
+    @if ($type == 'position') {
+      @return ($child / $parent) * 100%;
+    }
+  }
