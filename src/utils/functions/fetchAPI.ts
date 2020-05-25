@@ -1,9 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import { CANCEL } from 'redux-saga';
-import configureApp from 'configureApp.json';
-
-axios.defaults.baseURL = configureApp.baseUrl;
-axios.defaults.timeout = configureApp.timeout;
 
 const { CancelToken } = axios;
 
