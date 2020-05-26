@@ -37,6 +37,7 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
         changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'radio') {
+        // string
         changeRadio({ fieldName: fieldName, nowIndexSection: nowIndexSection, value: result });
       }
     };

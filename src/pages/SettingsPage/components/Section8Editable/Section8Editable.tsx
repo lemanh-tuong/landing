@@ -9,8 +9,8 @@ import FormSection from '../OtherForm/FormSection/FormSection';
 import FormText from '../OtherForm/FormText/FormText';
 
 export type Section8EditableProps = {
-  sectionId: string;
   nowIndexSection: number;
+  sectionId: string;
 } & Section8Props;
 
 const Section8Editable: FC<Section8EditableProps> = ({

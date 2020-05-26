@@ -17,7 +17,7 @@ const Section10Editable: FC<Section10EditableProps> = ({
   animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
   sectionId,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  hasDivider, dividerColor, alignDivider,
+  hasDivider, alignDivider, dividerColor,
   imageSectionCol,
   backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
   text, colorText, alignText, fontSizeText, styleText, classText,

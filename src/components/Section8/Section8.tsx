@@ -22,8 +22,8 @@ export type Section8Props = {
   sizeButton?: ButtonProps['size'];
   typeButton?: ButtonProps['type'];
   card2s: [CardProps, CardProps, CardProps];
-  hasDivider?: boolean;
   alignDivider?: DividerProps['align'];
+  hasDivider?: boolean;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>

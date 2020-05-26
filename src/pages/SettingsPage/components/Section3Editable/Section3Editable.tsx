@@ -55,7 +55,8 @@ const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionI
         classText={classText}
         fontSizeText={fontSizeText}
         styleText={styleText}
-        hasDivider={hasDivider} alignDivider={alignDivider}
+        hasDivider={hasDivider}
+        alignDivider={alignDivider}
         dividerColor={dividerColor ?? '#f06292'}
         isBuilder={true}
         sectionId={sectionId}

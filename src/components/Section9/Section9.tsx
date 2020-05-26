@@ -21,10 +21,10 @@ export type Secction9Props = {
   sectionId: string;
   reverse?: boolean;
   hasDivider?: boolean;
+  alignDivider?: DividerProps['align'];
   buttons: ButtonType[];
   iphoneParams: string;
   androidParams: string;
-  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
   & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>

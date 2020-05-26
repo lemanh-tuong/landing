@@ -50,7 +50,7 @@ const Section11Editable: FC<Section11EditableProps> = ({
         onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditImage={handleShowPopUpEditImage} onShowPopupEditIcon={handleShowPopUpEditIcon}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
+        hasDivider={hasDivider} alignDivider={alignDivider} dividerColor={dividerColor}
         imageSectionCol={imageSectionCol}
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         reverse={reverse} iconImg={iconImg}

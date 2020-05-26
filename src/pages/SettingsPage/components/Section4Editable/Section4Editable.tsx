@@ -15,8 +15,8 @@ export interface Section4EditableProps extends Section4Props {
 const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   backgroundButton, colorTextButton, textButton, hrefButton, typeButton, sizeButton,
-  text, alignText, colorText, fontSizeText,
   imageSectionCol,
+  text, alignText, colorText, fontSizeText,
   backgroundImage, backgroundColor }) => {
 
   const handleShowPopupEditMainTitle = () => {

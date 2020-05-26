@@ -12,6 +12,7 @@ export type Section10Props = {
   sectionId: string;
   hasDivider?: boolean;
   imageSectionCol?: ImageProps;
+  alignDivider?: DividerProps['align'];
   textButton?: ButtonProps['text'];
   hrefButton?: ButtonProps['href'];
   backgroundButton?: ButtonProps['backgroundColor'];
@@ -19,7 +20,6 @@ export type Section10Props = {
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
-  alignDivider?: DividerProps['align'];
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>

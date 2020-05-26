@@ -43,6 +43,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input' || fieldType === 'rich-text-editor') {
+        // result: string
         changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
       }
       if (fieldType === 'checkbox') {

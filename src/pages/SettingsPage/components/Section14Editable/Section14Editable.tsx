@@ -1,27 +1,30 @@
 import mockUpMacContent2 from 'assets/img/heroslider/2.jpg';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import PopUp from 'components/PopUp/PopUp';
-import React, { FC } from 'react';
-import Section1, { Section1Props } from '../../../../components/Section1/Section1';
-import FormButton from '../OtherForm/FormButton/FormButton';
+import Section14, { Section14Props } from 'components/Section14/Section14';
+import React, { FC, useState } from 'react';
+import FormButton2 from '../OtherForm/FormButton2/FormButton2';
 import { FormDivider } from '../OtherForm/FormDivider/FormDivider';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import { FormMockUp } from '../OtherForm/FormMockup/FormMockup';
 import FormSection from '../OtherForm/FormSection/FormSection';
 import FormText from '../OtherForm/FormText/FormText';
 
-export interface Section1EditableProps extends Section1Props {
+export interface Section14EditableProps extends Section14Props {
+  nowIndexSection: number;
 }
 
-const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
+const Section14Editable: FC<Section14EditableProps> = ({
   nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   hasDivider, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText,
   sliderImgs,
-  textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
+  buttons,
   typeMockUp
 }) => {
+
+  const [indexButton, setIndexButton] = useState(-1);
 
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
@@ -35,8 +38,9 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
     PopUp.show(`divider-${sectionId}`)();
   };
 
-  const handleShowPopupButton = () => {
-    PopUp.show(`button-${sectionId}`)();
+  const handleShowPopupEditButton = (nowIndexButton: number) => {
+    setIndexButton(nowIndexButton);
+    PopUp.show(`button2-${sectionId}`)();
   };
 
   const handleShowPopupEditMockUp = () => {
@@ -45,7 +49,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
 
   return (
     <>
-      <Section1
+      <Section14
         animation={animation} reverse={reverse}
         positionAnimation={positionAnimation}
         mainTitle={mainTitle}
@@ -75,17 +79,12 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
           }
         ]}
         margin={0}
-        textButton={textButton}
-        styleButton={styleButton}
-        hrefButton={hrefButton}
-        backgroundButton={backgroundButton}
-        colorTextButton={colorTextButton}
-        typeButton={typeButton} sizeButton={sizeButton}
         isBuilder={true}
         sectionId={sectionId}
         isBuider={true}
+        buttons={buttons}
         onShowPopupEditMainTitle={handleShowPopupEditMainTitle}
-        onShowPopupEditButton={handleShowPopupButton}
+        onShowPopupEditButton={handleShowPopupEditButton}
         onShowPopupEditText={handleShowPopupEditText}
         onShowPopupEditDivider={handleShowPopupEditDivider}
         onShowPopupEditMockUp={handleShowPopupEditMockUp}
@@ -96,8 +95,8 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
       <PopUp id={`text-${sectionId}`} type='antd'>
         <FormText nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`button-${sectionId}`}>
-        <FormButton nowIndex={nowIndexSection} />
+      <PopUp id={`button2-${sectionId}`}>
+        <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
       <PopUp id={`divider-${sectionId}`} type='antd'>
         <FormDivider nowIndexSection={nowIndexSection} />
@@ -112,4 +111,4 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
   );
 };
 
-export default Section1Editable;
+export default Section14Editable;

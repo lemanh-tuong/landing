@@ -8,6 +8,7 @@ import Section10Editable from '../Section10Editable/Section10Editable';
 import Section11Editable from '../Section11Editable/Section11Editable';
 import Section12Editable from '../Section12Editable/Section12Editable';
 import Section13Editable from '../Section13Editable/Section13Editable';
+import Section14Editable from '../Section14Editable/Section14Editable';
 import Section1Editable from '../Section1Editable/Section1Editable';
 import Section2Editable from '../Section2Editable/Section2Editable';
 import Section3Editable from '../Section3Editable/Section3Editable';
@@ -30,7 +31,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
-    cards, slider, hasDivider, dividerColor, alignDivider,
+    cards, slider, hasDivider, alignDivider, dividerColor,
     sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
@@ -311,6 +312,18 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           fluid={fluid} margin={margin}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
+        />;
+      case 'Section 14':
+        return <Section14Editable
+          nowIndexSection={nowIndexSection}
+          sectionId={sectionId}
+          backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
+          backgroundImage={backgroundImage} darkMode={darkMode}
+          typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []}
+          mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
+          hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
+          text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}
+          buttons={buttons ?? []}
         />;
       default:
         return null;

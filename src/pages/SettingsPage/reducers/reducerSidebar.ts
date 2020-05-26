@@ -18,6 +18,7 @@ import previewSection10 from 'assets/img/section/section10.png';
 import previewSection11 from 'assets/img/section/section11.png';
 import previewSection12 from 'assets/img/section/section12.png';
 import previewSection13 from 'assets/img/section/section13.png';
+import previewSection14 from 'assets/img/section/section14.png';
 import previewSection2 from 'assets/img/section/section2.png';
 import previewSection3 from 'assets/img/section/section3.png';
 import previewSection4 from 'assets/img/section/section4.png';
@@ -63,7 +64,7 @@ const initialState: SideBarReducers =  {
       alignMainTitle: 'left',
       colorMainTitle: 'white',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: defaultText,
       alignText: 'left',
@@ -73,7 +74,7 @@ const initialState: SideBarReducers =  {
       styleText: {},
       textButton: 'Try demo',
       colorTextButton: 'rgba(0, 0, 0, 0.8)',
-      typeButton: 'white',
+      typeButton: 'border',
       hrefButton: '##',
       darkMode: false,
       id: 'Btn Section 1',
@@ -95,18 +96,12 @@ const initialState: SideBarReducers =  {
       previewImg: previewSection2,
       backgroundColor: `rgba(245, 245, 245)`,
       sectionName: 'Section 2',
-      mainTitle: 'Title 2',
+      mainTitle: 'How can you earn money from your website',
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
-      text: 'Text',
-      alignText: 'left',
-      colorText: 'black-3',
-      fontSizeText: 'md',
-      classText: '',
-      styleText: {},
       darkMode: false,
       id: 'Btn Section 2',
       cards: [
@@ -118,14 +113,16 @@ const initialState: SideBarReducers =  {
     {
       previewImg: previewSection3,
       sectionName: 'Section 3',
-      mainTitle: 'Title 3',
+      animation: true,
+      positionAnimation: 'left',
+      mainTitle: 'Create unlimited directory',
       alignMainTitle: 'left',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: 'Comes with power of Wiloke Tools, you can add unlimited directory types to your site. The tool also lets you design functionality and features. That’s why we give you our promise: Quisque amet consectetur, egestas nulla at nisi cursus, sed iaculis est commodo, nulla lacus aliquet.',
-      alignText: 'center',
+      alignText: 'left',
       colorText: 'black-3',
       classText: '',
       styleText: {},
@@ -135,6 +132,7 @@ const initialState: SideBarReducers =  {
       darkMode: false,
       id: 'Btn Section 3',
       hasDivider: true,
+      alignDivider: 'left',
     },
     {
       previewImg: previewSection4,
@@ -145,12 +143,11 @@ const initialState: SideBarReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: 'The listing owners can take full control of their business from Customer Dashboard. Here they can upgrade plans, run promotion campains, reply to messages, track the statistics of views, favorites, shares, reviews.',
       alignText: 'center',
       colorText: 'black-3',
-      fontSizeText: 'md',
       classText: '',
       styleText: {},
       imageSectionCol: {
@@ -170,12 +167,11 @@ const initialState: SideBarReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'white',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: 'We’re honored some of the most talented creatives out there build with Wilcity',
       alignText: 'center',
       colorText: 'white',
-      fontSizeText: 'md',
       classText: '',
       styleText: {},
       backgroundColor: 'linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)',
@@ -210,7 +206,7 @@ const initialState: SideBarReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       hrefButton: '##',
       textButton: 'Purchase now for 64$',
@@ -228,7 +224,7 @@ const initialState: SideBarReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: "See what customers're saying about our services",
       colorText: 'rgba(0, 0, 0, 0.7)',
@@ -332,6 +328,7 @@ const initialState: SideBarReducers =  {
       hrefButton: '##',
       textButton: 'Purchase now for 64$',
       darkMode: false,
+      typeButton: 'gradient',
       id: 'Btn Section 8'
     },
     {
@@ -343,7 +340,7 @@ const initialState: SideBarReducers =  {
       alignMainTitle: 'left',
       colorMainTitle: '#fff',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: '#fff',
@@ -371,12 +368,14 @@ const initialState: SideBarReducers =  {
     {
       previewImg: previewSection10,
       sectionName: 'Section 10',
-      animation: false,
+      animation: true,
+      positionAnimation: 'left',
       mainTitle: 'Build your mobile apps in less time',
       alignMainTitle: 'center',
       classMainTitle: '',
       styleMainTitle: {},
       hasDivider: true,
+      alignDivider: 'center',
       dividerColor: 'rgb(240, 98, 146)',
       imageSectionCol: {imgSrc: sectionImg1},
       text: 'No coding knowledge and no paid plugins required.',
@@ -472,7 +471,50 @@ const initialState: SideBarReducers =  {
       margin: 30,
       itemShow: 1,
       darkMode: false,
+      typeMockUp: 'Iphone',
       id: 'Btn Section 13',
+    },
+    {
+      previewImg: previewSection14,
+      backgroundColor: `linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)`,
+      sectionName: 'Section 14',
+      mainTitle: 'Convert your Listing Directory site into true native apps.',
+      alignMainTitle: 'left',
+      colorMainTitle: 'white',
+      classMainTitle: '',
+      fontSizeMainTitle: 'lg',
+      styleMainTitle: {},
+      text: defaultText,
+      alignText: 'left',
+      colorText: 'white',
+      fontSizeText: 'md',
+      classText: '',
+      styleText: {},
+      buttons: [
+        {
+          href: '###',
+          imgSrc: appstore
+        },
+        {
+          href: '##',
+          imgSrc: chplay
+        }
+      ],
+      darkMode: false,
+      id: 'Btn Section 14',
+      sliderImgs: [
+        {
+          imgSrc: mockUpMacContent1,
+          hasVideo: true,
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+        },
+        {
+          imgSrc: mockUpMacContent2,
+          hasVideo: true,
+          videoUrl: 'https://www.youtube.com/'
+        }
+      ],
+      typeMockUp: 'Mac'
     },
   ],
 };

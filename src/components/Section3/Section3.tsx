@@ -13,8 +13,8 @@ export type Section3Props = {
   reverse?: boolean;
   hasDivider?: boolean;
   imageSectionCol: ImageProps;
-  sectionId: string;
   alignDivider?: DividerProps['align'];
+  sectionId: string;
 } & SectionPatternBase
   & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
   & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>

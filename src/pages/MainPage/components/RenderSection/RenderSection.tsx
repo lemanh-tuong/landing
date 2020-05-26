@@ -7,6 +7,7 @@ import Section10 from 'components/Section10/Section10';
 import Section11 from 'components/Section11/Section11';
 import Section12 from 'components/Section12/Section12';
 import Section13 from 'components/Section13/Section13';
+import Section14 from 'components/Section14/Section14';
 import Section2 from 'components/Section2/Section2';
 import Section3 from 'components/Section3/Section3';
 import Section4 from 'components/Section4/Section4';
@@ -25,7 +26,7 @@ const RenderSection = (option: Option) => {
     mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
-    cards, hasDivider, dividerColor, alignDivider,
+    cards, hasDivider, alignDivider, dividerColor,
     sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
@@ -252,6 +253,17 @@ const RenderSection = (option: Option) => {
           sliderImgs={sliderImgs ?? []} draggable={draggable} fluid={fluid} margin={margin} classActive={classActive} navClass={navClass} hasNav={hasNav} hasDots={hasDots} dotClass={dotClass}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
           text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
+        />;
+      case 'Section 14':
+        return <Section14
+          sectionId={sectionId}
+          animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
+          mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
+          text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
+          typeMockUp={typeMockUp}
+          sliderImgs={sliderImgs ?? []}
+          hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
+          buttons={buttons ?? []}
         />;
     }
   };

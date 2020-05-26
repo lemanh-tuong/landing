@@ -40,8 +40,8 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         alignMainTitle={alignMainTitle}
         colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle}
         text={text ?? ''}
-        alignText={alignText}
         colorText={colorText} fontSizeText={fontSizeText}
+        alignText={alignText}
         sliderImgs={sliderImgs}
         hasNav={hasNav}
         hasDots={hasDots}

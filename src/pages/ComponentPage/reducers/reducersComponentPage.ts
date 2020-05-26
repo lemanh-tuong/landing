@@ -18,6 +18,7 @@ import previewSection10 from 'assets/img/section/section10.png';
 import previewSection11 from 'assets/img/section/section11.png';
 import previewSection12 from 'assets/img/section/section12.png';
 import previewSection13 from 'assets/img/section/section13.png';
+import previewSection14 from 'assets/img/section/section14.png';
 import previewSection2 from 'assets/img/section/section2.png';
 import previewSection3 from 'assets/img/section/section3.png';
 import previewSection4 from 'assets/img/section/section4.png';
@@ -62,7 +63,7 @@ const initialState: ComponentPageReducers =  {
       alignMainTitle: 'left',
       colorMainTitle: 'white',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: defaultText,
       alignText: 'left',
@@ -71,6 +72,13 @@ const initialState: ComponentPageReducers =  {
       classText: '',
       styleText: {},
       darkMode: false,
+      textButton: 'Try demo',
+      hrefButton: '##',
+      typeButton: 'border',
+      colorTextButton: '#fff',
+      animation: false,
+      hasDivider: false,
+      typeMockUp: 'Mac',
       sliderImgs: [
         {
           imgSrc: mockUpMacContent1,
@@ -87,18 +95,12 @@ const initialState: ComponentPageReducers =  {
     {
       previewImg: previewSection2,
       sectionName: 'Section 2',
-      mainTitle: 'Title 2',
+      mainTitle: 'How can you earn money from your website',
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
-      text: 'Text',
-      alignText: 'left',
-      colorText: 'black-3',
-      fontSizeText: 'md',
-      classText: '',
-      styleText: {},
       darkMode: false,
       cards: [
         { titleCard: 'Paid listings', textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.', iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
@@ -108,8 +110,10 @@ const initialState: ComponentPageReducers =  {
     },
     {
       previewImg: previewSection3,
+      animation: true,
+      positionAnimation: 'left',
       sectionName: 'Section 3',
-      mainTitle: 'Title 3',
+      mainTitle: 'Create unlimited directory',
       alignMainTitle: 'left',
       colorMainTitle: 'black-3',
       classMainTitle: '',
@@ -120,22 +124,35 @@ const initialState: ComponentPageReducers =  {
       colorText: 'black-3',
       classText: '',
       styleText: {},
+      imageSectionCol: {
+        imgSrc: sectionImg1
+      },
       darkMode: false,
       hasDivider: true,
+      alignDivider: 'left',
     },
     {
       previewImg: previewSection4,
       sectionName: 'Section 4',
+      animation: true,
+      positionAnimation: 'left',
       mainTitle: 'Perfect customer dashboard',
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       styleMainTitle: {},
       text: 'The listing owners can take full control of their business from Customer Dashboard. Here they can upgrade plans, run promotion campains, reply to messages, track the statistics of views, favorites, shares, reviews.',
-      alignText: 'left',
+      alignText: 'center',
       colorText: 'black-3',
       classText: '',
       styleText: {},
+      imageSectionCol: {
+        imgSrc: sectionImg1
+      },
+      textButton: 'Purchase now for 64$',
+      hrefButton: '##',
+      typeButton: 'gradient',
+      colorTextButton: '#fff',
       darkMode: false,
     },
     {
@@ -145,12 +162,11 @@ const initialState: ComponentPageReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'white',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: 'We’re honored some of the most talented creatives out there build with Wilcity',
       alignText: 'center',
       colorText: 'white',
-      fontSizeText: 'md',
       classText: '',
       styleText: {},
       backgroundColor: 'linear-gradient(90deg, rgb(250, 111, 152) 0%, rgb(255, 189, 55) 100%)',
@@ -184,7 +200,7 @@ const initialState: ComponentPageReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       hrefButton: '##',
       textButton: 'Purchase now for 64$',
@@ -201,7 +217,7 @@ const initialState: ComponentPageReducers =  {
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       text: "See what customers're saying about our services",
       colorText: 'rgba(0, 0, 0, 0.7)',
@@ -292,7 +308,7 @@ const initialState: ComponentPageReducers =  {
       alignMainTitle: 'left',
       colorMainTitle: 'black-3',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: 'rgb(240, 98, 146)',
@@ -304,6 +320,7 @@ const initialState: ComponentPageReducers =  {
       styleText: {},
       hrefButton: '##',
       textButton: 'Purchase now for 64$',
+      typeButton: 'gradient',
       darkMode: false,
     },
     {
@@ -315,7 +332,7 @@ const initialState: ComponentPageReducers =  {
       alignMainTitle: 'left',
       colorMainTitle: '#fff',
       classMainTitle: '',
-      fontSizeMainTitle: 'md',
+      fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: '#fff',
@@ -342,7 +359,8 @@ const initialState: ComponentPageReducers =  {
     {
       previewImg: previewSection10,
       sectionName: 'Section 10',
-      animation: false,
+      animation: true,
+      positionAnimation: 'left',
       mainTitle: 'Build your mobile apps in less time',
       alignMainTitle: 'center',
       classMainTitle: '',
@@ -439,6 +457,47 @@ const initialState: ComponentPageReducers =  {
       margin: 30,
       itemShow: 1,
       darkMode: false,
+    },
+    {
+      previewImg: previewSection14,
+      backgroundColor: `linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)`,
+      sectionName: 'Section 14',
+      mainTitle: 'Convert your Listing Directory site into true native apps.',
+      alignMainTitle: 'left',
+      colorMainTitle: 'white',
+      classMainTitle: '',
+      fontSizeMainTitle: 'lg',
+      styleMainTitle: {},
+      text: defaultText,
+      alignText: 'left',
+      colorText: 'white',
+      fontSizeText: 'md',
+      classText: '',
+      styleText: {},
+      buttons: [
+        {
+          href: '###',
+          imgSrc: appstore
+        },
+        {
+          href: '##',
+          imgSrc: chplay
+        }
+      ],
+      darkMode: false,
+      sliderImgs: [
+        {
+          imgSrc: mockUpMacContent1,
+          hasVideo: true,
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+        },
+        {
+          imgSrc: mockUpMacContent2,
+          hasVideo: true,
+          videoUrl: 'https://www.youtube.com/'
+        }
+      ],
+      typeMockUp: 'Mac'
     },
   ],
 };

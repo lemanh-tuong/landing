@@ -571,7 +571,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     };
   }),
-  handleAction('RESPONSIVE_SLIDES', ( state, action) => {
+  handleAction('RESPONSIVE_SLIDES', (state, action) => {
     const { value, minWidth, nowIndexSection} = action.payload as ActionResponsiveSlidesPayload;
     const nowElement = state.elements[nowIndexSection];
     const nowResponsiveData = nowElement.responsive;

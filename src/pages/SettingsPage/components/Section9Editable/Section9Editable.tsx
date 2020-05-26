@@ -19,8 +19,8 @@ const Section9Editable: FC<Section9EditableProps> = ({
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
   hasDivider, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText, classText, styleText,
-  buttons,
   iphoneParams, androidParams,
+  buttons,
 }) => {
   const [indexButton, setIndexButton] = useState(-1);
 

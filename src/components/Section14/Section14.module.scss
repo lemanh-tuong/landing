@@ -1,0 +1,14 @@
+.column {
+  margin-bottom: 50px;
+  @media (min-width: 768px) {
+    margin-bottom: initial;
+  }
+}
+.storeBtn {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+.storeIcon {
+  height: 50px;
+}

@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+/.firebase
+.firebaserc
+firebase-debug.log
+firebase.json
 /.pnp
 .pnp.js
 
