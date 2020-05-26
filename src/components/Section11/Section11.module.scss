@@ -4,6 +4,19 @@
   justify-content: center;
 }
 
+.content {
+  padding: 0;
+  @media (min-width: 992px) {
+    padding-left: 80px;
+  }
+}
+
+.icon {
+  text-align: center;
+  @media (min-width: 992px) {
+    text-align: initial;
+  }
+}
 
 .isBuilder {
   position: relative;

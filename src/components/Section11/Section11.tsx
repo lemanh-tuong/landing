@@ -93,7 +93,7 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
       );
     }
     return (
-      <div className="icon">
+      <div className={styles.icon}>
         <img src={iconImg.imgSrc} alt="section11 icon"></img>
       </div>
     );
@@ -131,7 +131,7 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
           {_renderImage()}
         </Col>
         <Col cols={[12, 12, 5]} className={`${reverse ? 'order-first' : ''} ${styles.contentCenter}`} >
-          <div className="content" style={{ paddingLeft: 80 }}>
+          <div className={styles.content}>
             {_renderIcon()}
             {_renderMainTitle()}
             {_renderDivider()}
