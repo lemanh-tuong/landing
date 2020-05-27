@@ -89,9 +89,15 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
     <>
       {_renderChangeSwitch()}
       {_renderValidateError()}
-      <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleChangeGeneralDataPage}>
-        <Input style={{ margin: 5 }} defaultValue={nowPage.pathName} required addonBefore="New Path Name" onChange={handleChangeNewPathName} />
-        <Input style={{ margin: 5 }} defaultValue={nowPage.pageName} required addonBefore="New Page Name" onChange={handleChangeNewPageName} />
+      <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' title={<h3>Form Change General Data Page</h3>} onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleChangeGeneralDataPage}>
+        <div>
+          <span>New Path Name</span>
+          <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pathName} required onChange={handleChangeNewPathName} />
+        </div>
+        <div>
+          <span>New Page Name</span>
+          <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pageName} required onChange={handleChangeNewPageName} />
+        </div>
       </PopUp>
     </>
   );

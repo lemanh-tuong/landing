@@ -1,6 +1,8 @@
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import PopUp from 'components/PopUp/PopUp';
 import { sections } from 'pages/SettingsPage/selectors';
+import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
@@ -11,9 +13,10 @@ export type FormMainTitleField = FieldType;
 
 export interface FormMainTitleProps {
   nowIndexSection: number;
+  sectionId: Option['sectionId'];
 }
 
-export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection }) => {
+export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, sectionId }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -44,52 +47,54 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection }) => {
   };
 
   return (
-    <div>
-      <Form
-        fields={[
-          {
-            fieldType: 'input',
-            fieldName: 'mainTitle',
-            fieldId: 'section-1-field-1',
-            horizontal: true,
-            defaultValue: mainTitle
-          },
-          {
-            fieldType: 'radio',
-            fieldName: 'alignMainTitle',
-            defaultCheckedValue: alignMainTitle,
-            fieldId: 'section-1-field-2',
-            data: [
-              {
-                value: 'center',
-                name: 'align title'
-              },
-              {
-                value: 'left',
-                name: 'align title'
-              },
-              {
-                value: 'right',
-                name: 'align title'
-              },
-            ],
-          },
-          {
-            fieldId: 'fontSizeMainTitle',
-            fieldType: 'radio3',
-            fieldName: 'fontSizeMainTitle',
-            defaultCheckedValue: fontSizeMainTitle,
-          },
-          {
-            fieldType: 'color-picker',
-            fieldName: 'colorMainTitle',
-            fieldId: 'section-1-field-3',
-            defaultColor: colorMainTitle ?? '#000',
-          },
-        ]}
-        onChange={handleChangeForm}
-      />
-    </div>
+    <PopUp id={`mainTitle-${sectionId}`} type='antd' title={<h3>Form Main Title</h3>}>
+      <div>
+        <Form
+          fields={[
+            {
+              fieldType: 'input',
+              fieldName: 'mainTitle',
+              fieldId: 'section-1-field-1',
+              horizontal: true,
+              defaultValue: mainTitle
+            },
+            {
+              fieldType: 'radio',
+              fieldName: 'alignMainTitle',
+              defaultCheckedValue: alignMainTitle,
+              fieldId: 'section-1-field-2',
+              data: [
+                {
+                  value: 'center',
+                  name: 'align title'
+                },
+                {
+                  value: 'left',
+                  name: 'align title'
+                },
+                {
+                  value: 'right',
+                  name: 'align title'
+                },
+              ],
+            },
+            {
+              fieldId: 'fontSizeMainTitle',
+              fieldType: 'radio3',
+              fieldName: 'fontSizeMainTitle',
+              defaultCheckedValue: fontSizeMainTitle,
+            },
+            {
+              fieldType: 'color-picker',
+              fieldName: 'colorMainTitle',
+              fieldId: 'section-1-field-3',
+              defaultColor: colorMainTitle ?? '#000',
+            },
+          ]}
+          onChange={handleChangeForm}
+        />
+      </div>
+    </PopUp>
   );
 };
 

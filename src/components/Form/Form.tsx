@@ -1,6 +1,6 @@
 import RollSelect, { RollSelectProps } from 'components/Form/RollSelect/RollSelect';
 import FormBase from 'components/FormBase/FormBase';
-import React, { FC, memo, ReactNode } from 'react';
+import React, { CSSProperties, FC, memo, ReactNode } from 'react';
 import CheckBox, { CheckBoxProps } from './CheckBox/CheckBox';
 import ColorPicker, { ColorPickerProps } from './ColorPicker/ColorPicker';
 import ColorPickerGradient, { ColorPickerGradientProps } from './ColorPickerGradient/ColorPickerGradient';
@@ -44,6 +44,8 @@ export interface FormProps {
   onChange: ({ fieldName, fieldType }: OnChangeFuncArg) => (result: any) => void;
   onAnotherEvent?: (fieldName: string) => (result: any) => void;
   children?: ReactNode;
+  style?: CSSProperties;
+  className?: string;
 }
 
 const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnotherEvent?: (result: any) => void) => {
@@ -92,7 +94,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
   }
 };
 
-const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children }) => {
+const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children, className, style }) => {
 
   const handleChange = (fieldType: FieldType['fieldType'], fieldName: string) => {
     return (result: any) => {
@@ -107,7 +109,7 @@ const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children }) => 
   };
 
   return (
-    <div className={styles.form}>
+    <div className={`${styles.form} ${className}`} style={style}>
       <FormBase
         fields={fields}
         renderField={(arg) => renderField1(arg as any, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))}

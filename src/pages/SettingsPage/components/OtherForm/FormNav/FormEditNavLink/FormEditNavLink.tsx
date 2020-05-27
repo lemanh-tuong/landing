@@ -12,12 +12,6 @@ import { v4 as uuidv4 } from 'uuid';
 import styles from './FormEditNavLink.module.scss';
 import SettingFormNavLink from './SettingFormNavLink';
 
-export const navItemDefault: NavItemType = {
-  href: '#',
-  text: 'Item',
-  id: uuidv4(),
-};
-
 const FormEditNavLink = () => {
   const [formShown, setFormShown] = useState(-1);
   const handleFormShown = (indexForm: number) => {
@@ -54,7 +48,13 @@ const FormEditNavLink = () => {
   };
 
   const handleAddNavItem = () => {
-    addNavItem({ newItem: navItemDefault, indexInsert: navData.length, type: 'navItems' });
+    addNavItem({
+      newItem: {
+        id: uuidv4(),
+        href: '#',
+        text: 'item'
+      }, indexInsert: navData.length, type: 'navItems'
+    });
   };
 
   const handleDeleteNavItem = (index: number) => {
@@ -63,31 +63,29 @@ const FormEditNavLink = () => {
 
   // Render
   const _renderLabelLink = (navItemProperty: NavItemType, index: number) => {
+    console.log(navItemProperty.id)
     return (
-      <div className={styles.settingsBox} key={uuidv4()}>
-        <Draggable index={index} draggableId={`${navItemProperty.text}-${index}`} key={uuidv4()}>
-          {provided => (
-            <div className={`${styles.navItemDesc} ${index === formShown ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+      <Draggable index={index} draggableId={`${navItemProperty.text}-${index}`} key={navItemProperty.id}>
+        {provided => (
+          <div className={styles.formNavItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.navItemDesc} ${index === formShown ? styles.active : ''}`}>
               <div className={styles.navItemName} onClick={handleFormShown(index)} >
                 <i className="fas fa-plus"></i>
                 <div className={styles.name}>{navItemProperty.text}</div>
               </div>
               <Button shape='round' size='large' onClick={handleDeleteNavItem(index)}>
                 Delete
-            </Button>
+               </Button>
             </div>
-          )}
-        </Draggable>
-      </div>
+            {index === formShown && _renderSettingsBox(index)}
+          </div>
+        )}
+      </Draggable>
     );
   };
 
-  const _renderSettingsBox = () => {
-    return (
-      <>
-        {navData.map((item, index) => formShown === index && <SettingFormNavLink {...item} nowIndex={index} />)}
-      </>
-    );
+  const _renderSettingsBox = (nowIndex: number) => {
+    return <SettingFormNavLink nowIndex={nowIndex} />
   };
 
   const _renderAddButton = () => {
@@ -99,8 +97,8 @@ const FormEditNavLink = () => {
   };
 
   return (
-    <div className="Form Nav Item">
-      <h1>Form Edit Nav Link</h1>
+    <div className={styles.formNavLink}>
+      <h3>Form Edit Nav Link</h3>
       <div className={styles.editNavItem}>
         <DragDropContext onDragEnd={handleMove} onDragStart={handleHideAll}>
           <Droppable droppableId={`Form_nav`} >
@@ -109,9 +107,6 @@ const FormEditNavLink = () => {
                 <div className={styles.listNavItems}>
                   {navData.map((navItemProperty, index) => _renderLabelLink(navItemProperty, index))}
                   {navData.length < 4 && _renderAddButton()}
-                </div>
-                <div className={styles.form}>
-                  {_renderSettingsBox()}
                 </div>
               </div>
             )}

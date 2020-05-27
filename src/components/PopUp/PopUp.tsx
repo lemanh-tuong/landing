@@ -1,5 +1,6 @@
 import { Modal } from 'antd';
 import 'antd/dist/antd.css';
+import { ModalProps } from 'antd/lib/modal';
 import React, { CSSProperties, PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './PopUp.module.scss';
@@ -9,6 +10,7 @@ interface PopUpProps {
   id: string;
   style?: CSSProperties;
   type?: 'default' | 'antd';
+  title?: ModalProps['title'];
   onOk?: () => void;
   onCancel?: () => void;
 }
@@ -109,7 +111,7 @@ class PopUp extends PureComponent<PopUpProps> {
   };
 
   _renderSwitch = () => {
-    const { type, children, style } = this.props;
+    const { type, children, style, title } = this.props;
     const { visible } = this.state;
     switch (type) {
       case 'default':
@@ -124,7 +126,7 @@ class PopUp extends PureComponent<PopUpProps> {
         );
       case 'antd':
         return (
-          <Modal style={style} centered visible={visible} closeIcon={<i></i>} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.content}>
+          <Modal title={title} style={style} closeIcon={<i className="fas fa-times"></i>} bodyStyle={{ height: '50vh', overflow: 'auto', border: '1px solid' }} centered visible={visible} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.popUpContent}>
             {children}
           </Modal>
         );

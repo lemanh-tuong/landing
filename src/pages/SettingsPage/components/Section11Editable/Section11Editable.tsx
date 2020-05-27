@@ -55,21 +55,11 @@ const Section11Editable: FC<Section11EditableProps> = ({
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         reverse={reverse} iconImg={iconImg}
       />
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection canReverseCol={true} nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`image-${sectionId}`} type='antd'>
-        <FormImage nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
-        <FormMainTitle nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`text-${sectionId}`} type='antd'>
-        <FormText nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`divider-${sectionId}`} type='antd'>
-        <FormDivider nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormSection canReverseCol={true} nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormImage nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`icon-${sectionId}`} type='antd'>
         <FormIcon nowIndexSection={nowIndexSection} />
       </PopUp>

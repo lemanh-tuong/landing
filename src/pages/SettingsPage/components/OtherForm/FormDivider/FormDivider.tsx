@@ -1,6 +1,8 @@
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import PopUp from 'components/PopUp/PopUp';
 import { sections } from 'pages/SettingsPage/selectors';
+import { Option } from 'pages/SettingsPage/SettingsPage';
 import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
@@ -11,9 +13,10 @@ export type FormDividerField = FieldType;
 
 export interface FormDividerProps {
   nowIndexSection: number;
+  sectionId: Option['sectionId'];
 }
 
-export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
+export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection, sectionId }) => {
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -44,48 +47,51 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection }) => {
   };
 
   return (
-    <div>
-      <Form
-        fields={[
-          {
-            fieldType: 'checkbox',
-            fieldName: 'hasDivider',
-            fieldId: 'section-3-field-7',
-            name: 'Has Divider',
-            defaultChecked: !!hasDivider
-          },
-          {
-            fieldType: 'color-picker',
-            fieldName: 'dividerColor',
-            fieldId: 'section-3-field-8',
-            defaultValue: dividerColor,
-            hidden: !hasDivider,
-          },
-          {
-            fieldType: 'radio',
-            fieldName: 'alignDivider',
-            fieldId: 'align-divider-section-3-field-8',
-            defaultCheckedValue: alignDivider ?? 'left',
-            hidden: !hasDivider,
-            data: [
-              {
-                name: 'alignDivider',
-                value: 'left',
-              },
-              {
-                name: 'alignDivider',
-                value: 'center',
-              },
-              {
-                name: 'alignDivider',
-                value: 'right',
-              }
-            ]
-          }
-        ]}
-        onChange={handleChangeForm}
-      />
-    </div>
+    <PopUp id={`divider-${sectionId}`} type='antd' title={<h3>Form Divider</h3>}>
+      <div>
+        <Form
+          fields={[
+            {
+              fieldType: 'checkbox',
+              fieldName: 'hasDivider',
+              fieldId: 'section-3-field-7',
+              name: 'Has Divider',
+              defaultChecked: !!hasDivider
+            },
+            {
+              fieldType: 'color-picker',
+              fieldName: 'dividerColor',
+              fieldId: 'section-3-field-8',
+              defaultValue: dividerColor,
+              hidden: !hasDivider,
+            },
+            {
+              fieldType: 'radio',
+              fieldName: 'alignDivider',
+              fieldId: 'align-divider-section-3-field-8',
+              defaultCheckedValue: alignDivider ?? 'left',
+              hidden: !hasDivider,
+              data: [
+                {
+                  name: 'alignDivider',
+                  value: 'left',
+                },
+                {
+                  name: 'alignDivider',
+                  value: 'center',
+                },
+                {
+                  name: 'alignDivider',
+                  value: 'right',
+                }
+              ]
+            }
+          ]}
+          onChange={handleChangeForm}
+        />
+      </div>
+    </PopUp>
+
   );
 };
 

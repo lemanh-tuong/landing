@@ -82,9 +82,15 @@ const FormDuplicatePage = () => {
     <>
       {_renderValidateError()}
       {_renderDuplicateSwitch()}
-      <PopUp id="duplicate-page-form" type='antd' onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
-        <Input style={{ margin: 5 }} required addonBefore="Path Name" defaultValue='/' onChange={handleChangePathName} />
-        <Input style={{ margin: 5 }} required addonBefore="Page Name" onChange={handleChangePageName} />
+      <PopUp id="duplicate-page-form" type='antd' title={<h3>Form Duplicate Page</h3>} onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
+        <div>
+          <span>Path Name</span>
+          <Input style={{ margin: '10px 0' }} required defaultValue='/' onChange={handleChangePathName} />
+        </div>
+        <div>
+          <span>Page Name</span>
+          <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />
+        </div>
       </PopUp>
     </>
   );

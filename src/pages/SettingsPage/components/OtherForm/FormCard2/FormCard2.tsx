@@ -78,10 +78,11 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
   };
 
   // Render
-  const _renderSettingsBox = (cardProperty: CardProps, nowIndexCard: number) => {
-    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon } = cardProperty;
+  const _renderSettingsBox = (nowIndexCard: number) => {
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon } = card2s?.[nowIndexCard] as CardProps;
     return (
       <Form
+        style={{ borderRadius: 5, border: '1px solid' }}
         fields={[
           {
             fieldType: 'input',
@@ -181,18 +182,20 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
 
   const _renderLabel = (cardProperty: CardProps, nowIndexCard: number) => {
     const { titleCard } = cardProperty;
-
     return (
-      <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`}>
-        {provided => (
-          <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
-              <i className="fas fa-plus"></i>
-              <div className={styles.cardName}>{titleCard}</div>
+      <div className={styles.formCard2Item} key={`card2-${titleCard}-${nowIndexCard}`}>
+        <Draggable index={nowIndexCard} draggableId={`card2-${nowIndexCard}`}>
+          {provided => (
+            <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+              <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
+                <i className="fas fa-plus"></i>
+                <div className={styles.cardName}>{titleCard}</div>
+              </div>
             </div>
-          </div>
-        )}
-      </Draggable>
+          )}
+        </Draggable>
+        {nowIndexCard === formShown.nowIndexCard && _renderSettingsBox(nowIndexCard)}
+      </div>
     );
   };
 
@@ -204,9 +207,6 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >
               <div className={styles.listCard}>
                 {card2s?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
-              </div>
-              <div className={styles.form}>
-                {card2s?.map((cardProperty: any, index: number) => formShown.nowIndexCard === index ? _renderSettingsBox(cardProperty, index) : null)}
               </div>
             </div>
           )}

@@ -89,10 +89,10 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
           <img className={styles.img} src={imgSrc} alt='Slide' style={{ width: 200, height: 200 }} />
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
+        <Button shape='round' size='large' type='dashed' onClick={handleAddSlide} style={{ margin: '10px 0' }}>
+          Add Slide
+        </Button>
       </Form>
-      <Button shape='round' size='large' type='dashed' onClick={handleAddSlide} style={{ margin: '5px 0' }}>
-        Add Slide
-      </Button>
     </div>
   );
 };

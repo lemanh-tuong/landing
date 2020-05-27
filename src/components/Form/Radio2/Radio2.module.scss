@@ -4,9 +4,9 @@ $secondary: rgb(159, 159, 159);
 
 
 .radioBtn {
-  margin: 6px;
-  padding: 6px;
-  border-radius: 50px;
+  margin: 6px 0;
+  padding: 5px 0;
+  border-radius: 2px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -16,6 +16,9 @@ $secondary: rgb(159, 159, 159);
   background: rgba($color: $secondary, $alpha: 0.1);
   &:hover {
     background: rgba($color: $secondary, $alpha: 0.3);
+  }
+  &:not(:last-child) {
+    margin-right: 14px;
   }
 }
 

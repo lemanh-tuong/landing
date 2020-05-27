@@ -5,7 +5,7 @@ import FormEditNavLink from './FormEditNavLink/FormEditNavLink';
 
 const FormNav = () => {
   return (
-    <div className="FormNav">
+    <div className="FormNav" style={{ maxWidth: 500, width: '100%' }}>
       <FormEditLogo />
       <FormEditNavLink />
       <FormEditButtonNav />

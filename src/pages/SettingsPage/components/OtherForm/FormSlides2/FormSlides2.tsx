@@ -42,8 +42,18 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
   };
 
   const handleFormShown = (nowIndexSlide: number) => {
-    return () => setFormShown(nowIndexSlide);
+    return () => {
+      if (nowIndexSlide !== formShown) {
+        setFormShown(nowIndexSlide);
+      } else {
+        setFormShown(-1);
+      }
+    }
   };
+
+  const handleCloseAll = () => {
+    setFormShown(-1)
+  }
 
   // Selector
   const element = useSelector(sections)[nowIndexSection];
@@ -90,19 +100,27 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
   };
 
   //Render
+
+  const _renderSettingForm = (nowIndexSlide: number) => {
+    return <FormSlide2 nowIndexSection={nowIndexSection} nowIndexSlide={nowIndexSlide} />
+  }
+
   const _renderLabel = (sliderProperty: Section3Props, nowIndexSlide: number) => {
     const { mainTitle } = sliderProperty;
     return (
-      <Draggable index={nowIndexSlide} draggableId={`card-${nowIndexSlide}`}>
+      <Draggable index={nowIndexSlide} draggableId={`card-${nowIndexSlide}`} key={`slide2-${nowIndexSlide}`}>
         {provided => (
-          <div className={`${styles.sliderSection} ${nowIndexSlide === formShown ? styles.active : ''}`} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps} onClick={handleFormShown(nowIndexSlide)}>
-            <div className={styles.sectionDesc} >
-              <i className="fas fa-plus"></i>
-              <div className={styles.sectionMainTitle}>{mainTitle}</div>
-            </div>
-            <Button shape='round' size='large' onClick={handleDelete(nowIndexSlide)} >
-              Delete
+          <div className={styles.formSlideItem} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.sliderSection} ${nowIndexSlide === formShown ? styles.active : ''}`} onClick={handleFormShown(nowIndexSlide)}>
+              <div className={styles.sectionDesc} >
+                <i className="fas fa-plus"></i>
+                <div className={styles.sectionMainTitle}>{mainTitle}</div>
+              </div>
+              <Button shape='round' size='large' onClick={handleDelete(nowIndexSlide)} >
+                Delete
             </Button>
+            </div>
+            {nowIndexSlide === formShown && _renderSettingForm(nowIndexSlide)}
           </div>
         )}
       </Draggable>
@@ -153,7 +171,7 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
   const _renderDetailSettings = () => {
     return (
       <div className={styles.detailSettings}>
-        <DragDropContext onDragEnd={handleMove}>
+        <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
           <Droppable droppableId={'form-slides-2'} type="sliderSection drop">
             {provided => (
               <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >
@@ -167,9 +185,6 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
             )}
           </Droppable>
         </DragDropContext>
-        <div className={styles.detailForm}>
-          {sliderSection?.map((sliderProperty, index) => index === formShown && <FormSlide2 sectionProperty={sliderProperty} nowIndexSection={nowIndexSection} nowIndexSlide={formShown} />)}
-        </div>
       </div>
     );
   };

@@ -48,6 +48,10 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     };
   };
 
+  const handleCloseAll = () => {
+    setFormShown({ nowIndexRate: -1 })
+  }
+
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -94,20 +98,22 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     moveRate({ data: newElements, nowIndexSection: nowIndexSection });
   };
 
-  // Render
   const _renderLabel = (rateProperty: RateProps, nowIndexRate: number) => {
     const { rateContent } = rateProperty;
     return (
-      <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`}>
+      <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`} key={`rate-${rateContent}-${nowIndexRate}`}>
         {provided => (
-          <div className={`${styles.rateFormName} ${nowIndexRate === formShown.nowIndexRate ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={styles.rateDesc} onClick={handleFormShown(rateProperty, nowIndexRate)} >
-              <i className="fas fa-plus"></i>
-              <div className={styles.rateName}>{rateContent}</div>
-            </div>
-            <Button shape='round' size='large' onClick={handleDelete(nowIndexRate)} >
-              Delete
+          <div className={`${styles.rateFormItem}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.rateFormName} ${nowIndexRate === formShown.nowIndexRate ? styles.active : ''}`}>
+              <div className={styles.rateDesc} onClick={handleFormShown(rateProperty, nowIndexRate)} >
+                <i className="fas fa-plus"></i>
+                <div className={styles.rateName}>{rateContent}</div>
+              </div>
+              <Button shape='round' size='large' onClick={handleDelete(nowIndexRate)} >
+                Delete
             </Button>
+            </div>
+            {nowIndexRate === formShown.nowIndexRate && _renderSettingsBox(nowIndexRate)}
           </div>
         )}
       </Draggable>
@@ -156,7 +162,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
 
   return (
     <div className={styles.editRateComponent}>
-      <DragDropContext onDragEnd={handleMoveRate}>
+      <DragDropContext onDragEnd={handleMoveRate} onDragStart={handleCloseAll}>
         <Droppable droppableId={sectionId} type="rate drop">
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >
@@ -165,9 +171,6 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
                 <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
                   <i className="fas fa-plus" />
                 </Button>
-              </div>
-              <div className={styles.form}>
-                {rateList?.map((_rateProperty: any, index: number) => formShown.nowIndexRate === index ? _renderSettingsBox(index) : null)}
               </div>
             </div>
           )}

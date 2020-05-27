@@ -61,15 +61,11 @@ const Section2Editable: FC<Section2EditableProps> = ({
         onAddCard={handleAdd}
         onDeleteCard={handleDeleteCard}
       />
-      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
-        <FormMainTitle nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`card-${sectionId}`} >
         <FormCard nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} />
-      </PopUp>
+      <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
     </div>
   );
 };

@@ -97,7 +97,7 @@ const Section2: FC<Section2Props & Section2PropsBuilder> = ({
                 {renderItem ? renderItem({ ...item }) : _renderCardDefault({ ...item }, index)}
                 <div className={styles.btnGroup}>
                   <Button className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddCard(index)} />
-                  <Button className={styles.deleteBtn} icon={<i className="fas fa-times"></i>} shape='circle' size='large' onClick={_handleDeleteCard(index)} />
+                  <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle' size='large' onClick={_handleDeleteCard(index)} />
                 </div>
               </div>
             </Col>

@@ -128,9 +128,15 @@ const ListPage = () => {
       {_renderValidateError()}
       {_renderPages()}
       {_renderCreateSwitch()}
-      <PopUp id="add-page-form" type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
-        <Input defaultValue="/" required addonBefore="Path Name" onChange={handleChangePathName} />
-        <Input required addonBefore="Page Name" onChange={handleChangePageName} />
+      <PopUp id="add-page-form" title={<h3>Form Add Page</h3>} type='antd' onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
+        <div>
+          <span>Path Name</span>
+          <Input style={{ margin: '10px 0' }} defaultValue="/" required onChange={handleChangePathName} />
+        </div>
+        <div>
+          <span>Page Name</span>
+          <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />
+        </div>
       </PopUp>
     </>;
   };

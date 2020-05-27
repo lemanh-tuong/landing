@@ -3,7 +3,6 @@ import Button, { ButtonProps } from 'components/Button/Button';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Image from 'components/Image/Image';
 import { buttonDefault } from 'pages/SettingsPage/components/OtherForm/FormNav/FormEditButtonNav/FormEditButtonNav';
-import { navItemDefault } from 'pages/SettingsPage/components/OtherForm/FormNav/FormEditNavLink/FormEditNavLink';
 import React, { CSSProperties, FC, memo, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -47,7 +46,11 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
   const handleAddItem = (type: 'buttons' | 'navItems') => {
     return () => {
       if (type === 'buttons') onAddItem?.(buttonDefault, type);
-      else onAddItem?.(navItemDefault, type);
+      else onAddItem?.({
+        id: uuidv4(),
+        href: '#',
+        text: 'item',
+      }, type);
     };
   };
 

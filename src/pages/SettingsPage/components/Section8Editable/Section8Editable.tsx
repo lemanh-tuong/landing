@@ -55,24 +55,16 @@ const Section8Editable: FC<Section8EditableProps> = ({
         text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
         textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
       />
-      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
-        <FormMainTitle nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`text-${sectionId}`} type='antd'>
-        <FormText nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`divider-${sectionId}`} type='antd'>
-        <FormDivider nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`button-${sectionId}`}>
         <FormButton nowIndex={nowIndexSection} />
       </PopUp>
       <PopUp id={`card-${sectionId}`}>
         <FormCard2 nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
-      </PopUp>
+      <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />
     </div>
   );
 };

@@ -1,25 +1,27 @@
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
-import { NavItemType } from 'components/Nav/Nav';
-import { listPage } from 'pages/ListPage/selectors';
 import { ActionChangeInputNavPayload } from 'pages/SettingsPage/actions/actionsNav/actionChangeInputNav/actionChangeInputNav';
+import { listPage, navItems } from 'pages/SettingsPage/selectors';
 import thunkChangeInputNav from 'pages/SettingsPage/thunks/thunksNav/thunkChangeInputNav/thunkChangeInputNav';
-import React, { FC, useState } from 'react';
+import React, { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 
-export interface SettingsFormProps extends NavItemType {
+export interface SettingsFormProps {
   nowIndex: number;
 }
 
 type TypeHref = 'external' | 'internal';
 
-const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) => {
-  const [typeHref, setTypeHref] = useState<TypeHref>('external');
+const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
+  // const [typeHref, setTypeHref] = useState<TypeHref>('external');
 
   const listPageName = useSelector(listPage);
+  const listNav = useSelector(navItems);
 
-  const handleTypeHref = (result: TypeHref) => {
-    setTypeHref(result);
-  };
+  const { href, text, target } = listNav[nowIndex];
+
+  // const handleTypeHref = (result: TypeHref) => {
+  //   setTypeHref(result);
+  // };
 
   // Dispatch
   const changeInput = thunkChangeInputNav();
@@ -27,9 +29,9 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) =
   //Handle
   const handleChangeTextButtonForm = (type: ActionChangeInputNavPayload['type']) => ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      if (fieldType === 'radio') {
-        handleTypeHref(result);
-      }
+      // if (fieldType === 'radio') {
+      //   handleTypeHref(result);
+      // }
       if (fieldType === 'input' || fieldType === 'select') {
         changeInput({ fieldName: fieldName, value: result, nowIndex: nowIndex, type: type });
       }
@@ -39,12 +41,13 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) =
   return (
     <div className="formButton">
       <Form
+        style={{ border: '1px solid', borderRadius: 5 }}
         fields={[
           {
             fieldType: 'input',
             fieldName: 'text',
             defaultValue: text,
-            fieldId: 1
+            fieldId: 'nav-link-1'
           },
           {
             fieldId: `type-href-${nowIndex}`,
@@ -60,26 +63,23 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) =
                 value: 'internal',
               },
             ],
-            defaultCheckedValue: typeHref,
           },
           {
             fieldType: 'input',
             fieldName: 'href',
             defaultValue: href,
-            fieldId: 2,
-            hidden: !(typeHref === 'external')
+            fieldId: 'nav-link-2',
           },
           {
             fieldType: 'select',
             fieldName: 'href',
             defaultValue: href,
-            fieldId: 3,
+            fieldId: 'nav-link-3',
             optionsGroup: {
               groupName: 'Link',
               options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
             },
             defaultSelect: '/',
-            hidden: !(typeHref === 'internal')
           },
           {
             fieldId: 'nav-select-target',
@@ -87,7 +87,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) =
             fieldType: 'select',
             optionsGroup: {
               groupName: '',
-              options: [{ value: 'blank', label: 'blank' }, { label: 'self', value: 'self' }]
+              options: [{ value: 'blank', label: 'blank' }, { value: 'default', label: 'default' }, { label: 'self', value: 'self' }]
             },
             defaultSelect: target,
           }
@@ -98,4 +98,4 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex, target, href, text }) =
   );
 };
 
-export default SettingsForm;
+export default memo(SettingsForm);

@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import img1 from 'assets/img/settings/advanced-rating-and-reviews.png';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { Section3Props } from 'components/Section3/Section3';
+import { sections } from 'pages/SettingsPage/selectors';
 import thunkAddSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkAddSlide2/thunkAddSlide2';
 import thunkChangeCheckBoxSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkChangeCheckBoxSlide2/thunkChangeCheckBoxSlide2';
 import thunkChangeColorSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkChangeColorSlide2/thunkChangeColorSlide2';
@@ -9,28 +10,33 @@ import thunkChangeInputSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkC
 import thunkChangeRadioSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkChangeRadioSlide2/thunkChangeRadioSlide2';
 import thunkDeleteSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkDeleteSlide2/thunkDeleteSlide2';
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './FormSlide2.module.scss';
 
 export interface FormSlide2Props {
   nowIndexSection: number;
   nowIndexSlide: number;
-  sectionProperty: Section3Props;
 }
 
-const slidePropertyDefault: Omit<Section3Props, 'sectionid'> = {
+const slidePropertyDefault = (sectionId: string) => ({
   imageSectionCol: { imgSrc: img1 },
-  sectionId: '1',
+  sectionId: sectionId,
   mainTitle: 'App Term Boxes Settings',
   alignMainTitle: 'left',
   hasDivider: true,
   dividerColor: '#000',
   reverse: true,
   text: 'Insert Listing Locations and Listing Categories block to your app by using App Term Boxes shortcode.',
-};
+} as Omit<Section3Props, 'sectionid'>);
 
-const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, nowIndexSlide }) => {
-  const { reverse, mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, alignDivider, imageSectionCol } = sectionProperty;
+const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => {
+
+  const elements = useSelector(sections);
+  const { sliderSection } = elements[nowIndexSection];
+
+  const { reverse, mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, alignDivider, imageSectionCol } = sliderSection?.[nowIndexSlide] as Section3Props;;
   //Dispatch
   const changeInput = thunkChangeInputSlide2();
   const changeCheckBox = thunkChangeCheckBoxSlide2();
@@ -60,7 +66,8 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
   };
 
   const handleAddSlide = () => {
-    addSlide({ slideProperty: slidePropertyDefault, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
+    const id = uuidv4()
+    addSlide({ slideProperty: slidePropertyDefault(id), nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
   };
 
   const handleDelete = () => {
@@ -68,8 +75,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
   };
 
   return (
-    <div style={{ position: 'relative' }} className="FormSlide2">
-      <h1>{mainTitle}</h1>
+    <div style={{ position: 'relative', border: '1px solid', borderRadius: 5 }} className="FormSlide2">
       <Form
         onChange={handleChangeForm}
         fields={[
@@ -181,13 +187,13 @@ const FormSlide2: FC<FormSlide2Props> = ({ sectionProperty, nowIndexSection, now
       >
         <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />
         <Link className={styles.btn} to={`/gallery?type=sliderSectionImg&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
-          <img className={styles.img} src={imageSectionCol.imgSrc} alt='Slide' style={{ width: 200, height: 200 }} />
+          <div className={styles.image} style={{ backgroundImage: `url('${imageSectionCol.imgSrc}')` }}></div>
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
+        <Button shape='round' size='large' type='dashed' style={{ margin: '10px 0' }} onClick={handleAddSlide}>
+          Add Slide
+       </Button>
       </Form>
-      <Button shape='round' size='large' type='dashed' style={{ margin: '5px 0' }} onClick={handleAddSlide}>
-        Add Slide
-      </Button>
     </div>
   );
 };

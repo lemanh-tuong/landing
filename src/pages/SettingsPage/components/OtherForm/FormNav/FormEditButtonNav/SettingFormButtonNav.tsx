@@ -1,13 +1,17 @@
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
-import { ButtonNav } from 'components/Nav/Nav';
+import { buttons } from 'pages/SettingsPage/selectors';
 import thunkChangeInputNav from 'pages/SettingsPage/thunks/thunksNav/thunkChangeInputNav/thunkChangeInputNav';
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 
-export interface SettingFormButtonProps extends ButtonNav {
+export interface SettingFormButtonProps {
   nowIndex: number;
 }
 
-const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, href, text, size, type }) => {
+const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex }) => {
+
+  const listButtons = useSelector(buttons);
+  const { iconClass, href, text, size, type } = listButtons[nowIndex];
 
   const changeInput = thunkChangeInputNav();
 
@@ -23,6 +27,7 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex, iconClass, hr
   return (
     <div className="SettingFormButton">
       <Form
+        style={{ border: '1px solid', borderRadius: 5 }}
         fields={[
           {
             fieldType: 'input',

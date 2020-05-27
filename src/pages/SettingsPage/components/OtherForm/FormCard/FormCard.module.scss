@@ -2,16 +2,15 @@
   position: relative;
 }
 
-.inner {
-  display: flex;
+.cardFormItem {
+  width: 100%;
 }
+
 .listCard {
-  width: 35%;
-  margin-right: 20px;
+  max-width: 500px;
+  width: 100%;
 }
-.form {
-  flex: 1 1 auto;
-}
+
 .cardFormName {
   display: flex;
   align-items: center;

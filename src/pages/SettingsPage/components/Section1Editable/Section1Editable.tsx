@@ -90,24 +90,16 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         onShowPopupEditDivider={handleShowPopupEditDivider}
         onShowPopupEditMockUp={handleShowPopupEditMockUp}
       />
-      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
-        <FormMainTitle nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`text-${sectionId}`} type='antd'>
-        <FormText nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`button-${sectionId}`}>
         <FormButton nowIndex={nowIndexSection} />
       </PopUp>
-      <PopUp id={`divider-${sectionId}`} type='antd'>
-        <FormDivider nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`mockup-${sectionId}`}>
         <FormMockUp draggableField={false} nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
-      </PopUp>
+      <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />
     </>
   );
 };

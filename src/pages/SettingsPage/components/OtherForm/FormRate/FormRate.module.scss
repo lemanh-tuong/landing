@@ -1,17 +1,16 @@
+.rateFormItem {
+  width: 100%;
+}
+
 .editRateComponent {
   position: relative;
 }
 
-.inner {
-  display: flex;
-}
 .listRate {
-  width: 35%;
-  margin-right: 20px;
+  width: 100%;
+  max-width: 500px;
 }
-.form {
-  flex: 1 1 auto;
-}
+
 .rateFormName {
   display: flex;
   align-items: center;

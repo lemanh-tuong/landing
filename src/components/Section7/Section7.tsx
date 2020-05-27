@@ -71,7 +71,7 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
                 {_renderRate(rateProperty, index)}
                 <div className={styles.btnGroup}>
                   <ButtonAntd className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddRate(index)} />
-                  <ButtonAntd className={styles.deleteBtn} icon={<i className="fas fa-times"></i>} shape='circle' size='large' onClick={_handleDeleteRate(index)} />
+                  <ButtonAntd className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle' size='large' onClick={_handleDeleteRate(index)} />
                 </div>
               </div>
             </Col>

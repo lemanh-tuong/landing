@@ -146,6 +146,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           <>
             <h1>Responsive</h1>
             <Form
+              style={{ padding: 0 }}
               fields={[
                 {
                   fieldId: '576px',
@@ -173,14 +174,15 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
                 },
               ]}
               onChange={handleResponsiveSlides}
-            />
+            >
+              <Button shape='round' size='large' danger>
+                <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
+                  Change Image
+                </Link>
+              </Button>
+            </Form>
           </> : null
         }
-        <Button shape='round' size='large' danger>
-          <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
-            Change Image
-          </Link>
-        </Button>
       </Form>
     );
   };

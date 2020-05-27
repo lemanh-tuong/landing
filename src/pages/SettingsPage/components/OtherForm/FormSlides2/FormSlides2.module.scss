@@ -1,5 +1,14 @@
+.formSlides {
+  min-width: 400px;
+}
+
 .formMockUpTop {
   position: relative;
+}
+
+.listLabel {
+  max-width: 500px;
+  width: 100%;
 }
 
 .tabList {
@@ -54,6 +63,11 @@
   display: flex;
   align-items: center;
   margin-right: 30px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .detailSettings {

@@ -28,6 +28,7 @@ import { ActionChangeImgSlide2Payload } from '../actions/actionSlide2/actionChan
 import { ActionChangeInputSlide2Payload } from '../actions/actionSlide2/actionChangeInputSlide2/actionChangeInputSlide2';
 import { ActionChangeRadioSlide2Payload } from '../actions/actionSlide2/actionChangeRadioSlide2/actionChangeRadioSlide2';
 import { ActionDeleteSlide2Payload } from '../actions/actionSlide2/actionDeleteSlide2/actionDeleteSlide2';
+import { ActionMoveSlide2Payload } from '../actions/actionSlide2/actionMoveSlide2/actionMoveSlide2';
 import { ActinChangeInputRateFormPayload } from '../actions/actionsRate/actionChangeInputRateForm/actionChangeInputRateForm';
 import { ActionDeleteRatePayload } from '../actions/actionsRate/actionDeleteRate/actionDeleteRate';
 import { ActionMoveRatePayload } from '../actions/actionsRate/actionMoveRate/actionMoveRate';
@@ -843,6 +844,19 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     };
   }),
+  handleAction('MOVE_SLIDE_2', (state, action) => {
+    const { data, nowIndexSection } = action.payload as ActionMoveSlide2Payload;
+    const nowElement = state.elements[nowIndexSection];
+    const newSliderSections = data ? [...data] : [];
+    const newElement = {
+      ...nowElement,
+      sliderSection: newSliderSections
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
+  })
 ]);
 
 

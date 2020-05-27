@@ -99,6 +99,9 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     ) : [];
     moveChild({ data: newElements, nowIndexSection: nowIndexSection });
   };
+  const handleCloseAll = () => {
+    setFormShown({ nowIndexCard: -1 });
+  }
 
   const handleChangeBgIcon = (nowIndexCard: number) => {
     return (result: string) => changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result });
@@ -109,6 +112,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon, bgColorIcon } = element.cards?.[nowIndexCard] as CardProps;
     return (
       <Form
+        style={{ border: '1px solid', borderRadius: 5 }}
         fields={[
           {
             fieldType: 'input',
@@ -220,18 +224,20 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
 
   const _renderLabel = (cardProperty: CardProps, nowIndexCard: number) => {
     const { titleCard } = cardProperty;
-
     return (
-      <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`}>
+      <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`} key={`card-${nowIndexCard}`}>
         {provided => (
-          <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : null}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
-              <i className="fas fa-plus"></i>
-              <div className={styles.cardName}>{titleCard}</div>
-            </div>
-            <Button shape='round' size='large' onClick={handleDelete(nowIndexCard)} >
-              Delete
+          <div className={styles.cardFormItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : null}`}>
+              <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
+                <i className="fas fa-plus"></i>
+                <div className={styles.cardName}>{titleCard}</div>
+              </div>
+              <Button shape='round' size='large' onClick={handleDelete(nowIndexCard)} >
+                Delete
               </Button>
+            </div>
+            {nowIndexCard === formShown.nowIndexCard && _renderSettingsBox(nowIndexCard)}
           </div>
         )}
       </Draggable>
@@ -240,7 +246,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
 
   return (
     <div className={styles.editCardComponent}>
-      <DragDropContext onDragEnd={handleMove}>
+      <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
         <Droppable droppableId={sectionId} type="card drop">
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
@@ -249,9 +255,6 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
                 <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
                   <i className="fas fa-plus" />
                 </Button>
-              </div>
-              <div className={styles.form}>
-                {element.cards?.map((_cardProperty: any, index: number) => formShown.nowIndexCard === index ? _renderSettingsBox(index) : null)}
               </div>
             </div>
           )}

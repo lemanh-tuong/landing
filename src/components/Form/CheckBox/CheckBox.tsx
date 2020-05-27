@@ -1,6 +1,6 @@
-import React, { Fragment, memo, FC } from 'react';
-import styles from './CheckBox.module.scss';
 import CheckBoxBase from 'components/FormBase/CheckBoxBase/CheckBoxBase';
+import React, { FC, Fragment, memo } from 'react';
+import styles from './CheckBox.module.scss';
 
 export interface CheckBoxOption {
   defaultChecked?: boolean;
@@ -17,13 +17,13 @@ export interface CheckBoxProps extends CheckBoxOption {
 const CheckBox: FC<CheckBoxProps> = ({ defaultChecked, name, horizontal = false, reverse = false, onChange }) => {
 
   const _renderDefault = (checked: boolean, onChange: () => void) => (
-    <div className={`${styles.checkBox} ${reverse ? styles.reverse : null} ${horizontal ? styles.horizontal : null}`}>
-      <label className={styles.checkBoxName}>
-        {name}
-      </label>
-      <button className={styles.box} onClick={onChange}>
+    <div className={`${styles.checkBox} ${reverse ? styles.reverse : null} ${horizontal ? styles.horizontal : null}`} onClick={onChange}>
+      <button className={styles.box} >
         {checked ? <i className="fas fa-check"></i> : <i style={{ color: 'white' }} className="far fa-square"></i>}
       </button>
+      <label className={styles.checkBoxName} >
+        {name}
+      </label>
     </div>
   );
 

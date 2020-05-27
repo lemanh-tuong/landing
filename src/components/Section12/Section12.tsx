@@ -22,7 +22,7 @@ const Section12: FC<Section12Props & Section12PropsBuilder> = ({
 }) => {
   const _renderSlide = (slideProperty: Section3Props) => {
     return (
-      <Section3 backgroundColor={'transparent'} {...slideProperty} />
+      <Section3 backgroundColor={'transparent'} fontSizeMainTitle="lg" {...slideProperty} />
     );
   };
 

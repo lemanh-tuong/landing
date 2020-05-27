@@ -30,9 +30,7 @@ const Section12Editable: FC<Section12EditableProps> = ({
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         onShowPopUpEditSlide={handleShowPopUpEditSlides}
       />
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
-      </PopUp>
+      <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />
       <PopUp id={`slides-${sectionId}`}>
         <FormSlides2 nowIndexSection={nowIndexSection} draggableField={true} />
       </PopUp>

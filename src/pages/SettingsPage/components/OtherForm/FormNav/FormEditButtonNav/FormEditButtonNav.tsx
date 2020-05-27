@@ -8,7 +8,6 @@ import thunkMoveNavItem from 'pages/SettingsPage/thunks/thunksNav/thunkMoveNavIt
 import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import styles from './FormEditButtonNav.module.scss';
 import SettingFormButton from './SettingFormButtonNav';
 
@@ -64,8 +63,8 @@ const FormEditButtonNav = () => {
   // Render
   const _renderLabelLink = (navItemProperty: ButtonNav, index: number) => {
     return (
-      <div className={styles.settingsBox} key={uuidv4()}>
-        <Draggable index={index} draggableId={`${navItemProperty.text}-${index}`} key={uuidv4()}>
+      <div className={styles.formButtonItem} key={index}>
+        <Draggable index={index} draggableId={`${navItemProperty.text}-${index}`}>
           {provided => (
             <div className={`${styles.navItemDesc} ${index === formShown ? styles.active : ''}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
               <div className={styles.navItemName} onClick={handleFormShown(index)} >
@@ -78,16 +77,13 @@ const FormEditButtonNav = () => {
             </div>
           )}
         </Draggable>
+        {index === formShown && _renderSettingsBox(index)}
       </div>
     );
   };
 
-  const _renderSettingsBox = () => {
-    return (
-      <>
-        {buttonGroup.map((item, index) => formShown === index && <SettingFormButton {...item} nowIndex={index} />)}
-      </>
-    );
+  const _renderSettingsBox = (nowIndex: number) => {
+    return <SettingFormButton nowIndex={nowIndex} />
   };
 
   const _renderAddButton = () => {
@@ -99,7 +95,7 @@ const FormEditButtonNav = () => {
   };
 
   return (
-    <div className="Form Button Nav">
+    <div className={styles.formEditButton}>
       <h1>Form Edit Button Nav</h1>
       <div className={styles.editNavItem}>
         <DragDropContext onDragEnd={handleMove} onDragStart={handleHideAll}>
@@ -109,9 +105,6 @@ const FormEditButtonNav = () => {
                 <div className={styles.listNavItems}>
                   {buttonGroup.map((item, index) => _renderLabelLink(item, index))}
                   {buttonGroup.length < 2 && _renderAddButton()}
-                </div>
-                <div className={styles.form}>
-                  {_renderSettingsBox()}
                 </div>
               </div>
             )}

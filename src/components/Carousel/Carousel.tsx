@@ -118,7 +118,11 @@ const Carousel = <ItemT extends any>({
   }
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`} onMouseDown={draggable ? dragStart : undefined} onMouseUp={dragEnd} onMouseMove={dragging}>
+      <div className={`${styles.slideShow}
+      ${fluid ? styles.fluid : ''}`}
+        onMouseDown={draggable ? dragStart : undefined}
+        onMouseUp={dragEnd} onMouseMove={dragging}
+      >
         <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
           {_renderLast()}
           {_renderSlides()}

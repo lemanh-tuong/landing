@@ -35,12 +35,8 @@ const Section6Editable: FC<Section6EditableProps & Section6Props> = ({ nowIndexS
       <PopUp id={`button-${sectionId}`} >
         <FormButton nowIndex={nowIndexSection} />
       </PopUp>
-      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
-        <FormMainTitle nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormSection nowIndexSection={nowIndexSection} sectionId={sectionId} />
     </>
   );
 

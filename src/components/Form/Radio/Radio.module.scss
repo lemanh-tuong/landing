@@ -4,7 +4,6 @@ $secondary: rgb(159, 159, 159);
 
 
 .radioBtn {
-  padding: 6px;
   border-radius: 50px;
   display: inline-flex;
   cursor: pointer;
@@ -13,6 +12,9 @@ $secondary: rgb(159, 159, 159);
   -webkit-tap-highlight-color: transparent;
   &:hover {
     background: rgba($color: $secondary, $alpha: 0.1);
+  }
+  &:not(:last-child) {
+    margin-right: 14px;
   }
 }
 

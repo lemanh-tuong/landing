@@ -59,18 +59,10 @@ const Section9Editable: FC<Section9EditableProps> = ({
         buttons={buttons}
         iphoneParams={iphoneParams} androidParams={androidParams}
       />
-      <PopUp id={`section-${sectionId}`} type='antd'>
-        <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} />
-      </PopUp>
-      <PopUp id={`mainTitle-${sectionId}`} type='antd'>
-        <FormMainTitle nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`divider-${sectionId}`} type='antd'>
-        <FormDivider nowIndexSection={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`text-${sectionId}`} type='antd'>
-        <FormText nowIndexSection={nowIndexSection} />
-      </PopUp>
+      <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />
+      <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
+      <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`button2-${sectionId}`}>
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
