@@ -26,19 +26,32 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
   const [newPageName, setNewPageName] = useState(nowPage.pageName);
   const [newPathName, setNewPathName] = useState(nowPage.pathName);
   const [error, setError] = useState('');
+  const [validate, setValidate] = useState('');
 
   const changeGeneralDataPage = thunkChangeGeneralDataPage();
+
+  const handleError = (value: string) => {
+    const regex = /\s/;
+    setValidate(() => {
+      if (value.length === 0) return 'Required'
+      if (regex && value.match(regex)) return 'Pattern Error'
+      return ''
+    })
+  }
 
   const handleChangeNewPageName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPageName(e.target.value);
   };
   const handleChangeNewPathName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPathName(e.target.value);
+    handleError(e.target.value);
+    if (!error) {
+      setNewPathName(e.target.value);
+    }
   };
 
   const handleChangeGeneralDataPage = () => {
     const isExisted = generalDataPage.find(item => (item.pageName === newPageName && pageId !== item.id) || (item.pathName === newPathName && pageId !== item.id));
-    if (!isExisted) {
+    if (!isExisted && !validate) {
       changeGeneralDataPage({ newPageName, newPathName, id: pageId });
       const interval = setInterval(() => {
         if (statusChangeData === 'changed') {
@@ -47,7 +60,8 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
         }
       }, 1000);
     } else {
-      setError('Page Name or Path Name existed');
+      if (isExisted) setError('Page Name or Path Name existed');
+      else setError('Path Name Validate Error');
     }
   };
 
@@ -98,6 +112,7 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
           <span>New Page Name</span>
           <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pageName} required onChange={handleChangeNewPageName} />
         </div>
+        {validate ? <p style={{ fontSize: 'inherit', color: 'red' }}>{validate}</p> : null}
       </PopUp>
     </>
   );

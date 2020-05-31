@@ -7,7 +7,6 @@
 
 .inputName {
   color: #363f5a;
-  margin-bottom: 10px;
   display: inline-block;
   text-transform: capitalize;
 }
@@ -19,7 +18,6 @@
   background-color: #EEF5FF;
   width: calc(100% - 2rem);
   color: #363f5a;
-  margin-bottom: 2rem;
   box-sizing: border-box;
 }
 
@@ -33,4 +31,9 @@
     border: none;
     background: inherit;
   }
+}
+
+.errorMsg {
+  font-size: inherit;
+  color: red;
 }

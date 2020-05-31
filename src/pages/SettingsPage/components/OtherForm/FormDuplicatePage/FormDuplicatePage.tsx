@@ -14,6 +14,7 @@ const FormDuplicatePage = () => {
   const [pageName, setPageName] = useState('');
   const [pathName, setPathName] = useState('');
   const [error, setError] = useState('');
+  const [validate, setValidate] = useState('');
 
   const duplicatePage = thunkDuplicatePage();
 
@@ -21,17 +22,29 @@ const FormDuplicatePage = () => {
   const messageRequestErr = useSelector(messageRequestListPage);
   const pages = useSelector(listPage);
 
+  const handleError = (value: string) => {
+    const regex = /\s/;
+    setValidate(() => {
+      if (value.length === 0) return 'Required'
+      if (regex && value.match(regex)) return 'Pattern Error'
+      return ''
+    })
+  }
+
   const handleChangePageName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPageName(e.target.value);
   };
   const handleChangePathName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPathName(e.target.value);
+    handleError(e.target.value);
+    if (!error) {
+      setPathName(e.target.value);
+    }
   };
 
   const handleDuplicatePage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
-    if (!isExisted) {
+    if (!isExisted && !validate) {
       duplicatePage({ pageName, pathName, id: id });
       const interval = setInterval(() => {
         if (statusDuplicate === 'duplicated') {
@@ -40,7 +53,8 @@ const FormDuplicatePage = () => {
         }
       }, 1000);
     } else {
-      setError('Page Name or Path Name existed');
+      if (isExisted) setError('Page Name or Path Name existed');
+      else setError('Path Name Validate Error');
     }
   };
 
@@ -91,6 +105,7 @@ const FormDuplicatePage = () => {
           <span>Page Name</span>
           <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />
         </div>
+        {validate ? <p style={{ fontSize: 'inherit', color: 'red' }}>{validate}</p> : null}
       </PopUp>
     </>
   );

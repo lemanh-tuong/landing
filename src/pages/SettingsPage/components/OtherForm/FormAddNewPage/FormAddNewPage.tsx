@@ -13,6 +13,7 @@ const FormAddNewPage = () => {
   const [pageName, setPageName] = useState('');
   const [pathName, setPathName] = useState('');
   const [error, setError] = useState('');
+  const [validate, setValidate] = useState('');
 
   const addNewPage = thunkAddNewPage();
 
@@ -20,17 +21,29 @@ const FormAddNewPage = () => {
   const statusCreate = useSelector(statusCreatePage);
   const messageRequestErr = useSelector(messageRequestListPage);
 
+  const handleError = (value: string) => {
+    const regex = /\s/;
+    setValidate(() => {
+      if (value.length === 0) return 'Required'
+      if (regex && value.match(regex)) return 'Pattern Error'
+      return ''
+    })
+  }
+
   const handleChangePageName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPageName(e.target.value);
   };
   const handleChangePathName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPathName(e.target.value);
+    handleError(e.target.value);
+    if (!error) {
+      setPathName(e.target.value);
+    }
   };
 
   const handleAddNewPage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
-    if (!isExisted) {
+    if (!isExisted && !validate) {
       addNewPage({ pageName, pathName, id: id });
       const interval = setInterval(() => {
         if (statusCreate === 'created') {
@@ -39,7 +52,8 @@ const FormAddNewPage = () => {
         }
       }, 1000);
     } else {
-      setError('Page Name or Path Name existed');
+      if (isExisted) setError('Page Name or Path Name existed');
+      else setError('Path Name Validate Error');
     }
   };
 
@@ -83,12 +97,13 @@ const FormAddNewPage = () => {
       <PopUp id="add-page-form" type='antd' title={<h3>Form Add New Page</h3>} onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
         <div>
           <span>Path Name</span>
-          <Input defaultValue="/" style={{ margin: '10px 0' }} required onChange={handleChangePathName} />
+          <Input defaultValue="/" style={{ margin: '10px 0' }} required onChange={handleChangePathName} onFocus={handleChangePathName} />
         </div>
         <div>
           <span>Page Name</span>
-          <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />
+          <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} onFocus={handleChangePageName} />
         </div>
+        {validate ? <p style={{ fontSize: 'inherit', color: 'red' }}>{validate}</p> : null}
       </PopUp>
     </>
   );
