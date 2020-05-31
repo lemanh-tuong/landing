@@ -48,7 +48,10 @@ const formats = [
 const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, label, style, className, defaultValue, children }) => {
 
   const handleChange = (html: string) => {
-    onChange?.(html);
+    if (html.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
+      onChange?.('');
+    }
+    else onChange?.(html);
   };
 
   return (
