@@ -89,7 +89,8 @@ class PopUp extends PureComponent<PopUpProps> {
 
   };
 
-  handleHide = () => {
+  handleHide = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     this.setState({
       visible: false
     });
@@ -118,9 +119,9 @@ class PopUp extends PureComponent<PopUpProps> {
         return (
           <>
             <div className={styles.overlay} onClick={this.handleHide} />
-            <div className={styles.closeBtn} onClick={this.handleHide} >
-              <button className={styles.btn}>Close</button>
-            </div>
+            <button className={styles.closeBtn} onClick={this.handleHide} >
+              <i className="fas fa-times"></i>
+            </button>
             <div className={styles.content2} style={style}>{children}</div>
           </>
         );

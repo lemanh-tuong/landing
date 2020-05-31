@@ -65,12 +65,14 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
                 {
                   fieldId: 'animation',
                   fieldName: 'animation',
+                  label: 'Animation',
                   fieldType: 'checkbox',
                   defaultChecked: animation,
                 },
                 {
                   fieldId: 'positionAnimation',
                   fieldName: 'positionAnimation',
+                  label: 'Position Animation',
                   fieldType: 'select',
                   hidden: !animation,
                   defaultSelect: positionAnimation,
@@ -91,6 +93,7 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
                 {
                   fieldId: 'reserve-section',
                   fieldName: 'reverse',
+                  label: 'Reverse',
                   fieldType: 'checkbox',
                   defaultChecked: reverse,
                   hidden: !canReverseCol
@@ -98,12 +101,14 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
                 {
                   fieldId: 'checkbox-toggle-color',
                   fieldName: 'isGradient',
+                  label: 'isGradient',
                   fieldType: 'checkbox',
                   defaultChecked: isGradient,
                 },
                 {
                   fieldId: 'color-1',
                   fieldName: 'backgroundColor',
+                  label: 'Background Color',
                   fieldType: 'color-picker',
                   defaultColor: backgroundColor,
                   hidden: !!isGradient
@@ -111,6 +116,7 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
                 {
                   fieldId: 'gradient-1',
                   fieldName: 'backgroundColor',
+                  label: 'Background Color',
                   fieldType: 'color-picker-gradient',
                   hidden: !isGradient
                 }

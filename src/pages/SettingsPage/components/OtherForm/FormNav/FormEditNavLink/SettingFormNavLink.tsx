@@ -46,6 +46,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
           {
             fieldType: 'input',
             fieldName: 'text',
+            label: 'Text',
             defaultValue: text,
             fieldId: 'nav-link-1'
           },
@@ -53,6 +54,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             fieldId: `type-href-${nowIndex}`,
             fieldType: 'radio',
             fieldName: 'Type Href',
+            label: 'Type Href',
             data: [
               {
                 name: 'type href',
@@ -67,12 +69,14 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
           {
             fieldType: 'input',
             fieldName: 'href',
+            label: 'Href',
             defaultValue: href,
             fieldId: 'nav-link-2',
           },
           {
             fieldType: 'select',
             fieldName: 'href',
+            label: 'Href',
             defaultValue: href,
             fieldId: 'nav-link-3',
             optionsGroup: {
@@ -84,6 +88,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
           {
             fieldId: 'nav-select-target',
             fieldName: 'target',
+            label: 'Target',
             fieldType: 'select',
             optionsGroup: {
               groupName: '',

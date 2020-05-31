@@ -64,13 +64,14 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
           {
             fieldType: 'checkbox',
             fieldName: 'hasVideo',
+            label: 'Has Video',
             fieldId: 'section-3-field-7',
-            name: 'Has Video',
             defaultChecked: !!hasVideo
           },
           {
             fieldType: 'input',
             fieldName: 'videoUrl',
+            label: 'Iframe Video Url',
             fieldId: 'section-3-field-8',
             defaultValue: videoUrl,
             hidden: !hasVideo,
@@ -79,6 +80,7 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
           {
             fieldType: 'input',
             fieldName: 'href',
+            label: 'Href',
             fieldId: 'section-3-field-8',
             defaultValue: href,
             hidden: !!hasVideo,

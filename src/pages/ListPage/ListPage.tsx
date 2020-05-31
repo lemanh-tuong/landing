@@ -4,6 +4,7 @@ import Container from 'components/Grid/Container/Container';
 import Row from 'components/Grid/Row/Row';
 import Loading from 'components/Loading/Loading';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
+import PopOver from 'components/PopOver/PopOver';
 import PopUp from 'components/PopUp/PopUp';
 import { useMount } from 'hooks/useMount';
 import { statusCreatePage } from 'pages/SettingsPage/selectors';
@@ -13,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import styles from './ListPage.module.scss';
 import { PageGeneralData } from './ListPageType/type';
 import { listPage, message, statusRequest } from './selectors';
@@ -23,8 +25,8 @@ const ListPage = () => {
 
   const [pathName, setPathName] = useState('');
   const [pageName, setPageName] = useState('');
-
   const [error, setError] = useState('');
+
   const handleChangePathName = (e: ChangeEvent<HTMLInputElement>) => {
     setPathName(e.target.value);
   };
@@ -62,14 +64,16 @@ const ListPage = () => {
     }
   });
 
-  const _renderPage = ({ id, pageName, pathName }: PageGeneralData) => {
+  const _renderPage = ({ id, pageName, pathName }: PageGeneralData, index: number) => {
     return (
       <Col cols={[12, 4, 3]} key={uuidv4()}>
-        <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} >
-          <div className={styles.page}>
-            {pageName}
-          </div>
-        </Link>
+        <PopOver content={<ButtonFunc id={id} pageName={pageName} pathName={pathName} nowIndexPage={index} />} id={id}>
+          <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} >
+            <div className={`${styles.page}`}>
+              {pageName}
+            </div>
+          </Link>
+        </PopOver>
       </Col>
     );
   };
@@ -78,7 +82,7 @@ const ListPage = () => {
     return (
       <Container>
         <Row>
-          {pages.map(page => _renderPage(page))}
+          {pages.map((page, index) => _renderPage(page, index))}
           <Col cols={[12, 4, 3]}>
             <div className={styles.addPage} onClick={PopUp.show('add-page-form')}> Add Page </div>
           </Col>

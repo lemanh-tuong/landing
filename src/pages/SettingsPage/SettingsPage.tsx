@@ -135,7 +135,7 @@ const SettingsPage = () => {
   }
 
   return (
-    <div className="Page">
+    <div className={styles.settingsPage}>
       <Helmet>
         <title>{pageNameEditing || ''} Builder</title>
       </Helmet>

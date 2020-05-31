@@ -9,9 +9,10 @@ export interface InputText2Props {
   defaultValue?: string;
   onChange?: (result: string) => void;
   style?: CSSProperties;
+  label?: string;
 }
 
-const InputText2: FC<InputText2Props> = ({ addonBefore, addonAfter, disabled, placeholder, defaultValue, style, onChange }) => {
+const InputText2: FC<InputText2Props> = ({ label, addonBefore, addonAfter, disabled, placeholder, defaultValue, style, onChange }) => {
 
   const onChangeRef = useRef(onChange);
 
@@ -27,8 +28,10 @@ const InputText2: FC<InputText2Props> = ({ addonBefore, addonAfter, disabled, pl
 
   return (
     <div style={{ ...style, marginBottom: 16 }}>
+      <label htmlFor={label} style={{ marginRight: 10 }}>{label}</label>
       <Input placeholder={placeholder} disabled={disabled} addonBefore={addonBefore} addonAfter={addonAfter} defaultValue={defaultValue} onChange={handleChange} />
     </div>
+
   );
 };
 

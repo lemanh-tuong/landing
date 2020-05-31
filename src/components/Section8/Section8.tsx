@@ -61,7 +61,7 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
               {card2s && <Card hasIcon={true} {...card2s[0]} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(0)} />}
             </Col>
             <Col cols={[12, 6, 6]}>
-              {card2s?.slice(1, card2s.length).map((cardProperty, index) => <Card key={uuidv4()} hasIcon={true} {...cardProperty} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(index)} />)}
+              {card2s?.slice(1, card2s.length).map((cardProperty, index) => <Card key={uuidv4()} hasIcon={true} {...cardProperty} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(index + 1)} />)}
             </Col>
           </Row>
         </Col>

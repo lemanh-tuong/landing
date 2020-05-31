@@ -12,13 +12,13 @@ export interface OptionSelect {
 }
 
 export interface SelectButtonTypeProps {
-  fieldName: string;
+  label: string;
   options: OptionSelect[];
   defaultSelect?: string;
   onChange: (value: string) => void;
 }
 
-const SelectButtonType: FC<SelectButtonTypeProps> = ({ fieldName, options, defaultSelect = '', onChange }) => {
+const SelectButtonType: FC<SelectButtonTypeProps> = ({ label, options, defaultSelect = '', onChange }) => {
 
   const _renderOption = ({ value, label }: OptionSelect) => {
     if (value) {
@@ -36,7 +36,7 @@ const SelectButtonType: FC<SelectButtonTypeProps> = ({ fieldName, options, defau
   return (
     <div className={styles.selectComponent}>
       <div className={styles.content}>
-        <div className={styles.name}>{fieldName}</div>
+        <div className={styles.name}>{label}</div>
         <SelectAntd maxTagTextLength={520} size='large' className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
           {options.map(option => _renderOption(option))}
         </SelectAntd>

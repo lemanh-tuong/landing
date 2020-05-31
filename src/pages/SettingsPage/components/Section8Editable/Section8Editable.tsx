@@ -58,10 +58,8 @@ const Section8Editable: FC<Section8EditableProps> = ({
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button-${sectionId}`}>
-        <FormButton nowIndex={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`card-${sectionId}`}>
+      <FormButton nowIndex={nowIndexSection} />
+      <PopUp id={`card-${sectionId}`} type='antd' title={<h3>Form Card 2</h3>}>
         <FormCard2 nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />

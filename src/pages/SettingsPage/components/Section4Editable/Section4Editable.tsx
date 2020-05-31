@@ -64,9 +64,7 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button-${sectionId}`} >
-        <FormButton nowIndex={nowIndexSection} />
-      </PopUp>
+      <FormButton nowIndex={nowIndexSection} />
       <FormImage nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
     </>

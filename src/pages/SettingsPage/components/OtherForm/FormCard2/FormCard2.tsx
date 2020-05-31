@@ -22,17 +22,21 @@ export interface FormChangeCardProps {
 }
 
 const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
-  const [formShown, setFormShown] = useState<CardProps & { nowIndexCard: number }>({ nowIndexCard: indexCard });
+  const [formShown, setFormShown] = useState(indexCard);
 
-  const handleFormShown = (cardProperty: CardProps, nowIndexCard: number) => {
+  const handleFormShown = (nowIndexCard: number) => {
     return () => {
-      if (formShown.nowIndexCard !== nowIndexCard) {
-        setFormShown({ ...cardProperty, nowIndexCard: nowIndexCard });
+      if (formShown !== nowIndexCard) {
+        setFormShown(nowIndexCard);
       } else {
-        setFormShown({ nowIndexCard: -1 });
+        setFormShown(-1);
       }
     };
   };
+
+  const handleCloseAll = () => {
+    setFormShown(-1);
+  }
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -79,14 +83,15 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
 
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
-    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon } = card2s?.[nowIndexCard] as CardProps;
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon } = element.card2s?.[nowIndexCard] as CardProps;
     return (
       <Form
-        style={{ borderRadius: 5, border: '1px solid' }}
+        style={{ border: '1px solid', borderRadius: 5 }}
         fields={[
           {
             fieldType: 'input',
             fieldName: 'titleCard',
+            label: 'Title Card',
             fieldId: 'change-card-field-1',
             horizontal: true,
             defaultValue: titleCard,
@@ -94,6 +99,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'radio',
             fieldName: 'alignTitleCard',
+            label: 'Align Title Card',
             fieldId: 'change-card-field-2',
             data: [
               {
@@ -114,18 +120,21 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'color-picker',
             fieldName: 'colorTitleCard',
+            label: 'Color Title Card',
             fieldId: 'change-card-field-3',
-            defaultValue: colorTitleCard ?? '#000'
+            defaultColor: colorTitleCard
           },
           {
             fieldType: 'input',
             fieldName: 'textCard',
+            label: 'Text Card',
             fieldId: 'change-card-field-4',
             defaultValue: textCard
           },
           {
             fieldType: 'radio',
             fieldName: 'alignText',
+            label: 'Align Text',
             fieldId: 'change-card-field-5',
             defaultCheckedValue: alignText,
             data: [
@@ -146,29 +155,31 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
+            label: 'Color Text',
             fieldId: 'change-card-field-6',
-            defaultValue: colorText ?? '#000',
+            defaultColor: colorText,
           },
           {
-            fieldId: 'align-card2-icon',
-            fieldName: 'alignIcon',
             fieldType: 'radio',
+            fieldName: 'alignIcon',
+            label: 'Align Icon',
+            fieldId: 'align-icon-card',
             defaultCheckedValue: alignIcon,
             data: [
               {
-                name: 'align icon card',
+                name: 'align icon card2',
                 value: 'left'
               },
               {
-                name: 'align icon card',
+                name: 'align icon card2',
                 value: 'right'
               },
               {
-                name: 'align icon card',
+                name: 'align icon card2',
                 value: 'center'
               },
             ]
-          }
+          },
         ]}
         onChange={handleChangeCardForm(nowIndexCard)}
       >
@@ -183,37 +194,41 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
   const _renderLabel = (cardProperty: CardProps, nowIndexCard: number) => {
     const { titleCard } = cardProperty;
     return (
-      <Draggable index={nowIndexCard} draggableId={`card2-${nowIndexCard}`}>
+      <Draggable index={nowIndexCard} draggableId={`card-2-${nowIndexCard}`} key={`card-2-${nowIndexCard}`}>
         {provided => (
-          <div className={styles.formCard2Item} key={`card2-${titleCard}-${nowIndexCard}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : ''}`} >
-              <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
+          <div className={styles.cardFormItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.cardFormName} ${nowIndexCard === formShown ? styles.active : null}`}>
+              <div className={styles.cardDesc} onClick={handleFormShown(nowIndexCard)} >
                 <i className="fas fa-plus"></i>
                 <div className={styles.cardName}>{titleCard}</div>
               </div>
             </div>
-            {nowIndexCard === formShown.nowIndexCard && _renderSettingsBox(nowIndexCard)}
+            {nowIndexCard === formShown && _renderSettingsBox(nowIndexCard)}
           </div>
         )}
       </Draggable>
     );
   };
 
-  return (
-    <div className={styles.editCardComponent}>
-      <DragDropContext onDragEnd={handleMove}>
-        <Droppable droppableId={sectionId} type="card drop">
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >
-              <div className={styles.listCard}>
-                {card2s?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
+  const _renderForm = () => {
+    return (
+      <div className={styles.editCardComponent}>
+        <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
+          <Droppable droppableId={sectionId} type="card drop">
+            {provided => (
+              <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
+                <div className={styles.listCard}>
+                  {element.card2s?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
+                </div>
               </div>
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
-  );
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+    );
+  }
+
+  return _renderForm()
 };
 
 export default memo(FormChangeCard);

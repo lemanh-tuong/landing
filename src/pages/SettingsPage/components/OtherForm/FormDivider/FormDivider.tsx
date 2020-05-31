@@ -54,13 +54,14 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection, sectionId }
             {
               fieldType: 'checkbox',
               fieldName: 'hasDivider',
+              label: 'Has Divider',
               fieldId: 'section-3-field-7',
-              name: 'Has Divider',
               defaultChecked: !!hasDivider
             },
             {
               fieldType: 'color-picker',
               fieldName: 'dividerColor',
+              label: 'Divider Color',
               fieldId: 'section-3-field-8',
               defaultValue: dividerColor,
               hidden: !hasDivider,
@@ -68,6 +69,7 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection, sectionId }
             {
               fieldType: 'radio',
               fieldName: 'alignDivider',
+              label: 'Align Divider',
               fieldId: 'align-divider-section-3-field-8',
               defaultCheckedValue: alignDivider ?? 'left',
               hidden: !hasDivider,

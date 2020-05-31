@@ -1,4 +1,5 @@
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import PopUp from 'components/PopUp/PopUp';
 import { listPage, sections } from 'pages/SettingsPage/selectors';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
@@ -31,7 +32,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
   const element = useSelector(sections)[nowIndex];
   const listPageName = useSelector(listPage);
   // Destructoring
-  const { textButton, hrefButton, backgroundButton, typeButton, sizeButton } = element;
+  const { sectionId, textButton, hrefButton, backgroundButton, typeButton, sizeButton } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -78,138 +79,155 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
     };
   };
 
-  return (
-    <div className="formButton">
-      <Form
-        fields={[
-          {
-            fieldType: 'input',
-            fieldName: 'textButton',
-            defaultValue: textButton,
-            fieldId: 1
-          },
-          {
-            fieldId: `type-href-${nowIndex}`,
-            fieldType: 'radio',
-            fieldName: 'Type Href',
-            data: [
-              {
-                name: 'type href',
-                value: 'external',
-              },
-              {
-                name: 'type href',
-                value: 'internal',
-              },
-            ],
-            defaultCheckedValue: typeHref,
-          },
-          {
-            fieldType: 'input',
-            fieldName: 'hrefButton',
-            defaultValue: hrefButton,
-            fieldId: 2,
-            hidden: !(typeHref === 'external')
-          },
-          {
-            fieldType: 'select',
-            fieldName: 'hrefButton',
-            defaultValue: hrefButton,
-            fieldId: 3,
-            optionsGroup: {
-              groupName: 'Link',
-              options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
+  const _renderForm = () => {
+    return (
+      <div className="formButton">
+        <Form
+          fields={[
+            {
+              fieldType: 'input',
+              fieldName: 'textButton',
+              label: 'Text Button',
+              defaultValue: textButton,
+              fieldId: 1
             },
-            defaultSelect: '/',
-            hidden: !(typeHref === 'internal')
-          },
-          {
-            fieldType: 'color-picker',
-            fieldName: 'colorTextButton',
-            fieldId: 4
-          },
-          {
-            fieldId: 5,
-            fieldName: 'typeButton',
-            fieldType: 'select-button',
-            options: [
-              {
-                label: 'border',
-                value: 'border'
+            {
+              fieldId: `type-href-${nowIndex}`,
+              fieldType: 'radio',
+              fieldName: 'Type Href',
+              label: 'Type Href',
+              data: [
+                {
+                  name: 'type href',
+                  value: 'external',
+                },
+                {
+                  name: 'type href',
+                  value: 'internal',
+                },
+              ],
+              defaultCheckedValue: typeHref,
+            },
+            {
+              fieldType: 'input',
+              fieldName: 'hrefButton',
+              label: 'Href Button',
+              defaultValue: hrefButton,
+              fieldId: 2,
+              hidden: !(typeHref === 'external')
+            },
+            {
+              fieldType: 'select',
+              fieldName: 'hrefButton',
+              label: 'Href Button',
+              defaultValue: hrefButton,
+              fieldId: 3,
+              optionsGroup: {
+                groupName: 'Link',
+                options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
               },
-              {
-                label: 'gradient',
-                value: 'gradient'
-              },
-              {
-                label: 'primary',
-                value: 'primary'
-              },
-              {
-                label: 'white',
-                value: 'white'
-              },
-              {
-                label: 'transparent',
-                value: 'transparent'
-              },
-            ],
-            defaultSelect: typeButton,
-          }
-        ]}
-        onChange={handleChangeTextButtonForm}
-      />
-      <Form
-        fields={[
-          {
-            fieldId: 'size-button',
-            fieldName: 'sizeButton',
-            fieldType: 'radio2',
-            data: [
-              {
-                name: 'size button',
-                value: 'default'
-              },
-              {
-                name: 'size button',
-                value: 'small'
-              },
-              {
-                name: 'size button',
-                value: 'middle'
-              },
-              {
-                name: 'size button',
-                value: 'large'
-              }
-            ],
-            defaultCheckedValue: sizeButton
-          },
-          {
-            fieldId: 'isGradient',
-            fieldName: 'Gradient',
-            fieldType: 'checkbox',
-            defaultChecked: isGradient,
-          },
-          {
-            fieldId: 'background-button',
-            fieldName: 'backgroundButton',
-            fieldType: 'color-picker',
-            hidden: isGradient,
-            defaultColor: backgroundButton,
-          },
-          {
-            fieldId: 'background-button',
-            fieldName: 'backgroundButton',
-            fieldType: 'color-picker-gradient',
-            hidden: !isGradient,
-            defaultColor: backgroundButton,
-          }
-        ]}
-        onChange={handleChangeOptionButton}
-      />
-    </div>
-  );
+              defaultSelect: '/',
+              hidden: !(typeHref === 'internal')
+            },
+            {
+              fieldType: 'color-picker',
+              fieldName: 'colorTextButton',
+              label: 'Color Text Button',
+              fieldId: 4
+            },
+            {
+              fieldId: 5,
+              fieldName: 'typeButton',
+              label: 'Type Button',
+              fieldType: 'select-button',
+              options: [
+                {
+                  label: 'border',
+                  value: 'border'
+                },
+                {
+                  label: 'gradient',
+                  value: 'gradient'
+                },
+                {
+                  label: 'primary',
+                  value: 'primary'
+                },
+                {
+                  label: 'white',
+                  value: 'white'
+                },
+                {
+                  label: 'transparent',
+                  value: 'transparent'
+                },
+              ],
+              defaultSelect: typeButton,
+            }
+          ]}
+          onChange={handleChangeTextButtonForm}
+        />
+        <Form
+          fields={[
+            {
+              fieldId: 'size-button',
+              fieldName: 'sizeButton',
+              label: 'Size Button',
+              fieldType: 'radio2',
+              data: [
+                {
+                  name: 'size button',
+                  value: 'default'
+                },
+                {
+                  name: 'size button',
+                  value: 'small'
+                },
+                {
+                  name: 'size button',
+                  value: 'middle'
+                },
+                {
+                  name: 'size button',
+                  value: 'large'
+                }
+              ],
+              defaultCheckedValue: sizeButton
+            },
+            {
+              fieldId: 'isGradient',
+              fieldName: 'Gradient',
+              label: 'Gradient',
+              fieldType: 'checkbox',
+              defaultChecked: isGradient,
+            },
+            {
+              fieldId: 'background-button',
+              fieldName: 'backgroundButton',
+              label: 'Background Button',
+              fieldType: 'color-picker',
+              hidden: isGradient,
+              defaultColor: backgroundButton,
+            },
+            {
+              fieldId: 'background-button',
+              fieldName: 'backgroundButton',
+              label: 'Background Button',
+              fieldType: 'color-picker-gradient',
+              hidden: !isGradient,
+              defaultColor: backgroundButton,
+            }
+          ]}
+          onChange={handleChangeOptionButton}
+        />
+      </div>
+    );
+  }
+  return (
+    <PopUp id={`button-${sectionId}`} title={<h3>Form Button</h3>} type='antd'>
+      {_renderForm()}
+    </PopUp>
+  )
 };
 
 export default memo(FormButton);

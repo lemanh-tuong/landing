@@ -1,6 +1,6 @@
 @import '../../styles/abstracts/variables.scss';
 .settingsPage {
-  display: flex;
+  overflow-x: hidden;
 }
 .sideBar {
   position: fixed;
@@ -24,8 +24,8 @@
   transition: 0.3s all;
 }
 .active.mainContent {
-  width: 80%;
-  margin-left: 20%;
+  width: calc(100% - 350px);
+  margin-left: 350px;
 }
 .btn {
   display: inline-block;

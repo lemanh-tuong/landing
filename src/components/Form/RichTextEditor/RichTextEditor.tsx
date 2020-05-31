@@ -8,7 +8,7 @@ import styles from './RichTextEditor.module.scss';
 export interface RichTextEditorProps {
   onChange?: (html: string) => void;
   placeholder?: string;
-  fieldName?: string;
+  label?: string;
   className?: string;
   style?: CSSProperties;
   defaultValue?: string;
@@ -45,7 +45,7 @@ const formats = [
   'code-block',
 ];
 
-const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, fieldName, style, className, defaultValue, children }) => {
+const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, label, style, className, defaultValue, children }) => {
 
   const handleChange = (html: string) => {
     onChange?.(html);
@@ -53,7 +53,7 @@ const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, fieldN
 
   return (
     <div className={`${styles.richTextEditor} ${className}`} style={style}>
-      <div className={styles.name}>{fieldName}</div>
+      <div className={styles.name}>{label}</div>
       <ReactQuill
         theme={'bubble'}
         onChange={handleChange}

@@ -31,25 +31,21 @@ const rateDefault: RateProps = {
   stars: 5,
 };
 
-type FormRateState = Partial<RateProps> & {
-  nowIndexRate: number;
-};
-
 const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
-  const [formShown, setFormShown] = useState<FormRateState>({ nowIndexRate: nowIndexRate });
+  const [formShown, setFormShown] = useState(nowIndexRate);
 
   const handleFormShown = (rateProperty: RateProps, nowIndexRate: number) => {
     return () => {
-      if (formShown.nowIndexRate !== nowIndexRate) {
-        setFormShown({ ...rateProperty, nowIndexRate: nowIndexRate });
+      if (formShown !== nowIndexRate) {
+        setFormShown(nowIndexRate);
       } else {
-        setFormShown({ nowIndexRate: -1 });
+        setFormShown(-1);
       }
     };
   };
 
   const handleCloseAll = () => {
-    setFormShown({ nowIndexRate: -1 })
+    setFormShown(-1)
   }
 
   // Selector
@@ -71,8 +67,8 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
   const handleDelete = (nowIndexRate: number) => {
     return () => {
       deleteRate({ nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate });
-      if (formShown.nowIndexRate === nowIndexRate) {
-        setFormShown({ nowIndexRate: -1 });
+      if (formShown === nowIndexRate) {
+        setFormShown(-1);
       }
     };
   };
@@ -101,10 +97,10 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
   const _renderLabel = (rateProperty: RateProps, nowIndexRate: number) => {
     const { rateContent } = rateProperty;
     return (
-      <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`} key={`rate-${rateContent}-${nowIndexRate}`}>
+      <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`} key={`rate-${nowIndexRate}`}>
         {provided => (
           <div className={`${styles.rateFormItem}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.rateFormName} ${nowIndexRate === formShown.nowIndexRate ? styles.active : ''}`}>
+            <div className={`${styles.rateFormName} ${nowIndexRate === formShown ? styles.active : ''}`}>
               <div className={styles.rateDesc} onClick={handleFormShown(rateProperty, nowIndexRate)} >
                 <i className="fas fa-plus"></i>
                 <div className={styles.rateName}>{rateContent}</div>
@@ -113,7 +109,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
                 Delete
             </Button>
             </div>
-            {nowIndexRate === formShown.nowIndexRate && _renderSettingsBox(nowIndexRate)}
+            {nowIndexRate === formShown && _renderSettingsBox(nowIndexRate)}
           </div>
         )}
       </Draggable>
@@ -124,33 +120,38 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     const { authorAvatar, rateContent, authorName, purpose, stars } = rateList?.[nowIndexRate] as RateProps;
     return (
       <Form
+        style={{ border: '1px solid', borderRadius: 5 }}
         fields={[
           {
             fieldId: `rate-rateContent-${sectionId}-${nowIndexRate}`,
             fieldType: 'input',
             fieldName: 'rateContent',
+            label: 'Rate Content',
             defaultValue: rateContent,
           },
           {
             fieldId: `rate-authorName-${sectionId}-${nowIndexRate}`,
             fieldType: 'input',
             fieldName: 'authorName',
+            label: 'Author Name',
             defaultValue: authorName,
           },
           {
             fieldId: `rate-purpose-${sectionId}-${nowIndexRate}`,
             fieldType: 'input',
             fieldName: 'purpose',
+            label: 'Purpose',
             defaultValue: purpose,
           },
           {
             fieldId: `rate-stars-${sectionId}-${nowIndexRate}`,
             fieldType: 'number',
             fieldName: 'stars',
+            label: 'Stars',
             defaultNumber: stars,
           }
         ]}
-        onChange={handleChangeForm(formShown.nowIndexRate)}
+        onChange={handleChangeForm(formShown)}
       >
         <Link className={styles.link} to={`/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}>
           <Icon iconImg={authorAvatar} bgColorIcon={'gradient-pink-orange'} />

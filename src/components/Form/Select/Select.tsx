@@ -16,13 +16,13 @@ export interface OptionGroupSelect {
 }
 
 export interface SelectProps {
-  fieldName: string;
+  label: string;
   optionsGroup: OptionGroupSelect[] | OptionGroupSelect;
   defaultSelect?: string;
   onChange: (value: string) => void;
 }
 
-const Select: FC<SelectProps> = ({ fieldName, optionsGroup, defaultSelect = '', onChange }) => {
+const Select: FC<SelectProps> = ({ label, optionsGroup, defaultSelect = '', onChange }) => {
 
   const _renderOption = ({ value, label }: OptionSelect) => {
     return (
@@ -36,7 +36,7 @@ const Select: FC<SelectProps> = ({ fieldName, optionsGroup, defaultSelect = '', 
     return (
       <div className={styles.selectComponent}>
         <div className={styles.content}>
-          <div className={styles.name}>{fieldName}</div>
+          <div className={styles.name}>{label}</div>
           <SelectAntd className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
             {optionsGroup.map(group => (
               <OptGroup label={group.groupName}>
@@ -51,7 +51,7 @@ const Select: FC<SelectProps> = ({ fieldName, optionsGroup, defaultSelect = '', 
   return (
     <div className={styles.selectComponent}>
       <div className={styles.content}>
-        <div className={styles.name}>{fieldName}</div>
+        <div className={styles.name}>{label}</div>
         <SelectAntd className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
           <OptGroup label={optionsGroup.groupName}>
             {optionsGroup.options.map(option => <Option className={styles.option} key={uuidv4()} value={option.value}>

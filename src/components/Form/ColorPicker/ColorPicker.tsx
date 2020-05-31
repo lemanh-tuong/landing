@@ -5,7 +5,7 @@ import styles from './ColorPicker.module.scss';
 export interface ColorPickerProps {
   onChange: (result: ColorPickState) => void;
   defaultColor?: string;
-  fieldName: string;
+  label: string;
 }
 
 export interface ColorPickState {
@@ -13,7 +13,7 @@ export interface ColorPickState {
   rgba: string;
 }
 
-const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', fieldName, onChange }) => {
+const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, onChange }) => {
 
   const onChangeRef = useRef(onChange);
 
@@ -67,8 +67,8 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', fieldName
 
   return (
     <div className={styles.colorPicker}>
-      <div className={styles.fieldName}>
-        {fieldName}
+      <div className={styles.label}>
+        {label}
       </div>
       <div className={styles.colorField}>
         <div className={styles.openButton} onClick={handleOpenBox}>

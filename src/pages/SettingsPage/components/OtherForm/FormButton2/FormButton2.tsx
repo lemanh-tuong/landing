@@ -37,12 +37,14 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
           {
             fieldType: 'input',
             fieldName: 'imgSrc',
+            label: 'Image Src',
             defaultValue: nowButton?.imgSrc,
             fieldId: 1
           },
           {
             fieldType: 'input',
             fieldName: 'href',
+            label: 'href',
             defaultValue: nowButton?.href,
             fieldId: 2
           },

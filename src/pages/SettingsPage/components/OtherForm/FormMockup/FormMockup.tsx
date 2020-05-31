@@ -50,6 +50,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableFiel
           {
             fieldId: 2,
             fieldName: 'typeMockUp',
+            label: 'Type Mock Up',
             fieldType: 'radio',
             data: [
               {

@@ -20,17 +20,12 @@ class PopOver extends PureComponent<PopoverProps & { id: string }, PopOverState>
   };
 
   render() {
-    const { visible } = this.state;
-    const { content, title, children, className, style, trigger } = this.props;
+    const { children } = this.props;
     return (
       <Popover
-        content={content}
-        title={title}
-        visible={visible}
         onVisibleChange={this.handleVisibleChange}
-        className={className}
-        trigger={trigger}
-        style={style}>
+        {...this.props}
+      >
         {children}
       </Popover>
     );

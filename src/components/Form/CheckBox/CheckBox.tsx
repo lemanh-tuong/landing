@@ -4,7 +4,7 @@ import styles from './CheckBox.module.scss';
 
 export interface CheckBoxOption {
   defaultChecked?: boolean;
-  name: string;
+  label: string;
   reverse?: boolean;
   horizontal?: boolean;
   onChange?: (result: any) => void;
@@ -14,7 +14,7 @@ export interface CheckBoxProps extends CheckBoxOption {
 
 }
 
-const CheckBox: FC<CheckBoxProps> = ({ defaultChecked, name, horizontal = false, reverse = false, onChange }) => {
+const CheckBox: FC<CheckBoxProps> = ({ defaultChecked, label, horizontal = false, reverse = false, onChange }) => {
 
   const _renderDefault = (checked: boolean, onChange: () => void) => (
     <div className={`${styles.checkBox} ${reverse ? styles.reverse : null} ${horizontal ? styles.horizontal : null}`} onClick={onChange}>
@@ -22,7 +22,7 @@ const CheckBox: FC<CheckBoxProps> = ({ defaultChecked, name, horizontal = false,
         {checked ? <i className="fas fa-check"></i> : <i style={{ color: 'white' }} className="far fa-square"></i>}
       </button>
       <label className={styles.checkBoxName} >
-        {name}
+        {label}
       </label>
     </div>
   );

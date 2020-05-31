@@ -135,24 +135,28 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
           {
             fieldId: 'slides-input-1',
             fieldName: 'itemShow',
+            label: 'Ammount Item Show',
             fieldType: 'number',
             defaultNumber: itemShow,
           },
           {
             fieldId: 'slides-input-2',
             fieldName: 'margin',
+            label: 'Margin',
             fieldType: 'number',
             defaultNumber: margin,
           },
           {
             fieldId: 'slides-checkbox-1',
             fieldName: 'fluid',
+            label: 'Fluid',
             fieldType: 'checkbox',
             defaultChecked: fluid,
           },
           {
             fieldId: 'draggable-slides-2',
             fieldName: 'draggable',
+            label: 'Draggable',
             fieldType: 'checkbox',
             defaultChecked: draggable,
             hidden: !draggableField

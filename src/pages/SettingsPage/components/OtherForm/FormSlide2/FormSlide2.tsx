@@ -82,18 +82,21 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
           {
             fieldId: 'checkbox-reverse-section-slide-2',
             fieldName: 'reverse',
+            label: 'Reverse',
             fieldType: 'checkbox',
             defaultChecked: !!reverse,
           },
           {
             fieldId: 'input-title-slide-2',
             fieldName: 'mainTitle',
+            label: 'Main Title',
             fieldType: 'input',
             defaultValue: mainTitle,
           },
           {
             fieldId: 'radio-align-title-slide-2',
             fieldName: 'alignMainTitle',
+            label: 'Align Main Title',
             fieldType: 'radio',
             data: [
               {
@@ -114,18 +117,21 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
           {
             fieldId: 'color-title-slide-2',
             fieldName: 'colorMainTitle',
+            label: 'Color Main Title',
             fieldType: 'color-picker',
             defaultColor: colorMainTitle,
           },
           {
             fieldId: 'input-text-slide-2',
             fieldName: 'text',
+            label: 'Text',
             fieldType: 'rich-text-editor',
             defaultValue: text,
           },
           {
             fieldId: 'radio-text-slide-2',
             fieldName: 'alignText',
+            label: 'Align Text',
             fieldType: 'radio',
             defaultCheckedValue: alignText,
             data: [
@@ -146,18 +152,21 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
           {
             fieldId: 'color-text-slide-2',
             fieldName: 'colorText',
+            label: 'Color Text',
             fieldType: 'color-picker',
             defaultColor: colorText,
           },
           {
             fieldId: 'checkbox-divider-slide-2',
             fieldName: 'hasDivider',
+            label: 'Has Divider',
             fieldType: 'checkbox',
             defaultChecked: hasDivider,
           },
           {
             fieldId: 'color-divider-slide-2',
             fieldName: 'dividerColor',
+            label: 'Divider Color',
             fieldType: 'color-picker',
             defaultColor: dividerColor,
             hidden: !hasDivider
@@ -165,6 +174,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
           {
             fieldId: 'align-divider-slide-2',
             fieldName: 'alignDivider',
+            label: 'Align Divider',
             fieldType: 'radio',
             defaultCheckedValue: alignDivider ?? 'left',
             hidden: !hasDivider,

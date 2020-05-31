@@ -72,6 +72,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 1,
             fieldName: 'hasNav',
+            label: 'Has Nav',
             fieldType: 'checkbox',
             defaultChecked: hasNav,
             hidden: !hasNavField
@@ -79,6 +80,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 2,
             fieldName: 'navClass',
+            label: 'Nav Class',
             fieldType: 'input-text-2',
             defaultValue: navClass,
             hidden: !hasNav
@@ -86,6 +88,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 3,
             fieldName: 'hasDots',
+            label: 'Has Dots',
             fieldType: 'checkbox',
             defaultChecked: hasDots,
             hidden: !hasDotField
@@ -93,6 +96,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 4,
             fieldName: 'dotClass',
+            label: 'Dot Class',
             fieldType: 'input-text-2',
             defaultValue: dotClass,
             hidden: !hasDots
@@ -100,6 +104,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 5,
             fieldType: 'checkbox',
+            label: 'Fluid',
             fieldName: 'fluid',
             defaultChecked: fluid,
           },
@@ -107,14 +112,16 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
             fieldId: 'draggable-slides',
             fieldType: 'checkbox',
             fieldName: 'draggable',
+            label: 'Draggable',
             defaultChecked: !!draggable,
             hidden: !draggableField,
           },
           {
             fieldId: 6,
             fieldType: 'number',
-            fieldName: 'itemShow',
             defaultNumber: itemShow,
+            label: 'Ammount Item Show',
+            fieldName: 'itemShow',
             min: 1,
             max: 4,
           },
@@ -122,6 +129,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
             fieldId: 7,
             fieldType: 'number',
             fieldName: 'margin',
+            label: 'Margin',
             defaultNumber: margin,
             min: 10,
             max: 50
@@ -129,12 +137,14 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
           {
             fieldId: 8,
             fieldName: 'timeSlider',
+            label: 'Time Delay',
             fieldType: 'input',
             defaultValue: '1000',
           },
           {
             fieldId: 9,
             fieldName: 'canResponsive',
+            label: 'Can Responsive',
             fieldType: 'checkbox',
             defaultChecked: canResponsive,
             hidden: !responsiveField
@@ -151,24 +161,28 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
                 {
                   fieldId: '576px',
                   fieldName: '576px',
+                  label: '576px',
                   fieldType: 'number',
                   defaultNumber: responsive?.['576px'] ?? 0
                 },
                 {
                   fieldId: '768px',
                   fieldName: '768px',
+                  label: '768px',
                   fieldType: 'number',
                   defaultNumber: responsive?.['768px'] ?? 0
                 },
                 {
                   fieldId: '992px',
                   fieldName: '992px',
+                  label: '992px',
                   fieldType: 'number',
                   defaultNumber: responsive?.['992px'] ?? 0
                 },
                 {
                   fieldId: '1200px',
                   fieldName: '1200px',
+                  label: '1200px',
                   fieldType: 'number',
                   defaultNumber: responsive?.['1200px'] ?? 0
                 },

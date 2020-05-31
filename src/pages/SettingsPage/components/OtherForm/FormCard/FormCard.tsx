@@ -34,14 +34,14 @@ const cardDefault: CardProps = {
 };
 
 const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
-  const [formShown, setFormShown] = useState<{ nowIndexCard: number }>({ nowIndexCard: indexCard });
+  const [formShown, setFormShown] = useState(indexCard);
 
-  const handleFormShown = (cardProperty: CardProps, nowIndexCard: number) => {
+  const handleFormShown = (nowIndexCard: number) => {
     return () => {
-      if (formShown.nowIndexCard !== nowIndexCard) {
-        setFormShown({ ...cardProperty, nowIndexCard: nowIndexCard });
+      if (formShown !== nowIndexCard) {
+        setFormShown(nowIndexCard);
       } else {
-        setFormShown({ nowIndexCard: -1 });
+        setFormShown(-1);
       }
     };
   };
@@ -84,8 +84,8 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
   const handleDelete = (nowIndexCard: number) => {
     return () => {
       deleteCard({ indexSection: nowIndexSection, indexCard: nowIndexCard });
-      if (formShown.nowIndexCard === nowIndexCard) {
-        setFormShown({ nowIndexCard: -1 });
+      if (formShown === nowIndexCard) {
+        setFormShown(-1);
       }
     };
   };
@@ -101,7 +101,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     moveChild({ data: newElements, nowIndexSection: nowIndexSection });
   };
   const handleCloseAll = () => {
-    setFormShown({ nowIndexCard: -1 });
+    setFormShown(-1);
   }
 
   const handleChangeBgIcon = (nowIndexCard: number) => {
@@ -118,6 +118,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'input',
             fieldName: 'titleCard',
+            label: 'Title Card',
             fieldId: 'change-card-field-1',
             horizontal: true,
             defaultValue: titleCard,
@@ -125,6 +126,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'radio',
             fieldName: 'alignTitleCard',
+            label: 'Align Title Card',
             fieldId: 'change-card-field-2',
             data: [
               {
@@ -145,18 +147,21 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'color-picker',
             fieldName: 'colorTitleCard',
+            label: 'Color Title Card',
             fieldId: 'change-card-field-3',
             defaultColor: colorTitleCard
           },
           {
             fieldType: 'input',
             fieldName: 'textCard',
+            label: 'Text Card',
             fieldId: 'change-card-field-4',
             defaultValue: textCard
           },
           {
             fieldType: 'radio',
             fieldName: 'alignText',
+            label: 'Align Text',
             fieldId: 'change-card-field-5',
             defaultCheckedValue: alignText,
             data: [
@@ -177,12 +182,14 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           {
             fieldType: 'color-picker',
             fieldName: 'colorText',
+            label: 'Color Text',
             fieldId: 'change-card-field-6',
             defaultColor: colorText,
           },
           {
             fieldType: 'radio',
             fieldName: 'alignIcon',
+            label: 'Align Icon',
             fieldId: 'align-icon-card',
             defaultCheckedValue: alignIcon,
             data: [
@@ -229,8 +236,8 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
       <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`} key={`card-${nowIndexCard}`}>
         {provided => (
           <div className={styles.cardFormItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.cardFormName} ${nowIndexCard === formShown.nowIndexCard ? styles.active : null}`}>
-              <div className={styles.cardDesc} onClick={handleFormShown(cardProperty, nowIndexCard)} >
+            <div className={`${styles.cardFormName} ${nowIndexCard === formShown ? styles.active : null}`}>
+              <div className={styles.cardDesc} onClick={handleFormShown(nowIndexCard)} >
                 <i className="fas fa-plus"></i>
                 <div className={styles.cardName}>{titleCard}</div>
               </div>
@@ -238,7 +245,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
                 Delete
               </Button>
             </div>
-            {nowIndexCard === formShown.nowIndexCard && _renderSettingsBox(nowIndexCard)}
+            {nowIndexCard === formShown && _renderSettingsBox(nowIndexCard)}
           </div>
         )}
       </Draggable>

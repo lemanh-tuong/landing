@@ -54,6 +54,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
             {
               fieldType: 'input',
               fieldName: 'mainTitle',
+              label: 'Main Title',
               fieldId: 'section-1-field-1',
               horizontal: true,
               defaultValue: mainTitle
@@ -61,6 +62,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
             {
               fieldType: 'radio',
               fieldName: 'alignMainTitle',
+              label: 'Align Main Title',
               defaultCheckedValue: alignMainTitle,
               fieldId: 'section-1-field-2',
               data: [
@@ -82,11 +84,13 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
               fieldId: 'fontSizeMainTitle',
               fieldType: 'radio3',
               fieldName: 'fontSizeMainTitle',
+              label: 'Size Main Title',
               defaultCheckedValue: fontSizeMainTitle,
             },
             {
               fieldType: 'color-picker',
               fieldName: 'colorMainTitle',
+              label: 'Color Main Title',
               fieldId: 'section-1-field-3',
               defaultColor: colorMainTitle ?? '#000',
             },

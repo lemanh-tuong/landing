@@ -52,16 +52,42 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       setMousePosition(e.clientX);
     }
   };
+  const touchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if(!reseting) {
+      setAnimated(false);
+      setIsDragging(true);
+      setStartMousePosition(e.touches[0].clientX);
+      setMousePosition(e.touches[0].clientX);
+    }
+  };
 
   const dragging = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (isDragging && !reseting) {
       setMousePosition(e.clientX);
     }
   };
+  const touchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (isDragging && !reseting) {
+      setMousePosition(e.touches[0].clientX);
+    }
+  };
 
   const dragEnd = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (isDragging && !reseting) {
       const space = e.clientX - startPosition;
+      if (space < -50) {
+        nextSlide();
+      } else if (space > 50) {
+        prevSlide();
+      }
+      setIsDragging(false);
+      setMousePosition(0);
+      setStartMousePosition(0);
+    }
+  };
+  const touchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (isDragging && !reseting) {
+      const space = e.changedTouches[0].clientX - startPosition;
       if (space < -50) {
         nextSlide();
       } else if (space > 50) {
@@ -108,6 +134,6 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
     handleResize();
   });
 
-  return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging };
+  return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging, touchStart, touchMove, touchEnd };
 };
 export default useSlide;

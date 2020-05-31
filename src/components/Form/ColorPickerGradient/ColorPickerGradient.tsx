@@ -6,7 +6,7 @@ export interface ColorPickerGradientProps {
   onChange?: (result: string) => void;
   defaultColorLeft?: string;
   defaultColorRight?: string;
-  fieldName: string;
+  label: string;
   type?: 'linear-gradient' | 'repeating-linear-gradient';
   style?: CSSProperties;
   className?: string;

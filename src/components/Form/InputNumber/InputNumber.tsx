@@ -3,17 +3,17 @@ import React, { FC } from 'react';
 import styles from './InputNumber.module.scss';
 
 export interface InputNumberProps {
-  fieldName: string;
+  label: string;
   defaultNumber?: number;
   min?: number;
   max?: number;
   onChange: (result?: number) => void;
 }
 
-const InputNumber: FC<InputNumberProps> = ({ fieldName, defaultNumber, max, min, onChange }) => {
+const InputNumber: FC<InputNumberProps> = ({ label, defaultNumber, max, min, onChange }) => {
   return <div className={styles.inputNumberComponent}>
     <div className={styles.content}>
-      <div className={styles.fieldName}>{fieldName}</div>
+      <div className={styles.label}>{label}</div>
       <InputNumberAntd min={min} max={max} defaultValue={defaultNumber ?? 1} onChange={onChange} />
     </div>
   </div>;

@@ -32,8 +32,9 @@ const FormAndroidSimulator: FC<FormAndroidSimulatorProps> = ({ nowIndexSection }
       <Form
         fields={[
           {
-            fieldId: 'input-ios-params',
-            fieldName: 'iosParams',
+            fieldId: 'input-androidParams-params',
+            fieldName: 'androidParams',
+            label: 'Android Params',
             fieldType: 'input-text-2',
             addonBefore: 'exp://expo.io/',
             defaultValue: androidParams?.replace('exp://expo.io/', ''),

@@ -32,11 +32,13 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex }) => {
           {
             fieldType: 'input',
             fieldName: 'text',
+            label: 'Text',
             defaultValue: text,
             fieldId: 'input-button-text'
           },
           {
             fieldName: 'iconClass',
+            label: 'Class Icon FontAwesome',
             fieldId: 'icon-button-nav',
             fieldType: 'input',
             defaultValue: iconClass
@@ -44,12 +46,14 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex }) => {
           {
             fieldType: 'input',
             fieldName: 'href',
+            label: 'Href',
             defaultValue: href,
             fieldId: 'href-button-nav',
           },
           {
             fieldId: 'type-button-nav',
             fieldName: 'type',
+            label: 'Type',
             fieldType: 'select-button',
             options: [
               {
@@ -78,6 +82,7 @@ const SettingFormButton: FC<SettingFormButtonProps> = ({ nowIndex }) => {
           {
             fieldId: 'size-button-nav',
             fieldName: 'size',
+            label: 'Size Button',
             fieldType: 'radio2',
             data: [
               {

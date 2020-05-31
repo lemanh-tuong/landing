@@ -6,7 +6,7 @@ import styles from './Input.module.scss';
 
 export interface InputOption {
   type: 'input' | 'password';
-  name?: string;
+  label?: string;
   placeholder?: string;
   defaultValue?: string;
   horizontal?: boolean;
@@ -18,7 +18,7 @@ export interface InputOption {
 export interface InputProps extends InputOption {
 }
 
-const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizontal, autoSize, style, onChange }) => {
+const Input: FC<InputProps> = ({ type, label, placeholder, defaultValue, horizontal, autoSize, style, onChange }) => {
   const onChangeRef = useRef(onChange);
   let timeout: Timeout;
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,7 @@ const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizont
   const _renderTextArea = () => {
     return <InputAntd.TextArea
       className={styles.input}
-      name={name}
+      name={label}
       defaultValue={defaultValue}
       onChange={handleChange}
       placeholder={placeholder}
@@ -47,7 +47,7 @@ const Input: FC<InputProps> = ({ type, name, placeholder, defaultValue, horizont
 
   return (
     <div className={`${styles.inputBox} ${horizontal ? styles.horizontal : null}`}>
-      <label htmlFor={name} className={styles.inputName}>{name}</label>
+      <label htmlFor={label} className={styles.inputName}>{label}</label>
       {type === 'input' ? _renderTextArea() : _renderPassWordArea()}
     </div>
   );

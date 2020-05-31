@@ -54,6 +54,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
             {
               fieldType: 'rich-text-editor',
               fieldName: 'text',
+              label: 'Text',
               fieldId: 'section-1-field-4',
               horizontal: true,
               defaultValue: text
@@ -61,6 +62,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
             {
               fieldType: 'radio',
               fieldName: 'alignText',
+              label: 'Align Text',
               fieldId: 'section-1-field-5',
               defaultCheckedValue: alignText,
               data: [
@@ -80,6 +82,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
             },
             {
               fieldName: 'fontSizeText',
+              label: 'Size Text',
               fieldType: 'radio3',
               fieldId: 'font-size-text',
               defaultCheckedValue: fontSizeText
@@ -87,6 +90,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
             {
               fieldType: 'color-picker',
               fieldName: 'colorText',
+              label: 'Color Text',
               fieldId: 'section-1-field-6',
               defaultColor: colorText ?? '#000'
             }

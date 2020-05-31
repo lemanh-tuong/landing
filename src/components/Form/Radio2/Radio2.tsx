@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { RadioProps } from '../Radio/Radio';
 import styles from './Radio2.module.scss';
 
-const Radio2: FC<RadioProps> = ({ fieldName, data, onClick, defaultCheckedValue }) => {
+const Radio2: FC<RadioProps> = ({ label, data, onClick, defaultCheckedValue }) => {
 
   const handleClick = (value: string) => {
     return () => {
@@ -28,7 +28,7 @@ const Radio2: FC<RadioProps> = ({ fieldName, data, onClick, defaultCheckedValue 
   const _renderDefault = () => (
     <div className={styles.radioForm}>
       <div className={styles.radioName}>
-        {fieldName}
+        {label}
       </div>
       <div className={styles.radioGroup}>
         {_renderRadioList()}

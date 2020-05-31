@@ -92,9 +92,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button-${sectionId}`} type='antd'>
-        <FormButton nowIndex={nowIndexSection} />
-      </PopUp>
+      <FormButton nowIndex={nowIndexSection} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`mockup-${sectionId}`} type='antd' title={<h3>Form Mock Up</h3>}>
         <FormMockUp draggableField={false} nowIndexSection={nowIndexSection} />

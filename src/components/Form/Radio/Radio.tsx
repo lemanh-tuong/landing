@@ -8,7 +8,7 @@ export interface RadioButton {
 }
 
 export interface RadioOption {
-  fieldName: string;
+  label: string;
   data: RadioButton[];
   defaultCheckedValue?: string;
   onClick?: (value: string) => void;
@@ -17,7 +17,7 @@ export interface RadioOption {
 export interface RadioProps extends RadioOption {
 }
 
-const Radio = ({ fieldName, data, onClick, defaultCheckedValue }: RadioProps) => {
+const Radio = ({ label, data, onClick, defaultCheckedValue }: RadioProps) => {
 
   const handleClick = (value: string) => {
     return () => {
@@ -41,7 +41,7 @@ const Radio = ({ fieldName, data, onClick, defaultCheckedValue }: RadioProps) =>
   const _renderDefault = () => (
     <div className={styles.radioForm}>
       <div className={styles.radioName}>
-        {fieldName}
+        {label}
       </div>
       <div className={styles.radioGroup}>
         {_renderRadioList()}

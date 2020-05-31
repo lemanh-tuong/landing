@@ -32,6 +32,7 @@ export type FieldType = Partial<InputProps>
     fieldType: 'input' | 'radio2' | 'radio3' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2' | 'rich-text-editor';
     fieldName: string;
     fieldId: string | number;
+    label: string;
   };
 
 export interface OnChangeFuncArg {
@@ -57,7 +58,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'password':
       return <Input
         type={arg.fieldType}
-        name={arg.fieldName}
+        label={arg.label}
         defaultValue={arg.defaultValue}
         onChange={onChange}
         placeholder={arg.placeholder}
@@ -66,29 +67,29 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
         style={{ width: '100%', margin: '5px 0' }}
       />;
     case 'input-text-2':
-      return <InputText2 disabled={arg.disabled} addonAfter={arg.addonAfter} addonBefore={arg.addonBefore} defaultValue={arg.defaultValue} placeholder={arg.placeholder} key={arg.fieldId} onChange={onChange} />;
+      return <InputText2 label={arg.label} disabled={arg.disabled} addonAfter={arg.addonAfter} addonBefore={arg.addonBefore} defaultValue={arg.defaultValue} placeholder={arg.placeholder} key={arg.fieldId} onChange={onChange} />;
     case 'number':
-      return <InputNumber key={arg.fieldId} fieldName={arg.fieldName} min={arg.min} max={arg.max} onChange={onChange} defaultNumber={arg.defaultNumber} />;
+      return <InputNumber key={arg.fieldId} label={arg.label} min={arg.min} max={arg.max} onChange={onChange} defaultNumber={arg.defaultNumber} />;
     case 'radio':
-      return <Radio fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
+      return <Radio label={arg.label} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
     case 'radio2':
-      return <Radio2 fieldName={arg.fieldName} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
+      return <Radio2 label={arg.label} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
     case 'radio3':
-      return <Radio3 fieldName={arg.fieldName} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />;
+      return <Radio3 label={arg.label} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />;
     case 'checkbox':
-      return <CheckBox name={arg.fieldName} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />;
+      return <CheckBox label={arg.label} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />;
     case 'file':
       return <RollSelect defaultSelected={arg.defaultSelected} fieldName={arg.fieldName} onChoose={onAnotherEvent} multiple={arg.multiple} width={arg.width} height={arg.height} listImg={arg.listImg ?? []} onUploadFile={onChange} key={arg.fieldId} />;
     case 'color-picker':
-      return <ColorPicker fieldName={arg.fieldName} defaultColor={arg.defaultColor} onChange={onChange} key={arg.fieldId} />;
+      return <ColorPicker label={arg.label} defaultColor={arg.defaultColor} onChange={onChange} key={arg.fieldId} />;
     case 'select':
-      return arg.optionsGroup ? <Select key={arg.fieldId} defaultSelect={arg.defaultSelect} fieldName={arg.fieldName} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null;
+      return arg.optionsGroup ? <Select key={arg.fieldId} defaultSelect={arg.defaultSelect} label={arg.label} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null;
     case 'select-button':
-      return arg.options ? <SelectButtonType key={arg.fieldId} fieldName={arg.fieldName} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
+      return arg.options ? <SelectButtonType key={arg.fieldId} label={arg.label} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
     case 'color-picker-gradient':
-      return <ColorPickerGradient key={arg.fieldId} fieldName={arg.fieldName} onChange={onChange} />;
+      return <ColorPickerGradient key={arg.fieldId} label={arg.label} onChange={onChange} />;
     case 'rich-text-editor':
-      return <RichTextEditor fieldName={arg.fieldName} onChange={onChange} placeholder={arg.placeholder} defaultValue={arg.defaultValue} className={arg.className} style={arg.style} key={arg.fieldId} />;
+      return <RichTextEditor label={arg.label} onChange={onChange} placeholder={arg.placeholder} defaultValue={arg.defaultValue} className={arg.className} style={arg.style} key={arg.fieldId} />;
     default:
       return null;
   }
