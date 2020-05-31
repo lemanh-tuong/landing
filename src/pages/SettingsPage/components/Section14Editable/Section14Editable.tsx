@@ -95,7 +95,7 @@ const Section14Editable: FC<Section14EditableProps> = ({
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`mockup-${sectionId}`}>
+      <PopUp id={`mockup-${sectionId}`} type='antd' title={<h3>Form Mock Up</h3>}>
         <FormMockUp draggableField={false} nowIndexSection={nowIndexSection} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />

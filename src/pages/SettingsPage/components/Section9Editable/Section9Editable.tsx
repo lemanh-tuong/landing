@@ -63,13 +63,13 @@ const Section9Editable: FC<Section9EditableProps> = ({
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button2-${sectionId}`}>
+      <PopUp id={`button2-${sectionId}`} type='antd' title={<h3>Form Button 2</h3>}>
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`simulator-iphone-${sectionId}`} type='antd'>
+      <PopUp id={`simulator-iphone-${sectionId}`} type='antd' title={<h3>Iphone Simulator</h3>}>
         <FormIphoneSimulator nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`simulator-android-${sectionId}`} type='antd'>
+      <PopUp id={`simulator-android-${sectionId}`} type='antd' title={<h3>Android Simulator</h3>}>
         <FormAndroidSimulator nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>

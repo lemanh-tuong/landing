@@ -65,11 +65,11 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
               defaultCheckedValue: alignText,
               data: [
                 {
-                  value: 'center',
+                  value: 'left',
                   name: 'align text'
                 },
                 {
-                  value: 'left',
+                  value: 'center',
                   name: 'align text'
                 },
                 {

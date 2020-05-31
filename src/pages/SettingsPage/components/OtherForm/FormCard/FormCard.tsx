@@ -4,6 +4,7 @@ import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import Icon from 'components/Icon/Icon';
+import PopUp from 'components/PopUp/PopUp';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
 import { sections } from 'pages/SettingsPage/selectors';
 import thunkAddCard from 'pages/SettingsPage/thunks/thunksCard/thunkAddCard/thunkAddCard';
@@ -244,24 +245,32 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     );
   };
 
-  return (
-    <div className={styles.editCardComponent}>
-      <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
-        <Droppable droppableId={sectionId} type="card drop">
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
-              <div className={styles.listCard}>
-                {element.cards?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
-                <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
-                  <i className="fas fa-plus" />
-                </Button>
+  const _renderForm = () => {
+    return (
+      <div className={styles.editCardComponent}>
+        <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
+          <Droppable droppableId={sectionId} type="card drop">
+            {provided => (
+              <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
+                <div className={styles.listCard}>
+                  {element.cards?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
+                  <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
+                    <i className="fas fa-plus" />
+                  </Button>
+                </div>
               </div>
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
-  );
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+    );
+  }
+
+  return (
+    <PopUp id={`card-${sectionId}`} type='antd' title={<h3>Form Card</h3>}>
+      {_renderForm()}
+    </PopUp>
+  )
 };
 
 export default memo(FormChangeCard);

@@ -174,13 +174,11 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
         <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
           <Droppable droppableId={'form-slides-2'} type="sliderSection drop">
             {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >
-                <div className={styles.listLabel}>
-                  {sliderSection?.map((sectionProperty, index) => _renderLabel(sectionProperty, index))}
-                  <Button onClick={sliderSection && handleAddSlide(sliderSection?.length)} shape='circle' size='large' style={{ marginTop: 10 }}>
-                    <i className="fas fa-plus" />
-                  </Button>
-                </div>
+              <div className={styles.listLabel} ref={provided.innerRef} {...provided.droppableProps}>
+                {sliderSection?.map((sectionProperty, index) => _renderLabel(sectionProperty, index))}
+                <Button onClick={sliderSection && handleAddSlide(sliderSection?.length)} shape='circle' size='large' style={{ marginTop: 10 }}>
+                  <i className="fas fa-plus" />
+                </Button>
               </div>
             )}
           </Droppable>

@@ -65,11 +65,11 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
               fieldId: 'section-1-field-2',
               data: [
                 {
-                  value: 'center',
+                  value: 'left',
                   name: 'align title'
                 },
                 {
-                  value: 'left',
+                  value: 'center',
                   name: 'align title'
                 },
                 {

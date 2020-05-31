@@ -43,7 +43,7 @@ const Section13Editable: FC<Section13EditableProps> = ({
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`mockup-${sectionId}`}>
+      <PopUp id={`mockup-${sectionId}`} type='antd' title={<h3>Form Mock Up</h3>}>
         <FormMockUp draggableField={true} nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>

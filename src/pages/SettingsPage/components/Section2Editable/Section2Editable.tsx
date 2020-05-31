@@ -62,9 +62,7 @@ const Section2Editable: FC<Section2EditableProps> = ({
         onDeleteCard={handleDeleteCard}
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`card-${sectionId}`} >
-        <FormCard nowIndexSection={nowIndexSection} indexCard={indexCard} />
-      </PopUp>
+      <FormCard nowIndexSection={nowIndexSection} indexCard={indexCard} />
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
     </div>
   );

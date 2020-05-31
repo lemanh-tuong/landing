@@ -1,7 +1,6 @@
 import PopUp from 'components/PopUp/PopUp';
 import Section5, { Section5Props } from 'components/Section5/Section5';
 import React, { FC } from 'react';
-import FormButton from '../OtherForm/FormButton/FormButton';
 import FormMainTitle from '../OtherForm/FormMainTitle/FormMainTitle';
 import FormSection from '../OtherForm/FormSection/FormSection';
 import { FormSlides } from '../OtherForm/FormSlides/FormSlides';
@@ -58,10 +57,7 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button-${sectionId}`}>
-        <FormButton nowIndex={nowIndexSection} />
-      </PopUp>
-      <PopUp id={`slides-${sectionId}`}>
+      <PopUp id={`slides-${sectionId}`} type='antd' title={<h3>Form Slides</h3>}>
         <FormSlides nowIndexSection={nowIndexSection} draggableField={true} hasNavField={true} hasDotField={true} responsiveField={true} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />

@@ -32,6 +32,7 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
   const changeHref = thunkChangeHref();
   const deleteSlide = thunkDeleteSlide();
   const addSlide = thunkAddSlide();
+
   //Handle
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
@@ -56,7 +57,7 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
   };
 
   return (
-    <div className={styles.formSlide}>
+    <div className={styles.formSlide} style={{ borderRadius: 5, border: '1px solid' }}>
       <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />
       <Form
         fields={[
