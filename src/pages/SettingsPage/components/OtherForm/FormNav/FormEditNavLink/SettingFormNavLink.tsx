@@ -2,7 +2,7 @@ import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { ActionChangeInputNavPayload } from 'pages/SettingsPage/actions/actionsNav/actionChangeInputNav/actionChangeInputNav';
 import { listPage, navItems } from 'pages/SettingsPage/selectors';
 import thunkChangeInputNav from 'pages/SettingsPage/thunks/thunksNav/thunkChangeInputNav/thunkChangeInputNav';
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export interface SettingsFormProps {
@@ -12,16 +12,16 @@ export interface SettingsFormProps {
 type TypeHref = 'external' | 'internal';
 
 const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
-  // const [typeHref, setTypeHref] = useState<TypeHref>('external');
+  const [typeHref, setTypeHref] = useState<TypeHref>('external');
 
   const listPageName = useSelector(listPage);
   const listNav = useSelector(navItems);
 
   const { href, text, target } = listNav[nowIndex];
 
-  // const handleTypeHref = (result: TypeHref) => {
-  //   setTypeHref(result);
-  // };
+  const handleTypeHref = (result: TypeHref) => {
+    setTypeHref(result);
+  };
 
   // Dispatch
   const changeInput = thunkChangeInputNav();
@@ -29,9 +29,9 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
   //Handle
   const handleChangeTextButtonForm = (type: ActionChangeInputNavPayload['type']) => ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
-      // if (fieldType === 'radio') {
-      //   handleTypeHref(result);
-      // }
+      if (fieldType === 'radio') {
+        handleTypeHref(result);
+      }
       if (fieldType === 'input' || fieldType === 'select') {
         changeInput({ fieldName: fieldName, value: result, nowIndex: nowIndex, type: type });
       }
@@ -55,6 +55,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             fieldType: 'radio',
             fieldName: 'Type Href',
             label: 'Type Href',
+            defaultCheckedValue: typeHref,
             data: [
               {
                 name: 'type href',
@@ -69,21 +70,22 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
           {
             fieldType: 'input',
             fieldName: 'href',
-            label: 'Href',
+            label: 'External Href',
             defaultValue: href,
             fieldId: 'nav-link-2',
+            hidden: typeHref === 'internal'
           },
           {
             fieldType: 'select',
             fieldName: 'href',
-            label: 'Href',
+            label: 'Internal Href',
             defaultValue: href,
             fieldId: 'nav-link-3',
             optionsGroup: {
               groupName: 'Link',
               options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
             },
-            defaultSelect: '/',
+            hidden: !(typeHref === 'internal'),
           },
           {
             fieldId: 'nav-select-target',

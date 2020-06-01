@@ -30,13 +30,17 @@ const Android: FC<AndroidParams> = ({ params, onEditable, isBuilder }) => {
       <PopOverText
         onEdit={onEditable}
         component={
-          <iframe title="android-simulator" onClick={onEditable} className={`${styles.iframe} ${styles.isBuilder}`} src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}></iframe>
+          <div className={styles.phone}>
+            <iframe title="android-simulator" onClick={onEditable} className={`${styles.iframe} ${styles.isBuilder}`} src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}></iframe>
+          </div>
         }
       />
     );
   }
   return (
-    <iframe title="android-simulator" className={styles.iframe} src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}></iframe>
+    <div className={styles.phone}>
+      <iframe title="android-simulator" className={styles.iframe} src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}></iframe>
+    </div>
   );
 };
 

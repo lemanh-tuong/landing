@@ -63,7 +63,6 @@ const FormEditNavLink = () => {
 
   // Render
   const _renderLabelLink = (navItemProperty: NavItemType, index: number) => {
-    console.log(navItemProperty.id)
     return (
       <Draggable index={index} draggableId={`${navItemProperty.text}-${index}`} key={navItemProperty.id}>
         {provided => (
