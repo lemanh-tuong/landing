@@ -130,11 +130,11 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             fieldId: 'change-card-field-2',
             data: [
               {
-                value: 'center',
+                value: 'left',
                 name: 'align card title'
               },
               {
-                value: 'left',
+                value: 'center',
                 name: 'align card title'
               },
               {
@@ -166,11 +166,11 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             defaultCheckedValue: alignText,
             data: [
               {
-                value: 'center',
+                value: 'left',
                 name: 'align card text'
               },
               {
-                value: 'left',
+                value: 'center',
                 name: 'align card text'
               },
               {
@@ -199,11 +199,11 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
               },
               {
                 name: 'align icon card2',
-                value: 'right'
+                value: 'center'
               },
               {
                 name: 'align icon card2',
-                value: 'center'
+                value: 'right'
               },
             ]
           },

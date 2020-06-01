@@ -23,7 +23,7 @@ import thunkGetListPageName from './thunks/thunkGetListPageName/thunkGetListPage
 
 const ListPage = () => {
 
-  const [pathName, setPathName] = useState('');
+  const [pathName, setPathName] = useState('/');
   const [pageName, setPageName] = useState('');
   const [error, setError] = useState('');
   const [validate, setValidate] = useState('');
