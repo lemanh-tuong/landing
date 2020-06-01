@@ -62,9 +62,6 @@ const Routes = () => {
           <Route exact path='/admin/login'>
             <LoginPage />
           </Route>
-          <Route exact path="/list">
-            <ListPage />
-          </Route>
           <Route exact path='/error'>
             <ErrorPage />
           </Route>
@@ -82,6 +79,9 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/admin/component">
                   <ComponentPage />
+                </Route>
+                <Route exact path="/list">
+                  <ListPage />
                 </Route>
               </>
             }

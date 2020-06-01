@@ -3,7 +3,6 @@ import React, { ChangeEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import styles from './LoginPage.module.scss';
-import { AuthReducer } from './reducers/authReducer';
 import { messageLogin, statusLogin } from './selectors';
 import thunkContinueLog from './thunks/thunkContinueLog';
 import thunkLogin from './thunks/thunkLogin';
@@ -51,12 +50,9 @@ const LoginPage = () => {
   };
 
   useMount(() => {
-    const preLoginJSON = localStorage.getItem('persist:root');
-    const preLogin = preLoginJSON ? JSON.parse(preLoginJSON) : {};
-    const preAuthReducerJSON = preLogin ? preLogin.authReducer : '';
-    const preAuthReducer: AuthReducer = preAuthReducerJSON && JSON.parse(preAuthReducerJSON);
-    if (preAuthReducer?.token && preAuthReducer.refreshToken) {
-      loginContinue({ token: preAuthReducer.token, refreshToken: preAuthReducer.refreshToken });
+    const tokenLogin = document.cookie.split(';').find(query => query.startsWith('token'))?.split('=')[1];
+    if (tokenLogin) {
+      loginContinue({ token: tokenLogin });
     }
   });
 

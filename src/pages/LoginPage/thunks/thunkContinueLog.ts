@@ -1,11 +1,10 @@
 import { createDispatchAction } from 'utils/functions/reduxActions';
-import { ActionContinueLogPayload } from '../actions/actionContinueLog';
-import { actionLogin } from '../actions/actionLogin';
+import { actionContinueLog, ActionContinueLogPayload } from '../actions/actionContinueLog';
 
-type ThunkContinueLog = ThunkAction<typeof actionLogin>;
+type ThunkContinueLog = ThunkAction<typeof actionContinueLog>;
 
-const thunkContinueLog = ({token, refreshToken}: ActionContinueLogPayload): ThunkContinueLog => dispatch => {
-  dispatch(actionLogin.success({token: token, refreshToken: refreshToken}));
+const thunkContinueLog = ({token}: ActionContinueLogPayload): ThunkContinueLog => dispatch => {
+  dispatch(actionContinueLog({token: token}));
 };
 
 export default createDispatchAction(thunkContinueLog);

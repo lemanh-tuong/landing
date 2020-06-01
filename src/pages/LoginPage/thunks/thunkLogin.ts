@@ -12,8 +12,9 @@ const thunkLogin = ({email, password}: ThunkLoginArg): ThunkLogin => async dispa
   dispatch(actionLogin.request());
   try {
     const { user } = await signInFirebase({email: email, password: password});
-    const token = await user?.getIdToken();
+    const { authTime, expirationTime, token } = await user?.getIdTokenResult() as firebase.auth.IdTokenResult;
     if(token && user?.refreshToken) {
+      document.cookie = `token=${token}; expires=${expirationTime}; authTime=${authTime}`;
       dispatch(actionLogin.success({token: token, refreshToken: user.refreshToken}));
     }
   } catch(err) {

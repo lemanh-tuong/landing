@@ -11,11 +11,18 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['authReducer'],
+  whitelist: [],
 };
+
+const authPersistConfig = {
+  key: 'authReducer',
+  storage,
+  whitelist: ['token'],
+}
 
 const _combineReducers = combineReducers({
   ...rootReducers,
+  authReducer: persistReducer(authPersistConfig, rootReducers.authReducer),
 });
 
 const reducers = persistReducer(persistConfig, _combineReducers);

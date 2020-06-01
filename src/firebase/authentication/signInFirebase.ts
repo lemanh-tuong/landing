@@ -5,5 +5,7 @@ export interface SignInFirebaseArg {
   password: string;
 }
 
-export const signInFirebase = ({email, password}: SignInFirebaseArg) => authentication.signInWithEmailAndPassword(email, password);
+export const signInFirebase = ({email, password}: SignInFirebaseArg) => {
+  return authentication.signInWithEmailAndPassword(email, password);
+};
 

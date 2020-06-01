@@ -12,7 +12,6 @@ const thunkGetSections = ({pathName}: ThunkGetSectionsArg): ThunkGetSections => 
   const { listPageReducers } = getState();
   const { data } = listPageReducers;
   const res = data.find(item => item.pathName === pathName) as PageGeneralData;
-  console.log(res, pathName);
   dispatch(getDataSections.request(null));
   try {
     const data = await readFireBase(`/PagesDetail/${res.pageName}`);

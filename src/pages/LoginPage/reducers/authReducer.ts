@@ -15,7 +15,7 @@ const initialState: AuthReducer = {
   message: '',
 };
 
-const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin>>(initialState, [
+const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin> & any>(initialState, [
   handleAction('@loging', state => {
     return {
       ...state,
@@ -38,6 +38,13 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin>>(
       token: '',
       refreshToken: '',
       message: action.payload
+    };
+  }),
+  handleAction('CONTINUE_LOG', (state, action) => {
+    return {
+      ...state,
+      statusLogin: 'loged',
+      token: action.payload.token,
     };
   }),
 ]);

@@ -9,10 +9,11 @@ export interface PrivateRouteProps {
 
 const PrivateRoute: FC<PrivateRouteProps> = ({ token, component, pathRedirect }) => {
   const history = useHistory();
+  const tokenCookie = document.cookie.split(';').find(query => query.includes('token'))?.split('=')[1];
 
   return (
     <>
-      {!!token ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}
+      {token === tokenCookie ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}
     </>
   );
 };
