@@ -90,7 +90,6 @@ class PopUp extends PureComponent<PopUpProps> {
   };
 
   handleHide = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
     this.setState({
       visible: false
     });

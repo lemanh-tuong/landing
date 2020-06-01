@@ -1,4 +1,6 @@
+import readFireBase from 'firebase/database/readFireBase';
 import { removeFirebase } from 'firebase/database/removeFirebase';
+import updateFireBase from 'firebase/database/updateFireBase';
 import { writeFirebase } from 'firebase/database/writeFirebase';
 import { PageDetailData, PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { actionChangeGeneralDataPage, ActionChangeGeneralDataPagePayload } from 'pages/SettingsPage/actions/actionPage/actionChangeGeneralDataPage/actionChangeGeneralDataPage';
@@ -6,27 +8,34 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkChangeGeneralDataPage = ThunkAction<typeof actionChangeGeneralDataPage>;
 
-const thunkChangeGeneralDataPage = ({newPageName, newPathName, id}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => async (dispatch, getState) => {
+const thunkChangeGeneralDataPage = ({nowIndexPage, newPageName, newPathName, id}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => async (dispatch, getState) => {
   dispatch(actionChangeGeneralDataPage.request());
-  const { listPageReducers, settingMainContentReducers } = getState();
-  const { elements, pageName } = settingMainContentReducers;
+  const { listPageReducers } = getState();
   const { data } = listPageReducers;
-  const indexNowPage = data.findIndex(item => item.id === id);
   const newPageData: PageGeneralData = {
-    ...data[indexNowPage],
+    ...data[nowIndexPage],
     pathName: newPathName,
     pageName: newPageName,
   };
-  const newData = [...data.slice(0, indexNowPage), {...newPageData}, ...data.slice(indexNowPage+1, data.length)];
   try {
-    await writeFirebase({ref: '/ListPage', value: newData});
-    await removeFirebase({ref: `/PagesDetail/${pageName}`});
-    await writeFirebase({ref: `/PagesDetail/${newPageName}`, value: {
-      elements: elements,
-      id: id,
-      pageName: newPageName,
-      pathName: newPathName,
-    } as PageDetailData});
+    const res = await readFireBase(`/PagesDetail/${data[nowIndexPage].pageName}`);
+    const { id, elements } = res as PageDetailData;
+    await Promise.all([
+      updateFireBase({
+        ref: `ListPage/${nowIndexPage}`,
+        updateValue: newPageData as PageGeneralData
+      }),
+      removeFirebase({ref: `/PagesDetail/${data[nowIndexPage].pageName}`}),
+      writeFirebase({
+        ref: `/PagesDetail/${newPageName}`,
+        value: {
+          id: id,
+          pageName: newPageName,
+          pathName: newPathName,
+          elements: elements,
+        } as PageDetailData
+      })
+    ])
     dispatch(actionChangeGeneralDataPage.success(newPageData));
   } catch(err) {
     dispatch(actionChangeGeneralDataPage.failure(err.message));

@@ -47,6 +47,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
     return (
       <>
         <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
+        <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
         {_renderAlertConfirm(pageName, nowIndexPage)}
       </>
     );
@@ -64,6 +65,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
       {_renderPopOverSetting()}
       <FormDuplicatePage />
       <FormChangeGeneralDataPage pageId={id} />
+      {/* <TestForm pageId={id} /> */}
     </>
   );
 };

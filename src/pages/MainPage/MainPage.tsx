@@ -9,8 +9,7 @@ import { listSections, messageRequestMainPageSections, statusRequestMainPageSect
 import thunkGetSections from './thunks/thunkGetSections';
 
 const HomePage = () => {
-  const { state } = useLocation();
-  const pathName = state || '/';
+  const { pathname: pathName } = useLocation();
 
   // Selectors
   const sections = useSelector(listSections);

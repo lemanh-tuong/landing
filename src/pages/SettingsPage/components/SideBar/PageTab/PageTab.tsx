@@ -74,7 +74,7 @@ const PageTab = () => {
               size='middle' shape='round' danger
             />
           </PopOver>
-          <FormChangeGeneralDataPage pageId={id} />
+          <FormChangeGeneralDataPage redirectOnChange pageId={id} />
         </div>
       );
     }

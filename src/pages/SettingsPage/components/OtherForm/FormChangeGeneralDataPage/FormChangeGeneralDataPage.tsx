@@ -1,7 +1,6 @@
 import { Input } from 'antd';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
-import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { listPage } from 'pages/ListPage/selectors';
 import { messageRequestListPage, statusChangeGeneralDataPage } from 'pages/SettingsPage/selectors';
 import thunkChangeGeneralDataPage from 'pages/SettingsPage/thunks/thunkPage/thunkChangeGeneralDataPage/thunkChangeGeneralDataPage';
@@ -11,9 +10,10 @@ import { Redirect, useHistory } from 'react-router';
 
 export interface FormChangeGeneralDataPageProps {
   pageId: string;
+  redirectOnChange?: boolean;
 }
 
-const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId }) => {
+const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId, redirectOnChange = false }) => {
 
   const history = useHistory();
 
@@ -21,7 +21,8 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
   const messageRequestErr = useSelector(messageRequestListPage);
   const statusChangeData = useSelector(statusChangeGeneralDataPage);
 
-  const nowPage = generalDataPage.find(item => item.id === pageId) as PageGeneralData;
+  const nowIndexPage = generalDataPage.findIndex(item => item.id === pageId);
+  const nowPage = generalDataPage[nowIndexPage];
 
   const [newPageName, setNewPageName] = useState(nowPage.pageName);
   const [newPathName, setNewPathName] = useState(nowPage.pathName);
@@ -52,10 +53,12 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId 
   const handleChangeGeneralDataPage = () => {
     const isExisted = generalDataPage.find(item => (item.pageName === newPageName && pageId !== item.id) || (item.pathName === newPathName && pageId !== item.id));
     if (!isExisted && !validate) {
-      changeGeneralDataPage({ newPageName, newPathName, id: pageId });
+      changeGeneralDataPage({ nowIndexPage: nowIndexPage, newPageName, newPathName, id: pageId });
       const interval = setInterval(() => {
         if (statusChangeData === 'changed') {
-          history.push(`/admin/builder?pageName=${newPageName}&pathName=${newPathName}&id=${pageId}`);
+          if (redirectOnChange) {
+            history.push(`/admin/builder?pageName=${newPageName}&pathName=${newPathName}&id=${pageId}`);
+          }
           clearInterval(interval);
         }
       }, 1000);

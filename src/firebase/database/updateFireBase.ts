@@ -6,10 +6,7 @@ export interface UpdateFireBaseArg {
 }
 
 const updateFireBase = ({ref, updateValue}: UpdateFireBaseArg) => {
-  database.ref(ref).update(updateValue)
-  .then(res => console.log(res))
-  .catch(err => err)
-  ;
+  return database.ref(ref).update(updateValue);
 };
 
 export default updateFireBase;
