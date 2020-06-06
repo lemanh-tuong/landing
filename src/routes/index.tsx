@@ -65,7 +65,7 @@ const Routes = () => {
           <Route exact path="/test" >
             <TestPage />
           </Route>
-          <Route>
+          <Route exact path='/error'>
             <ErrorPage />
           </Route>
           <PrivateRoute condition={isLogged === 'loged'} pathRedirect='/admin/login'
@@ -83,9 +83,15 @@ const Routes = () => {
                 <Route exact path="/list">
                   <ListPage />
                 </Route>
+                <Route>
+                  <ErrorPage />
+                </Route>
               </>
             }
           />
+          <Route>
+            <ErrorPage />
+          </Route>
         </Switch>
       </>
     );

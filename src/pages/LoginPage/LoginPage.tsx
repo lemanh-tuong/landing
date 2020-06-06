@@ -55,7 +55,7 @@ const LoginPage = () => {
   })
 
   if (status === 'loged') {
-    return history.location.state ? <Redirect to={{ pathname: history.location.state as string }} /> : <Redirect to='/admin/builder' />;
+    return history.location.state ? <Redirect to={{ pathname: history.location.state as string }} /> : <Redirect to='/list' />;
   }
 
   return (

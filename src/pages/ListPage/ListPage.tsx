@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, Popover } from 'antd';
 import Col from 'components/Grid/Column/Column';
 import Container from 'components/Grid/Container/Container';
 import Row from 'components/Grid/Row/Row';
@@ -100,9 +100,11 @@ const ListPage = () => {
       <Container>
         <Row>
           {pages.map((page, index) => _renderPage(page, index))}
-          <Col cols={[12, 4, 3]}>
-            <div className={styles.addPage} onClick={PopUp.show('add-page-form')}> Add Page </div>
-          </Col>
+          <Popover content="Add New Page">
+            <div className={styles.addPage} onClick={PopUp.show('add-page-form')}>
+              <i className="fas fa-plus" />
+            </div>
+          </Popover>
         </Row>
       </Container>
     );

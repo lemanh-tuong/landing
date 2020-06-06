@@ -59,7 +59,7 @@ const FormDropDown = <T extends any>({
               <div className={styles.cardDesc} onClick={handleFormShown(index)} >
                 <div className={styles.cardName}>{renderLabel ? renderLabel(label, index) : label}</div>
               </div>
-              <Button shape='circle' type='danger' style={styleDeleteIcon} size='large' onClick={handleDelete(index)} >
+              <Button shape='circle' type='default' style={styleDeleteIcon} size='large' onClick={handleDelete(index)} >
                 {renderDeleteIcon ? renderDeleteIcon() : <i className="fas fa-trash" />}
               </Button>
             </div>
