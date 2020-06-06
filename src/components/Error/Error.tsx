@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import styles from './Error.module.scss';
 
 export interface ErrorProps {
-  message: string;
+  message?: string;
 }
 
 const Error: FC<ErrorProps> = ({ message }) => {
@@ -18,7 +18,6 @@ const Error: FC<ErrorProps> = ({ message }) => {
           </h1>
         </div>
         <h2>we are sorry, but the page you requested was not found</h2>
-        <p>{JSON.stringify(message)}</p>
       </div>
     </div>
 
