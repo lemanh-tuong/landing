@@ -1,29 +1,27 @@
 import PopOverText from 'componentBuilder/PopOverText/PopOverText';
 import Button, { ButtonProps } from 'components/Button/Button';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Image from 'components/Image/Image';
-import { buttonDefault } from 'pages/SettingsPage/components/OtherForm/FormNav/FormEditButtonNav/FormEditButtonNav';
 import React, { CSSProperties, FC, memo, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Nav.module.scss';
 
-export interface NavItemType {
+export type ButtonNav = ButtonProps & { iconClass?: string };
+
+export interface NavItemType extends ButtonNav {
   id: string | number;
   href: string;
   text: string;
   target?: 'blank' | 'self';
-  // type: 'default' | 'primary' | '';
+  variance?: 'nav' | 'button';
 }
 
-export type ButtonNav = ButtonProps & { iconClass?: string };
 
 export interface NavProps {
   logo: {
     imgSrc: string;
   };
   navItems: NavItemType[];
-  buttons: ButtonNav[];
   style?: CSSProperties;
 }
 
@@ -31,10 +29,9 @@ export interface NavPropsBuilder {
   isBuilder?: boolean;
   onShowPopupEditLogo?: () => void;
   onShowpopupEditNav?: () => void;
-  onAddItem?: (item: NavItemType | ButtonNav, type: 'buttons' | 'navItems') => void;
 }
 
-const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, isBuilder, onShowPopupEditLogo, onShowpopupEditNav, onAddItem }) => {
+const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, style, isBuilder, onShowPopupEditLogo, onShowpopupEditNav }) => {
   const [active, setActive] = useState(true);
   const [show, setShow] = useState(false);
 
@@ -43,20 +40,12 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     setShow(!show);
   };
 
-  const handleAddItem = (type: 'buttons' | 'navItems') => {
-    return () => {
-      if (type === 'buttons') onAddItem?.(buttonDefault, type);
-      else onAddItem?.({
-        id: uuidv4(),
-        href: '#',
-        text: 'item',
-      }, type);
-    };
-  };
-
   // NAV ITEM
-  const _renderLink = ({ href, text, target }: NavItemType, isMobile?: boolean) => {
-    if (isBuilder) {
+  const _renderLink = ({ href, text, target, variance = 'nav', type = 'primary', size, iconClass }: NavItemType, isMobile?: boolean) => {
+    if (variance === 'button') {
+      return _renderButton({ text, target, href, type, size, iconClass });
+    }
+    if (isBuilder && variance === 'nav') {
       return (
         <a href="###" onClick={e => e.preventDefault()} className={`${styles.navLink} ${!!text ? null : styles.isBuilderEmpty}`}>
           {isMobile ? <i className="fas fa-caret-right"></i> : null}
@@ -83,20 +72,10 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
     return null;
   };
 
-  const _renderNavItem = ({ text, href, id, target }: NavItemType, isMobile?: boolean) => {
+  const _renderNavItem = ({ text, href, id, target, type, size, variance, iconClass }: NavItemType, isMobile?: boolean) => {
     return (
       <li className={styles.navItem} key={uuidv4()}>
-        {_renderLink({ text: text, id: id, target: target, href: href }, isMobile)}
-      </li>
-    );
-  };
-
-  const _renderAddItem = () => {
-    return (
-      <li className={styles.navItem} key={uuidv4()}>
-        <div className={styles.addNavItem} onClick={handleAddItem('navItems')}>
-          Add Item
-        </div>
+        {_renderLink({ text, id, target, href, type, size, variance, iconClass }, isMobile)}
       </li>
     );
   };
@@ -113,19 +92,11 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
   };
 
   // ButtonGroup
-  const _renderButton = ({ type, href, size, backgroundColor, text, iconClass }: typeof buttons[0]) => {
+  const _renderButton = ({ type, href, target, size, backgroundColor, text, iconClass }: ButtonNav) => {
     return (
-      <Button href={href} size={size} type={type} backgroundColor={backgroundColor} key={uuidv4()}>
+      <Button href={href} size={size} type={type} target={target} backgroundColor={backgroundColor} key={uuidv4()}>
         {iconClass && <i className={iconClass} style={{ marginRight: '7px' }}></i>}
         {text}
-      </Button>
-    );
-  };
-
-  const _renderAddButton = () => {
-    return (
-      <Button type={'border'} className={styles.addNavButton} >
-        <div onClick={handleAddItem('buttons')}>Add Button</div>
       </Button>
     );
   };
@@ -153,12 +124,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
               <nav className={styles.nav}>
                 <ul className={styles.menu}>
                   {navItems.map(item => _renderNavItem(item))}
-                  {navItems.length < 5 && _renderAddItem()}
                 </ul>
-                <ButtonGroup className={styles.navButtonGroup}>
-                  {buttons.map(item => _renderButton(item))}
-                  {buttons.length < 2 && _renderAddButton()}
-                </ButtonGroup>
                 <button className={`${styles.collapseBtn}`} onClick={handleShow}>
                   <i className={`fas fa-bars `}></i>
                 </button>
@@ -183,9 +149,6 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, buttons, style, i
             <ul className={styles.menu}>
               {navItems.map(item => _renderNavItem(item))}
             </ul>
-            <ButtonGroup className={styles.navButtonGroup}>
-              {buttons.map(item => _renderButton(item))}
-            </ButtonGroup>
             <button className={`${styles.collapseBtn}`} onClick={handleShow}>
               <i className={`fas fa-bars `}></i>
             </button>

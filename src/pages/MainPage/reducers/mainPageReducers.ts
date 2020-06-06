@@ -6,6 +6,7 @@ export interface MainPageReducer {
   readonly sections: Option[];
   readonly pageName: string;
   readonly pathName: string;
+  readonly id: string;
   readonly statusRequestSections: 'loading' | 'success' | 'failure';
   readonly messageRequestaSections: string;
 }
@@ -14,6 +15,7 @@ const initialState: MainPageReducer = {
   sections: [],
   pageName: '',
   pathName: '',
+  id: '',
   statusRequestSections: 'loading',
   messageRequestaSections: '',
 };
@@ -29,10 +31,10 @@ const mainPageReducers = createReducer<MainPageReducer, ActionTypes<typeof getDa
     return {
       ...state,
       statusRequestSections: 'success',
-      sections: action.payload ? [...action.payload.elements] || [] : [],
-      pathName: action.payload? action.payload.pathName || '' : [],
-      id: action.payload ? action.payload.id || '' : '',
-      pageName: action.payload ? action.payload.pageName || '' : ''
+      sections: action.payload.elements ? [...action.payload.elements] : [],
+      pathName: action.payload.pathName ? action.payload.pathName : '',
+      id: action.payload.id ? action.payload.id : '',
+      pageName: action.payload.pageName ? action.payload.pageName : ''
     };
   }),
   handleAction('@getDataSectionsFailure', (state, action) => {

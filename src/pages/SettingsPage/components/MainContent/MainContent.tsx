@@ -119,7 +119,7 @@ const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, start
     <>
       {_renderSwitch()}
       <Popover content="Save All">
-        <Button onClick={handleSaveAll} shape='circle-outline' size='large' style={{ position: 'fixed', zIndex: 9999, right: 10, bottom: 10 }}>
+        <Button onClick={handleSaveAll} className={styles.saveBtn} shape='circle-outline' size='large'>
           <i className="fas fa-save"></i>
         </Button>
       </Popover>

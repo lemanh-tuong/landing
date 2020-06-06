@@ -14,6 +14,7 @@ export interface ButtonProps {
   initial?: boolean;
   text?: string;
   href?: string;
+  target?: 'default' | 'blank' | 'self';
   children?: React.ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -24,7 +25,7 @@ export interface ButtonProps {
 
 const Button = ({
   isBuilder = false, children, onEditable, backgroundColor,
-  text, href, className, style, color = '', type = 'white', size = 'default', dark, onClick
+  text, href, target = 'default', className, style, color = '', type = 'white', size = 'default', dark, onClick
 }: ButtonProps) => {
   const darkMode = dark ? styles['dark'] : '';
   const cssBackground: CSSProperties = backgroundColor ? { background: backgroundColor } : {};
@@ -43,7 +44,7 @@ const Button = ({
     );
   }
   return (
-    <a href={href} style={{ ...style, ...cssBackground, ...cssColor }} onClick={onClick && onClick}
+    <a href={href} target={target} style={{ ...style, ...cssBackground, ...cssColor }} onClick={onClick && onClick}
       className={`${styles.defaultStyle} ${styles[size]} ${styles[type]} ${styles.button} ${darkMode} ${className}`}>
       {text}
       {children}

@@ -120,7 +120,7 @@ const Carousel = <ItemT extends any>({
     <div className={`${styles.carousel} `}>
       <div className={`${styles.slideShow}
       ${fluid ? styles.fluid : ''}`}
-        onMouseDown={draggable ? dragStart : undefined}
+        onMouseDown={draggable && sliderImgs.length > 1 ? dragStart : undefined}
         onMouseUp={dragEnd} onMouseMove={dragging}
         onTouchStart={draggable ? touchStart : undefined}
         onTouchMove={touchMove} onTouchEnd={touchEnd}

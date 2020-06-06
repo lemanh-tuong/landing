@@ -49,7 +49,7 @@ const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defa
       return (
         <div onClick={onChange} className={`${styles.rollSelectItem} ${statusLazy === 'loading' ? styles.skeleton : ''}  ${isSelected ? styles.chose : ''}`} style={{ width: width, height: height }} key={uuidv4()}>
           {statusLazy === 'success' ? <div className={`${styles.image}`} style={{ backgroundImage: `url(${imgSrc})` }}></div> : null}
-          {isSelected ? <div className={styles.number}>{multiple ? orderSelected : <i className="fas fa-check"></i>}</div> : null}
+          {isSelected ? <div className={styles.number}>{multiple ? orderSelected + 1 : <i className="fas fa-check"></i>}</div> : null}
         </div>
       );
     }

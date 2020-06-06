@@ -14,8 +14,13 @@ import Radio3 from './Radio3/Radio3';
 import RichTextEditor from './RichTextEditor/RichTextEditor';
 import Select, { SelectProps } from './Select/Select';
 import SelectButtonType, { SelectButtonTypeProps } from './SelectButtonType/SelectButtonType';
+import SelectIcon, { SelectIconProps } from './SelectIcon/SelectIcon';
 
 export type RenderItem<T> = (arg: T) => ReactNode;
+
+export type InputFieldType = 'input' | 'radio2' | 'radio3' | 'number' | 'radio'
+  | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password'
+  | 'select' | 'select-button' | 'select-icon' | 'input-text-2' | 'rich-text-editor'
 
 export type FieldType = Partial<InputProps>
   & Partial<RadioProps>
@@ -27,9 +32,10 @@ export type FieldType = Partial<InputProps>
   & Partial<InputNumberProps>
   & Partial<InputText2Props>
   & Partial<SelectButtonTypeProps>
+  & Partial<SelectIconProps>
   & {
     hidden?: boolean;
-    fieldType: 'input' | 'radio2' | 'radio3' | 'number' | 'radio' | 'checkbox' | 'file' | 'color-picker' | 'color-picker-gradient' | 'password' | 'select' | 'select-button' | 'input-text-2' | 'rich-text-editor';
+    fieldType: InputFieldType;
     fieldName: string;
     fieldId: string | number;
     label: string;
@@ -86,6 +92,8 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return arg.optionsGroup ? <Select key={arg.fieldId} defaultSelect={arg.defaultSelect} label={arg.label} optionsGroup={arg.optionsGroup} onChange={onChange} /> : null;
     case 'select-button':
       return arg.options ? <SelectButtonType key={arg.fieldId} label={arg.label} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} /> : null;
+    case 'select-icon':
+      return arg.listIcon ? <SelectIcon label={arg.label} key={arg.fieldId} onChoose={onChange} defaultClassIconSelected={arg.defaultClassIconSelected} listIcon={arg.listIcon} /> : null;
     case 'color-picker-gradient':
       return <ColorPickerGradient key={arg.fieldId} label={arg.label} onChange={onChange} />;
     case 'rich-text-editor':

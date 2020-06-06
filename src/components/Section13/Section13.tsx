@@ -4,7 +4,7 @@ import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { FC } from 'react';
 
-interface TypeSlideSection13 {
+export interface TypeSlideSection13 {
   imgSrc: string;
 }
 

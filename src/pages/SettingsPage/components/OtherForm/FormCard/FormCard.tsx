@@ -1,8 +1,9 @@
-import { Button, Select } from 'antd';
+import { Select } from 'antd';
 import 'antd/es/style/css';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import { CardProps } from 'components/Card/Card';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import FormDropDown from 'components/FormDropDown/FormDropDown';
 import Icon from 'components/Icon/Icon';
 import PopUp from 'components/PopUp/PopUp';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
@@ -13,8 +14,8 @@ import thunkChangeInputCardForm from 'pages/SettingsPage/thunks/thunksCard/thunk
 import thunkChangeRadioCardForm from 'pages/SettingsPage/thunks/thunksCard/thunkChangeRadioCardForm/thunkChangeRadioCardForm';
 import thunkDeleteCard from 'pages/SettingsPage/thunks/thunksCard/thunkDeleteCard/thunkDeleteCard';
 import thunkMoveCard from 'pages/SettingsPage/thunks/thunksCard/thunkMoveCard/thunkMoveCard';
-import React, { FC, memo, useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import React, { FC, memo } from 'react';
+import { DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FormCard.module.scss';
@@ -34,17 +35,6 @@ const cardDefault: CardProps = {
 };
 
 const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
-  const [formShown, setFormShown] = useState(indexCard);
-
-  const handleFormShown = (nowIndexCard: number) => {
-    return () => {
-      if (formShown !== nowIndexCard) {
-        setFormShown(nowIndexCard);
-      } else {
-        setFormShown(-1);
-      }
-    };
-  };
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -78,17 +68,17 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
       };
     };
   };
+
   const handleAdd = () => {
     addCard({ data: cardDefault, nowIndexSection: nowIndexSection });
   };
+
   const handleDelete = (nowIndexCard: number) => {
     return () => {
       deleteCard({ indexSection: nowIndexSection, indexCard: nowIndexCard });
-      if (formShown === nowIndexCard) {
-        setFormShown(-1);
-      }
     };
   };
+
   const handleMove = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -100,9 +90,6 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     ) : [];
     moveChild({ data: newElements, nowIndexSection: nowIndexSection });
   };
-  const handleCloseAll = () => {
-    setFormShown(-1);
-  }
 
   const handleChangeBgIcon = (nowIndexCard: number) => {
     return (result: string) => changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result });
@@ -215,7 +202,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
           <Select
             showSearch
             style={{ width: 200 }}
-            placeholder="Select a person"
+            defaultValue={bgColorIcon}
             onChange={handleChangeBgIcon(nowIndexCard)}
           >
             <Select.Option value="transparent">Transparent</Select.Option>
@@ -230,52 +217,17 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     );
   };
 
-  const _renderLabel = (cardProperty: CardProps, nowIndexCard: number) => {
-    const { titleCard } = cardProperty;
-    return (
-      <Draggable index={nowIndexCard} draggableId={`card-${nowIndexCard}`} key={`card-${nowIndexCard}`}>
-        {provided => (
-          <div className={styles.cardFormItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.cardFormName} ${nowIndexCard === formShown ? styles.active : null}`}>
-              <div className={styles.cardDesc} onClick={handleFormShown(nowIndexCard)} >
-                <i className="fas fa-plus"></i>
-                <div className={styles.cardName}>{titleCard}</div>
-              </div>
-              <Button shape='round' size='large' onClick={handleDelete(nowIndexCard)} >
-                Delete
-              </Button>
-            </div>
-            {nowIndexCard === formShown && _renderSettingsBox(nowIndexCard)}
-          </div>
-        )}
-      </Draggable>
-    );
-  };
-
-  const _renderForm = () => {
-    return (
-      <div className={styles.editCardComponent}>
-        <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
-          <Droppable droppableId={sectionId} type="card drop">
-            {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
-                <div className={styles.listCard}>
-                  {element.cards?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
-                  <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
-                    <i className="fas fa-plus" />
-                  </Button>
-                </div>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
-    );
-  }
-
   return (
     <PopUp id={`card-${sectionId}`} type='antd' title={<h3>Form Card</h3>}>
-      {_renderForm()}
+      <FormDropDown
+        onAdd={handleAdd}
+        onDelete={handleDelete}
+        onMoveEnd={handleMove}
+        droppableId={sectionId} draggableId='card'
+        label={cards?.map(item => item.titleCard) as CardProps[]}
+        defaultFormShown={indexCard}
+        renderForm={_renderSettingsBox}
+      />
     </PopUp>
   )
 };

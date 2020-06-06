@@ -11,7 +11,6 @@ export interface NavReducer {
   readonly statusRequestNav: 'loading' | 'success' | 'failure';
   readonly logo: NavProps['logo'];
   readonly navItems: NavProps['navItems'];
-  readonly buttons: NavProps['buttons'];
   readonly messageRequestNav: string;
 }
 
@@ -20,7 +19,6 @@ const initialState: NavReducer = {
     imgSrc: logoImg
   },
   navItems: [],
-  buttons: [],
   messageRequestNav: '',
   statusRequestNav: 'loading'
 };
@@ -35,7 +33,6 @@ const navReducer = createReducer<NavReducer, ActionTypes<typeof actionGetDataNav
     statusRequestNav: 'success',
     logo: action.payload && action.payload.logo? {...action.payload.logo} : {...initialState.logo},
     navItems: action.payload && action.payload.navItems ? [...action.payload.navItems] : [...initialState.navItems],
-    buttons: action.payload && action.payload.buttons ? [...action.payload.buttons] : [...initialState.buttons]
   })),
   handleAction('@getDataNavFailure', (state, action) => ({
     ...state,
@@ -43,16 +40,16 @@ const navReducer = createReducer<NavReducer, ActionTypes<typeof actionGetDataNav
     messageRequestNav: action.payload
   })),
   handleAction('CHANGE_INPUT_NAV', (state, action) => {
-    const { fieldName, nowIndex, value, type } = action.payload as ActionChangeInputNavPayload;
-    const nowField = state[type][nowIndex];
+    const { fieldName, nowIndex, value } = action.payload as ActionChangeInputNavPayload;
+    const nowField = state.navItems[nowIndex];
     const newField = {
       ...nowField,
       [fieldName]: value,
     };
-    const newItems = [...state[type].slice(0, nowIndex), {...newField}, ...state[type].slice(nowIndex + 1, state[type].length)];
+    const newItems = [...state.navItems.slice(0, nowIndex), {...newField}, ...state.navItems.slice(nowIndex + 1, state.navItems.length)];
     return {
       ...state,
-      [type]: [...newItems]
+      navItems: [...newItems]
     };
   }),
   handleAction('CHANGE_COLOR_NAV', (state) => {
@@ -94,12 +91,12 @@ const navReducer = createReducer<NavReducer, ActionTypes<typeof actionGetDataNav
     };
   }),
   handleAction('DELETE_NAV_ITEM', (state, action) => {
-    const { indexDelete, type } = action.payload as ActionDeleteNavItemPayload;
-    const nowData = state[type];
+    const { indexDelete } = action.payload as ActionDeleteNavItemPayload;
+    const nowData = state.navItems;
     const newData = [...nowData.slice(0, indexDelete), ...nowData.slice(indexDelete + 1, nowData.length)];
     return {
       ...state,
-      [type]: [...newData]
+      navItems: [...newData]
     };
   })
 ]);

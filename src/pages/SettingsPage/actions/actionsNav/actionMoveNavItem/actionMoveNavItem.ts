@@ -2,7 +2,7 @@ import { NavProps } from 'components/Nav/Nav';
 import { createAction } from 'utils/functions/reduxActions';
 
 export interface ActionMoveNavItemPayload {
-  navData: NavProps['navItems'] | NavProps['buttons'];
+  navData: NavProps['navItems'];
   type: 'navItems' | 'buttons';
 }
 

@@ -1,3 +1,4 @@
+@import '../../styles/abstracts/variables.scss';
 .sectionHeader {
   margin-bottom: 50px;
 }
@@ -29,7 +30,8 @@
   width: 100%;
   height: calc(100% - 30px);
   margin-bottom: 30px;
-  border: 2px dashed black;
+  background-color: $color-primary;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,6 +41,6 @@
     font-size: 18px
   }
   &:hover {
-    transform: scale(0.8)
+    opacity: 0.8;
   }
 }

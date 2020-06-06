@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import styles from './LoginPage.module.scss';
-import { messageLogin, statusLogin } from './selectors';
+import { messageLogin, statusLogin, tokenLogin } from './selectors';
 import thunkContinueLog from './thunks/thunkContinueLog';
 import thunkLogin from './thunks/thunkLogin';
 
@@ -16,6 +16,7 @@ const LoginPage = () => {
   // Selector
   const msg = useSelector(messageLogin);
   const status = useSelector(statusLogin);
+  const token = useSelector(tokenLogin);
 
   const handleSignIn = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
@@ -50,11 +51,8 @@ const LoginPage = () => {
   };
 
   useMount(() => {
-    const tokenLogin = document.cookie.split(';').find(query => query.startsWith('token'))?.split('=')[1];
-    if (tokenLogin) {
-      loginContinue({ token: tokenLogin });
-    }
-  });
+    loginContinue({ token: token });
+  })
 
   if (status === 'loged') {
     return history.location.state ? <Redirect to={{ pathname: history.location.state as string }} /> : <Redirect to='/admin/builder' />;

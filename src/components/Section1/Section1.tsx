@@ -65,14 +65,12 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
     if (isBuilder) {
       return (
         <>
-          {hasDivider ? <Divide
-            dividerColor={dividerColor} align={alignDivider}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditDivider} />
-            : <Divide
-              dividerColor='transparent' align={alignDivider}
-              isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
-            />}
+          {
+            hasDivider && <Divide
+              dividerColor={dividerColor} align={alignDivider}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider} />
+          }
         </>
       );
     } else if (hasDivider) {

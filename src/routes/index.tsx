@@ -7,6 +7,7 @@ import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import ListPage from 'pages/ListPage/ListPage';
 import thunkGetListPageName from 'pages/ListPage/thunks/thunkGetListPageName/thunkGetListPageName';
 import LoginPage from 'pages/LoginPage/LoginPage';
+import { statusLogin } from 'pages/LoginPage/selectors';
 import MainPage from 'pages/MainPage/MainPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
@@ -14,18 +15,17 @@ import TestPage from 'pages/TestPage/TestPage';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { buttons, listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusRequestNav, statusRequestPage, token } from 'selectors';
+import { listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusRequestNav, statusRequestPage } from 'selectors';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const Routes = () => {
   const location = useLocation();
   // Selector
-  const tokenLogin = useSelector(token);
+  const isLogged = useSelector(statusLogin);
   const statusRequestNavBar = useSelector(statusRequestNav);
   const messageRequestNavBar = useSelector(messageRequestNav);
   const logo = useSelector(logoImg);
   const nav = useSelector(navItems);
-  const buttonGroupData = useSelector(buttons);
 
   const statusRequestPageName = useSelector(statusRequestPage);
   const messageRequestPageNameErr = useSelector(messageRequestPageErr);
@@ -37,7 +37,7 @@ const Routes = () => {
   const getListPageName = thunkGetListPageName();
 
   const _renderNavBar = () => {
-    return <Nav buttons={buttonGroupData} logo={logo} navItems={nav} />;
+    return <Nav logo={logo} navItems={nav} />;
   };
 
   const _renderHeader = () => {
@@ -54,7 +54,7 @@ const Routes = () => {
   const _renderContentSuccess = () => {
     return (
       <>
-        {!location.pathname.includes('/admin') && !location.pathname.includes('/list') && !location.pathname.includes('/gallery') && _renderHeader()}
+        {!location.pathname.includes('/admin') && !location.pathname.includes('/error') && !location.pathname.includes('/list') && !location.pathname.includes('/gallery') && _renderHeader()}
         <Switch>
           <Route exact path={`/(/|${paths.join('|')})/`}>
             <MainPage />
@@ -68,7 +68,7 @@ const Routes = () => {
           <Route exact path="/test" >
             <TestPage />
           </Route>
-          <PrivateRoute token={tokenLogin} pathRedirect='/admin/login'
+          <PrivateRoute condition={isLogged === 'loged'} pathRedirect='/admin/login'
             component={
               <>
                 <Route exact path="/admin/builder">
@@ -86,11 +86,8 @@ const Routes = () => {
               </>
             }
           />
-          {/* <Route exact path="/admin/builder">
-            <SettingsPage />
-          </Route> */}
           <Route>
-            <div>404</div>
+            <ErrorPage />
           </Route>
         </Switch>
       </>

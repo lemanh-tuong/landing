@@ -126,7 +126,7 @@ class PopUp extends PureComponent<PopUpProps> {
         );
       case 'antd':
         return (
-          <Modal title={title} style={style} closeIcon={<i className="fas fa-times"></i>} bodyStyle={{ height: '50vh', overflow: 'auto', border: '1px solid' }} centered visible={visible} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.popUpContent}>
+          <Modal title={title} style={style} closeIcon={<i className="fas fa-times"></i>} bodyStyle={{ height: '50vh', overflow: 'auto', border: '1px solid #eee' }} centered visible={visible} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.popUpContent}>
             {children}
           </Modal>
         );

@@ -38,6 +38,7 @@ import { ActionChangeHrefPayload } from '../actions/actionsSlide&MockUp/actionCh
 import { ActionChangeTypeMockupPayload } from '../actions/actionsSlide&MockUp/actionChangeTypeMockup/actionChangeTypeMockup';
 import { ActionChangeVideoUrlPayload } from '../actions/actionsSlide&MockUp/actionChangeVideoUrl/actionChangeVideoUrl';
 import { ActionDeleteSlidePayload } from '../actions/actionsSlide&MockUp/actionDeleteSlide/actionDeleteSlide';
+import { ActionMoveSlidePayload } from '../actions/actionsSlide&MockUp/actionMoveSlide/actionMoveSlide';
 import { ActionResponsiveSlidesPayload } from '../actions/actionsSlide&MockUp/actionResponsiveSlides/actionResponsiveSlides';
 import { Option } from '../SettingsPage';
 
@@ -590,6 +591,18 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     };
+  }),
+  handleAction('MOVE_SLIDE', (state, action) => {
+    const { nowIndexSection, sliderImgs } = action.payload as ActionMoveSlidePayload;
+    const nowElement = state.elements[nowIndexSection];
+    const newElement = {
+      ...nowElement,
+      sliderImgs: sliderImgs ? [...sliderImgs] : []
+    };
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
   }),
 
   //Rate

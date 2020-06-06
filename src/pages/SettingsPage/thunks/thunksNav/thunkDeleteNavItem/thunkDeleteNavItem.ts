@@ -3,8 +3,8 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkDeleteNavItem = ThunkAction<typeof actionDeleteNavItem>;
 
-const thunkDeleteNavItem = ({indexDelete, type}: ActionDeleteNavItemPayload): ThunkDeleteNavItem => dispatch => {
-  dispatch(actionDeleteNavItem({indexDelete: indexDelete, type: type}));
+const thunkDeleteNavItem = ({indexDelete}: ActionDeleteNavItemPayload): ThunkDeleteNavItem => dispatch => {
+  dispatch(actionDeleteNavItem({indexDelete: indexDelete}));
 };
 
 export default createDispatchAction(thunkDeleteNavItem);

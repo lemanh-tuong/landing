@@ -3,6 +3,7 @@ import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import PopUp from 'components/PopUp/PopUp';
 import { sections } from 'pages/SettingsPage/selectors';
 import { Option } from 'pages/SettingsPage/SettingsPage';
+import thunkChangeCheckBox from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeCheckBox/thunkChangeCheckBox';
 import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeColor/thunkChangeColor';
 import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
 import thunkChangeRadio from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeRadio/thunkChangeRadio';
@@ -21,12 +22,13 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
   const element = useSelector(sections)[nowIndexSection];
 
   //Destructoring
-  const { mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle } = element;
+  const { mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, hasDivider, dividerColor, alignDivider } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
   const changeRadio = thunkChangeRadio();
   const changeColor = thunkChangeColor();
+  const changeCheckBox = thunkChangeCheckBox();
 
   //Handle
   const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
@@ -38,6 +40,10 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
       if (fieldType === 'radio' || fieldType === 'radio3') {
         // Result = value of radio's checking
         changeRadio({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
+      }
+      if (fieldType === 'checkbox') {
+        // Result = true | false
+        changeCheckBox({ fieldName: fieldName, checked: result, nowIndexSection: nowIndexSection });
       }
       if (fieldType === 'color-picker') {
         // Result = {hex: string, rgba: string}
@@ -94,10 +100,48 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
               fieldId: 'section-1-field-3',
               defaultColor: colorMainTitle ?? '#000',
             },
+            {
+              fieldType: 'checkbox',
+              fieldName: 'hasDivider',
+              label: 'Has Divider',
+              fieldId: 'section-3-field-7',
+              defaultChecked: !!hasDivider
+            },
+            {
+              fieldType: 'color-picker',
+              fieldName: 'dividerColor',
+              label: 'Divider Color',
+              fieldId: 'section-3-field-8',
+              defaultValue: dividerColor,
+              hidden: !hasDivider,
+            },
+            {
+              fieldType: 'radio',
+              fieldName: 'alignDivider',
+              label: 'Align Divider',
+              fieldId: 'align-divider-section-3-field-8',
+              defaultCheckedValue: alignDivider ?? 'left',
+              hidden: !hasDivider,
+              data: [
+                {
+                  name: 'alignDivider',
+                  value: 'left',
+                },
+                {
+                  name: 'alignDivider',
+                  value: 'center',
+                },
+                {
+                  name: 'alignDivider',
+                  value: 'right',
+                }
+              ]
+            }
           ]}
           onChange={handleChangeForm}
         />
       </div>
+
     </PopUp>
   );
 };

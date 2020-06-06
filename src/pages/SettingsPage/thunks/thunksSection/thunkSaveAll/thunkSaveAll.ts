@@ -14,7 +14,7 @@ export interface ThunkSaveAllArg {
 }
 const thunkSaveAll = (): ThunkSaveAll => async (dispatch, getState) => {
   const { navReducer, settingMainContentReducers } = getState();
-  const  { navItems, logo, buttons } = navReducer;
+  const  { navItems, logo } = navReducer;
   const { pageName, elements, id, pathName } = settingMainContentReducers;
   await addToPage({
     id,
@@ -22,7 +22,7 @@ const thunkSaveAll = (): ThunkSaveAll => async (dispatch, getState) => {
     elements,
     pageName,
   });
-  await writeFirebase({ref: 'nav', value: {logo: logo, navItems: navItems, buttons: buttons}});
+  await writeFirebase({ref: 'nav', value: {logo: logo, navItems: navItems }});
   dispatch(actionSaveAll());
 };
 

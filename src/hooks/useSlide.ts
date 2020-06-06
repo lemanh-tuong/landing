@@ -11,6 +11,9 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   const [nowPosition, setMousePosition] = useState(0);
   const [reseting, setResetting] = useState(false);
   const nextSlide = useCallback(() => {
+    if(imgsLength === 1) {
+      return false;
+    }
     setAnimated(true);
     if (currentSlide > imgsLength - 2) {
       setCurrentSlide(currentSlide + 1);
@@ -26,6 +29,9 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   }, [currentSlide, imgsLength]);
 
   const prevSlide = () => {
+    if(imgsLength === 1) {
+      return false;
+    }
     setAnimated(true);
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
@@ -118,6 +124,10 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   useEffect(() => {
     setItems(itemShow);
   }, [itemShow]);
+
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [imgsLength])
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);

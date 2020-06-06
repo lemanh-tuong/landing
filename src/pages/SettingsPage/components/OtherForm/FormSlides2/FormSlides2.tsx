@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import img1 from 'assets/img/settings/advanced-rating-and-reviews.png';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
+import FormDropDown from 'components/FormDropDown/FormDropDown';
 import { Section3Props } from 'components/Section3/Section3';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
 import { sections } from 'pages/SettingsPage/selectors';
@@ -9,8 +10,8 @@ import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thun
 import thunkAddSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkAddSlide2/thunkAddSlide2';
 import thunkDeleteSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkDeleteSlide2/thunkDeleteSlide2';
 import thunkMoveSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkMoveSlide2/thunkMoveSlide2';
-import React, { FC, useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import React, { FC } from 'react';
+import { DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FormSlide2 from '../FormSlide2/FormSlide2';
@@ -33,28 +34,6 @@ const slidePropertyDefault: Omit<Section3Props, 'sectionid'> = {
 };
 
 const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) => {
-  // State;
-  const [nowTab, setTab] = useState<'general' | 'detail'>('general');
-  const [formShown, setFormShown] = useState(-1);
-
-  const _handleChangeTab = (tabName: 'general' | 'detail') => {
-    return () => setTab(tabName);
-  };
-
-  const handleFormShown = (nowIndexSlide: number) => {
-    return () => {
-      if (nowIndexSlide !== formShown) {
-        setFormShown(nowIndexSlide);
-      } else {
-        setFormShown(-1);
-      }
-    }
-  };
-
-  const handleCloseAll = () => {
-    setFormShown(-1)
-  }
-
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -68,8 +47,8 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
   const deleteSlide = thunkDeleteSlide2();
   const moveSlide = thunkMoveSlide2();
 
-  const handleAddSlide = (nowIndexSlide: number) => {
-    return () => addSlide({ slideProperty: slidePropertyDefault, nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
+  const handleAddSlide = () => {
+    addSlide({ slideProperty: slidePropertyDefault, nowIndexSection: nowIndexSection, nowIndexSlide: sliderSection?.length || 0 });
   };
 
   const handleDelete = (nowIndexSlide: number) => {
@@ -104,28 +83,6 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
   const _renderSettingForm = (nowIndexSlide: number) => {
     return <FormSlide2 nowIndexSection={nowIndexSection} nowIndexSlide={nowIndexSlide} />
   }
-
-  const _renderLabel = (sliderProperty: Section3Props, nowIndexSlide: number) => {
-    const { mainTitle } = sliderProperty;
-    return (
-      <Draggable index={nowIndexSlide} draggableId={`card-${nowIndexSlide}`} key={`slide2-${nowIndexSlide}`}>
-        {provided => (
-          <div className={styles.formSlideItem} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.sliderSection} ${nowIndexSlide === formShown ? styles.active : ''}`} onClick={handleFormShown(nowIndexSlide)}>
-              <div className={styles.sectionDesc} >
-                <i className="fas fa-plus"></i>
-                <div className={styles.sectionMainTitle}>{mainTitle}</div>
-              </div>
-              <Button shape='round' size='large' onClick={handleDelete(nowIndexSlide)} >
-                Delete
-            </Button>
-            </div>
-            {nowIndexSlide === formShown && _renderSettingForm(nowIndexSlide)}
-          </div>
-        )}
-      </Draggable>
-    );
-  };
 
   const _renderGeneralSettings = () => {
     return (
@@ -172,40 +129,18 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
     );
   };
 
-  const _renderDetailSettings = () => {
-    return (
-      <div className={styles.detailSettings}>
-        <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
-          <Droppable droppableId={'form-slides-2'} type="sliderSection drop">
-            {provided => (
-              <div className={styles.listLabel} ref={provided.innerRef} {...provided.droppableProps}>
-                {sliderSection?.map((sectionProperty, index) => _renderLabel(sectionProperty, index))}
-                <Button onClick={sliderSection && handleAddSlide(sliderSection?.length)} shape='circle' size='large' style={{ marginTop: 10 }}>
-                  <i className="fas fa-plus" />
-                </Button>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
-    );
-  };
-
   return (
     <div className={styles.formSlides}>
-      <div className={styles.formSlidesTop}>
-        <div className={`${styles.tabList} ${nowTab === 'general' ? styles.tab1 : styles.tab2}`}>
-          <div className={styles.tab} onClick={_handleChangeTab('general')}>
-            General Settings
-          </div>
-          <div className={styles.tab} onClick={_handleChangeTab('detail')}>
-            Detail Settings
-          </div>
-        </div>
-      </div>
-      <div className={styles.formSlidesContent}>
-        {nowTab === 'general' ? _renderGeneralSettings() : _renderDetailSettings()}
-      </div>
+      <FormDropDown
+        draggableId='slide-2'
+        droppableId='slide-2'
+        label={sliderSection?.map(item => item.mainTitle) as string[]}
+        onAdd={handleAddSlide}
+        onMoveEnd={handleMove}
+        onDelete={handleDelete}
+        renderForm={_renderSettingForm}
+      />
+      {_renderGeneralSettings()}
     </div>
   );
 };

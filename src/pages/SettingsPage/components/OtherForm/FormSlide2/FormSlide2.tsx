@@ -200,7 +200,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
           <div className={styles.image} style={{ backgroundImage: `url('${imageSectionCol.imgSrc}')` }}></div>
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
-        <Button shape='round' size='large' type='dashed' style={{ margin: '10px 0' }} onClick={handleAddSlide}>
+        <Button shape='round' size='large' type='default' style={{ margin: '10px 0' }} onClick={handleAddSlide}>
           Add Slide
        </Button>
       </Form>

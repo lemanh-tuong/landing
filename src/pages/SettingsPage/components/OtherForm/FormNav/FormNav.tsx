@@ -1,14 +1,15 @@
+import PopUp from 'components/PopUp/PopUp';
 import React from 'react';
-import FormEditButtonNav from './FormEditButtonNav/FormEditButtonNav';
 import FormEditLogo from './FormEditLogo/FormEditLogo';
 import FormEditNavLink from './FormEditNavLink/FormEditNavLink';
 
 const FormNav = () => {
   return (
-    <div className="FormNav" style={{ maxWidth: 500, width: '100%' }}>
-      <FormEditLogo />
-      <FormEditNavLink />
-      <FormEditButtonNav />
+    <div className="FormNav">
+      <PopUp id="form-nav" type='antd' title={<h3>Form Nav</h3>}>
+        <FormEditLogo />
+        <FormEditNavLink />
+      </PopUp>
     </div>
   );
 };

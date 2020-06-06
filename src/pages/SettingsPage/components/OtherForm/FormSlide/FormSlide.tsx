@@ -2,35 +2,38 @@ import { Button } from 'antd';
 import mockUpMacContent1 from 'assets/img/heroslider/3.jpg';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { SlideType } from 'components/MockUp/MockUp';
+import { TypeSlideSection13 } from 'components/Section13/Section13';
+import { TypeSlideSection5 } from 'components/Section5/Section5';
+import { sections } from 'pages/SettingsPage/selectors';
 import thunkAddSlide from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkAddSlide/thunkAddSlide';
 import thunkChangeHasVideo from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeHasVideo/thunkChangeHasVideo';
 import thunkChangeHref from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeHref/thunkChangeHref';
 import thunkChangeVideoUrl from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkChangeVideoUrl/thunkChangeVideoUrl';
-import thunkDeleteSlide from 'pages/SettingsPage/thunks/thunksSlide&Mockup/thunkDeleteSlide/thunkDeleteSlide';
 import React, { FC, memo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FormSlide.module.scss';
 
 export interface FormSlideProps {
-  slideProperty: SlideType & { [key: string]: any };
   nowIndexSection: number;
   nowIndexSlide: number;
 }
 
 
-const defaultSlide = {
+export const defaultSlide = {
   imgSrc: mockUpMacContent1,
 };
 
-const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowIndexSlide }) => {
+const FormSlide: FC<FormSlideProps> = ({ nowIndexSection, nowIndexSlide }) => {
   // Destructoring
-  const { imgSrc, hasVideo, videoUrl, href } = slideProperty;
+  const elements = useSelector(sections);
+  const { sliderImgs } = elements[nowIndexSection];
+  const { imgSrc, hasVideo, videoUrl, href } = sliderImgs?.[nowIndexSlide] as SlideType & TypeSlideSection13 & TypeSlideSection5;
 
   // Dispatch
   const changeUrl = thunkChangeVideoUrl();
   const changeHasVideo = thunkChangeHasVideo();
   const changeHref = thunkChangeHref();
-  const deleteSlide = thunkDeleteSlide();
   const addSlide = thunkAddSlide();
 
   //Handle
@@ -48,17 +51,12 @@ const FormSlide: FC<FormSlideProps> = ({ slideProperty, nowIndexSection, nowInde
     };
   };
 
-  const handleDelete = () => {
-    deleteSlide({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
-  };
-
   const handleAddSlide = () => {
     addSlide({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, sliderProperty: defaultSlide });
   };
 
   return (
     <div className={styles.formSlide} style={{ borderRadius: 5, border: '1px solid' }}>
-      <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />
       <Form
         fields={[
           {

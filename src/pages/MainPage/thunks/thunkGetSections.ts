@@ -12,12 +12,13 @@ const thunkGetSections = ({pathName}: ThunkGetSectionsArg): ThunkGetSections => 
   const { listPageReducers } = getState();
   const { data } = listPageReducers;
   const res = data.find(item => item.pathName === pathName) as PageGeneralData;
+  console.log(res);
   dispatch(getDataSections.request(null));
   try {
     const data = await readFireBase(`/PagesDetail/${res.pageName}`);
     dispatch(getDataSections.success(data));
   } catch(err) {
-    dispatch(getDataSections.failure('Error'));
+    dispatch(getDataSections.failure(err.message));
   }
 };
 export default createDispatchAction(thunkGetSections);

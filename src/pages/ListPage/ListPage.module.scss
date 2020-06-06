@@ -1,3 +1,4 @@
+@import '../../styles/abstracts/variables.scss';
 .ListPage {
   display: flex;
   flex-wrap: wrap;
@@ -32,18 +33,10 @@
   font-size: 24px;
   cursor: pointer;
   position: relative;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px dashed black;
-    transition: 0.3s all;
-  }
-  &:hover:before {
-    transform: scale(0.8);
-    border-color: red;
+  background-color: $color-primary;
+  color: $color-white;
+  transition: 0.3s all;
+  &:hover {
+    opacity: 0.8;
   }
 }

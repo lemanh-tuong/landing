@@ -1,6 +1,7 @@
 import 'antd/es/style/css';
 import { CardProps } from 'components/Card/Card';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
+import FormDropDown from 'components/FormDropDown/FormDropDown';
 import Icon from 'components/Icon/Icon';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
 import { sections } from 'pages/SettingsPage/selectors';
@@ -8,8 +9,8 @@ import thunkChangeColorTextCard2 from 'pages/SettingsPage/thunks/thunksCard2/thu
 import thunkChangeInputCard2Form from 'pages/SettingsPage/thunks/thunksCard2/thunkChangeInputCard2Form/thunkChangeInputCard2Form';
 import thunkChangeRadioCard2Form from 'pages/SettingsPage/thunks/thunksCard2/thunkChangeRadioCard2Form/thunkChangeRadioCard2Form';
 import thunkMoveCard2 from 'pages/SettingsPage/thunks/thunksCard2/thunkMoveCard2/thunkMoveCard2';
-import React, { FC, memo, useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import React, { FC, memo } from 'react';
+import { DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FormCard2.module.scss';
@@ -22,26 +23,11 @@ export interface FormChangeCardProps {
 }
 
 const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
-  const [formShown, setFormShown] = useState(indexCard);
-
-  const handleFormShown = (nowIndexCard: number) => {
-    return () => {
-      if (formShown !== nowIndexCard) {
-        setFormShown(nowIndexCard);
-      } else {
-        setFormShown(-1);
-      }
-    };
-  };
-
-  const handleCloseAll = () => {
-    setFormShown(-1);
-  }
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
   // Destructoring
-  const { sectionId, card2s } = element;
+  const { card2s } = element;
 
   // Dispatch
   const changeInputCardForm = thunkChangeInputCard2Form();
@@ -191,44 +177,21 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     );
   };
 
-  const _renderLabel = (cardProperty: CardProps, nowIndexCard: number) => {
-    const { titleCard } = cardProperty;
-    return (
-      <Draggable index={nowIndexCard} draggableId={`card-2-${nowIndexCard}`} key={`card-2-${nowIndexCard}`}>
-        {provided => (
-          <div className={styles.cardFormItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.cardFormName} ${nowIndexCard === formShown ? styles.active : null}`}>
-              <div className={styles.cardDesc} onClick={handleFormShown(nowIndexCard)} >
-                <i className="fas fa-plus"></i>
-                <div className={styles.cardName}>{titleCard}</div>
-              </div>
-            </div>
-            {nowIndexCard === formShown && _renderSettingsBox(nowIndexCard)}
-          </div>
-        )}
-      </Draggable>
-    );
-  };
-
-  const _renderForm = () => {
-    return (
-      <div className={styles.editCardComponent}>
-        <DragDropContext onDragEnd={handleMove} onDragStart={handleCloseAll}>
-          <Droppable droppableId={sectionId} type="card drop">
-            {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
-                <div className={styles.listCard}>
-                  {element.card2s?.map((cardProperty: CardProps, index: number) => _renderLabel(cardProperty, index))}
-                </div>
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
-    );
-  }
-
-  return _renderForm()
+  return (
+    <div className={styles.formCard2}>
+      <FormDropDown
+        draggableId='card-2'
+        droppableId='card-2'
+        label={card2s?.map(item => item.titleCard) as string[]}
+        onAdd={() => { }}
+        onDelete={(index: number) => () => { }}
+        onMoveEnd={handleMove}
+        renderForm={_renderSettingsBox}
+        defaultFormShown={indexCard}
+        styleDeleteIcon={{ display: "none" }}
+      />
+    </div>
+  );
 };
 
 export default memo(FormChangeCard);

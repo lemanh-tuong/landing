@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
 import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
@@ -46,8 +46,12 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
   const _renderPopOverSetting = () => {
     return (
       <>
-        <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
-        <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+        <Popover content='Delete Page' >
+          <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
+        </Popover>
+        <Popover content="Setting General Data Page">
+          <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+        </Popover>
         {_renderAlertConfirm(pageName, nowIndexPage)}
       </>
     );

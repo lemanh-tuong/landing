@@ -1,7 +1,6 @@
 import readFireBase from 'firebase/database/readFireBase';
 import { removeFirebase } from 'firebase/database/removeFirebase';
 import updateFireBase from 'firebase/database/updateFireBase';
-import { writeFirebase } from 'firebase/database/writeFirebase';
 import { PageDetailData, PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { actionChangeGeneralDataPage, ActionChangeGeneralDataPagePayload } from 'pages/SettingsPage/actions/actionPage/actionChangeGeneralDataPage/actionChangeGeneralDataPage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
@@ -19,20 +18,19 @@ const thunkChangeGeneralDataPage = ({nowIndexPage, newPageName, newPathName, id}
   };
   try {
     const res = await readFireBase(`/PagesDetail/${data[nowIndexPage].pageName}`);
-    const { id, elements } = res as PageDetailData;
     await Promise.all([
       updateFireBase({
         ref: `ListPage/${nowIndexPage}`,
         updateValue: newPageData as PageGeneralData
       }),
       removeFirebase({ref: `/PagesDetail/${data[nowIndexPage].pageName}`}),
-      writeFirebase({
+      updateFireBase({
         ref: `/PagesDetail/${newPageName}`,
-        value: {
-          id: id,
+        updateValue: {
+          id: res.id || '',
           pageName: newPageName,
           pathName: newPathName,
-          elements: elements,
+          elements: res.elements || []
         } as PageDetailData
       })
     ])

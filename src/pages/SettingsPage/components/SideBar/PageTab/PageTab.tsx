@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import Loading from 'components/Loading/Loading';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
@@ -49,9 +49,15 @@ const PageTab = () => {
   const _renderPopOverSetting = (pageName: string, id: string, index: number) => {
     return (
       <>
-        <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show('duplicate-page-form')} />
-        <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show('alert-confirm')} />
-        <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+        <Popover content="Duplicate Page" >
+          <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show('duplicate-page-form')} />
+        </Popover>
+        <Popover content="Delete Page" >
+          <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show('alert-confirm')} />
+        </Popover>
+        <Popover content="Settings General Data Page" >
+          <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+        </Popover>
         {_renderAlertConfirm(pageName, index)}
       </>
     );

@@ -1,6 +1,6 @@
-import { Button } from 'antd';
 import authorAvatar from 'assets/img/web_icons/envato.svg';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
+import FormDropDown from 'components/FormDropDown/FormDropDown';
 import Icon from 'components/Icon/Icon';
 import { RateProps } from 'components/Rate/Rate';
 import { reorder } from 'pages/SettingsPage/DragDropFunction';
@@ -9,8 +9,8 @@ import thunkAddRate from 'pages/SettingsPage/thunks/thunksRate/thunkAddRate/thun
 import thunkChangeInputRateForm from 'pages/SettingsPage/thunks/thunksRate/thunkChangeInputRateForm/thunkChangeInputRateForm';
 import thunkDeleteRate from 'pages/SettingsPage/thunks/thunksRate/thunkDeleteRate/thunkDeleteRate';
 import thunkMoveRate from 'pages/SettingsPage/thunks/thunksRate/thunkMoveRate/thunkMoveRate';
-import React, { FC, useState } from 'react';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import React, { FC } from 'react';
+import { DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './FormRate.module.scss';
@@ -32,22 +32,6 @@ const rateDefault: RateProps = {
 };
 
 const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
-  const [formShown, setFormShown] = useState(nowIndexRate);
-
-  const handleFormShown = (rateProperty: RateProps, nowIndexRate: number) => {
-    return () => {
-      if (formShown !== nowIndexRate) {
-        setFormShown(nowIndexRate);
-      } else {
-        setFormShown(-1);
-      }
-    };
-  };
-
-  const handleCloseAll = () => {
-    setFormShown(-1)
-  }
-
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -67,9 +51,6 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
   const handleDelete = (nowIndexRate: number) => {
     return () => {
       deleteRate({ nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate });
-      if (formShown === nowIndexRate) {
-        setFormShown(-1);
-      }
     };
   };
 
@@ -92,29 +73,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
       result.destination.index
     ) : [];
     moveRate({ data: newElements, nowIndexSection: nowIndexSection });
-  };
-
-  const _renderLabel = (rateProperty: RateProps, nowIndexRate: number) => {
-    const { rateContent } = rateProperty;
-    return (
-      <Draggable index={nowIndexRate} draggableId={`rate-${nowIndexRate}`} key={`rate-${nowIndexRate}`}>
-        {provided => (
-          <div className={`${styles.rateFormItem}`} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.rateFormName} ${nowIndexRate === formShown ? styles.active : ''}`}>
-              <div className={styles.rateDesc} onClick={handleFormShown(rateProperty, nowIndexRate)} >
-                <i className="fas fa-plus"></i>
-                <div className={styles.rateName}>{rateContent}</div>
-              </div>
-              <Button shape='round' size='large' onClick={handleDelete(nowIndexRate)} >
-                Delete
-            </Button>
-            </div>
-            {nowIndexRate === formShown && _renderSettingsBox(nowIndexRate)}
-          </div>
-        )}
-      </Draggable>
-    );
-  };
+  }
 
   const _renderSettingsBox = (nowIndexRate: number) => {
     const { authorAvatar, rateContent, authorName, purpose, stars } = rateList?.[nowIndexRate] as RateProps;
@@ -151,7 +110,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
             defaultNumber: stars,
           }
         ]}
-        onChange={handleChangeForm(formShown)}
+        onChange={handleChangeForm(nowIndexRate)}
       >
         <Link className={styles.link} to={`/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}>
           <Icon iconImg={authorAvatar} bgColorIcon={'gradient-pink-orange'} />
@@ -163,20 +122,16 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
 
   return (
     <div className={styles.editRateComponent}>
-      <DragDropContext onDragEnd={handleMoveRate} onDragStart={handleCloseAll}>
-        <Droppable droppableId={sectionId} type="rate drop">
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner} >
-              <div className={styles.listRate}>
-                {rateList?.map((rateProperty: RateProps, index: number) => _renderLabel(rateProperty, index))}
-                <Button onClick={handleAdd} shape='circle' size='large' style={{ marginTop: 10 }}>
-                  <i className="fas fa-plus" />
-                </Button>
-              </div>
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <FormDropDown
+        draggableId='rate'
+        droppableId='rate'
+        onDelete={handleDelete}
+        onAdd={handleAdd}
+        onMoveEnd={handleMoveRate}
+        label={rateList?.map(item => item.rateContent) || []}
+        renderForm={_renderSettingsBox}
+        defaultFormShown={nowIndexRate}
+      />
     </div>
   );
 };

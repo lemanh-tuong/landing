@@ -1,11 +1,14 @@
+import { Button } from 'antd';
 import Loading from 'components/Loading/Loading';
+import { statusLogin } from 'pages/LoginPage/selectors';
 import React, { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { Redirect, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import configureApp from '../../../configureApp.json';
 import RenderSection from './components/RenderSection/RenderSection';
-import { listSections, messageRequestMainPageSections, statusRequestMainPageSections } from './selectors';
+import { listSections, messageRequestMainPageSections, nowPageId, nowPageName, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
 
 const HomePage = () => {
@@ -15,6 +18,9 @@ const HomePage = () => {
   const sections = useSelector(listSections);
   const messageRequest = useSelector(messageRequestMainPageSections);
   const statusRequest = useSelector(statusRequestMainPageSections);
+  const id = useSelector(nowPageId);
+  const pageName = useSelector(nowPageName);
+  const isLogged = useSelector(statusLogin);
 
   //Dispatch
   const getData = thunkGetSections();
@@ -24,9 +30,20 @@ const HomePage = () => {
     return (
       <>
         {sections.map(element => <Fragment key={element.sectionId}>{RenderSection(element)}</Fragment>)}
+        {isLogged === 'loged' && _renderReEdit()}
       </>
     );
   };
+
+  const _renderReEdit = () => {
+    return (
+      <Button shape='circle' style={{ position: 'fixed', right: 10, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
+        <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`}>
+          <i style={{ color: 'white' }} className="far fa-edit"></i>
+        </Link>
+      </Button>
+    )
+  }
 
   const _renderMainContentSwitch = () => {
     switch (statusRequest) {
@@ -42,7 +59,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getData({ pathName: pathName as string });
+    getData({ pathName: pathName || '/' });
     window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);

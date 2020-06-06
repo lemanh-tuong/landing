@@ -66,11 +66,11 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
       return (
         <>
           {rateList.length > 0 ? rateList.map((rateProperty, index) => (
-            <Col key={index} cols={[12, 6, 12 / rateList.length >= 3 ? Math.floor(12 / rateList.length) : 3]}>
+            <Col key={index} cols={[12, 6, 12 / rateList.length >= 4 ? Math.floor(12 / rateList.length) : 4]}>
               <div className={styles.rateEdit}>
                 {_renderRate(rateProperty, index)}
                 <div className={styles.btnGroup}>
-                  <ButtonAntd className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddRate(index)} />
+                  {/* <ButtonAntd className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddRate(index)} /> */}
                   <ButtonAntd className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle' size='large' onClick={_handleDeleteRate(index)} />
                 </div>
               </div>
@@ -79,7 +79,7 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
             <Col cols={[12, 12, 12]}>
               <div className={`${styles.rateEdit} ${styles.rateAdd}`} onClick={_handleAddRate(rateList.length + 1)}>
                 <p>
-                  Add Card
+                  Add Item
                 </p>
               </div>
             </Col>

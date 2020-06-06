@@ -2,18 +2,17 @@ import React, { FC, ReactNode } from 'react';
 import { Redirect, useHistory } from 'react-router';
 
 export interface PrivateRouteProps {
-  token: string;
+  condition: boolean;
   component: ReactNode;
   pathRedirect: string;
 }
 
-const PrivateRoute: FC<PrivateRouteProps> = ({ token, component, pathRedirect }) => {
+const PrivateRoute: FC<PrivateRouteProps> = ({ condition, component, pathRedirect }) => {
   const history = useHistory();
-  const tokenCookie = document.cookie.split(';').find(query => query.includes('token'))?.split('=')[1];
 
   return (
     <>
-      {token === tokenCookie ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}
+      {condition ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}
     </>
   );
 };
