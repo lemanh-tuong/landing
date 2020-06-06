@@ -19,7 +19,22 @@
       }
     }
   }
-
+  &.imageButton {
+    display: flex;
+    flex-wrap: wrap;
+    & .rollSelectItem {
+      min-width: 170px;
+      max-width: 200px;
+      height: 50px;
+      flex: 1 1 auto;
+      position: relative;
+      margin: 10px;
+      &.chose .image {
+        background-color: rgb(76, 76, 76);;
+        background-blend-mode: overlay;
+      }
+    }
+  }
   .image {
     background-size: cover;
     background-position: center;
@@ -65,7 +80,7 @@
   width: 100%;
   height: 100%;
   background-position: center;
-  background-size: cover;
+  // background-size: cover;
   position: relative;
   background-repeat: no-repeat;
 }

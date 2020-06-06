@@ -3,6 +3,7 @@ import { sections } from 'pages/SettingsPage/selectors';
 import thunkChangeInputButton2 from 'pages/SettingsPage/thunks/thunksButton2/thunkChangeInputButton2/thunkChangeInputButton2';
 import React, { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export type FormButton2Field = FieldType;
 
@@ -29,18 +30,10 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
       }
     };
   };
-
   return (
     <div className="formButton2">
       <Form
         fields={[
-          {
-            fieldType: 'input',
-            fieldName: 'imgSrc',
-            label: 'Image Src',
-            defaultValue: nowButton?.imgSrc,
-            fieldId: 1
-          },
           {
             fieldType: 'input',
             fieldName: 'href',
@@ -50,7 +43,11 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
           },
         ]}
         onChange={handleChangeForm}
-      />
+      >
+        <Link to={`/gallery?type=imageButton&nowIndexSection=${nowIndexSection}&nowIndexButton=${nowIndexButton}&multiple=false`}>
+          <img src={nowButton?.imgSrc || ''} alt='button' />
+        </Link>
+      </Form>
     </div>
   );
 };

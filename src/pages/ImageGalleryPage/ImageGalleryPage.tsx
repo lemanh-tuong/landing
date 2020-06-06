@@ -14,10 +14,11 @@ import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
-import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, id, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
+import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, id, imageButtonGallery, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
 import thunkChangeAvatarAuthor from './thunks/thunkChangeAvatarAuthor/thunkChangeAvatarAuthor';
 import thunkChangeIconCard2 from './thunks/thunkChangeIconCard2/thunkChangeIconCard2';
 import thunkChangeIconInCol from './thunks/thunkChangeIconInCol/thunkChangeIconInCol';
+import thunkChangeImageButton from './thunks/thunkChangeImageButton/thunkChangeImageButton';
 import thunkChangeLogoImg from './thunks/thunkChangeLogoImg/thunkChangeLogoImg';
 
 // type GetQueryType = 'type' | 'nowIndexSection' | 'nowIndexCard' | 'nowIndexSlide' | 'nowIndexRate' | 'multiple';
@@ -36,7 +37,7 @@ const ImageGalleryPage = () => {
   const iconImgInCol = useSelector(iconImgInColGallery);
   const sliderSectionImg = useSelector(sliderSectionImgGallery);
   const logoImg = useSelector(logoImgGallery);
-
+  const imageButtons = useSelector(imageButtonGallery);
   // -Request Gallery
   const statusRequestGallery = useSelector(statusRequestImage);
   const messageRequest = useSelector(messageRequestImageFailure);
@@ -55,13 +56,15 @@ const ImageGalleryPage = () => {
   const chooseAvatarAuthor = thunkChangeAvatarAuthor();
   const chooseSliderImgSection = thunkChangeImgSlide2();
   const chooseLogoImg = thunkChangeLogoImg();
+  const chooseImageButton = thunkChangeImageButton()
   const save = thunkSaveAll();
   const upload = thunkUploadFile();
 
   // Handle
   const handleChoose = (fieldName: string) => {
-    const { type, nowIndexSection, nowIndexCard, nowIndexSlide, nowIndexRate } = param;
+    const { type, nowIndexSection, nowIndexCard, nowIndexSlide, nowIndexRate, nowIndexButton } = param;
     return (result: any) => {
+      // Result = {imgSrc: string}
       if (type === 'logoImg') {
         chooseLogoImg(result.imgSrc);
       }
@@ -90,10 +93,13 @@ const ImageGalleryPage = () => {
       if (type === 'imageSectionCol') {
         chooseImage({ fieldName: fieldName, src: result, nowIndexSection: parseInt(nowIndexSection) });
       }
+      if (type === 'imageButton') {
+        chooseImageButton({ imgSrc: result.imgSrc, nowIndexButton: parseInt(nowIndexButton), nowIndexSection: parseInt(nowIndexSection) })
+      }
     };
   };
 
-  const handleUploadFile = (typeImage: 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg' | 'logoImg') => {
+  const handleUploadFile = (typeImage: 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg' | 'logoImg' | 'imageButton') => {
     if (!!typeImage) {
       return (result: File[]) => {
         upload({ path: typeImage, files: result });
@@ -108,9 +114,9 @@ const ImageGalleryPage = () => {
 
   useMount(() => {
     setParam(() => {
-      const res = getQuery(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'multiple']);
+      const res = getQuery(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'nowIndexButton', 'multiple']);
       if (!!res.type) {
-        getImage(res.type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg');
+        getImage(res.type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg' | 'imageButton');
       }
       return {
         ...res
@@ -128,7 +134,8 @@ const ImageGalleryPage = () => {
               : type === 'iconImgInCol' ? iconImgInCol
                 : type === 'sliderSectionImg' ? sliderSectionImg
                   : type === 'logoImg' ? logoImg
-                    : imageSection;
+                    : type === 'imageButton' ? imageButtons
+                      : imageSection;
       switch (statusRequestGallery) {
         case 'success':
           return <RollSelect

@@ -9,6 +9,7 @@ export const avatarAuthorGallery = (state: AppState) => state.imageGallery?.avat
 export const iconImgInColGallery = (state: AppState) => state.imageGallery?.iconImgInCol;
 export const sliderSectionImgGallery = (state: AppState) => state.imageGallery?.sliderSectionImg;
 export const logoImgGallery = (state: AppState) => state.imageGallery?.logoImg;
+export const imageButtonGallery = (state: AppState) => state.imageGallery?.imageButton;
 
 //Request
 export const statusRequestImage = (state: AppState) => state.imageGallery.statusRequestImageGallery;

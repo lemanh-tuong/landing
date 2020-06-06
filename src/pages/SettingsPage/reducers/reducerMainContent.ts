@@ -1,5 +1,6 @@
 import { ActionChangeAvatarAuthorPayload } from 'pages/ImageGalleryPage/actions/actionChangeAvatarAuthor/actionChangeAvatarAuthor';
 import { ActionChangeIconImgInColPayload } from 'pages/ImageGalleryPage/actions/actionChangeIconInCol/actionChangeIconInCol';
+import { ActionChangeImageButtonPayload } from 'pages/ImageGalleryPage/actions/actionChangeImageButton/actionChangeImageButton';
 import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { ActionChangeInputButton2Payload } from '../actions/actionButton2/actionChangeInputButton2/actionChangeInputButton2';
@@ -706,6 +707,25 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...state,
       elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
     };
+  }),
+  handleAction('CHANGE_IMAGE_BUTTON', (state, action) => {
+    const { imgSrc, nowIndexSection, nowIndexButton } = action.payload as ActionChangeImageButtonPayload;
+    const nowElement = state.elements[nowIndexSection];
+    const nowButtons = nowElement.buttons || [];
+    const nowButton = nowButtons[nowIndexButton];
+    const newButton = {
+      ...nowButton,
+      imgSrc: imgSrc
+    };
+    const newButtons = [...nowButtons.slice(0, nowIndexButton), {...newButton}, ...nowButtons.slice(nowIndexButton + 1, nowButtons.length)];
+    const newElement = {
+      ...nowElement,
+      buttons: newButtons
+    }
+    return {
+      ...state,
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+    }
   }),
 
   //IconImg In col
