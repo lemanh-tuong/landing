@@ -112,7 +112,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
         ]}
         onChange={handleChangeForm(nowIndexRate)}
       >
-        <Link className={styles.link} to={`/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}>
+        <Link className={styles.link} to={`/admin/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}>
           <Icon iconImg={authorAvatar} bgColorIcon={'gradient-pink-orange'} />
           <i className={`far fa-images ${styles.icon}`}></i>
         </Link>

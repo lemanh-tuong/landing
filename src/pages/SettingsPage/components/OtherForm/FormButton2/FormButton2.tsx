@@ -44,7 +44,7 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
         ]}
         onChange={handleChangeForm}
       >
-        <Link to={`/gallery?type=imageButton&nowIndexSection=${nowIndexSection}&nowIndexButton=${nowIndexButton}&multiple=false`}>
+        <Link to={`/admin/gallery?type=imageButton&nowIndexSection=${nowIndexSection}&nowIndexButton=${nowIndexButton}&multiple=false`}>
           <img src={nowButton?.imgSrc || ''} alt='button' />
         </Link>
       </Form>

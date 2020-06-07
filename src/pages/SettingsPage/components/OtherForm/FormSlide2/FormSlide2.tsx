@@ -196,7 +196,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
         ]}
       >
         <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />
-        <Link className={styles.btn} to={`/gallery?type=sliderSectionImg&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
+        <Link className={styles.btn} to={`/admin/gallery?type=sliderSectionImg&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
           <div className={styles.image} style={{ backgroundImage: `url('${imageSectionCol.imgSrc}')` }}></div>
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>

@@ -130,7 +130,7 @@ const SettingsPage = () => {
   };
 
   if (!id) {
-    history.push('/list');
+    history.push('/admin/list');
     return null;
   }
 

@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import 'antd/es/style/css';
 import Form, { FieldType, OnChangeFuncArg } from 'components/Form/Form';
 import FormDropDown from 'components/FormDropDown/FormDropDown';
@@ -13,7 +12,6 @@ import thunkResponsiveSlides from 'pages/SettingsPage/thunks/thunksSlide&Mockup/
 import React, { FC, memo, useState } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import FormSlide, { defaultSlide } from '../FormSlide/FormSlide';
 import styles from './FormSlides.module.scss';
 
@@ -215,11 +213,6 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
                 ]}
                 onChange={handleResponsiveSlides}
               >
-                <Button shape='round' size='large' danger>
-                  <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
-                    Change Image
-                </Link>
-                </Button>
               </Form>
             </> : null
           }

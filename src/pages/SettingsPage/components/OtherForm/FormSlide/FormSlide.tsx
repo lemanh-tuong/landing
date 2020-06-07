@@ -86,7 +86,7 @@ const FormSlide: FC<FormSlideProps> = ({ nowIndexSection, nowIndexSlide }) => {
         ]}
         onChange={handleChangeForm}
       >
-        <Link className={styles.btn} to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
+        <Link className={styles.btn} to={`/admin/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
           <img className={styles.img} src={imgSrc} alt='Slide' style={{ width: 200, height: 200 }} />
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>

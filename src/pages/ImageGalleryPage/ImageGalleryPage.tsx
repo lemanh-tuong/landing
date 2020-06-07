@@ -157,7 +157,7 @@ const ImageGalleryPage = () => {
   };
 
   if (!pageId) {
-    return <Redirect to={{ pathname: '/list' }} />;
+    return <Redirect to={{ pathname: '/admin/list' }} />;
   }
 
   return (

@@ -1,34 +1,31 @@
-.editCardComponent {
+.formDropDownComponent {
   position: relative;
 }
 
-.cardFormItem {
-  width: 100%;
-}
-
-.listCard {
+.listItems {
   max-width: 500px;
   width: 100%;
 }
 
-.cardFormName {
+.formDesc {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px 3px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   margin-bottom: 10px;
   padding: 10px;
   position: relative;
-  & .cardName {
+  & .label {
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-right: 10px;
   }
-  & .cardDesc {
+  & .formName {
     flex: 1 1 100%;
     width: 20%;
     height: 100%;

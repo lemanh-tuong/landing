@@ -169,7 +169,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
         ]}
         onChange={handleChangeCardForm(nowIndexCard)}
       >
-        <Link className={styles.link} to={`/gallery?type=iconCard2&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
+        <Link className={styles.link} to={`/admin/gallery?type=iconCard2&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
           <Icon iconImg={iconImg} bgColorIcon={'transparent'} />
           <i className={`far fa-images ${styles.icon}`}></i>
         </Link>

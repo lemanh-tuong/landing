@@ -68,7 +68,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableFiel
         onChange={handleChangeFormGeneral}
       >
         <Button shape='round' size='large' danger>
-          <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
+          <Link to={`/admin/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
             Change Image
         </Link>
         </Button>

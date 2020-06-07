@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import img1 from 'assets/img/settings/advanced-rating-and-reviews.png';
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import FormDropDown from 'components/FormDropDown/FormDropDown';
@@ -13,7 +12,6 @@ import thunkMoveSlide2 from 'pages/SettingsPage/thunks/thunkSlide2/thunkMoveSlid
 import React, { FC } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import FormSlide2 from '../FormSlide2/FormSlide2';
 import styles from './FormSlides2.module.scss';
 
@@ -120,11 +118,6 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
           }
         ]}
       >
-        <Button shape='round' size='large' danger>
-          <Link to={`/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
-            Change Image
-          </Link>
-        </Button>
       </Form>
     );
   };

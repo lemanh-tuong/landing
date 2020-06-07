@@ -54,10 +54,10 @@ const FormDropDown = <T extends any>({
     return (
       <Draggable index={index} draggableId={`${draggableId}-${index}`} key={`${draggableId}-${index}`}>
         {provided => (
-          <div className={styles.cardFormItem} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
-            <div className={`${styles.cardFormName} ${index === formShown ? styles.active : null}`}>
-              <div className={styles.cardDesc} onClick={handleFormShown(index)} >
-                <div className={styles.cardName}>{renderLabel ? renderLabel(label, index) : label}</div>
+          <div className={styles.item} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+            <div className={`${styles.formDesc} ${index === formShown ? styles.active : null}`}>
+              <div className={styles.formName} onClick={handleFormShown(index)} >
+                <div className={styles.label}>{renderLabel ? renderLabel(label, index) : label}</div>
               </div>
               <Button shape='circle' type='default' style={styleDeleteIcon} size='large' onClick={handleDelete(index)} >
                 {renderDeleteIcon ? renderDeleteIcon() : <i className="fas fa-trash" />}
@@ -72,12 +72,12 @@ const FormDropDown = <T extends any>({
 
 
   return (
-    <div className={styles.editCardComponent}>
+    <div className={styles.formDropDownComponent}>
       <DragDropContext onDragEnd={onMoveEnd} onBeforeCapture={handleCloseAll}>
         <Droppable droppableId={droppableId}>
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
-              <div className={styles.listCard}>
+              <div className={styles.listItems}>
                 {label.map((item: T, index: number) => _renderLabel(item, index))}
                 <Button onClick={onAdd} shape='circle' size='large' style={{ marginTop: 10, ...styleAddIcon }}>
                   {renderAddIcon ? renderAddIcon() : <i className="fas fa-plus" />}

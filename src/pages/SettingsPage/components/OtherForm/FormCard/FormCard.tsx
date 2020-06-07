@@ -209,7 +209,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             <Select.Option value="gradient-pink-orange">Gradient</Select.Option>
           </Select>,
         </div>
-        <Link className={styles.link} to={`/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
+        <Link className={styles.link} to={`/admin/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
           <Icon iconImg={iconImg} bgColorIcon={bgColorIcon} />
           <i className={`far fa-images ${styles.icon}`}></i>
         </Link>

@@ -13,7 +13,7 @@ const FormEditLogo = () => {
     <div className="Form Edit Logo">
       <h3>Form Edit Logo</h3>
       <div className={styles.editLogo}>
-        <Link to='/gallery?type=logoImg&multiple=false'>
+        <Link to='/admin/gallery?type=logoImg&multiple=false'>
           <Image type='tagImg' imgSrc={logo.imgSrc} />
         </Link>
       </div>

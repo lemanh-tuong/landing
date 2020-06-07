@@ -21,7 +21,7 @@ const FormImage: FC<FormImageProps> = ({ nowIndexSection, sectionId }) => {
   return (
     <PopUp title={<h3>Form Image</h3>} type='antd' id={`image-${sectionId}`} >
       <div className={styles.formContent}>
-        <Link className={styles.btn} to={`/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
+        <Link className={styles.btn} to={`/admin/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
           <div className={styles.img} style={{ backgroundImage: `url('${imageSectionCol?.imgSrc}')` }}></div>
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>

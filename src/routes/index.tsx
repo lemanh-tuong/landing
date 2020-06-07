@@ -68,27 +68,26 @@ const Routes = () => {
           <Route exact path='/error'>
             <ErrorPage />
           </Route>
-          <PrivateRoute condition={isLogged === 'loged'} pathRedirect='/admin/login'
-            component={
-              <>
-                <Route exact path="/admin/builder">
-                  <SettingsPage />
-                </Route>
-                <Route exact path="/gallery">
-                  <ImageGalleryPage />
-                </Route>
-                <Route exact path="/admin/component">
-                  <ComponentPage />
-                </Route>
-                <Route exact path="/list">
-                  <ListPage />
-                </Route>
-                <Route>
-                  <ErrorPage />
-                </Route>
-              </>
-            }
-          />
+          <Route path='/admin'>
+            <PrivateRoute condition={isLogged === 'loged'} pathRedirect='/admin/login'
+              component={
+                <>
+                  <Route exact path="/admin/builder">
+                    <SettingsPage />
+                  </Route>
+                  <Route exact path="/admin/gallery">
+                    <ImageGalleryPage />
+                  </Route>
+                  <Route exact path="/admin/component">
+                    <ComponentPage />
+                  </Route>
+                  <Route exact path="/admin/list">
+                    <ListPage />
+                  </Route>
+                </>
+              }
+            />
+          </Route>
           <Route>
             <ErrorPage />
           </Route>
