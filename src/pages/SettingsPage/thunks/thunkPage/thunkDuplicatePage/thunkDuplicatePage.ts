@@ -28,7 +28,7 @@ const thunkDuplicatePage = ({pathName, pageName, id, isHome}: ThunkDuplicatePage
   }).concat({id, pathName, pageName, isHome: true }) : data.concat({id, pathName, pageName, isHome: false });
   dispatch(actionDuplicatePage.request());
   try {
-    await writeFirebase<PageDetailData>({ref: `PagesDetail/${pathName.slice(1)}`, value: newPageData});
+    await writeFirebase<PageDetailData>({ref: `PagesDetail/${pathName}`, value: newPageData});
     await writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: newGeneralPageData});
     dispatch(actionDuplicatePage.success(newGeneralPageData));
   } catch (err) {

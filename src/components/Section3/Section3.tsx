@@ -86,7 +86,7 @@ const Section3: FC<Section3Props & Section3PropsBuilder> = ({
           {_renderLeftDefault()}
         </Col>
         <Col cols={[12, 12, 5]} offsets={[0, 0, 1]} className={`order-sm-2   ${reverse ? 'order-lg-first' : ''}`} >
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
+          <div className={reverse ? styles.descCol2 : styles.descCol1} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
             {_renderRightDefault()}
           </div>
         </Col>

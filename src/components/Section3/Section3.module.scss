@@ -5,6 +5,26 @@
   }
 }
 
+.descCol1 {
+  padding: 0 10px;
+  @media (min-width: 1200px) {
+    padding-left: 110px;
+  }
+  @media (min-width: 992px) {
+    padding-left: 60px;
+  }
+}
+
+.descCol2 {
+  padding: 0 10px;
+  @media (min-width: 1200px) {
+    padding-right: 110px;
+  }
+  @media (min-width: 992px) {
+    padding-left: 60px;
+  }
+}
+
 // .text {
 //   text-align: center!important;
 //   @media (min-width: 992px) {

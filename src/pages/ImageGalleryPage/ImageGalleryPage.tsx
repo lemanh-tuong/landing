@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import 'antd/es/style/css';
 import RollSelect from 'components/Form/RollSelect/RollSelect';
 import Container from 'components/Grid/Container/Container';
@@ -165,11 +165,13 @@ const ImageGalleryPage = () => {
     <div className="ImageGalleryPage" style={{ background: '#EEE' }}>
       <Container>
         {_renderSwitch()}
-        <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
-          <a href="####" onClick={e => e.preventDefault()}>
-            <i className="fas fa-arrow-left"></i>
-          </a>
-        </Button>
+        <Popover content="Save ">
+          <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
+            <a href="####" onClick={e => e.preventDefault()}>
+              <i className="fas fa-save"></i>
+            </a>
+          </Button>
+        </Popover>
       </Container>
     </div>
   );

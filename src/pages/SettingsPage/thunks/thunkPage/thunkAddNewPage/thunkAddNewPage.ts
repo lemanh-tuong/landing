@@ -1,5 +1,5 @@
 import { writeFirebase } from 'firebase/database/writeFirebase';
-import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
+import { PageDetailData, PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { actionAddNewPage } from 'pages/SettingsPage/actions/actionPage/actionAddNewPage/actionAddNewPage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 
@@ -20,7 +20,7 @@ const thunkAddNewPage = ({pageName, id, pathName, isHome }: PageGeneralData): Th
   }).concat(newPageProperty) : data.concat(newPageProperty);
   dispatch(actionAddNewPage.request());
   try {
-    await writeFirebase<PageGeneralData>({ref: `PagesDetail/${pathName.slice(1)}`, value: {...newPageProperty}});
+    await writeFirebase<PageDetailData>({ref: `PagesDetail/${pathName.slice(1)}`, value: {id, pathName, pageName, elements: []}});
     writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: newData});
     dispatch(actionAddNewPage.success(newData));
   } catch(err) {

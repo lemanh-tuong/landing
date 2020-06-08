@@ -49,7 +49,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
         <Popover content='Delete Page' >
           <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
         </Popover>
-        <Popover content="Setting General Data Page">
+        <Popover content="Change Infomation of Page">
           <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
         </Popover>
         {_renderAlertConfirm(pageName, nowIndexPage)}

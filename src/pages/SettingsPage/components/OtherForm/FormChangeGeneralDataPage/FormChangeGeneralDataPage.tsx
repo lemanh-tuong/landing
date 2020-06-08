@@ -74,6 +74,8 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
       if (isExisted) setError('Page Name or Path Name existed');
       else setError('Path Name Validate Error');
     }
+    setNewPathName('');
+    setNewPageName('');
   };
 
   const _renderChangeSwitch = () => {

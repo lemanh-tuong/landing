@@ -63,6 +63,7 @@ const ListPage = () => {
             </div>
           </Popover>
         </Row>
+        {_renderWarning()}
       </Container>
     );
   };
@@ -75,6 +76,14 @@ const ListPage = () => {
   const _renderFormSetting = (suggestHomePage: boolean) => {
     return <FormAddNewPage suggestHomePage={suggestHomePage} />
   }
+
+  const _renderWarning = () => {
+    if (pages.findIndex(page => page.isHome) < 0) {
+      return <div className={styles.warningText}>You Need HomePage</div>
+    }
+    return null;
+  }
+
   const _renderSuccess = () => {
     return <>
       <Helmet>
@@ -82,7 +91,7 @@ const ListPage = () => {
       </Helmet>
       {_renderPages()}
       {_renderCreateSwitch()}
-      {_renderFormSetting(pages.length === 0)}
+      {_renderFormSetting(pages.findIndex(page => page.isHome) < 0)}
     </>;
   };
 

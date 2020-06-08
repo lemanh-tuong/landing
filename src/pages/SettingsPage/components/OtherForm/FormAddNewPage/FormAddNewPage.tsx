@@ -66,6 +66,8 @@ const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
       if (isExisted) setError('Page Name or Path Name existed');
       else setError('Path Name Validate Error');
     }
+    setPageName('');
+    setPathName('');
   };
 
   const _renderCreateSwitch = () => {

@@ -9,12 +9,12 @@ type ThunkDeletePage = ThunkAction<typeof actionDeletePage>;
 const thunkDeletePage = (indexDelete: number): ThunkDeletePage => async (dispatch, getState) => {
   const { listPageReducers } = getState();
   const { data } = listPageReducers;
-  const { pageName } = data[indexDelete];
+  const { pathName } = data[indexDelete];
   const newData = [...data.slice(0, indexDelete), ...data.slice(indexDelete + 1, data.length)];
   dispatch(actionDeletePage.request());
   try {
     writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: newData});
-    removeFirebase({ref: `PagesDetail/${pageName}`});
+    removeFirebase({ref: `PagesDetail/${pathName.slice(1)}`});
     dispatch(actionDeletePage.success(indexDelete));
   } catch(err) {
     dispatch(actionDeletePage.failure(err.message));

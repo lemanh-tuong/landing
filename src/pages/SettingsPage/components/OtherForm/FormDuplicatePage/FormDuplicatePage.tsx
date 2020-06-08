@@ -34,7 +34,9 @@ const FormDuplicatePage = () => {
   }
 
   const handleChangePageName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const pathName = e.target.value.trim().split(' ').map(word => word.toLowerCase()).join('-');
     setPageName(e.target.value);
+    setPathName(pathName);
   };
   const handleChangePathName = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleError(e.target.value);
@@ -61,6 +63,8 @@ const FormDuplicatePage = () => {
       if (isExisted) setError('Page Name or Path Name existed');
       else setError('Path Name Validate Error');
     }
+    setPathName('');
+    setPageName('');
   };
 
   const _renderDuplicateSwitch = () => {
@@ -108,7 +112,7 @@ const FormDuplicatePage = () => {
         </div>
         <div>
           <span>Path Name</span>
-          <Input style={{ margin: '10px 0' }} required defaultValue='/' onChange={handleChangePathName} />
+          <Input style={{ margin: '10px 0' }} required value={pathName} onChange={handleChangePathName} />
         </div>
         <div>
           <CheckBox label="This is home page?" onChange={handleIsHome} defaultChecked={isHome} />
