@@ -1,10 +1,11 @@
 import { Input } from 'antd';
+import CheckBox from 'components/Form/CheckBox/CheckBox';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
 import { listPage } from 'pages/ListPage/selectors';
 import { messageRequestListPage, statusChangeGeneralDataPage } from 'pages/SettingsPage/selectors';
 import thunkChangeGeneralDataPage from 'pages/SettingsPage/thunks/thunkPage/thunkChangeGeneralDataPage/thunkChangeGeneralDataPage';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 
@@ -25,7 +26,8 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
   const nowPage = generalDataPage[nowIndexPage];
 
   const [newPageName, setNewPageName] = useState(nowPage.pageName);
-  const [newPathName, setNewPathName] = useState(nowPage.pathName);
+  const [newPathName, setNewPathName] = useState(nowPage.pathName.slice(1));
+  const [isHome, setIsHome] = useState(nowPage.isHome || false);
   const [error, setError] = useState('');
   const [validate, setValidate] = useState('');
 
@@ -41,7 +43,9 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
   }
 
   const handleChangeNewPageName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const pathName = e.target.value.trim().split(' ').map(word => word.toLowerCase()).join('-');
     setNewPageName(e.target.value);
+    setNewPathName(pathName);
   };
   const handleChangeNewPathName = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleError(e.target.value);
@@ -50,14 +54,18 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
     }
   };
 
+  const handleChangeIsHome = (result: boolean) => {
+    setIsHome(result);
+  }
+
   const handleChangeGeneralDataPage = () => {
     const isExisted = generalDataPage.find(item => (item.pageName === newPageName && pageId !== item.id) || (item.pathName === newPathName && pageId !== item.id));
     if (!isExisted && !validate) {
-      changeGeneralDataPage({ nowIndexPage: nowIndexPage, newPageName, newPathName, id: pageId });
+      changeGeneralDataPage({ nowIndexPage: nowIndexPage, newPageName, newPathName: `/${newPathName}`, id: pageId, isHome: isHome });
       const interval = setInterval(() => {
         if (statusChangeData === 'changed') {
           if (redirectOnChange) {
-            history.push(`/admin/builder?pageName=${newPageName}&pathName=${newPathName}&id=${pageId}`);
+            history.push(`/admin/builder?pageName=${newPageName}&pathName=/${newPathName}&id=${pageId}`);
           }
           clearInterval(interval);
         }
@@ -108,12 +116,15 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
       {_renderValidateError()}
       <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' title={<h3>Form Change General Data Page</h3>} onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleChangeGeneralDataPage}>
         <div>
-          <span>New Path Name</span>
-          <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pathName} required onChange={handleChangeNewPathName} />
+          <span>New Page Name</span>
+          <Input style={{ margin: '10px 0' }} defaultValue={newPageName} required onChange={handleChangeNewPageName} />
         </div>
         <div>
-          <span>New Page Name</span>
-          <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pageName} required onChange={handleChangeNewPageName} />
+          <span>New Path Name</span>
+          <Input style={{ margin: '10px 0' }} value={newPathName} required onChange={handleChangeNewPathName} />
+        </div>
+        <div>
+          <CheckBox label="This page is Home?" defaultChecked={isHome} onChange={handleChangeIsHome} />
         </div>
         {validate ? <p style={{ fontSize: 'inherit', color: 'red' }}>{validate}</p> : null}
       </PopUp>
@@ -121,4 +132,4 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
   );
 };
 
-export default FormChangeGeneralDataPage;
+export default memo(FormChangeGeneralDataPage);

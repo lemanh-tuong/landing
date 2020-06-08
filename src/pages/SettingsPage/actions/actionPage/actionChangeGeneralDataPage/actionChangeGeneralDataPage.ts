@@ -6,9 +6,10 @@ export interface ActionChangeGeneralDataPagePayload {
   newPathName: string;
   newPageName: string;
   id: string;
+  isHome: boolean;
 }
 
-const actionChangeGeneralDataPage = createAsyncAction(['@changing', '@changed', '@changeFail'])<null, PageGeneralData, string>();
+const actionChangeGeneralDataPage = createAsyncAction(['@changing', '@changed', '@changeFail'])<null, PageGeneralData[], string>();
 
 export { actionChangeGeneralDataPage };
 

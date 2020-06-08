@@ -18,7 +18,8 @@ import styles from './PageTab.module.scss';
 
 const PageTab = () => {
   const history = useHistory();
-  const nowPage = getQuery(history.location.search, ['pageName']);
+  const nowPage = getQuery(history.location.search, ['pathName']);
+
   const listPages = useSelector(listPage);
   const statusRequest = useSelector(statusRequestListPage);
   const statusDelete = useSelector(statusDeletePage);
@@ -31,7 +32,7 @@ const PageTab = () => {
       deletePage(indexDelete);
       const interval = setInterval(() => {
         if (statusDelete === 'deleted') {
-          history.push('/list');
+          history.push('/admin/list');
           clearInterval(interval);
         }
       }, 1000);
@@ -55,7 +56,7 @@ const PageTab = () => {
         <Popover content="Delete Page" >
           <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show('alert-confirm')} />
         </Popover>
-        <Popover content="Settings General Data Page" >
+        <Popover content="Information of Page" >
           <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
         </Popover>
         {_renderAlertConfirm(pageName, index)}
@@ -63,35 +64,33 @@ const PageTab = () => {
     );
   };
 
-
-  const _renderPage = ({ id, pageName, pathName }: PageGeneralData, index: number) => {
-    if (nowPage.pageName === pageName) {
-      return (
-        <div className={`${styles.page}  ${styles.active}`}>
-          <Link className={`${styles.link}`} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
-            <div className={styles.pageName}>
-              {pageName}
-            </div>
-          </Link>
-          <PopOver id={id} content={_renderPopOverSetting(pageName, id, index)} trigger='click'>
-            <Button
-              className={`${styles.btn}`}
-              icon={<i className="fas fa-ellipsis-h"></i>}
-              size='middle' shape='round' danger
-            />
-          </PopOver>
-          <FormChangeGeneralDataPage redirectOnChange pageId={id} />
-        </div>
-      );
-    }
+  const _renderExtend = ({ id, pageName, pathName, isHome }: PageGeneralData, index: number) => {
     return (
-      <div className={styles.page}>
-        <Link className={`${styles.btn}`} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
+      <>
+        <PopOver id={id} content={_renderPopOverSetting(pageName, id, index)} trigger='click'>
+          <Button
+            className={`${styles.btn}`}
+            icon={<i className="fas fa-ellipsis-h"></i>}
+            size='middle' shape='round' danger
+          />
+        </PopOver>
+        <FormChangeGeneralDataPage redirectOnChange pageId={id} />
+      </>
+    )
+  }
+
+  const _renderPage = ({ id, pageName, pathName, isHome }: PageGeneralData, index: number) => {
+    return (
+      <div className={`${styles.page} ${nowPage.pathName === pathName ? styles.active : ''}`}>
+        <Link className={`${styles.link}`} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
           <div className={styles.pageName}>
+            {isHome && <span className={styles.homeIcon} style={{ marginRight: 10 }}>
+              <i className="fas fa-home" />
+            </span>}
             {pageName}
           </div>
         </Link>
-        <FormChangeGeneralDataPage pageId={id} />
+        {nowPage.pathName === pathName && _renderExtend({ id, pageName, pathName, isHome }, index)}
       </div>
     );
   };
@@ -99,7 +98,6 @@ const PageTab = () => {
   const _renderPages = () => {
     return listPages.map((page, index) => _renderPage(page, index));
   };
-
 
   const _renderSuccess = () => {
     return <>
@@ -109,7 +107,7 @@ const PageTab = () => {
           Add New Page
         </Button>
       </ButtonGroup>
-      <FormAddNewPage />
+      <FormAddNewPage suggestHomePage={false} />
       <FormDuplicatePage />
     </>;
   };

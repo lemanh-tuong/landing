@@ -73,6 +73,7 @@ const LoginPage = () => {
           </div>
           <div className={styles.formBottom}>
             <a href="##" onClick={(e) => e.preventDefault()} className={styles.forgotPasswordBtn}>Forgot password</a>
+            <a href="##" onClick={(e) => e.preventDefault()} className={styles.forgotPasswordBtn}>Create New Project</a>
           </div>
         </div>
         {msg ? _renderError() : null}

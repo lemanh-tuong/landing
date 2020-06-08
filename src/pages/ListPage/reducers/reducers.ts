@@ -42,7 +42,7 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
   })),
   handleAction('@createdPage', (state, action) => ({
     ...state,
-    data: state.data ? state.data.concat(action.payload) : [].concat(action.payload),
+    data: action.payload || [],
     statusCreatePage: 'created'
   })),
   handleAction('@createFail', (state, action) => ({
@@ -72,12 +72,9 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
     statusDuplicatePage: 'duplicating'
   })),
   handleAction('@duplicated', (state, action) => {
-    const { id, pageName, pathName } = action.payload;
-    const { data } = state;
-    const newData = data.concat({id, pathName, pageName});
     return {
       ...state,
-      data: [...newData],
+      data: [...action.payload] || [],
       statusDuplicatePage: 'duplicated'
     };
   }),
@@ -91,18 +88,10 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
     statusChangeGeneralDataPage: 'changing'
   })),
   handleAction('@changed', (state, action) => {
-    const { pathName, pageName, id } = action.payload;
-    const { data } = state;
-    const indexNowPage = data.findIndex(item => item.id === id);
-    const newData: PageGeneralData = {
-      ...data[indexNowPage],
-      pathName: pathName,
-      pageName: pageName
-    };
     return {
       ...state,
       statusChangeGeneralDataPage: 'changed',
-      data: [...data.slice(0, indexNowPage), {...newData}, ...data.slice(indexNowPage+1, data.length)]
+      data: [...action.payload]
     };
   }),
   handleAction('@changeFail', (state, action) => ({

@@ -9,19 +9,28 @@ export interface ThunkDuplicatePageArg {
   pathName: string;
   pageName: string;
   id: string;
+  isHome: boolean;
 }
 
-const thunkDuplicatePage = ({pathName, pageName, id}: ThunkDuplicatePageArg): ThunkDuplicatePage => async (dispatch, getState) => {
+const thunkDuplicatePage = ({pathName, pageName, id, isHome}: ThunkDuplicatePageArg): ThunkDuplicatePage => async (dispatch, getState) => {
   const { listPageReducers, settingMainContentReducers } = getState();
   const { data } = listPageReducers;
   const { elements } = settingMainContentReducers;
+  const newPageData = {
+    elements,
+    id,
+    pageName,
+    pathName
+  }
+  const newGeneralPageData = isHome ? data.map(page => {
+    if(page.isHome) return {...page, isHome: false}
+    return {...page}
+  }).concat({id, pathName, pageName, isHome: true }) : data.concat({id, pathName, pageName, isHome: false });
   dispatch(actionDuplicatePage.request());
   try {
-    await writeFirebase<PageDetailData>({ref: `PagesDetail/${pageName}`, value: {
-      elements,  pathName, pageName, id
-    }});
-    await writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: data.concat({id, pathName, pageName })});
-    dispatch(actionDuplicatePage.success({elements, id, pageName, pathName }));
+    await writeFirebase<PageDetailData>({ref: `PagesDetail/${pathName.slice(1)}`, value: newPageData});
+    await writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: newGeneralPageData});
+    dispatch(actionDuplicatePage.success(newGeneralPageData));
   } catch (err) {
     dispatch(actionDuplicatePage.failure(err.message));
   }

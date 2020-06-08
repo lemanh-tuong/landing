@@ -1,8 +1,7 @@
 import { Button, Popover } from 'antd';
 import Loading from 'components/Loading/Loading';
-import { signOutFirebase } from 'firebase/authentication/signOutFirebase';
 import { getListStyle } from 'pages/SettingsPage/DragDropFunction';
-import { messageRequestElements, sections, statusRequestElements } from 'pages/SettingsPage/selectors';
+import { listPage, messageRequestElements, sections, statusRequestElements } from 'pages/SettingsPage/selectors';
 import thunkGetDataSection from 'pages/SettingsPage/thunks/thunksSection/thunkGetDataSection/thunkGetDataSection';
 import thunkSaveAll from 'pages/SettingsPage/thunks/thunksSection/thunkSaveAll/thunkSaveAll';
 import React, { FC, useEffect } from 'react';
@@ -25,9 +24,10 @@ export interface MainContentProps {
 const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, startDrag }) => {
   const history = useHistory();
   const nowPageEditing = history.location.search;
-  const { pageName } = getQuery(nowPageEditing, ['pageName']);
+  const { pathName } = getQuery(nowPageEditing, ['pathName']);
 
   // Selector
+  const pages = useSelector(listPage);
   const elements = useSelector(sections);
   const statusRequestSection = useSelector(statusRequestElements);
   const messageRequestSection = useSelector(messageRequestElements);
@@ -40,8 +40,8 @@ const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, start
 
   const handleSaveAll = () => {
     saveAll();
-    signOutFirebase();
-    history.push('/');
+    const isHome = pages.find(page => page.pathName === pathName)?.isHome;
+    history.push(isHome ? '/' : pathName);
   };
 
   const _renderSection = (element: Option, indexSection: number) => {
@@ -111,9 +111,9 @@ const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, start
   };
 
   useEffect(() => {
-    getData({ pageName: pageName });
+    getData({ pathName: pathName });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageName]);
+  }, [pathName]);
 
   return (
     <>

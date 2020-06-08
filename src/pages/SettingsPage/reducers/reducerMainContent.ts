@@ -689,7 +689,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   }),
 
   // Button2
-  handleAction('CHANGE_INPUT_BUTTON_2', (state, action) => {
+  handleAction('CHANGE_INPUT_BUTTON_2', (state: any, action) => {
     const { fieldName, value, nowIndexSection, nowIndexButton } = action.payload as ActionChangeInputButton2Payload;
     const nowElement = state.elements[nowIndexSection];
     const nowListButtons = nowElement.buttons;

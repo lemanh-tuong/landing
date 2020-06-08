@@ -8,7 +8,7 @@ import { Redirect, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import configureApp from '../../../configureApp.json';
 import RenderSection from './components/RenderSection/RenderSection';
-import { listSections, messageRequestMainPageSections, nowPageId, nowPageName, statusRequestMainPageSections } from './selectors';
+import { listPage, listSections, messageRequestMainPageSections, nowPageId, nowPageName, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
 
 const HomePage = () => {
@@ -18,6 +18,7 @@ const HomePage = () => {
   const sections = useSelector(listSections);
   const messageRequest = useSelector(messageRequestMainPageSections);
   const statusRequest = useSelector(statusRequestMainPageSections);
+  const generalDataPage = useSelector(listPage);
   const id = useSelector(nowPageId);
   const pageName = useSelector(nowPageName);
   const isLogged = useSelector(statusLogin);
@@ -36,9 +37,10 @@ const HomePage = () => {
   };
 
   const _renderReEdit = () => {
+    const homePagePath = generalDataPage.find(page => page.isHome)?.pathName;
     return (
       <Button shape='circle' style={{ position: 'fixed', right: 10, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
-        <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`}>
+        <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName === '/' ? homePagePath : pathName}&id=${id}`}>
           <i style={{ color: 'white' }} className="far fa-edit"></i>
         </Link>
       </Button>
@@ -59,7 +61,11 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getData({ pathName: pathName || '/' });
+    if (pathName === '/') {
+      getData({ pathName: generalDataPage.find(page => page.isHome)?.pathName as string });
+    } else {
+      getData({ pathName: pathName });
+    }
     window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName]);

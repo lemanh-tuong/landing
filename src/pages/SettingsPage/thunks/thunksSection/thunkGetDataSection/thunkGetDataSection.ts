@@ -4,14 +4,14 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkGetDataSection = ThunkAction<typeof getDataSection>;
 export interface ThunkGetDataSectionArg {
-  pageName: string;
+  pathName: string;
 }
 
 
-const thunkGetDataSection = ({pageName}: ThunkGetDataSectionArg): ThunkGetDataSection => async dispatch => {
+const thunkGetDataSection = ({pathName}: ThunkGetDataSectionArg): ThunkGetDataSection => async dispatch => {
   dispatch(getDataSection.request(null));
   try {
-    const data = await readFireBase(`/PagesDetail/${pageName}`);
+    const data = await readFireBase(`/PagesDetail/${pathName.slice(1)}`);
     dispatch(getDataSection.success(data));
   } catch(err) {
     dispatch(getDataSection.failure(err.message));

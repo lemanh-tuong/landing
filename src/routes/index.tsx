@@ -30,8 +30,10 @@ const Routes = () => {
   const statusRequestPageName = useSelector(statusRequestPage);
   const messageRequestPageNameErr = useSelector(messageRequestPageErr);
   const generalDataPage = useSelector(listPage);
-  const paths = generalDataPage.map(item => item.pathName.substring(1));
-
+  const paths = generalDataPage.map(item => {
+    if (item.isHome) return '/';
+    return item.pathName
+  });
   // Dispatch
   const getDataNav = thunkGetDataNav();
   const getListPageName = thunkGetListPageName();
@@ -54,9 +56,9 @@ const Routes = () => {
   const _renderContentSuccess = () => {
     return (
       <>
-        {!location.pathname.includes('/admin') && !location.pathname.includes('/error') && !location.pathname.includes('/list') && !location.pathname.includes('/gallery') && _renderHeader()}
+        {!location.pathname.includes('/admin') && !location.pathname.includes('/error') && _renderHeader()}
         <Switch>
-          <Route exact path={`/(/|${paths.join('|')})/`}>
+          <Route exact path={`(${paths.join('|')})`}>
             <MainPage />
           </Route>
           <Route exact path='/admin/login'>

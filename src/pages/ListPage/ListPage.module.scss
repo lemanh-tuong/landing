@@ -9,27 +9,24 @@
 }
 .page {
   padding: 30px;
+  border-radius: 10px;
   background: #f1f1f1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   font-size: 24px;
   color: #333;
   transition: 0.3s all;
   &:hover {
-    background-color: black;
-    color: #fff;
+    background-color: #fff;
+    color: #222;
   }
   &.actived {
-    background-color: black;
-    color: #fff;
+    background-color: #fff;
+    color: #222;
   }
 }
 
 .addPage {
   padding: 30px;
-  width: 40px;
-  height: 40px;
   margin: auto 0;
   display: flex;
   justify-content: center;
@@ -43,4 +40,9 @@
   &:hover {
     opacity: 0.8;
   }
+}
+
+.homeIcon {
+  font-size: inherit;
+  margin-right: 8px;
 }

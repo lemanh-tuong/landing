@@ -5,19 +5,24 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkAddNewPage =ThunkAction<typeof actionAddNewPage>;
 
-const thunkAddNewPage = ({pageName, id, pathName }: PageGeneralData): ThunkAddNewPage => async (dispatch, getState) => {
+const thunkAddNewPage = ({pageName, id, pathName, isHome }: PageGeneralData): ThunkAddNewPage => async (dispatch, getState) => {
   const  { listPageReducers} = getState();
   const { data } = listPageReducers;
   const newPageProperty = {
     pageName,
     id,
     pathName,
+    isHome
   };
+  const newData = isHome ? data.map(page => {
+    if(page.isHome) return {...page, isHome: false}
+    else return {...page}
+  }).concat(newPageProperty) : data.concat(newPageProperty);
   dispatch(actionAddNewPage.request());
   try {
-    await writeFirebase<PageGeneralData>({ref: `PagesDetail/${pageName}`, value: {...newPageProperty}});
-    writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: data.concat(newPageProperty)});
-    dispatch(actionAddNewPage.success(newPageProperty));
+    await writeFirebase<PageGeneralData>({ref: `PagesDetail/${pathName.slice(1)}`, value: {...newPageProperty}});
+    writeFirebase<PageGeneralData[]>({ref: 'ListPage', value: newData});
+    dispatch(actionAddNewPage.success(newData));
   } catch(err) {
     dispatch(actionAddNewPage.failure(err.message));
   }

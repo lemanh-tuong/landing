@@ -6,15 +6,11 @@ import Row from 'components/Grid/Row/Row';
 import Section, { SectionPatternBase } from 'components/Grid/Section/Section';
 import MainTitle, { MainTitleProps } from 'components/MainTitle/MainTitle';
 import MockUp, { MockUpProps } from 'components/MockUp/MockUp';
+import { ButtonType } from 'components/Section9/Section9';
 import Text, { TextProps } from 'components/Text/Text';
 import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Section14.module.scss';
-
-interface ButtonType {
-  imgSrc: string;
-  href: string;
-}
 
 interface Section14Option extends SectionPatternBase {
   backgroundColor?: SectionPatternBase['backgroundColor'];
@@ -116,7 +112,7 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
     />;
   };
 
-  const _renderButton = ({ href, imgSrc }: ButtonType, index: number) => {
+  const _renderButton = ({ href, imgSrc, target }: ButtonType, index: number) => {
     if (isBuilder) {
       return (
         <PopOverText
@@ -129,7 +125,7 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
       );
     }
     return (
-      <a key={uuidv4()} href={href} className={styles.storeBtn}>
+      <a key={uuidv4()} href={href} className={styles.storeBtn} target={target}>
         <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
       </a>
     );

@@ -13,7 +13,7 @@ function addToPage({pageName, elements, newSection, id, pathName, indexInsert}: 
     ? [...elements.slice(0, indexInsert), {...newSection}, ...elements.slice(indexInsert, elements.length)]
     : (indexInsert === 0) ? [{...newSection}, ...elements]
     : elements.concat(newSection);
-    database.ref(`PagesDetail/${pageName}`).set({
+    database.ref(`PagesDetail/${pathName.slice(1)}`).set({
       pageName: pageName,
       elements: [...newElements],
       id: id,
@@ -21,7 +21,7 @@ function addToPage({pageName, elements, newSection, id, pathName, indexInsert}: 
     }).then(() => 'Added')
     .catch(err => err);
   } else {
-    database.ref(`PagesDetail/${pageName}`).set({
+    database.ref(`PagesDetail/${pathName.slice(1)}`).set({
       pageName: pageName,
       elements: [...elements],
       id: id,

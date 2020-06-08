@@ -1,4 +1,5 @@
 import { Input } from 'antd';
+import CheckBox from 'components/Form/CheckBox/CheckBox';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
 import { listPage } from 'pages/ListPage/selectors';
@@ -13,6 +14,7 @@ const FormDuplicatePage = () => {
   const history = useHistory();
   const [pageName, setPageName] = useState('');
   const [pathName, setPathName] = useState('');
+  const [isHome, setIsHome] = useState(false);
   const [error, setError] = useState('');
   const [validate, setValidate] = useState('');
 
@@ -40,12 +42,15 @@ const FormDuplicatePage = () => {
       setPathName(e.target.value);
     }
   };
+  const handleIsHome = (result: boolean) => {
+    setIsHome(result);
+  }
 
   const handleDuplicatePage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
     if (!isExisted && !validate) {
-      duplicatePage({ pageName, pathName, id: id });
+      duplicatePage({ pageName, pathName, id: id, isHome: isHome });
       const interval = setInterval(() => {
         if (statusDuplicate === 'duplicated') {
           history.push(`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`);
@@ -98,12 +103,15 @@ const FormDuplicatePage = () => {
       {_renderDuplicateSwitch()}
       <PopUp id="duplicate-page-form" type='antd' title={<h3>Form Duplicate Page</h3>} onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
         <div>
+          <span>Page Name</span>
+          <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />
+        </div>
+        <div>
           <span>Path Name</span>
           <Input style={{ margin: '10px 0' }} required defaultValue='/' onChange={handleChangePathName} />
         </div>
         <div>
-          <span>Page Name</span>
-          <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />
+          <CheckBox label="This is home page?" onChange={handleIsHome} defaultChecked={isHome} />
         </div>
         {validate ? <p style={{ fontSize: 'inherit', color: 'red' }}>{validate}</p> : null}
       </PopUp>

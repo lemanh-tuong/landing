@@ -345,11 +345,13 @@ const initialState: ComponentPageReducers =  {
       buttons: [
         {
           href: '##',
-          imgSrc: appstore
+          imgSrc: appstore,
+          target: 'blank'
         },
         {
           href: '##',
-          imgSrc: chplay
+          imgSrc: chplay,
+          target: 'blank'
         }
       ],
       androidParams:'exp://expo.io/@wiloke/wilcity',
@@ -479,11 +481,13 @@ const initialState: ComponentPageReducers =  {
       buttons: [
         {
           href: '###',
-          imgSrc: appstore
+          imgSrc: appstore,
+           target: 'blank',
         },
         {
           href: '##',
-          imgSrc: chplay
+          imgSrc: chplay,
+           target: 'blank'
         }
       ],
       darkMode: false,

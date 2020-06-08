@@ -18,7 +18,7 @@ export interface FormButtonProps {
 
 const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
   const [isGradient, setIsGradient] = useState(false);
-  const [typeHref, setTypeHref] = useState<TypeHref>('external');
+  const [typeHref, setTypeHref] = useState<TypeHref>('internal');
 
   const handleGradient = (result: boolean) => {
     setIsGradient(result);
@@ -99,11 +99,11 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               data: [
                 {
                   name: 'type href',
-                  value: 'external',
+                  value: 'internal',
                 },
                 {
                   name: 'type href',
-                  value: 'internal',
+                  value: 'external',
                 },
               ],
               defaultCheckedValue: typeHref,

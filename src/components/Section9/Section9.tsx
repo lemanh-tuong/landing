@@ -12,9 +12,10 @@ import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Section9.module.scss';
 
-interface ButtonType {
+export interface ButtonType {
   imgSrc: string;
   href: string;
+  target: 'default' | 'blank' | 'self'
 }
 
 export type Secction9Props = {
@@ -77,7 +78,7 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
     return null;
   };
 
-  const _renderButton = ({ href, imgSrc }: ButtonType, index: number) => {
+  const _renderButton = ({ href, imgSrc, target }: ButtonType, index: number) => {
     if (isBuilder) {
       return (
         <PopOverText
@@ -90,7 +91,7 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
       );
     }
     return (
-      <a key={uuidv4()} href={href} className={styles.storeBtn}>
+      <a key={uuidv4()} target={target} href={href} className={styles.storeBtn}>
         <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
       </a>
     );

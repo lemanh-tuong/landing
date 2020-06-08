@@ -28,7 +28,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
       deletePage(indexDelete);
       const interval = setInterval(() => {
         if (statusDelete === 'deleted') {
-          history.push('/list');
+          history.push('/admin/list');
           clearInterval(interval);
         }
       }, 1000);

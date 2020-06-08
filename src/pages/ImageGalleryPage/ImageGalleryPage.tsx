@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import 'antd/es/style/css';
 import RollSelect from 'components/Form/RollSelect/RollSelect';
+import Container from 'components/Grid/Container/Container';
 import { useMount } from 'hooks/useMount';
 import thunkChangeIconCard from 'pages/ImageGalleryPage/thunks/thunkChangeIconCard/thunkChangeIconCard';
 import thunkChooseImage from 'pages/ImageGalleryPage/thunks/thunkChooseImage/thunkChooseImage';
@@ -161,13 +162,15 @@ const ImageGalleryPage = () => {
   }
 
   return (
-    <div className="ImageGalleryPage" style={{ width: '100%', height: '100%', background: '#EEE' }}>
-      {_renderSwitch()}
-      <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
-        <a href="####" onClick={e => e.preventDefault()}>
-          <i className="fas fa-arrow-left"></i>
-        </a>
-      </Button>
+    <div className="ImageGalleryPage" style={{ background: '#EEE' }}>
+      <Container>
+        {_renderSwitch()}
+        <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
+          <a href="####" onClick={e => e.preventDefault()}>
+            <i className="fas fa-arrow-left"></i>
+          </a>
+        </Button>
+      </Container>
     </div>
   );
 
