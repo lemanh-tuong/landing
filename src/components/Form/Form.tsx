@@ -75,7 +75,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'input-text-2':
       return <InputText2 required={arg.required} regex={arg.regex} minLength={arg.minLength} maxLength={arg.maxLength} label={arg.label} disabled={arg.disabled} addonAfter={arg.addonAfter} addonBefore={arg.addonBefore} defaultValue={arg.defaultValue} placeholder={arg.placeholder} key={arg.fieldId} onChange={onChange} />;
     case 'number':
-      return <InputNumber key={arg.fieldId} label={arg.label} min={arg.min} max={arg.max} onChange={onChange} defaultNumber={arg.defaultNumber} />;
+      return <InputNumber step={arg.step} key={arg.fieldId} label={arg.label} min={arg.min} max={arg.max} onChange={onChange} defaultNumber={arg.defaultNumber} />;
     case 'radio':
       return <Radio label={arg.label} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />;
     case 'radio2':
@@ -95,7 +95,7 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
     case 'select-icon':
       return arg.listIcon ? <SelectIcon label={arg.label} key={arg.fieldId} onChoose={onChange} defaultClassIconSelected={arg.defaultClassIconSelected} listIcon={arg.listIcon} /> : null;
     case 'color-picker-gradient':
-      return <ColorPickerGradient key={arg.fieldId} label={arg.label} onChange={onChange} />;
+      return <ColorPickerGradient defaultColorLeft={arg.defaultColorLeft} defaultColorRight={arg.defaultColorRight} key={arg.fieldId} label={arg.label} onChange={onChange} />;
     case 'rich-text-editor':
       return <RichTextEditor label={arg.label} onChange={onChange} placeholder={arg.placeholder} defaultValue={arg.defaultValue} className={arg.className} style={arg.style} key={arg.fieldId} />;
     default:

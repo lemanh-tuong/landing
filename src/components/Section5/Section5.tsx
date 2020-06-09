@@ -32,7 +32,7 @@ const Section5: FC<Section5Props & Section5PropsBuilder> = ({
   isBuilder, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditSlides, animation, positionAnimation,
   mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
   text, colorText, alignText, fontSizeText, styleText, classText,
-  sliderImgs, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid, draggable,
+  sliderImgs, dotClass, hasDots, hasNav, navClass, responsive, margin, itemShow, fluid, draggable, delayTime,
   backgroundColor, backgroundImage, style, className, darkMode
 }) => {
 
@@ -53,6 +53,7 @@ const Section5: FC<Section5Props & Section5PropsBuilder> = ({
         </Col>
         <div className="slides" onClick={onShowPopupEditSlides}>
           {sliderImgs ? <Carousel
+            delayTime={delayTime}
             navClass={navClass}
             dotClass={dotClass}
             fluid={fluid}

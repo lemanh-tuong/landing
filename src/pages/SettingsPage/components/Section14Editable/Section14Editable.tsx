@@ -19,7 +19,7 @@ const Section14Editable: FC<Section14EditableProps> = ({
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   hasDivider, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText,
-  sliderImgs,
+  sliderImgs, delayTime,
   buttons,
   typeMockUp
 }) => {
@@ -66,6 +66,7 @@ const Section14Editable: FC<Section14EditableProps> = ({
         backgroundColor={backgroundColor}
         backgroundImage={backgroundImage}
         typeMockUp={typeMockUp}
+        delayTime={delayTime}
         sliderImgs={sliderImgs || [
           {
             imgSrc: mockUpMacContent1,

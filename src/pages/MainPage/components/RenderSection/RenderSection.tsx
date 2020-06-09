@@ -27,7 +27,7 @@ const RenderSection = (option: Option) => {
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
     cards, hasDivider, alignDivider, dividerColor,
-    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable,
+    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable, delayTime,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
     rateList,
@@ -57,6 +57,7 @@ const RenderSection = (option: Option) => {
           backgroundColor={backgroundColor}
           backgroundImage={backgroundImage}
           typeMockUp={typeMockUp}
+          delayTime={delayTime}
           sliderImgs={sliderImgs ?? [
             {
               imgSrc: mockUpMacContent1,
@@ -151,7 +152,7 @@ const RenderSection = (option: Option) => {
           alignText={alignText}
           colorText={colorText}
           fontSizeText={fontSizeText}
-          sliderImgs={sliderImgs}
+          sliderImgs={sliderImgs} delayTime={delayTime}
           hasNav={hasNav}
           hasDots={hasDots}
           navClass={navClass}
@@ -239,7 +240,7 @@ const RenderSection = (option: Option) => {
         />;
       case 'Section 12':
         return <Section12
-          sliderSection={sliderSection ?? []}
+          sliderSection={sliderSection ?? []} delayTime={delayTime}
           fluid={fluid} itemShow={itemShow} margin={margin} draggable={draggable}
           hasDots={hasDots} hasNav={hasNav} classActive={classActive} dotClass={dotClass} navClass={navClass}
           sectionId={sectionId}
@@ -249,7 +250,7 @@ const RenderSection = (option: Option) => {
         return <Section13
           sectionId={sectionId}
           animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
-          typeMockUp={typeMockUp}
+          typeMockUp={typeMockUp} delayTime={delayTime}
           sliderImgs={sliderImgs ?? []} draggable={draggable} fluid={fluid} margin={margin} classActive={classActive} navClass={navClass} hasNav={hasNav} hasDots={hasDots} dotClass={dotClass}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
           text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
@@ -261,7 +262,7 @@ const RenderSection = (option: Option) => {
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
           text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
           typeMockUp={typeMockUp}
-          sliderImgs={sliderImgs ?? []}
+          sliderImgs={sliderImgs ?? []} delayTime={delayTime}
           hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
           buttons={buttons ?? []}
         />;

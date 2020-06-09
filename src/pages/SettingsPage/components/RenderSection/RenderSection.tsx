@@ -32,7 +32,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     text, alignText, colorText, fontSizeText, classText, styleText,
     imageSectionCol,
     cards, slider, hasDivider, alignDivider, dividerColor,
-    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable,
+    sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, itemShow, margin, classActive, responsive, draggable, delayTime,
     textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
     typeMockUp,
     rateList,
@@ -67,7 +67,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           fontSizeText={fontSizeText ?? 'sm'}
           classText={classText}
           styleText={styleText}
-          slider={slider}
+          slider={slider} delayTime={delayTime}
           typeMockUp={typeMockUp}
           sliderImgs={sliderImgs ?? [
             {
@@ -183,7 +183,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           classText={classText}
           styleText={styleText}
           fontSizeText={fontSizeText}
-          sliderImgs={sliderImgs}
+          sliderImgs={sliderImgs} delayTime={delayTime}
           draggable={draggable}
           responsive={responsive}
           fluid={fluid}
@@ -297,7 +297,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
           backgroundImage={backgroundImage} darkMode={darkMode}
-          sliderSection={sliderSection ?? []}
+          sliderSection={sliderSection ?? []} delayTime={delayTime}
           hasNav={hasNav} navClass={navClass} hasDots={hasDots} dotClass={dotClass} classActive={classActive}
           fluid={fluid} itemShow={itemShow} margin={margin} draggable={draggable}
         />;
@@ -307,7 +307,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
           backgroundImage={backgroundImage} darkMode={darkMode}
-          typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []}
+          typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []} delayTime={delayTime}
           hasNav={hasNav} navClass={navClass} hasDots={hasDots} dotClass={dotClass} classActive={classActive} draggable={draggable}
           fluid={fluid} margin={margin}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
@@ -319,7 +319,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
           sectionId={sectionId}
           backgroundColor={backgroundColor} animation={animation} positionAnimation={positionAnimation}
           backgroundImage={backgroundImage} darkMode={darkMode}
-          typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []}
+          typeMockUp={typeMockUp} sliderImgs={sliderImgs ?? []} delayTime={delayTime}
           mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle}
           hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
           text={text} alignText={alignText} colorText={colorText} fontSizeText={fontSizeText} styleText={styleText} classText={classText}

@@ -14,7 +14,7 @@ export interface Section1EditableProps extends Section1Props {
 }
 
 const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
-  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse,
+  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse, delayTime,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   hasDivider, dividerColor, alignDivider,
   text, alignText, colorText, fontSizeText,
@@ -61,7 +61,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         fontSizeText={fontSizeText}
         backgroundColor={backgroundColor}
         backgroundImage={backgroundImage}
-        typeMockUp={typeMockUp}
+        typeMockUp={typeMockUp} delayTime={delayTime}
         sliderImgs={sliderImgs || [
           {
             imgSrc: mockUpMacContent1,

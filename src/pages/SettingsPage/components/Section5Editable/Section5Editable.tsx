@@ -13,7 +13,7 @@ export interface Section5EditableProps extends Section5Props {
 const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
   mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
   text, alignText, colorText, fontSizeText,
-  sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, margin, itemShow, responsive, draggable,
+  sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, margin, itemShow, responsive, draggable, delayTime,
   backgroundImage, backgroundColor }) => {
 
   const handleShowPopupEditMainTitle = () => {
@@ -40,7 +40,7 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle}
         text={text ?? ''}
         colorText={colorText} fontSizeText={fontSizeText}
-        alignText={alignText}
+        alignText={alignText} delayTime={delayTime}
         sliderImgs={sliderImgs}
         hasNav={hasNav}
         hasDots={hasDots}
@@ -58,7 +58,7 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <PopUp id={`slides-${sectionId}`} type='antd' title={<h3>Form Slides</h3>}>
-        <FormSlides nowIndexSection={nowIndexSection} draggableField={true} hasNavField={true} hasDotField={true} responsiveField={true} />
+        <FormSlides hasFluidField={true} hasMarginField={true} hasItemShowField={true} nowIndexSection={nowIndexSection} draggableField={true} hasNavField={true} hasDotField={true} responsiveField={true} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
     </>

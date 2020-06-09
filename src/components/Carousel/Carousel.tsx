@@ -31,6 +31,7 @@ export interface CarouselOptions {
   itemShow?: number;
   fluid?: boolean;
   draggable?: boolean;
+  delayTime?: number;
 }
 
 type RenderType<ItemT> = (arg: ItemT, index?: number) => ReactNode;
@@ -44,10 +45,10 @@ export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 
 
 const Carousel = <ItemT extends any>({
   isBuilder, onEditable, sliderImgs, renderItem,
-  hasNav, hasDots, dotClass, navClass, classActive,
+  hasNav, hasDots, dotClass, navClass, classActive, delayTime = 1000,
   margin = 30, responsive, itemShow = 2, fluid, draggable }: CarouselProps<ItemT>) => {
 
-  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd, touchEnd, touchMove, touchStart } = useSlide(sliderImgs.length, itemShow, responsive);
+  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd, touchEnd, touchMove, touchStart } = useSlide(sliderImgs.length, itemShow, delayTime, responsive);
   const _renderNavSlide = () => {
     return (
       <div className={`${styles.navCarousel} ${navClass}`}>

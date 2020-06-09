@@ -28,7 +28,7 @@ export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>
 
 const MockUp: FC<MockUpProps> = ({
   onEditable, isBuider,
-  sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp, draggable,
+  sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp, draggable, delayTime,
   dotClass, navClass, hasDots, hasNav, margin, fluid, classActive }
 ) => {
 
@@ -58,7 +58,7 @@ const MockUp: FC<MockUpProps> = ({
         sliderImgs={sliderImgs}
         itemShow={1}
         classActive={classActive}
-        fluid={fluid}
+        fluid={fluid} delayTime={delayTime}
         draggable={draggable}
         renderItem={({ imgSrc, videoUrl, hasVideo }) => {
           return (

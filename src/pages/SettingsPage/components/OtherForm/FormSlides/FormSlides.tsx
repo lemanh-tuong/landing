@@ -21,11 +21,14 @@ export interface FormSlidesProps {
   nowIndexSection: number;
   hasNavField: boolean;
   hasDotField: boolean;
+  hasMarginField: boolean;
+  hasItemShowField: boolean;
+  hasFluidField: boolean;
   responsiveField: boolean;
   draggableField: boolean;
 }
 
-export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, hasDotField, responsiveField, draggableField }) => {
+export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, hasDotField, hasFluidField, hasItemShowField, hasMarginField, responsiveField, draggableField }) => {
   const [canResponsive, setCanResponsive] = useState(false);
   const _handleChangeCanResponsive = (result: boolean) => {
     setCanResponsive(result);
@@ -131,6 +134,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Fluid',
               fieldName: 'fluid',
               defaultChecked: fluid,
+              hidden: !hasFluidField
             },
             {
               fieldId: 'draggable-slides',
@@ -148,6 +152,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               fieldName: 'itemShow',
               min: 1,
               max: 4,
+              hidden: !hasItemShowField
             },
             {
               fieldId: 7,
@@ -156,13 +161,16 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Margin',
               defaultNumber: margin,
               min: 10,
-              max: 50
+              max: 50,
+              hidden: !hasMarginField
             },
             {
               fieldId: 8,
-              fieldName: 'timeSlider',
+              fieldName: 'delayTime',
               label: 'Time Delay',
-              fieldType: 'input',
+              fieldType: 'number',
+              min: 1000,
+              step: 100,
               defaultValue: '1000',
             },
             {

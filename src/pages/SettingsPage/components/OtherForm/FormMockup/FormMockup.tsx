@@ -78,7 +78,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableFiel
 
   const _renderDetailSettings = () => {
     return (
-      <FormSlides nowIndexSection={nowIndexSection} draggableField={draggableField} hasDotField={false} hasNavField={false} responsiveField={false} />
+      <FormSlides hasFluidField={false} hasItemShowField={false} hasMarginField={false} nowIndexSection={nowIndexSection} draggableField={draggableField} hasDotField={false} hasNavField={false} responsiveField={false} />
     );
   };
 

@@ -2,7 +2,8 @@ import { breakpoint } from 'components/Carousel/Carousel';
 import { useCallback, useEffect, useState } from 'react';
 import { useMount } from './useMount';
 
-const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint) => {
+const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, responsive?: breakpoint) => {
+  console.log(delayTime);
   const [items, setItems] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animated, setAnimated] = useState(false);
@@ -130,7 +131,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
   }, [imgsLength])
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, delayTime);
     if(responsive) {
       window.addEventListener('resize', handleResize);
     }
@@ -138,7 +139,7 @@ const useSlide = (imgsLength: number, itemShow: number, responsive?: breakpoint)
       window.removeEventListener('resize', handleResize);
       clearInterval(interval);
     };
-  }, [items, animated, currentSlide, nextSlide, responsive, handleResize]);
+  }, [items, animated, currentSlide, nextSlide, responsive, handleResize, delayTime]);
 
   useMount(() => {
     handleResize();

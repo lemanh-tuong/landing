@@ -11,7 +11,7 @@ export type Section12EditableProps = {
 const Section12Editable: FC<Section12EditableProps> = ({
   nowIndexSection,
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, draggable,
+  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, draggable, delayTime,
   sliderSection, fluid, margin, itemShow, hasDots, hasNav, navClass, dotClass, classActive
 }) => {
 
@@ -25,7 +25,7 @@ const Section12Editable: FC<Section12EditableProps> = ({
         isBuilder={true}
         sliderSection={sliderSection}
         fluid={fluid} itemShow={itemShow} margin={margin}
-        hasDots={hasDots} hasNav={hasNav} classActive={classActive} dotClass={dotClass} navClass={navClass} draggable={draggable}
+        hasDots={hasDots} hasNav={hasNav} classActive={classActive} dotClass={dotClass} navClass={navClass} draggable={draggable} delayTime={delayTime}
         sectionId={sectionId}
         animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
         onShowPopUpEditSlide={handleShowPopUpEditSlides}

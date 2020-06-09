@@ -7,14 +7,15 @@ export interface InputNumberProps {
   defaultNumber?: number;
   min?: number;
   max?: number;
+  step?: number | string;
   onChange: (result?: number) => void;
 }
 
-const InputNumber: FC<InputNumberProps> = ({ label, defaultNumber, max, min, onChange }) => {
+const InputNumber: FC<InputNumberProps> = ({ label, step = 1, defaultNumber, max, min, onChange }) => {
   return <div className={styles.inputNumberComponent}>
     <div className={styles.content}>
       <div className={styles.label}>{label}</div>
-      <InputNumberAntd min={min} max={max} defaultValue={defaultNumber ?? 1} onChange={onChange} />
+      <InputNumberAntd step={step} min={min} max={max} defaultValue={defaultNumber ?? 1} onChange={onChange} />
     </div>
   </div>;
 };

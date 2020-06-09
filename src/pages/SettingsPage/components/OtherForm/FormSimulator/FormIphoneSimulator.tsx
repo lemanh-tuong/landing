@@ -1,5 +1,6 @@
 import Form, { OnChangeFuncArg } from 'components/Form/Form';
 import { sections } from 'pages/SettingsPage/selectors';
+import thunkChangeInput from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeInput/thunkChangeInput';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -16,13 +17,14 @@ const FormIphoneSimulator: FC<FormIphoneSimulatorProps> = ({ nowIndexSection }) 
   const { iphoneParams } = element;
 
   //Dispatch
+  const changeInput = thunkChangeInput();
 
   // Handle
-  const handleChangeForm = ({ fieldType }: OnChangeFuncArg) => {
+  const handleChangeForm = ({ fieldName, fieldType }: OnChangeFuncArg) => {
     return (result: any) => {
       if (fieldType === 'input-text-2') {
         // Value of input
-        console.log({ value: result, nowIndexSection: nowIndexSection });
+        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection });
       }
     };
   };

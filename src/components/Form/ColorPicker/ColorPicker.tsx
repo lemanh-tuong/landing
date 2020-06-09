@@ -49,6 +49,10 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
       hex: result.hex,
       rgba: resultRGBA
     });
+    onChangeRef.current?.({
+      hex: result.hex,
+      rgba: resultRGBA
+    });
   };
 
   const _renderColorBox = () => {
@@ -58,12 +62,6 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
       </div>
     );
   };
-
-  useEffect(() => {
-    if (color.rgba && color.hex) {
-      onChangeRef.current?.(color);
-    }
-  }, [onChangeRef, color]);
 
   useEffect(() => {
     if (displayColorPicker) {

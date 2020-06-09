@@ -44,7 +44,7 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
   mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
   text, colorText, fontSizeText, alignText, styleText, classText,
   hasDivider = false, dividerColor, alignDivider,
-  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, fluid, classActive,
+  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, fluid, classActive, delayTime,
   buttons, backgroundImage
 }) => {
 
@@ -59,7 +59,7 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
     return <MockUp
       isBuider={isBuilder} onEditable={onShowPopupEditMockUp}
       styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      sliderImgs={sliderImgs} slider={slider} margin={margin}
+      sliderImgs={sliderImgs} slider={slider} margin={margin} delayTime={delayTime}
       navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots} fluid={fluid} classActive={classActive}
     />;
   };
