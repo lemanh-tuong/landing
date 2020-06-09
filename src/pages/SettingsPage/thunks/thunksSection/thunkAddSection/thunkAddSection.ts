@@ -1,4 +1,3 @@
-import addToPage from 'firebase/database/addToPage';
 import { actionAddSection } from 'pages/SettingsPage/actions/actionSections/actionAddSection/actionAddSection';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 import { Option } from '../../../SettingsPage';
@@ -11,13 +10,13 @@ export interface ThunkAddSectionArg {
 }
 
 const thunkAddSection = ({ newSection, index }: ThunkAddSectionArg): ThunkAddSection => (dispatch, getState) => {
-  const { settingMainContentReducers } = getState();
+  const { settingMainContentReducers, firebaseReducer } = getState();
   const { id, elements, pathName, pageName } = settingMainContentReducers;
   if(typeof index === 'number') {
-    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, indexInsert: index });
+    firebaseReducer.addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, indexInsert: index });
     dispatch(actionAddSection({...newSection}, index));
   } else {
-    addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection });
+    firebaseReducer.addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection });
     dispatch(actionAddSection(newSection));
   }
 };

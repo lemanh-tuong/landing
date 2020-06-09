@@ -32,9 +32,7 @@ const ListPage = () => {
   const getListPageName = thunkGetListPageName();
 
   useMount(() => {
-    if (!pages) {
-      getListPageName();
-    }
+    getListPageName();
   });
 
   const _renderPage = ({ id, pageName, pathName, isHome }: PageGeneralData, index: number) => {

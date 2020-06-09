@@ -1,6 +1,3 @@
-import readFireBase from 'firebase/database/readFireBase';
-import { removeFirebase } from 'firebase/database/removeFirebase';
-import updateFireBase from 'firebase/database/updateFireBase';
 import { PageDetailData, PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { actionChangeGeneralDataPage, ActionChangeGeneralDataPagePayload } from 'pages/SettingsPage/actions/actionPage/actionChangeGeneralDataPage/actionChangeGeneralDataPage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
@@ -8,6 +5,7 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 type ThunkChangeGeneralDataPage = ThunkAction<typeof actionChangeGeneralDataPage>;
 
 const thunkChangeGeneralDataPage = ({nowIndexPage, newPageName, newPathName, id, isHome}: ActionChangeGeneralDataPagePayload): ThunkChangeGeneralDataPage => async (dispatch, getState) => {
+  const { firebaseReducer } = getState();
   dispatch(actionChangeGeneralDataPage.request());
   const { listPageReducers } = getState();
   const { data } = listPageReducers;
@@ -22,14 +20,14 @@ const thunkChangeGeneralDataPage = ({nowIndexPage, newPageName, newPathName, id,
     isHome: isHome,
   };
   try {
-    const res = await readFireBase(`/PagesDetail/${data[nowIndexPage].pathName.slice(1)}`);
+    const res = await firebaseReducer.readDatabase(`/PagesDetail/${data[nowIndexPage].pathName.slice(1)}`);
     await Promise.all([
-      updateFireBase({
+      firebaseReducer.updateDatabase({
         ref: `ListPage`,
         updateValue: [...data.slice(0, nowIndexPage), {...newPageData}, ...data.slice(nowIndexPage+1, data.length)] as PageGeneralData[]
       }),
-      removeFirebase({ref: `/PagesDetail/${data[nowIndexPage].pathName.slice(1)}`}),
-      updateFireBase({
+      firebaseReducer.removeDatabase({ref: `/PagesDetail/${data[nowIndexPage].pathName.slice(1)}`}),
+      firebaseReducer.updateDatabase({
         ref: `/PagesDetail/${newPathName.slice(1)}`,
         updateValue: {
           id: res.id || '',

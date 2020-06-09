@@ -1,4 +1,3 @@
-import deleteSectionInFirebase from 'firebase/database/deleteSectionInFirebase';
 import { deleteSection } from 'pages/SettingsPage/actions/actionSections/actionDeleteSection/actionDeleteSection';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
@@ -10,9 +9,9 @@ export interface ThunkDeleteSectionArg {
 }
 
 const thunkDeleteSection = ({ arg, nowIndexSection }: ThunkDeleteSectionArg): ThunkDeleteSection => (dispatch, getState) => {
-  const { settingMainContentReducers } = getState();
+  const { settingMainContentReducers, firebaseReducer } = getState();
   const { elements, pathName, pageName, id } = settingMainContentReducers;
-  deleteSectionInFirebase({
+  firebaseReducer.deleteSectionInFirebase({
     pageName,
     pathName,
     id,

@@ -1,6 +1,5 @@
 import { Input } from 'antd';
 import PopUp from 'components/PopUp/PopUp';
-import updateFireBase from 'firebase/database/updateFireBase';
 import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
 import { FormChangeGeneralDataPageProps } from 'pages/SettingsPage/components/OtherForm/FormChangeGeneralDataPage/FormChangeGeneralDataPage';
 import { listPage } from 'pages/SettingsPage/selectors';
@@ -23,29 +22,9 @@ const TestForm: FC<FormChangeGeneralDataPageProps> = ({ pageId }) => {
     setNewPathName(e.target.value);
   };
 
-  const handleSubmit = () => {
-    Promise.all([
-      updateFireBase({
-        ref: `ListPage/1`,
-        updateValue: {
-          id: pageId,
-          pageName: newPageName,
-          pathName: newPathName
-        } as PageGeneralData
-      }),
-      updateFireBase({
-        ref: `PagesDetail/test`,
-        updateValue: {
-          pageName: newPageName,
-          pathName: newPathName
-        },
-      }),
-    ]);
-  }
-
   return (
     <div className="TestForm">
-      <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' title={<h3>Form Change General Data Page</h3>} onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleSubmit}>
+      <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' title={<h3>Form Change General Data Page</h3>} onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)}>
         <div>
           <span>New Path Name</span>
           <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pathName} required onChange={handleChangeNewPathName} />

@@ -2,20 +2,23 @@ import Loading from 'components/Loading/Loading';
 import Nav from 'components/Nav/Nav';
 import { useMount } from 'hooks/useMount';
 import ComponentPage from 'pages/ComponentPage/ComponentPage';
+import CreateProjectPage from 'pages/CreateProjectPage/CreateProjectPage';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
 import ListPage from 'pages/ListPage/ListPage';
 import thunkGetListPageName from 'pages/ListPage/thunks/thunkGetListPageName/thunkGetListPageName';
 import LoginPage from 'pages/LoginPage/LoginPage';
 import { statusLogin } from 'pages/LoginPage/selectors';
+import thunkInitialize from 'pages/LoginPage/thunks/thunkInitialize';
 import MainPage from 'pages/MainPage/MainPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
+import thunkGetDataSection from 'pages/SettingsPage/thunks/thunksSection/thunkGetDataSection/thunkGetDataSection';
 import TestPage from 'pages/TestPage/TestPage';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import { listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusRequestNav, statusRequestPage } from 'selectors';
+import { listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusInitialize, statusRequestNav, statusRequestPage } from 'selectors';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const Routes = () => {
@@ -34,9 +37,13 @@ const Routes = () => {
     if (item.isHome) return '/';
     return item.pathName
   });
+
+  const statusInitializeApp = useSelector(statusInitialize);
   // Dispatch
   const getDataNav = thunkGetDataNav();
   const getListPageName = thunkGetListPageName();
+  const initializeApp = thunkInitialize();
+  const getDataSection = thunkGetDataSection();
 
   const _renderNavBar = () => {
     return <Nav logo={logo} navItems={nav} />;
@@ -112,15 +119,27 @@ const Routes = () => {
   };
 
   useMount(() => {
-    getListPageName();
-    getDataNav();
+    initializeApp();
+    // getListPageName();
+    // getDataNav();
+    // getDataSection({ pathName: '' });
   });
+
+  useEffect(() => {
+    if (statusInitializeApp === 'initialized') {
+      getListPageName();
+      getDataNav();
+    }
+  }, [statusInitializeApp])
 
   if (statusRequestPageName === 'failure') {
     return <Redirect to={{ pathname: '/error', state: 'Error Request Pagename' }} />;
   }
 
-  return _renderContentSwitch();
+  if (statusInitializeApp === 'initializedFailure') {
+    return <CreateProjectPage />
+  }
+  return _renderContentSuccess();
 
 };
 

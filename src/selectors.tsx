@@ -14,3 +14,6 @@ export const messageRequestNav = (state: AppState) => state.navReducer.messageRe
 export const listPage = (state: AppState) => state.listPageReducers.data;
 export const statusRequestPage = (state: AppState) => state.listPageReducers.statusRequest;
 export const messageRequestPageErr = (state: AppState) => state.listPageReducers.messageRequestErr;
+
+// configApp
+export const statusInitialize = (state: AppState) => state.firebaseReducer.statusInitialize;

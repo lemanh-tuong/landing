@@ -1,6 +1,4 @@
 import { NavProps } from 'components/Nav/Nav';
-import addToPage from 'firebase/database/addToPage';
-import { writeFirebase } from 'firebase/database/writeFirebase';
 import { actionSaveAll } from 'pages/SettingsPage/actions/actionSections/actionSaveAll/actionSaveAll';
 import { Option } from 'pages/SettingsPage/SettingsPage';
 import { createDispatchAction } from 'utils/functions/reduxActions';
@@ -13,16 +11,18 @@ export interface ThunkSaveAllArg {
   logo: NavProps['logo'];
 }
 const thunkSaveAll = (): ThunkSaveAll => async (dispatch, getState) => {
-  const { navReducer, settingMainContentReducers } = getState();
+  const { navReducer, settingMainContentReducers, firebaseReducer } = getState();
   const  { navItems, logo } = navReducer;
   const { pageName, elements, id, pathName } = settingMainContentReducers;
-  await addToPage({
-    id,
-    pathName,
-    elements,
-    pageName,
-  });
-  await writeFirebase({ref: 'nav', value: {logo: logo, navItems: navItems }});
+  await Promise.all([
+    await firebaseReducer.addToPage({
+      id,
+      pathName,
+      elements,
+      pageName,
+    }),
+    await firebaseReducer.writeDatabase({ref: 'nav', value: {logo: logo, navItems: navItems }})
+  ]);
   dispatch(actionSaveAll());
 };
 

@@ -1,15 +1,16 @@
 
-import readStorage from 'firebase/storage/readStorage';
+
 import { actionGetImageGallery } from 'pages/ImageGalleryPage/actions/actionGetDataImageGallery/actionGetDataImageGallery';
 import { ActionUploadFilePayload } from 'pages/ImageGalleryPage/actions/actionUploadFile/actionUploadFile';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkGetImageGallery = ThunkAction<typeof actionGetImageGallery>;
 
-const thunkGetImageGallery = (type: ActionUploadFilePayload['type']): ThunkGetImageGallery => async dispatch => {
+const thunkGetImageGallery = (type: ActionUploadFilePayload['type']): ThunkGetImageGallery => async (dispatch, getState) => {
+  const { firebaseReducer } = getState();
   dispatch(actionGetImageGallery.request(null));
   try {
-    const data = await readStorage(type);
+    const data = await firebaseReducer.readStorage(type);
     const imgs = data.map(item => ({
       imgSrc: item
     }));

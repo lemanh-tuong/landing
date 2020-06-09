@@ -1,6 +1,5 @@
 import { actionUploadFile, ActionUploadFilePayload } from 'pages/ImageGalleryPage/actions/actionUploadFile/actionUploadFile';
 import { createDispatchAction } from 'utils/functions/reduxActions';
-import uploadFileFireBase from '../../../../firebase/storage/uploadFile';
 
 type ThunkUpLoadFile = ThunkAction<typeof actionUploadFile>;
 export interface ThunkUpLoadFileArg {
@@ -8,10 +7,11 @@ export interface ThunkUpLoadFileArg {
   files: File[];
 }
 
-const thunkUploadFile = ({files, path}: ThunkUpLoadFileArg): ThunkUpLoadFile => async dispatch => {
+const thunkUploadFile = ({files, path}: ThunkUpLoadFileArg): ThunkUpLoadFile => async (dispatch, getState) => {
+  const { firebaseReducer } = getState();
   dispatch(actionUploadFile.request(null));
   try {
-    const newImgs = await uploadFileFireBase({path: path, files: files});
+    const newImgs = await firebaseReducer.uploadFile({path: path, files: files});
     if(newImgs) {
       dispatch(actionUploadFile.success({imgs: newImgs, type: path}));
     }

@@ -1,6 +1,7 @@
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import Loading from 'components/Loading/Loading';
 import { statusLogin } from 'pages/LoginPage/selectors';
+import thunkLogout from 'pages/LoginPage/thunks/thunkLogout';
 import React, { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
@@ -25,8 +26,14 @@ const HomePage = () => {
 
   //Dispatch
   const getData = thunkGetSections();
-  //Render
+  const logOut = thunkLogout();
 
+  //Handle Functin
+  const handleLogout = () => {
+    logOut()
+  }
+
+  //Render
   const _renderMainContentSuccess = () => {
     return (
       <>
@@ -39,11 +46,20 @@ const HomePage = () => {
   const _renderReEdit = () => {
     const homePagePath = generalDataPage.find(page => page.isHome)?.pathName;
     return (
-      <Button shape='circle' style={{ position: 'fixed', right: 10, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
-        <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName === '/' ? homePagePath : pathName}&id=${id}`}>
-          <i style={{ color: 'white' }} className="far fa-edit"></i>
-        </Link>
-      </Button>
+      <>
+        <Popover content="ReEdit This Page">
+          <Button shape='circle' style={{ position: 'fixed', right: 10, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
+            <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName === '/' ? homePagePath : pathName}&id=${id}`}>
+              <i style={{ color: 'white' }} className="far fa-edit"></i>
+            </Link>
+          </Button>
+        </Popover>
+        <Popover content="Sign Out">
+          <Button shape='circle' onClick={handleLogout} style={{ position: 'fixed', right: 70, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
+            <i style={{ color: 'white' }} className="fas fa-sign-out-alt"></i>
+          </Button>
+        </Popover>
+      </>
     )
   }
 

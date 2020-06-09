@@ -1,5 +1,5 @@
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
-import { actionLogin } from '../actions/actionLogin';
+import { actionLogout } from '../actions/actionLogout';
 
 export interface AuthReducer {
   readonly statusLogin: 'loging' | 'loged' | 'failure';
@@ -15,7 +15,7 @@ const initialState: AuthReducer = {
   message: '',
 };
 
-const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin> & any>(initialState, [
+const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogout> & any>(initialState, [
   handleAction('@loging', state => {
     return {
       ...state,
@@ -47,6 +47,14 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin> &
       token: action.payload.token,
     };
   }),
+  handleAction('@signedOut', (state, action) => {
+    return {
+      refreshToken: '',
+      token: '',
+      message: '',
+      statusLogin: 'loging'
+    }
+  })
 ]);
 
 export default authReducer;
