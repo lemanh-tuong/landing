@@ -1,5 +1,3 @@
-import { Button } from 'antd';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 import React, { CSSProperties, FC, useState } from 'react';
 import { Option } from '../../SettingsPage';
 import PageTab from './PageTab/PageTab';
@@ -45,11 +43,13 @@ const SideBar: FC<SideBarProps> = ({ className }) => {
 
   return (
     <div className={styles.sideBar}>
-      <ButtonGroup scroll={true}>
-        <Button className={styles.btn} onClick={handleChangeTab('section')}>Section</Button>
-        <Button className={styles.btn} onClick={handleChangeTab('page')}>Page</Button>
-      </ButtonGroup>
-      {_renderSwitch()}
+      <div className={styles.sideBarContent}>
+        <div className={styles.sideBarNav}>
+          <div className={`${styles.btn} ${nowTab === 'section' ? styles.active : ''}`} onClick={handleChangeTab('section')}>Section</div>
+          <div className={`${styles.btn} ${nowTab === 'page' ? styles.active : ''}`} onClick={handleChangeTab('page')}>Page</div>
+        </div>
+        {_renderSwitch()}
+      </div>
     </div>
   );
 };

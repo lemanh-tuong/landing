@@ -20,7 +20,7 @@ export interface ItemSideBar extends Omit<Option, 'sectionId'> {
 }
 
 const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: isDraggingOver ? 'lightblue' : '#f1f1f1',
   padding: 20,
 });
 

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ChromePicker, ColorChangeHandler } from 'react-color';
 import styles from './ColorPicker.module.scss';
 
@@ -39,9 +39,9 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
     };
   });
 
-  const handleOpenBox = () => {
+  const handleOpenBox = useCallback(() => {
     setDisplayColorPicker(!displayColorPicker);
-  };
+  }, [displayColorPicker]);
 
   const handleChangeColor: ColorChangeHandler = (result) => {
     const resultRGBA = `rgba(${result.rgb.r}, ${result.rgb.g}, ${result.rgb.b}, ${result.rgb.a})`;
@@ -64,6 +64,17 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
       onChangeRef.current?.(color);
     }
   }, [onChangeRef, color]);
+
+  useEffect(() => {
+    if (displayColorPicker) {
+      window.addEventListener('click', handleOpenBox);
+    } else {
+      window.removeEventListener('click', handleOpenBox);
+    }
+    return () => {
+      window.removeEventListener('click', handleOpenBox);
+    }
+  }, [displayColorPicker, handleOpenBox])
 
   return (
     <div className={styles.colorPicker}>

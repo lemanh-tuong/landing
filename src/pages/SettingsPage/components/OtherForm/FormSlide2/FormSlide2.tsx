@@ -75,7 +75,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
   };
 
   return (
-    <div style={{ position: 'relative', border: '1px solid', borderRadius: 5 }} className="FormSlide2">
+    <div style={{ position: 'relative', border: '1px solid', borderRadius: 5, padding: 20 }} className="FormSlide2">
       <Form
         onChange={handleChangeForm}
         fields={[

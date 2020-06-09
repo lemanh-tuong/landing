@@ -1,3 +1,4 @@
+import PopUp from 'components/PopUp/PopUp';
 import { useMount } from 'hooks/useMount';
 import React, { ChangeEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,10 +10,12 @@ import thunkLogin from './thunks/thunkLogin';
 
 const LoginPage = () => {
   const [SignIn_Info, setSignInInfo] = useState<{ email: string; password: string }>({ email: '', password: '' });
+
   const history = useHistory();
   // Dispatch
   const loginAction = thunkLogin();
   const loginContinue = thunkContinueLog();
+
   // Selector
   const msg = useSelector(messageLogin);
   const status = useSelector(statusLogin);
@@ -73,7 +76,7 @@ const LoginPage = () => {
           </div>
           <div className={styles.formBottom}>
             <a href="##" onClick={(e) => e.preventDefault()} className={styles.forgotPasswordBtn}>Forgot password</a>
-            <a href="##" onClick={(e) => e.preventDefault()} className={styles.forgotPasswordBtn}>Create New Project</a>
+            <a href="##" onClick={PopUp.show('create-new-project-form')} className={styles.forgotPasswordBtn}>Create New Project</a>
           </div>
         </div>
         {msg ? _renderError() : null}

@@ -79,7 +79,7 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     const { authorAvatar, rateContent, authorName, purpose, stars } = rateList?.[nowIndexRate] as RateProps;
     return (
       <Form
-        style={{ border: '1px solid', borderRadius: 5 }}
+        style={{ border: '1px solid', borderRadius: 5, padding: 20 }}
         fields={[
           {
             fieldId: `rate-rateContent-${sectionId}-${nowIndexRate}`,

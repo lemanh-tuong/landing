@@ -36,8 +36,8 @@ import chplay from 'assets/img/web_icons/google-play.png';
 import iconNotifycation from 'assets/img/web_icons/notification.svg';
 import icon1 from 'assets/img/web_icons/paid-listings.svg';
 import icon1Card2 from 'assets/img/web_icons/pentagon.svg';
-import icon3Card2 from 'assets/img/web_icons/quadrilateral.svg';
-import icon2Card2 from 'assets/img/web_icons/triangle.svg';
+import { CardProps } from 'components/Card/Card';
+import { RateProps } from 'components/Rate/Rate';
 import { TypeSlideSection5 } from 'components/Section5/Section5';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
 import { ActionGetComponentSuccess, getDataComponent } from '../actions/actionGetComponent/actionGetComponent';
@@ -48,8 +48,32 @@ export interface ComponentPageReducers {
   readonly patternComponent: ActionGetComponentSuccess[];
 }
 
-const defaultTitle = 'Build any type of directory with the fastest and easiest for wordpress';
-const defaultText = 'Create unlimited directory types, our tool also lest you design functionality and features for each of them.';
+const defaultTitle = 'Title is here';
+const defaultText = 'Text is here';
+const defaultButton = 'Button';
+const defaultRate:RateProps ={
+  authorAvatar: {
+    imgSrc: authorAvatar,
+    href: '##'
+  },
+  authorName: 'Author Name',
+  purpose: 'Purpose',
+  rateContent: 'Rate Content',
+  stars: 5,
+};
+const defaultCard: CardProps = { titleCard: defaultTitle, textCard: defaultText, iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' };
+const defaultCard2: CardProps = {
+  iconImg: {
+    imgSrc: icon1Card2
+  },
+  alignIcon: 'left',
+  bgColorIcon: 'transparent',
+  sizeIcon: 'xs',
+  titleCard: 'Mobile application performance',
+  alignTitleCard: 'left',
+  textCard: 'Making your mobile app work means that you try to provide as soon as possible, the same users can experience whatever the condition of the network.',
+  alignText: 'left',
+};
 
 const initialState: ComponentPageReducers =  {
   statusRequestComponentPage: 'loading',
@@ -71,7 +95,7 @@ const initialState: ComponentPageReducers =  {
       classText: '',
       styleText: {},
       darkMode: false,
-      textButton: 'Try demo',
+      textButton: defaultButton,
       hrefButton: '##',
       typeButton: 'white',
       animation: false,
@@ -95,31 +119,27 @@ const initialState: ComponentPageReducers =  {
       animation: true,
       positionAnimation: 'left',
       sectionName: 'Section 2',
-      mainTitle: 'How can you earn money from your website',
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       darkMode: false,
-      cards: [
-        { titleCard: 'Paid listings', textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.', iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
-        { titleCard: 'Promoted listing', textCard: 'Choosing a promotion plan, listing owners will have directories appeared at the special spots on your site and at the top of the search result page.', iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
-        { titleCard: 'Paid claim listings', textCard: 'Another revenue model to monetize from listing. You can create a listing on your site and allow the listing owner to claim it.', iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' },
-      ],
+      cards: [defaultCard, defaultCard, defaultCard],
     },
     {
       previewImg: previewSection3,
       animation: true,
       positionAnimation: 'left',
       sectionName: 'Section 3',
-      mainTitle: 'Create unlimited directory',
+      mainTitle: defaultTitle,
       alignMainTitle: 'left',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       fontSizeMainTitle: 'lg',
       styleMainTitle: {},
-      text: 'Comes with power of Wiloke Tools, you can add unlimited directory types to your site. The tool also lets you design functionality and features. That’s why we give you our promise: Quisque amet consectetur, egestas nulla at nisi cursus, sed iaculis est commodo, nulla lacus aliquet.',
+      text: defaultText,
       alignText: 'left',
       colorText: 'black-3',
       classText: '',
@@ -136,12 +156,12 @@ const initialState: ComponentPageReducers =  {
       sectionName: 'Section 4',
       animation: true,
       positionAnimation: 'left',
-      mainTitle: 'Perfect customer dashboard',
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       styleMainTitle: {},
-      text: 'The listing owners can take full control of their business from Customer Dashboard. Here they can upgrade plans, run promotion campains, reply to messages, track the statistics of views, favorites, shares, reviews.',
+      text: defaultText,
       alignText: 'center',
       colorText: 'black-3',
       classText: '',
@@ -149,7 +169,7 @@ const initialState: ComponentPageReducers =  {
       imageSectionCol: {
         imgSrc: sectionImg1
       },
-      textButton: 'Purchase now for 64$',
+      textButton: defaultButton,
       hrefButton: '##',
       typeButton: 'gradient',
       colorTextButton: '#fff',
@@ -158,13 +178,13 @@ const initialState: ComponentPageReducers =  {
     {
       previewImg: previewSection5,
       sectionName: 'Section 5',
-      mainTitle: "Who's using Wilcity",
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       colorMainTitle: 'white',
       classMainTitle: '',
       fontSizeMainTitle: 'lg',
       styleMainTitle: {},
-      text: 'We’re honored some of the most talented creatives out there build with Wilcity',
+      text: defaultText,
       alignText: 'center',
       colorText: 'white',
       classText: '',
@@ -196,14 +216,14 @@ const initialState: ComponentPageReducers =  {
       sectionName: 'Section 6',
       animation: true,
       backgroundColor: 'rgba(245, 245, 245)',
-      mainTitle: 'Buil any type of directory with the fastest and easiest fo app',
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       fontSizeMainTitle: 'lg',
       styleMainTitle: {},
       hrefButton: '##',
-      textButton: 'Purchase now for 64$',
+      textButton: defaultButton,
       backgroundButton: `linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)`,
       colorTextButton: '#fff',
       darkMode: false,
@@ -213,98 +233,30 @@ const initialState: ComponentPageReducers =  {
       sectionName: 'Section 7',
       animation: true,
       backgroundColor: 'rgba(245, 245, 245)',
-      mainTitle: 'Trusted by over 6600 users',
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       colorMainTitle: 'black-3',
       classMainTitle: '',
       fontSizeMainTitle: 'lg',
       styleMainTitle: {},
-      text: "See what customers're saying about our services",
+      text: defaultText,
       colorText: 'rgba(0, 0, 0, 0.7)',
       alignText: 'center',
       classText: '',
       fontSizeText: 'sm',
       styleText: {},
-      rateList: [
-        {
-          authorAvatar: {
-            imgSrc: authorAvatar,
-            href: '##'
-          },
-          authorName: 'SergeyX',
-          purpose: 'Feature availability',
-          rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
-          stars: 5,
-        },
-        {
-          authorAvatar: {
-            imgSrc: authorAvatar,
-            href: '##'
-          },
-          authorName: 'Kalitegroup',
-          purpose: 'Flexibility',
-          rateContent: `Hello there I've used 4-5 directory listing scripts until now. Wilcity gives the impression that they will be the most beautiful in them. I bought a second license for support. I hope they continue without losing their excitement.`,
-          stars: 5,
-        },
-        {
-          authorAvatar: {
-            imgSrc: authorAvatar,
-            href: '##'
-          },
-          authorName: 'Dodghz',
-          purpose: 'Customer support',
-          rateContent: `I am very happy not only with the theme, but also with the customer support received from the Wilcity team. Support tickets are responded to quickly and the team work hard to answer questions or fix small problems.`,
-          stars: 5,
-        }
-      ],
+      rateList: [defaultRate, defaultRate, defaultRate],
       hrefButton: '##',
-      textButton: 'Purchase now for 64$',
+      textButton: defaultButton,
       darkMode: false,
     },
     {
       previewImg: previewSection8,
       sectionName: 'Section 8',
-      card2s:[
-        {
-          iconImg: {
-            imgSrc: icon1Card2
-          },
-          alignIcon: 'left',
-          bgColorIcon: 'transparent',
-          sizeIcon: 'xs',
-          titleCard: 'Mobile application performance',
-          alignTitleCard: 'left',
-          textCard: 'Making your mobile app work means that you try to provide as soon as possible, the same users can experience whatever the condition of the network.',
-          alignText: 'left',
-        },
-        {
-          iconImg: {
-            imgSrc: icon2Card2
-          },
-          alignIcon: 'left',
-          bgColorIcon: 'transparent',
-          sizeIcon: 'xs',
-          titleCard: 'React native application',
-          alignTitleCard: 'left',
-          textCard: 'Publish your app to Apple App Store and Google Play Store using our easy publishing wizard with just a few clicks.',
-          alignText: 'left',
-        },
-        {
-          iconImg: {
-            imgSrc: icon3Card2
-          },
-          alignIcon: 'left',
-          bgColorIcon: 'transparent',
-          sizeIcon: 'xs',
-          titleCard: 'Geo listings',
-          alignTitleCard: 'left',
-          textCard: 'List your listings by location, allowing app users to search for those closest to them.',
-          alignText: 'left',
-        }
-      ],
+      card2s:[defaultCard2, defaultCard2, defaultCard2 ],
       animation: true,
       backgroundColor: 'rgba(245, 245, 245)',
-      mainTitle: 'Our provided features',
+      mainTitle: defaultTitle,
       alignMainTitle: 'left',
       colorMainTitle: 'black-3',
       classMainTitle: '',
@@ -312,7 +264,7 @@ const initialState: ComponentPageReducers =  {
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: 'rgb(240, 98, 146)',
-      text: 'Easily build hero section with King Composer - Drag Drop Page Builder - right on your website. We also support secondary navigator menu.',
+      text: defaultText,
       colorText: 'rgba(0, 0, 0, 0.7)',
       alignText: 'left',
       classText: '',
@@ -328,7 +280,7 @@ const initialState: ComponentPageReducers =  {
       sectionName: 'Section 9',
       animation: false,
       backgroundColor: 'linear-gradient(90deg, rgb(116, 45, 228) 0%, rgb(89, 192, 255) 100%)',
-      mainTitle: 'Test Wilcity Application On Simulation',
+      mainTitle: defaultTitle,
       alignMainTitle: 'left',
       colorMainTitle: '#fff',
       classMainTitle: '',
@@ -336,7 +288,7 @@ const initialState: ComponentPageReducers =  {
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: '#fff',
-      text: 'You can quickly test Wilcity App by using Simulation beside. Note that when testing with the Simulator, the experience will not smooth like on Real Phone.',
+      text: defaultText,
       colorText: '#fff',
       alignText: 'left',
       classText: '',
@@ -363,7 +315,7 @@ const initialState: ComponentPageReducers =  {
       sectionName: 'Section 10',
       animation: true,
       positionAnimation: 'left',
-      mainTitle: 'Build your mobile apps in less time',
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       classMainTitle: '',
       styleMainTitle: {},
@@ -371,13 +323,13 @@ const initialState: ComponentPageReducers =  {
       dividerColor: 'rgb(240, 98, 146)',
       alignDivider: 'center',
       imageSectionCol: {imgSrc: sectionImg1},
-      text: 'No coding knowledge and no paid plugins required.',
+      text: defaultText,
       alignText: 'center',
       classText: '',
       fontSizeText: 'sm',
       styleText: {},
       hrefButton: '##',
-      textButton: 'Purchase now for 64$',
+      textButton: defaultButton,
       backgroundButton: `linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)`,
       colorTextButton: '#fff',
       darkMode: false,
@@ -387,14 +339,14 @@ const initialState: ComponentPageReducers =  {
       sectionName: 'Section 11',
       animation: true,
       reverse: false,
-      mainTitle: 'Push notification and internal chat system',
+      mainTitle: defaultTitle,
       alignMainTitle: 'left',
       classMainTitle: '',
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: 'rgb(240, 98, 146)',
       imageSectionCol: {imgSrc: sectionImg1},
-      text: 'Easily build hero section with King Composer - Drag Drop Page Builder - right on your website. We also support secondary navigator menu.',
+      text: defaultText,
       alignText: 'left',
       classText: '',
       styleText: {},
@@ -451,10 +403,10 @@ const initialState: ComponentPageReducers =  {
         {imgSrc: screen9},
       ],
       draggable: true,
-      mainTitle: 'App Screenshot',
+      mainTitle: defaultTitle,
       alignMainTitle: 'center',
       colorMainTitle: '#fff',
-      text: 'See all awesome app screenshot, it will be your if you buy it',
+      text: defaultText,
       alignText: 'center',
       colorText: '#fff',
       fluid: true,
@@ -466,7 +418,7 @@ const initialState: ComponentPageReducers =  {
       previewImg: previewSection14,
       backgroundColor: `linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)`,
       sectionName: 'Section 14',
-      mainTitle: 'Convert your Listing Directory site into true native apps.',
+      mainTitle: defaultTitle,
       alignMainTitle: 'left',
       colorMainTitle: 'white',
       classMainTitle: '',

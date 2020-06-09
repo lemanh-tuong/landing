@@ -56,7 +56,7 @@ const FormSlide: FC<FormSlideProps> = ({ nowIndexSection, nowIndexSlide }) => {
   };
 
   return (
-    <div className={styles.formSlide} style={{ borderRadius: 5, border: '1px solid' }}>
+    <div className={styles.formSlide} style={{ borderRadius: 5, border: '1px solid', padding: 20 }}>
       <Form
         fields={[
           {

@@ -1,7 +1,7 @@
 import authReducer from '../reducers/authReducer';
 
 const rootLoginPageReducers = {
-  authReducer
+  authReducer,
 };
 
 export default rootLoginPageReducers;

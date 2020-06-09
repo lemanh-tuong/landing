@@ -77,7 +77,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
   return (
     <div className="formButton">
       <Form
-        style={{ border: '1px solid', borderRadius: 5 }}
+        style={{ border: '1px solid', borderRadius: 5, padding: 20 }}
         fields={[
           {
             fieldId: `variance-type`,

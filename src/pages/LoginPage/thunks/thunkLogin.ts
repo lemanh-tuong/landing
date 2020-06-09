@@ -2,6 +2,7 @@ import { signInFirebase } from 'firebase/authentication/signInFirebase';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 import { actionLogin } from '../actions/actionLogin';
 
+
 type ThunkLogin = ThunkAction<typeof actionLogin>;
 interface ThunkLoginArg {
   email: string;

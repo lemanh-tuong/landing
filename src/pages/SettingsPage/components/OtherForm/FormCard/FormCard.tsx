@@ -100,7 +100,7 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon, bgColorIcon } = element.cards?.[nowIndexCard] as CardProps;
     return (
       <Form
-        style={{ border: '1px solid', borderRadius: 5 }}
+        style={{ border: '1px solid', borderRadius: 5, padding: '20px' }}
         fields={[
           {
             fieldType: 'input',

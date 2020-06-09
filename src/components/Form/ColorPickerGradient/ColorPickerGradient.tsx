@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
 import styles from './ColorPickerGradient.module.scss';
 
@@ -13,7 +13,7 @@ export interface ColorPickerGradientProps {
 }
 
 const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
-  defaultColorLeft = 'rgb(240, 98, 146)', defaultColorRight = 'rgb(249, 120, 95)',
+  defaultColorLeft = undefined, defaultColorRight = undefined,
   type = 'linear-gradient',
   style, className,
   onChange }) => {
@@ -31,14 +31,14 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
     };
   };
 
-  const handleOpen = (side: 'left' | 'right') => {
+  const handleOpen = useCallback((side: 'left' | 'right') => {
     return () => {
       setDisplayColorBox(state => ({
         ...state,
         [side]: !state[side]
       }));
     };
-  };
+  }, []);
 
   const _renderColorBox = (side: 'left' | 'right') => {
     return (
@@ -52,6 +52,23 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
     const gradient = `${type}(90deg, ${color.left} 0%, ${color.right} 100%)`;
     onChangeRef.current?.(gradient);
   }, [onChangeRef, color, type]);
+
+  useEffect(() => {
+    if (displayColorBox.left) {
+      window.addEventListener('click', handleOpen('left'));
+    } else {
+      window.removeEventListener('click', handleOpen('left'));
+    }
+    if (displayColorBox.right) {
+      window.addEventListener('click', handleOpen('right'));
+    } else {
+      window.removeEventListener('click', handleOpen('right'));
+    }
+    return () => {
+      window.removeEventListener('click', handleOpen('left'));
+      window.removeEventListener('click', handleOpen('right'));
+    }
+  }, [displayColorBox, handleOpen])
 
   return (
     <div className={`${styles.colorPickerGradientComponent} ${className}`} style={style}>

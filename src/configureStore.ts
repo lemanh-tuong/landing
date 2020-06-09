@@ -11,7 +11,7 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
+  whitelist: ['firebaseReducer'],
 };
 
 const authPersistConfig = {

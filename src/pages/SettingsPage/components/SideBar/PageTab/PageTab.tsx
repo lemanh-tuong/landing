@@ -103,7 +103,7 @@ const PageTab = () => {
     return <>
       {_renderPages()}
       <ButtonGroup>
-        <Button size='middle' shape='round' danger onClick={PopUp.show('add-page-form')}>
+        <Button className={`${styles.addBtn} ${styles.page}`} onClick={PopUp.show('add-page-form')}>
           Add New Page
         </Button>
       </ButtonGroup>

@@ -7,7 +7,6 @@ import thunkChangeColor from 'pages/SettingsPage/thunks/thunksInFormSection/thun
 import thunkChangeSelect from 'pages/SettingsPage/thunks/thunksInFormSection/thunkChangeSelect/thunkChangeSelect';
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import styles from './FormSection.module.scss';
 
 export interface FormSectionProps {
   nowIndexSection: number;
@@ -53,79 +52,69 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
 
   return (
     <PopUp type='antd' title={<h3>Form Section</h3>} id={`section-${sectionId}`}>
-      <div className={styles.formSection}>
-        <div className={styles.formContent}>
-          <div className={styles.header}>
-            <h2>Section Setting</h2>
-          </div>
-          <div className={styles.form}>
-
-            <Form
-              fields={[
+      <Form
+        fields={[
+          {
+            fieldId: 'animation',
+            fieldName: 'animation',
+            label: 'Animation',
+            fieldType: 'checkbox',
+            defaultChecked: animation,
+          },
+          {
+            fieldId: 'positionAnimation',
+            fieldName: 'positionAnimation',
+            label: 'Position Animation',
+            fieldType: 'select',
+            hidden: !animation,
+            defaultSelect: positionAnimation,
+            optionsGroup: {
+              groupName: 'position animation',
+              options: [
                 {
-                  fieldId: 'animation',
-                  fieldName: 'animation',
-                  label: 'Animation',
-                  fieldType: 'checkbox',
-                  defaultChecked: animation,
+                  label: 'Left',
+                  value: 'left'
                 },
                 {
-                  fieldId: 'positionAnimation',
-                  fieldName: 'positionAnimation',
-                  label: 'Position Animation',
-                  fieldType: 'select',
-                  hidden: !animation,
-                  defaultSelect: positionAnimation,
-                  optionsGroup: {
-                    groupName: 'position animation',
-                    options: [
-                      {
-                        label: 'Left',
-                        value: 'left'
-                      },
-                      {
-                        label: 'right',
-                        value: 'right',
-                      }
-                    ]
-                  }
-                },
-                {
-                  fieldId: 'reserve-section',
-                  fieldName: 'reverse',
-                  label: 'Reverse',
-                  fieldType: 'checkbox',
-                  defaultChecked: reverse,
-                  hidden: !canReverseCol
-                },
-                {
-                  fieldId: 'checkbox-toggle-color',
-                  fieldName: 'isGradient',
-                  label: 'isGradient',
-                  fieldType: 'checkbox',
-                  defaultChecked: isGradient,
-                },
-                {
-                  fieldId: 'color-1',
-                  fieldName: 'backgroundColor',
-                  label: 'Background Color',
-                  fieldType: 'color-picker',
-                  defaultColor: backgroundColor,
-                  hidden: !!isGradient
-                },
-                {
-                  fieldId: 'gradient-1',
-                  fieldName: 'backgroundColor',
-                  label: 'Background Color',
-                  fieldType: 'color-picker-gradient',
-                  hidden: !isGradient
+                  label: 'right',
+                  value: 'right',
                 }
-              ]}
-              onChange={handleChangeOptionSection}
-            />
-          </div>
-        </div>
-      </div>
+              ]
+            }
+          },
+          {
+            fieldId: 'reserve-section',
+            fieldName: 'reverse',
+            label: 'Reverse',
+            fieldType: 'checkbox',
+            defaultChecked: reverse,
+            hidden: !canReverseCol
+          },
+          {
+            fieldId: 'checkbox-toggle-color',
+            fieldName: 'isGradient',
+            label: 'isGradient',
+            fieldType: 'checkbox',
+            defaultChecked: isGradient,
+          },
+          {
+            fieldId: 'color-1',
+            fieldName: 'backgroundColor',
+            label: 'Background Color',
+            fieldType: 'color-picker',
+            defaultColor: backgroundColor,
+            hidden: !!isGradient
+          },
+          {
+            fieldId: 'gradient-1',
+            fieldName: 'backgroundColor',
+            label: 'Background Color',
+            fieldType: 'color-picker-gradient',
+            hidden: !isGradient
+          }
+        ]}
+        onChange={handleChangeOptionSection}
+      />
     </PopUp>
   );
 };

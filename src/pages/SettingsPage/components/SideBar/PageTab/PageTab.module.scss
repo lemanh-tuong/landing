@@ -1,14 +1,14 @@
+@import '../../../../../styles/abstracts/variables.scss';
 .page {
-  margin: 5px;
   transition: 0.3s all;
+  margin: 6px auto;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 10px;
-  &:hover {
-    background: #eee;
-    color: black;
-  }
+  background-color: #fff;
+  padding: 0px 20px;
+  border-radius: 10px;
   & a {
     flex: 1 1 auto;
     padding: 10px;
@@ -16,14 +16,20 @@
 }
 
 .active {
-  background: #eee;
-  color: black;
-}
-
-.btn {
-  margin: 3px;
+  color: $color-primary;
 }
 
 .homeIcon {
   font-size: inherit;
+}
+
+.addBtn {
+  text-align: center;
+  padding: 18px;
+  background-color: $color-primary;
+  color: white;
+  & span {
+    display: block;
+    width: 100%;
+  }
 }

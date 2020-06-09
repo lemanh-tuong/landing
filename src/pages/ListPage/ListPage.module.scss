@@ -10,22 +10,13 @@
 .page {
   padding: 30px;
   border-radius: 10px;
-  background: #f1f1f1;
+  background-color: #fff;
   text-align: center;
   font-size: 24px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: #333;
-  transition: 0.3s all;
-  &:hover {
-    background-color: #fff;
-    color: #222;
-  }
-  &.actived {
-    background-color: #fff;
-    color: #222;
-  }
 }
 
 .addPage {
