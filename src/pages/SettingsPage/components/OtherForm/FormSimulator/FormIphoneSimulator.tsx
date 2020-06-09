@@ -35,7 +35,7 @@ const FormIphoneSimulator: FC<FormIphoneSimulatorProps> = ({ nowIndexSection }) 
         fields={[
           {
             fieldId: 'input-ios-params',
-            fieldName: 'iosParams',
+            fieldName: 'iphoneParams',
             label: 'IOS Params',
             fieldType: 'input-text-2',
             addonBefore: 'exp://expo.io/',

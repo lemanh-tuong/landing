@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { ChromePicker, ColorChangeHandler } from 'react-color';
 import styles from './ColorPicker.module.scss';
 
@@ -18,6 +18,7 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
   const onChangeRef = useRef(onChange);
 
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [isChanging, setIsChanging] = useState(false);
   const [color, setColor] = useState<ColorPickState>(() => {
     if (defaultColor?.includes('#')) {
       return {
@@ -39,12 +40,14 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
     };
   });
 
-  const handleOpenBox = useCallback(() => {
+  const handleOpenBox = useCallback((e) => {
+    console.log(e);
     setDisplayColorPicker(!displayColorPicker);
   }, [displayColorPicker]);
 
   const handleChangeColor: ColorChangeHandler = (result) => {
     const resultRGBA = `rgba(${result.rgb.r}, ${result.rgb.g}, ${result.rgb.b}, ${result.rgb.a})`;
+    setIsChanging(true);
     setColor({
       hex: result.hex,
       rgba: resultRGBA
@@ -55,16 +58,20 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
     });
   };
 
+  const handleChangeComplete = () => {
+    setIsChanging(false);
+  }
+
   const _renderColorBox = () => {
     return (
       <div className={styles.colorBox}>
-        <ChromePicker color={color.rgba} onChange={handleChangeColor} />
+        <ChromePicker color={color.rgba} onChangeComplete={handleChangeComplete} onChange={handleChangeColor} />
       </div>
     );
   };
 
   useEffect(() => {
-    if (displayColorPicker) {
+    if (displayColorPicker && !isChanging) {
       window.addEventListener('click', handleOpenBox);
     } else {
       window.removeEventListener('click', handleOpenBox);
@@ -72,7 +79,7 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
     return () => {
       window.removeEventListener('click', handleOpenBox);
     }
-  }, [displayColorPicker, handleOpenBox])
+  }, [displayColorPicker, handleOpenBox, isChanging])
 
   return (
     <div className={styles.colorPicker}>
@@ -89,4 +96,4 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
   );
 };
 
-export default ColorPicker;
+export default memo(ColorPicker);

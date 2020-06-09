@@ -55,13 +55,16 @@ const ListPage = () => {
   const _renderPages = () => {
     return (
       <Container>
+        <h3 className={styles.title}>All Pages</h3>
         <Row>
           {pages.map((page, index) => _renderPage(page, index))}
-          <Popover content="Add New Page">
-            <div className={styles.addPage} onClick={PopUp.show('add-page-form')}>
-              {pages.length > 0 ? <i className="fas fa-plus" /> : 'Add New Page'}
-            </div>
-          </Popover>
+          <Col cols={[12, 4, 3]} key={uuidv4()}>
+            <Popover content="Add New Page">
+              <div className={`${styles.addPage} ${styles.page}`} onClick={PopUp.show('add-page-form')}>
+                {pages.length > 0 ? <i className="fas fa-plus" /> : 'Add New Page'}
+              </div>
+            </Popover>
+          </Col>
         </Row>
         {_renderWarning()}
       </Container>

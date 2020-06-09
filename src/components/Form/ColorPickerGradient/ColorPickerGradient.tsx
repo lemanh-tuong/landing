@@ -19,6 +19,7 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
   onChange }) => {
   const onChangeRef = useRef(onChange);
   const [displayColorBox, setDisplayColorBox] = useState({ left: false, right: false });
+  const [isChanging, setIsChanging] = useState(false);
   const [color, setColor] = useState({ left: defaultColorLeft, right: defaultColorRight });
 
   const handleChangeColor = (side: 'left' | 'right') => {
@@ -32,12 +33,17 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
         const gradient = `${type}(90deg, ${color.left} 0%, ${resultRGBA} 100%)`;
         onChangeRef.current?.(gradient);
       }
+      setIsChanging(true);
       setColor(state => ({
         ...state,
         [side]: resultRGBA
       }));
     };
   };
+
+  const handleChangeComplete = () => {
+    setIsChanging(false);
+  }
 
   const handleOpen = useCallback((side: 'left' | 'right') => {
     return () => {
@@ -55,13 +61,13 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
   const _renderColorBox = (side: 'left' | 'right') => {
     return (
       <div className={`${styles.colorBox} ${styles[side]}`}>
-        <ChromePicker color={color[side]} onChange={handleChangeColor(side)} />
+        <ChromePicker onChangeComplete={handleChangeComplete} color={color[side]} onChange={handleChangeColor(side)} />
       </div>
     );
   };
 
   useEffect(() => {
-    if (displayColorBox.left || displayColorBox.right) {
+    if ((displayColorBox.left || displayColorBox.right) && !isChanging) {
       window.addEventListener('click', handleClose);
     } else {
       window.removeEventListener('click', handleClose);
@@ -69,7 +75,7 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
     return () => {
       window.removeEventListener('click', handleClose);
     }
-  }, [displayColorBox, handleClose])
+  }, [displayColorBox, handleClose, isChanging])
 
   return (
     <div className={`${styles.colorPickerGradientComponent} ${className}`} style={style}>

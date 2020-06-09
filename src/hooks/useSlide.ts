@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useMount } from './useMount';
 
 const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, responsive?: breakpoint) => {
-  console.log(delayTime);
   const [items, setItems] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animated, setAnimated] = useState(false);
