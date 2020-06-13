@@ -9,7 +9,7 @@ import { Redirect, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import configureApp from '../../../configureApp.json';
 import RenderSection from './components/RenderSection/RenderSection';
-import { listPage, listSections, messageRequestMainPageSections, nowPageId, nowPageName, statusRequestMainPageSections } from './selectors';
+import { listPage, listSections, messageRequestMainPageSections, nowPageId, nowPageName, projectName, statusRequestMainPageSections } from './selectors';
 import thunkGetSections from './thunks/thunkGetSections';
 
 const HomePage = () => {
@@ -23,6 +23,7 @@ const HomePage = () => {
   const id = useSelector(nowPageId);
   const pageName = useSelector(nowPageName);
   const isLogged = useSelector(statusLogin);
+  const title = useSelector(projectName)
 
   //Dispatch
   const getData = thunkGetSections();
@@ -89,7 +90,7 @@ const HomePage = () => {
   return (
     <div className={pathName as string}>
       <Helmet>
-        <title>{configureApp.landingName}</title>
+        <title>{title || configureApp.landingName}</title>
       </Helmet>
       {_renderMainContentSwitch()}
     </div>

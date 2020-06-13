@@ -7,3 +7,5 @@ export const nowPageId = (state: AppState) => state.mainPageReducer.id;
 export const nowPathName = (state: AppState) => state.mainPageReducer.pathName;
 
 export const listPage = (state: AppState) => state.listPageReducers.data;
+
+export const projectName = (state: AppState) => state.projectReducers.projectName;
