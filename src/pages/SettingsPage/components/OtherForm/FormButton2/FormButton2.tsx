@@ -78,7 +78,10 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
             fieldId: 3,
             optionsGroup: {
               groupName: 'Link',
-              options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
+              options: listPageName.map(page => {
+                if (page.isHome) return { value: '/', label: `${page.pageName}` }
+                return { value: `${page.pathName}`, label: `${page.pageName}` }
+              })
             },
             defaultSelect: '/',
             hidden: !(typeHref === 'internal')

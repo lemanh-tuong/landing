@@ -143,7 +143,10 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             fieldId: 'nav-link-3',
             optionsGroup: {
               groupName: 'Link',
-              options: listPageName.map(page => ({ value: `${page.pathName}`, label: `${page.pageName}` }))
+              options: listPageName.map(page => {
+                if (page.isHome) return { value: '/', label: `${page.pageName}` }
+                return { value: `${page.pathName}`, label: `${page.pageName}` }
+              })
             },
             hidden: !(typeHref === 'internal'),
           },
