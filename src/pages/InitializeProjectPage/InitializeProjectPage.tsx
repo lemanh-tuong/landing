@@ -98,6 +98,9 @@ const InitializeProjectPage = () => {
         <h3 className={styles.title}>
           Initialize Your App
         </h3>
+        <a href="https://console.firebase.google.com/u/1/">
+          How to Create Firebase?
+        </a>
         {_renderCreateNewProject()}
       </Container>
     </div>
