@@ -45,6 +45,10 @@ const LoginPage = () => {
     });
   };
 
+  const handleChangeProject = () => {
+    createNew(configApp);
+  }
+
   const handleChangeConfigFirebase = (fieldName: keyof AppConfig['firebaseConfig']) => {
     return (result: string) => {
       setConfigApp(state => ({
@@ -57,15 +61,8 @@ const LoginPage = () => {
     }
   }
 
-  const handleChangeConfigAppname = (result: string) => {
-    setConfigApp(state => ({
-      ...state,
-      name: result
-    }))
-  }
-
   const handleSubmitConfig = () => {
-    createNew(configApp)
+    createNew(configApp);
   }
 
   const _renderError = () => {
@@ -92,8 +89,7 @@ const LoginPage = () => {
   }
 
   const _renderCreateNewProject = () => {
-    return <PopUp id="create-new-project-form" onOk={handleSubmitConfig} type='antd' title={"Create New Project"}>
-      <Input label="Project name" type='input' onChange={handleChangeConfigAppname} />
+    return <PopUp id="create-new-project-form" onOk={handleSubmitConfig} type='antd' title={"Change Project"}>
       <Input label="Api Key" type='input' onChange={handleChangeConfigFirebase('apiKey')} />
       <Input label="App Id" type='input' onChange={handleChangeConfigFirebase('appId')} />
       <Input label="Auth Domain" type='input' onChange={handleChangeConfigFirebase('authDomain')} />
@@ -120,12 +116,12 @@ const LoginPage = () => {
           </div>
           <div className={styles.formBottom}>
             <a href="##" onClick={(e) => e.preventDefault()} className={styles.forgotPasswordBtn}>Forgot password</a>
-            <div style={{ cursor: 'pointer' }} onClick={PopUp.show('create-new-project-form')} className={styles.forgotPasswordBtn}>Change Project</div>
+            <div style={{ cursor: 'pointer' }} onClick={handleChangeProject} className={styles.forgotPasswordBtn}>Change Project</div>
           </div>
         </form>
         {msg ? _renderError() : null}
       </div>
-      {_renderCreateNewProject()}
+      {/* {_renderCreateNewProject()} */}
     </div>
   );
 };

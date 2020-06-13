@@ -1,10 +1,13 @@
 import Loading from 'components/Loading/Loading';
+import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import Nav from 'components/Nav/Nav';
 import { useMount } from 'hooks/useMount';
 import ComponentPage from 'pages/ComponentPage/ComponentPage';
-import CreateProjectPage from 'pages/CreateProjectPage/CreateProjectPage';
+import CreateNewProjectPage from 'pages/CreateNewProjectPage/CreateNewProjectPage';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import ImageGalleryPage from 'pages/ImageGalleryPage/ImageGalleryPage';
+import InitializeProjectPage from 'pages/InitializeProjectPage/InitializeProjectPage';
+import thunkGetProjectName from 'pages/InitializeProjectPage/thunks/thunkGetProjectName';
 import ListPage from 'pages/ListPage/ListPage';
 import thunkGetListPageName from 'pages/ListPage/thunks/thunkGetListPageName/thunkGetListPageName';
 import LoginPage from 'pages/LoginPage/LoginPage';
@@ -13,12 +16,12 @@ import thunkInitialize from 'pages/LoginPage/thunks/thunkInitialize';
 import MainPage from 'pages/MainPage/MainPage';
 import SettingsPage from 'pages/SettingsPage/SettingsPage';
 import thunkGetDataNav from 'pages/SettingsPage/thunks/thunksNav/thunkGetDataNav/thunkGetDataNav';
-import thunkGetDataSection from 'pages/SettingsPage/thunks/thunksSection/thunkGetDataSection/thunkGetDataSection';
 import TestPage from 'pages/TestPage/TestPage';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusInitialize, statusRequestNav, statusRequestPage } from 'selectors';
+import { projectName, statusRequestProject } from '../pages/InitializeProjectPage/selectors/selectors';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const Routes = () => {
@@ -39,11 +42,14 @@ const Routes = () => {
   });
 
   const statusInitializeApp = useSelector(statusInitialize);
+
+  const nowProjectName = useSelector(projectName);
+  const statusRequestProjectName = useSelector(statusRequestProject)
   // Dispatch
   const getDataNav = thunkGetDataNav();
   const getListPageName = thunkGetListPageName();
   const initializeApp = thunkInitialize();
-  const getDataSection = thunkGetDataSection();
+  const getProjectName = thunkGetProjectName();
 
   const _renderNavBar = () => {
     return <Nav logo={logo} navItems={nav} />;
@@ -120,15 +126,14 @@ const Routes = () => {
 
   useMount(() => {
     initializeApp();
-    // getListPageName();
-    // getDataNav();
-    // getDataSection({ pathName: '' });
   });
 
   useEffect(() => {
     if (statusInitializeApp === 'initialized') {
       getListPageName();
       getDataNav();
+      getProjectName();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }
   }, [statusInitializeApp])
 
@@ -137,9 +142,18 @@ const Routes = () => {
   }
 
   if (statusInitializeApp === 'initializedFailure') {
-    return <CreateProjectPage />
+    return <InitializeProjectPage />
   }
-  return _renderContentSuccess();
+
+  if (statusRequestProjectName === 'loading') {
+    return <LoadingCircle />
+  }
+
+  if (statusRequestProjectName === 'success' && !nowProjectName) {
+    return <CreateNewProjectPage />
+  }
+
+  return _renderContentSwitch();
 
 };
 

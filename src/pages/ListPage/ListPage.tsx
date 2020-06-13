@@ -6,7 +6,6 @@ import Loading from 'components/Loading/Loading';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopOver from 'components/PopOver/PopOver';
 import PopUp from 'components/PopUp/PopUp';
-import { useMount } from 'hooks/useMount';
 import FormAddNewPage from 'pages/SettingsPage/components/OtherForm/FormAddNewPage/FormAddNewPage';
 import { statusCreatePage } from 'pages/SettingsPage/selectors';
 import React from 'react';
@@ -19,7 +18,6 @@ import ButtonFunc from './components/ButtonFunc/ButtonFunc';
 import styles from './ListPage.module.scss';
 import { PageGeneralData } from './ListPageType/type';
 import { listPage, message, statusRequest } from './selectors';
-import thunkGetListPageName from './thunks/thunkGetListPageName/thunkGetListPageName';
 
 const ListPage = () => {
 
@@ -28,12 +26,6 @@ const ListPage = () => {
   const statusCreate = useSelector(statusCreatePage);
   const pages = useSelector(listPage);
   const messageRequestErr = useSelector(message);
-
-  const getListPageName = thunkGetListPageName();
-
-  useMount(() => {
-    getListPageName();
-  });
 
   const _renderPage = ({ id, pageName, pathName, isHome }: PageGeneralData, index: number) => {
     return (

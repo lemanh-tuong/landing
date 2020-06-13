@@ -41,7 +41,6 @@ const ColorPicker: FC<ColorPickerProps> = ({ defaultColor = '#22194D', label, on
   });
 
   const handleOpenBox = useCallback((e) => {
-    console.log(e);
     setDisplayColorPicker(!displayColorPicker);
   }, [displayColorPicker]);
 

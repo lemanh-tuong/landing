@@ -2,11 +2,11 @@ import InputText2 from 'components/Form/InputText2/InputText2';
 import Container from 'components/Grid/Container/Container';
 import { AppConfig } from 'firebase/myFirebase';
 import thunkConfigApp from 'pages/LoginPage/thunks/thunkConfigApp';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createValidator } from 'utils/functions/createValidator';
-import styles from './CreateProjectPage.module.scss';
+import styles from './InitializeProjectPage.module.scss';
 
-const CreateProjectPage = () => {
+const InitializeProjectPage = () => {
   // Dispatch
   const createNew = thunkConfigApp();
 
@@ -34,6 +34,7 @@ const CreateProjectPage = () => {
   const handleSubmitConfig = (e: any) => {
     e.preventDefault();
     createNew({ firebaseConfig: configApp });
+    window.location.reload();
     return false;
   }
 
@@ -48,7 +49,7 @@ const CreateProjectPage = () => {
     ({ storageBucket }) => storageBucket.length === 0,
   ]);
 
-  const handleError = () => {
+  const handleError = useCallback(() => {
     const { indexError } = validator(configApp);
     switch (indexError) {
       case 0:
@@ -70,11 +71,12 @@ const CreateProjectPage = () => {
       default:
         return setError("");
     }
-  };
+  }, [configApp, validator]);
 
   useEffect(() => {
     handleError();
-  }, [configApp])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configApp, handleError])
 
   const _renderCreateNewProject = () => {
     return <form onSubmit={handleSubmitConfig}>
@@ -91,12 +93,15 @@ const CreateProjectPage = () => {
     </form>
   }
   return (
-    <div className={styles.CreateProjectPage}>
+    <div className={styles.InitializeProjectPage} style={{ padding: 30 }}>
       <Container>
+        <h3 className={styles.title}>
+          Initialize Your App
+        </h3>
         {_renderCreateNewProject()}
       </Container>
     </div>
   )
 }
 
-export default CreateProjectPage;
+export default InitializeProjectPage;

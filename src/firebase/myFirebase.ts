@@ -58,7 +58,12 @@ class MyFirebase {
   firebaseConfig: FirebaseConfig;
   constructor(config: AppConfig) {
     this.firebaseConfig = config.firebaseConfig;
-    this.initializeFirebase();
+    if(!firebase.apps.length) {
+      firebase.initializeApp(this.firebaseConfig);
+      this.database = firebase.database();
+      this.storage = firebase.storage();
+      this.authentication = app.auth();
+    }
   }
 
   initializeFirebase = () => {

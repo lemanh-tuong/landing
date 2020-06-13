@@ -114,7 +114,7 @@ const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
         </div>
         <div>
           <span>Path Name</span>
-          <Input value={pathName} style={{ margin: '10px 0' }} required onChange={handleChangePathName} onFocus={handleChangePathName} />
+          <Input value={pathName} style={{ margin: '10px 0' }} required onChange={handleChangePathName} />
         </div>
         <div>
           <CheckBox label="This page is home?" defaultChecked={suggestHomePage} onChange={handleIsHome} />
