@@ -12,6 +12,7 @@ const thunkGetDataSection = ({pathName}: ThunkGetDataSectionArg): ThunkGetDataSe
   dispatch(getDataSection.request(null));
   try {
     const data = await firebaseReducer.readDatabase(`/PagesDetail/${pathName.slice(1)}`);
+    console.log(123, 123, pathName, data);
     dispatch(getDataSection.success(data));
   } catch(err) {
     dispatch(getDataSection.failure(err.message));

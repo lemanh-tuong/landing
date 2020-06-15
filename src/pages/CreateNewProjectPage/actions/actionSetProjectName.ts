@@ -1,5 +1,6 @@
-import { createAction } from "utils/functions/reduxActions";
+import { createAsyncAction } from "utils/functions/reduxActions";
 
-const actionSetProjectName = createAction('SET_PROJECT_NAME', () => ({}));
+const actionSetProjectName = createAsyncAction(['@setProjectName', '@settedProjectName', '@setProjectNameFailure'])<null, string, string>();
 
 export { actionSetProjectName };
+

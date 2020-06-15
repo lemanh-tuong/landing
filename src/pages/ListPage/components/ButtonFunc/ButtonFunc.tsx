@@ -1,4 +1,4 @@
-import { Button, Popover } from 'antd';
+import { Button } from 'antd';
 import LoadingCircle from 'components/LoadingCircle/LoadingCircle';
 import PopUp from 'components/PopUp/PopUp';
 import { PageGeneralData } from 'pages/ListPage/ListPageType/type';
@@ -46,12 +46,18 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
   const _renderPopOverSetting = () => {
     return (
       <>
-        <Popover content='Delete Page' >
-          <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
-        </Popover>
-        <Popover content="Change Infomation of Page">
-          <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
-        </Popover>
+        <Button className={`${styles.btn}`} size='middle' onClick={PopUp.show(`alert-confirm-${pageName}`)}>
+          <div className={styles.icon}><i className="fas fa-trash"></i></div>
+          <div className={styles.desc}>Delete Page</div>
+        </Button>
+        <Button className={`${styles.btn}`} size='middle' onClick={PopUp.show(`change-general-data-page-${id}-form`)}>
+          <div className={styles.icon}><i className="far fa-edit"></i></div>
+          <div className={styles.desc}>Change Infomation Of Page</div>
+        </Button>
+        <Button className={`${styles.btn}`} size='middle' onClick={PopUp.show(`duplicate-page-${id}-form`)}>
+          <div className={styles.icon}><i className="far fa-copy"></i></div>
+          <div className={styles.desc}>Duplicate This Page</div>
+        </Button>
         {_renderAlertConfirm(pageName, nowIndexPage)}
       </>
     );
@@ -67,7 +73,7 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
     <>
       {_renderDeleteSwitch()}
       {_renderPopOverSetting()}
-      <FormDuplicatePage />
+      <FormDuplicatePage pageId={id} pageNameSourcePage={pageName} pathNameSourcePage={pathName} />
       <FormChangeGeneralDataPage pageId={id} />
       {/* <TestForm pageId={id} /> */}
     </>

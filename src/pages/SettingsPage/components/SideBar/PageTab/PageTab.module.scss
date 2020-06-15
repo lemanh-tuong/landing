@@ -16,20 +16,29 @@
 }
 
 .active {
-  color: $color-primary;
+  color: $color-secondary2;
+}
+
+.extendBtn {
+  border: none;
 }
 
 .homeIcon {
   font-size: inherit;
 }
 
+
 .addBtn {
   text-align: center;
   padding: 18px;
-  background-color: $color-primary;
+  background-color: $color-secondary2;
   color: white;
   & span {
     display: block;
     width: 100%;
   }
+}
+
+.btn {
+  margin: 0 2.5px;
 }

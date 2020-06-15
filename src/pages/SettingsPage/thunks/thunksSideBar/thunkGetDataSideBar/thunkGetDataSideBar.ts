@@ -7,11 +7,15 @@ type ThunkGetDataSideBar = ThunkAction<typeof getDataSideBar>;
 const thunkGetDataSideBar = (): ThunkGetDataSideBar => async (dispatch, getState) => {
   const { firebaseReducer } = getState();
   dispatch(getDataSideBar.request(null));
-  const data: (ItemSideBar & {previewImg: string})[] = await firebaseReducer.readDatabase('SideBar');
-  try {
-    dispatch(getDataSideBar.success(data));
-  } catch(err) {
-    dispatch(getDataSideBar.failure(JSON.stringify(err)));
+  if(Object.keys(firebaseReducer.database).length > 0) {
+    const data: (ItemSideBar & {previewImg: string})[] = await firebaseReducer.readDatabase('SideBar');
+    try {
+      dispatch(getDataSideBar.success(data));
+    } catch(err) {
+      dispatch(getDataSideBar.failure(JSON.stringify(err)));
+    }
+  } else {
+    dispatch(getDataSideBar.failure('Firebase not exist'))
   }
 };
 

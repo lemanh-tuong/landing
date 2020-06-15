@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { CSSProperties, FC } from 'react';
 import styles from './Loading.module.scss';
 
-const Loading = () => {
+export interface LoadingProps {
+  className?: string;
+  style?: CSSProperties;
+}
+
+const Loading: FC<LoadingProps> = ({ className, style }) => {
   return (
-    <div className={styles.loadingComponent}>
+    <div className={`${styles.loadingComponent} ${className}`} style={style}>
       <div className={styles.container}>
         <div className={styles.gooey}>
           <span className={styles.dot}></span>

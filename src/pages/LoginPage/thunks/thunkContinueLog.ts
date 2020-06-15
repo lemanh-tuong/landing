@@ -1,16 +1,27 @@
 import { createDispatchAction } from 'utils/functions/reduxActions';
-import { actionContinueLog, ActionContinueLogPayload } from '../actions/actionContinueLog';
+import { actionContinueLog } from '../actions/actionContinueLog';
 
 type ThunkContinueLog = ThunkAction<typeof actionContinueLog>;
 
-const thunkContinueLog = ({token}: ActionContinueLogPayload): ThunkContinueLog => async (dispatch, getState) => {
+const thunkContinueLog = (token: string): ThunkContinueLog => async (dispatch, getState) => {
   const { firebaseReducer } = getState();
-  if(firebaseReducer.getAuthentication().onAuthStateChanged) {
+  if(Object.keys(firebaseReducer.authentication).length > 0) {
     await firebaseReducer.getAuthentication().onAuthStateChanged(async (user) => {
       try {
         const res = await user?.getIdToken();
-        if (res === token) {
-          dispatch(actionContinueLog({token: token}));
+        if (user && res) {
+          dispatch(actionContinueLog({
+            token: res,
+            refreshToken: user?.refreshToken as string,
+            profile: {
+              displayName: user.displayName,
+              email: user.email,
+              phoneNumber: user.phoneNumber,
+              photoURL: user.photoURL,
+              providerId: user.providerId,
+              uid: user.uid
+            }
+        }));
         } else {
           throw Error("TOKEN EXPIRED");
         }

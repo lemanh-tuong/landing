@@ -11,7 +11,7 @@ const thunkUploadFile = ({files, path}: ThunkUpLoadFileArg): ThunkUpLoadFile => 
   const { firebaseReducer } = getState();
   dispatch(actionUploadFile.request(null));
   try {
-    const newImgs = await firebaseReducer.uploadFile({path: path, files: files});
+    const newImgs = await firebaseReducer.uploadFiles({path: path, files: files});
     if(newImgs) {
       dispatch(actionUploadFile.success({imgs: newImgs, type: path}));
     }

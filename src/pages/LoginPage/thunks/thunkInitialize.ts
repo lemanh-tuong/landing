@@ -7,16 +7,8 @@ type ThunkInitialize = ThunkAction<typeof actionInitialize>
 const thunkInitialize = (): ThunkInitialize => (dispatch, getState) => {
   dispatch(actionInitialize.request());
   const { configAppReducer } = getState();
-  if(configAppReducer.firebaseConfig.apiKey
-    && configAppReducer.firebaseConfig.appId
-    && configAppReducer.firebaseConfig.authDomain
-    && configAppReducer.firebaseConfig.databaseURL
-    && configAppReducer.firebaseConfig.measurementId
-    && configAppReducer.firebaseConfig.messagingSenderId
-    && configAppReducer.firebaseConfig.projectId
-    && configAppReducer.firebaseConfig.storageBucket
-  ) {
-    const myFirebase = new MyFirebase(configAppReducer);
+  const myFirebase = new MyFirebase(configAppReducer);
+  if(Object.keys(myFirebase.database).length > 0 && Object.keys(myFirebase.storage).length > 0 && Object.keys(myFirebase.authentication).length > 0) {
     dispatch(actionInitialize.success(myFirebase))
   } else {
     dispatch(actionInitialize.failure('Create New App'))

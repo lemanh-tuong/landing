@@ -12,14 +12,14 @@
 }
 
 .active {
-  color: $color-primary;
+  color: $color-secondary2;
   position: relative;
   &:before {
     content: '';
     position: absolute;
     width: 100%;
     height: 2.5px;
-    background: $color-primary;
+    background: $color-secondary2;
     left: 0;
     bottom: -2px;
   }

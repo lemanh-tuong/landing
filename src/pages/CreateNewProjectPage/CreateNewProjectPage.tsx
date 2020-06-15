@@ -1,15 +1,18 @@
 import InputText2 from 'components/Form/InputText2/InputText2';
 import Container from 'components/Grid/Container/Container';
-import thunkGetProjectName from 'pages/InitializeProjectPage/thunks/thunkGetProjectName';
+import { projectName } from 'pages/MainPage/selectors';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import styles from './CreateNewProjectPage.module.scss';
 import thunkSetProjectName from './thunks/thunkSetProjectName';
 
 const CreateNewProjectPage = () => {
-  const [value, setValue] = useState('');
+  const history = useHistory();
+  const nowProjectName = useSelector(projectName);
+  const [value, setValue] = useState(nowProjectName || '');
 
   const submit = thunkSetProjectName();
-  const getProjectName = thunkGetProjectName();
 
   const handleChange = (result: string) => {
     setValue(result);
@@ -18,7 +21,7 @@ const CreateNewProjectPage = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     submit(value);
-    getProjectName();
+    history.push('/admin/list');
   }
 
   return (
@@ -26,7 +29,7 @@ const CreateNewProjectPage = () => {
       <Container>
         <form onSubmit={handleSubmit}>
           <h3 className={styles.title}>Your Project Is New. Please Fill The Project Name</h3>
-          <InputText2 label="Project Name" onChange={handleChange} />
+          <InputText2 defaultValue={value} label="Project Name" onChange={handleChange} />
           <button disabled={value.length === 0} className={styles.submitBtn} type='submit' onSubmit={handleSubmit}>Create New Project</button>
         </form>
       </Container>

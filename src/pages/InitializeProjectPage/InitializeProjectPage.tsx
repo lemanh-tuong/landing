@@ -1,12 +1,16 @@
 import InputText2 from 'components/Form/InputText2/InputText2';
+import Col from 'components/Grid/Column/Column';
 import Container from 'components/Grid/Container/Container';
+import Row from 'components/Grid/Row/Row';
 import { AppConfig } from 'firebase/myFirebase';
 import thunkConfigApp from 'pages/LoginPage/thunks/thunkConfigApp';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { createValidator } from 'utils/functions/createValidator';
 import styles from './InitializeProjectPage.module.scss';
 
 const InitializeProjectPage = () => {
+  const history = useHistory();
   // Dispatch
   const createNew = thunkConfigApp();
 
@@ -34,6 +38,7 @@ const InitializeProjectPage = () => {
   const handleSubmitConfig = (e: any) => {
     e.preventDefault();
     createNew({ firebaseConfig: configApp });
+    history.push('/admin/login');
     window.location.reload();
     return false;
   }
@@ -95,13 +100,27 @@ const InitializeProjectPage = () => {
   return (
     <div className={styles.InitializeProjectPage} style={{ padding: 30 }}>
       <Container>
-        <h3 className={styles.title}>
-          Initialize Your App
-        </h3>
-        <a href="https://console.firebase.google.com/u/1/">
-          How to Create Firebase?
-        </a>
-        {_renderCreateNewProject()}
+        <Row>
+          <Col cols={[12, 6, 6]}>
+            <h3 className={styles.title}>
+              Initialize Your App
+          </h3>
+            <p>Fill All The Field Below</p>
+            {_renderCreateNewProject()}
+          </Col>
+          <Col cols={[12, 6, 6]} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className={styles.tutorial}>
+              <p>
+                Create a
+                <a target="blank" href="https://firebase.google.com/" className={styles.link}>Firebase</a>
+                Project
+              </p>
+              <a target="blank" href="https://www.youtube.com/watch?v=6juww5Lmvgo">
+                <img alt="Create Firebase" src="https://i.ytimg.com/vi/6juww5Lmvgo/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAYdRpJU16SYComkOrPDVWg1fNI1A" />
+              </a>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </div>
   )

@@ -5,12 +5,18 @@ import PopUp from 'components/PopUp/PopUp';
 import { listPage } from 'pages/ListPage/selectors';
 import { messageRequestListPage, statusDuplicatePage } from 'pages/SettingsPage/selectors';
 import thunkDuplicatePage from 'pages/SettingsPage/thunks/thunkPage/thunkDuplicatePage/thunkDuplicatePage';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 
-const FormDuplicatePage = () => {
+export interface FormDuplicatePageProps {
+  pathNameSourcePage: string;
+  pageNameSourcePage: string;
+  pageId: string;
+}
+
+const FormDuplicatePage: FC<FormDuplicatePageProps> = ({ pageId, pageNameSourcePage, pathNameSourcePage }) => {
   const history = useHistory();
   const [pageName, setPageName] = useState('');
   const [pathName, setPathName] = useState('');
@@ -52,10 +58,10 @@ const FormDuplicatePage = () => {
     const id = uuidv4();
     const isExisted = pages.find(item => item.pageName === pageName || item.pathName === pathName);
     if (!isExisted && !validate) {
-      duplicatePage({ pageName, pathName, id: id, isHome: isHome });
+      duplicatePage({ pageName, pathName: `/${pathName}`, id: id, isHome: isHome, pathNameSourcePage: pathNameSourcePage });
       const interval = setInterval(() => {
         if (statusDuplicate === 'duplicated') {
-          history.push(`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`);
+          history.push(`/admin/builder?pageName=${pageName}&pathName=/${pathName}&id=${id}`);
           clearInterval(interval);
         }
       }, 1000);
@@ -105,7 +111,7 @@ const FormDuplicatePage = () => {
     <>
       {_renderValidateError()}
       {_renderDuplicateSwitch()}
-      <PopUp id="duplicate-page-form" type='antd' title={<h3>Form Duplicate Page</h3>} onCancel={PopUp.hide('duplicate-page-form')} onOk={handleDuplicatePage}>
+      <PopUp id={`duplicate-page-${pageId}-form`} type='antd' title={<h3>Form Duplicate Page</h3>} onOk={handleDuplicatePage}>
         <div>
           <span>Page Name</span>
           <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />

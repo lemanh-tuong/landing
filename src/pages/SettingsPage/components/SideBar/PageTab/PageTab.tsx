@@ -40,7 +40,7 @@ const PageTab = () => {
   };
 
   const _renderAlertConfirm = (pageName: string, indexDelete: number) => {
-    return <PopUp id="alert-confirm" style={{ height: 400 }} type='antd' onOk={handleDeletePage(indexDelete)}>
+    return <PopUp id={`alert-confirm-${pageName}`} style={{ height: 400 }} type='antd' onOk={handleDeletePage(indexDelete)}>
       <p style={{ textAlign: 'center' }}>Delete
         <span style={{ fontSize: 20, fontWeight: 800, marginLeft: 10 }}>{pageName}?</span>
       </p>
@@ -51,10 +51,10 @@ const PageTab = () => {
     return (
       <>
         <Popover content="Duplicate Page" >
-          <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show('duplicate-page-form')} />
+          <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show(`duplicate-page-${id}-form`)} />
         </Popover>
         <Popover content="Delete Page" >
-          <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show('alert-confirm')} />
+          <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
         </Popover>
         <Popover content="Information of Page" >
           <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
@@ -69,9 +69,9 @@ const PageTab = () => {
       <>
         <PopOver id={id} content={_renderPopOverSetting(pageName, id, index)} trigger='click'>
           <Button
-            className={`${styles.btn}`}
+            className={`${styles.extendBtn}`}
             icon={<i className="fas fa-ellipsis-h"></i>}
-            size='middle' shape='round' danger
+            size='middle'
           />
         </PopOver>
         <FormChangeGeneralDataPage redirectOnChange pageId={id} />
@@ -90,7 +90,8 @@ const PageTab = () => {
             {pageName}
           </div>
         </Link>
-        {nowPage.pathName === pathName && _renderExtend({ id, pageName, pathName, isHome }, index)}
+        {_renderExtend({ id, pageName, pathName, isHome }, index)}
+        <FormDuplicatePage pageId={id} pageNameSourcePage={pageName} pathNameSourcePage={pathName} />
       </div>
     );
   };
@@ -108,7 +109,6 @@ const PageTab = () => {
         </Button>
       </ButtonGroup>
       <FormAddNewPage suggestHomePage={false} />
-      <FormDuplicatePage />
     </>;
   };
 
@@ -119,7 +119,7 @@ const PageTab = () => {
       case 'failure':
         return <Redirect to={{ pathname: '/error', state: messageErr }} />;
       case 'success':
-        return <div className={'PageTab'}>{_renderSuccess()}</div>;
+        return <div className={'PageTab'} style={{ marginTop: 15 }}>{_renderSuccess()}</div>;
       default:
         return null;
     }

@@ -4,9 +4,10 @@ import styles from './InputFile.module.scss';
 
 export type InputFileProps = Pick<InputFileBaseProps, 'onChange' | 'statusUploadFile'> & {
   messageUpload?: string;
+  hasProcessUpload?: boolean;
 };
 
-const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUpload }) => {
+const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUpload, hasProcessUpload = true }) => {
   // console.log(messageUpload);
   const _render = (onChange: any, onDrop: any, ref: any) => {
     return (
@@ -49,7 +50,7 @@ const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUplo
       type='file'
       statusUploadFile={statusUploadFile}
       renderInput={(onChange, onDrop, ref) => _render(onChange, onDrop, ref)}
-      renderProcessUpload={(statusUploadFile, fileName, onClose) => _renderUpload(statusUploadFile, fileName, onClose)}
+      renderProcessUpload={hasProcessUpload ? (statusUploadFile, fileName, onClose) => _renderUpload(statusUploadFile, fileName, onClose) : undefined}
       onChange={onChange}
     />
   );

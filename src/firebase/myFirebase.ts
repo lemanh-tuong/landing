@@ -154,7 +154,8 @@ class MyFirebase {
     const imgSrc = await Promise.all(data.map(item => item.getDownloadURL()));
     return imgSrc;
   };
-  uploadFile = async ({path, files}: UploadFileArg) => {
+
+  uploadFiles = async ({path, files}: UploadFileArg) => {
     let newImgs;
     const storageRef  = this.storage.ref();
     await Promise.all(files.map(async file => {
@@ -166,6 +167,19 @@ class MyFirebase {
     });
 
     return newImgs;
+  };
+
+  uploadFile = async ({path, file}: {path: string, file: File}) => {
+    let newImg;
+    const storageRef  = this.storage.ref();
+    const ref = storageRef.child(`images/${path}/${file.name}`);
+    await
+    Promise.all([ref.put(file).then(async () => {
+      const data = await this.readStorage(path);
+      const index = data.findIndex(item => item.includes(file.name));
+      newImg = data[index];
+    })]);
+    return newImg
   };
 
   getAuthentication = () => {

@@ -1,7 +1,6 @@
 import { Button, Popover } from 'antd';
 import Loading from 'components/Loading/Loading';
 import { statusLogin } from 'pages/LoginPage/selectors';
-import thunkLogout from 'pages/LoginPage/thunks/thunkLogout';
 import React, { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
@@ -27,12 +26,6 @@ const HomePage = () => {
 
   //Dispatch
   const getData = thunkGetSections();
-  const logOut = thunkLogout();
-
-  //Handle Functin
-  const handleLogout = () => {
-    logOut()
-  }
 
   //Render
   const _renderMainContentSuccess = () => {
@@ -47,7 +40,7 @@ const HomePage = () => {
   const _renderReEdit = () => {
     const homePagePath = generalDataPage.find(page => page.isHome)?.pathName;
     return (
-      <>
+      <div className="button-group">
         <Popover content="ReEdit This Page">
           <Button shape='circle' style={{ position: 'fixed', right: 10, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
             <Link to={`/admin/builder?pageName=${pageName}&pathName=${pathName === '/' ? homePagePath : pathName}&id=${id}`}>
@@ -55,12 +48,12 @@ const HomePage = () => {
             </Link>
           </Button>
         </Popover>
-        <Popover content="Sign Out">
-          <Button shape='circle' onClick={handleLogout} style={{ position: 'fixed', right: 70, bottom: 10, width: 50, height: 50, background: '#3ece7e', zIndex: 10000 }}>
-            <i style={{ color: 'white' }} className="fas fa-sign-out-alt"></i>
+        <Link to='/admin/list'>
+          <Button style={{ color: 'white', position: 'fixed', right: 70, bottom: 10, height: 50, background: '#3ece7e', zIndex: 10000 }}>
+            All Pages
           </Button>
-        </Popover>
-      </>
+        </Link>
+      </div>
     )
   }
 

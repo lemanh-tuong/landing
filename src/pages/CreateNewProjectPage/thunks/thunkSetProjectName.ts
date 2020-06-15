@@ -5,8 +5,17 @@ type ThunkSetProjectName = ThunkAction<typeof actionSetProjectName>;
 
 const thunkSetProjectName = (projectName: string): ThunkSetProjectName => async (dispatch, getState) => {
   const { firebaseReducer } = getState();
-  await firebaseReducer.writeDatabase({ref: '/projectName', value: projectName});
-  dispatch(actionSetProjectName());
+  dispatch(actionSetProjectName.request());
+  if(Object.keys(firebaseReducer.database).length > 0) {
+    try {
+      await firebaseReducer.writeDatabase({ref: '/projectName', value: projectName});
+      dispatch(actionSetProjectName.success(projectName));
+    } catch (err) {
+      throw Error(err);
+    }
+  } else {
+    dispatch(actionSetProjectName.failure("Firebase not exist"));
+  }
   // try {
   //   await firebaseReducer.writeDatabase({ref: '/projectName', value: projectName})
   //   dispatch(actionSetProjectName());
