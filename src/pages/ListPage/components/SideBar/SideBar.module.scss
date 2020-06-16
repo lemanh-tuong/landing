@@ -38,12 +38,8 @@
   }
 }
 
-.box {
-
-}
-
 .boxContent {
-  padding: 15px;
+  padding: 15px 30px;
   text-align: center;
   border-radius: 10px;
   border: 1px solid #f1f1f1;
@@ -75,6 +71,22 @@
     width: 100%;
     animation: fadeOut 0.5s forwards;
   }
+}
+
+.button {
+  display: block;
+  padding: 10px;
+  text-align: left;
+  & .icon {
+    margin-right: 30px;
+  }
+  &:hover {
+    background: #fff;
+  }
+}
+
+.active {
+  background: #fff;
 }
 
 :local {

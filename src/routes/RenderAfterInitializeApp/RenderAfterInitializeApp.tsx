@@ -71,11 +71,11 @@ const RenderAfterInitializeApp = () => {
                   <Route exact path="/admin/component">
                     <ComponentPage />
                   </Route>
-                  <Route exact path="/admin/list">
-                    <ListPage />
-                  </Route>
                   <Route exact path="/admin/projectName">
                     <CreateNewProjectPage />
+                  </Route>
+                  <Route path="/admin/list">
+                    <ListPage />
                   </Route>
                 </>
               }

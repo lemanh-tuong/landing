@@ -1,4 +1,3 @@
-import Button from 'components/Button/Button';
 import InputFile from 'components/Form/InputFile/InputFile';
 import { OnChangeFileFunc } from 'components/FormBase/InputFileBase/InputFileBase';
 import PopUp from 'components/PopUp/PopUp';
@@ -8,9 +7,11 @@ import thunkConfigApp from 'pages/LoginPage/thunks/thunkConfigApp';
 import thunkLogout from 'pages/LoginPage/thunks/thunkLogout';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './SideBar.module.scss';
 
 const SideBar = () => {
+  const location = useLocation();
 
   const statusChangeUserAvatar = useSelector(statusChangeAvatar);
   const nowUserProfile = useSelector(userProfile);
@@ -86,14 +87,25 @@ const SideBar = () => {
             <p className={styles.userEmail}>{email}</p>
             <p className={styles.userId}>{uid}</p>
           </div>
-          <div className={styles.boxBody}></div>
+          <div className={styles.boxBody}>
+            <Link to='/admin/list' className={`${styles.button} ${location.pathname === '/admin/list'}`}>
+              <i className={`${styles.icon} fas fa-home`} />
+              Home
+            </Link>
+            <Link className={`${styles.button} ${location.pathname === '/admin/list/profile'}`} to='/admin/list/profile'>
+              <i className={`${styles.icon} fas fa-user`} />
+              Profile
+            </Link>
+          </div>
           <div className={styles.boxFootter}>
-            <Button onClick={handleSignOut} type='primary' style={{ marginBottom: 10 }}>
-              Sign Out
-            </Button>
-            <Button href="/initializeApp" target="self" onClick={handleChangeProject} type='primary'>
+            <Link to='/admin/login' onClick={handleSignOut} className={styles.button}>
+              <i className={`${styles.icon} fas fa-sign-out-alt`} />
+                Sign Out
+            </Link>
+            <Link to='/initializeApp' onClick={handleChangeProject} className={styles.button}>
+              <i className={`${styles.icon} fas fa-exchange-alt`} />
               Change Project
-            </Button>
+            </Link>
           </div>
         </div>
       </div>
