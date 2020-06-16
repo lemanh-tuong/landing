@@ -1,4 +1,3 @@
-import Loading from 'components/Loading/Loading';
 import { useMount } from 'hooks/useMount';
 import thunkInitialize from 'pages/LoginPage/thunks/thunkInitialize';
 import React from 'react';
@@ -20,9 +19,8 @@ const Routes = () => {
   const _renderSwitch = () => {
     switch (statusInitializeApp) {
       case 'initializedFailure':
-        return <RenderBeforeInitializeApp />;
       case 'initializing':
-        return <Loading />;
+        return <RenderBeforeInitializeApp />;
       case 'initialized':
         return <RenderAfterInitializeApp />
       default:

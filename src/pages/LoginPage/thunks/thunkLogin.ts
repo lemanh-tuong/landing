@@ -14,9 +14,8 @@ const thunkLogin = ({email, password}: ThunkLoginArg): ThunkLogin => async (disp
   try {
     const { user } = await firebaseReducer.signInFirebase({email: email, password: password});
     const { authTime, expirationTime, token } = await user?.getIdTokenResult() as firebase.auth.IdTokenResult;
-    if(token && user?.refreshToken && user.providerData) {
-
-      const { displayName, email, photoURL, uid, phoneNumber, providerId } = user.providerData as any // firebase.UserInfo;
+    if(token && user?.refreshToken) {
+      const { displayName, email, phoneNumber, photoURL, providerId, uid} = user;
       document.cookie = `token=${token}; expires=${expirationTime}; authTime=${authTime}`;
       dispatch(actionLogin.success({
         token: token,

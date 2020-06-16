@@ -51,7 +51,7 @@ const SideBar = () => {
       <div className={styles.input}>
         <InputFile hasProcessUpload={false} onChange={handleChange} />
         <div className={`${styles.progressBar} ${styles[statusChangeUserAvatar]}`} />
-        {statusChangeUserAvatar === 'changedAvatar' && <div className={styles.success}>Changed</div>}
+        {statusChangeUserAvatar === 'changedAvatar' && PopUp.hide('form-change-avatar')()}
         {statusChangeUserAvatar === 'changeAvatarFailure' && <div className={styles.failure}>Failure</div>}
       </div>
     )
@@ -82,7 +82,7 @@ const SideBar = () => {
         <div className={styles.boxContent}>
           <div className={styles.boxSideBar}>
             {_renderAvatar()}
-            <h4 className={styles.userName}>{displayName}</h4>
+            <h4 className={styles.userName}>{displayName || email?.slice(0, email.indexOf('@'))}</h4>
             <p className={styles.userEmail}>{email}</p>
             <p className={styles.userId}>{uid}</p>
           </div>
@@ -91,7 +91,7 @@ const SideBar = () => {
             <Button onClick={handleSignOut} type='primary' style={{ marginBottom: 10 }}>
               Sign Out
             </Button>
-            <Button onClick={handleChangeProject} type='primary'>
+            <Button href="/initializeApp" target="self" onClick={handleChangeProject} type='primary'>
               Change Project
             </Button>
           </div>

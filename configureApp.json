@@ -1,13 +1,13 @@
 {
   "landingName": "Landing",
   "firebase": {
-    "apiKey": "AIzaSyD0O09ZOsYfLfr4mVLQUqK39HF-n09dWds",
-    "authDomain": "landing-acdad.firebaseapp.com",
-    "databaseURL": "https://landing-acdad.firebaseio.com",
-    "projectId": "landing-acdad",
-    "storageBucket": "landing-acdad.appspot.com",
-    "messagingSenderId": "981823268193",
-    "appId": "1:981823268193:web:c19ab4898a2f2433039120",
-    "measurementId": "G-QBT8FCRPC7"
+    "apiKey": "AIzaSyB8Qc6a3_gd_KPSx-7w5qKqA74i0t_HDn4",
+    "appId": "1:1021575008059:web:82459d571e7b7a0964f11e",
+    "authDomain": "focal-bucksaw-265211.firebaseapp.com",
+    "databaseURL": "https://focal-bucksaw-265211.firebaseio.com",
+    "measurementId": "G-2YD1VVX730",
+    "messagingSenderId": "1021575008059",
+    "projectId": "focal-bucksaw-265211",
+    "storageBucket": "focal-bucksaw-265211.appspot.com"
   }
 }

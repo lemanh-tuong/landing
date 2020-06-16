@@ -1,9 +1,10 @@
+import { actionChangeProfileUser } from 'pages/ProfilePage/actions/actionChangeProfileUser';
 import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxActions';
-import { actionLogin } from '../actions/actionLogin';
 
 export interface AuthReducer {
   readonly statusLogin: 'loging' | 'loged' | 'failure';
   readonly statusChangeAvatar: '' | 'changingAvatar' | 'changedAvatar' | 'changeAvatarFailure';
+  readonly statusChangeUserProfile: '' | 'changingUserProfile' | 'changedUserProfile' | 'changeUserProfileFailure'
   readonly token: string;
   readonly refreshToken: string;
   readonly message: string;
@@ -13,6 +14,7 @@ export interface AuthReducer {
 const initialState: AuthReducer = {
   statusLogin: 'loging',
   statusChangeAvatar: '',
+  statusChangeUserProfile: '',
   token: '',
   refreshToken: '',
   message: '',
@@ -26,7 +28,7 @@ const initialState: AuthReducer = {
   }
 };
 
-const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin> & any>(initialState, [
+const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangeProfileUser> & any>(initialState, [
   handleAction('@loging', state => {
     return {
       ...state,
@@ -82,8 +84,20 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionLogin> &
     ...state,
     statusChangeAvatar: 'changeAvatarFailure',
     message: action.payload
+  })),
+  handleAction('@changingProfileUser', state => ({
+    ...state,
+    statusChangeUserProfile: 'changingUserProfile',
+  })),
+  handleAction('@changedProfileUser', (state, action) => ({
+    ...state,
+    profile: action.payload,
+    statusChangeUserProfile: 'changedUserProfile'
+  })),
+  handleAction('@changeProfileUserFailure', (state,action) => ({
+    ...state,
+    statusChangeUserProfile: 'changeUserProfileFailure'
   }))
-
 ]);
 
 export default authReducer;

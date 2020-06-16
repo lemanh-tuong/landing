@@ -1,0 +1,30 @@
+@import '../../../../styles/abstracts/variables.scss';
+
+.title {
+  font-size: 24px;
+  margin-bottom: 5px;
+  padding: 0;
+  & ~ p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+}
+
+
+.submitBtn {
+  width: 100%;
+  padding: 20px;
+  background: $color-primary;
+  color: $color-white;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+.errorNotifycation {
+  font-size: 18px;
+  margin-bottom: 10px;
+}

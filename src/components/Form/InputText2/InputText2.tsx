@@ -50,7 +50,7 @@ const InputText2: FC<InputText2Props> = ({
 
   return (
     <div style={{ ...style, marginBottom: 16 }}>
-      <label htmlFor={label} style={{ marginRight: 10 }}>{label}</label>
+      {label && <label htmlFor={label} style={{ marginRight: 10 }}>{label}</label>}
       <Input placeholder={placeholder} disabled={disabled} addonBefore={addonBefore} addonAfter={addonAfter} defaultValue={defaultValue} onChange={handleChange} />
       {!!error ? <p style={{ fontSize: 'inherit', color: 'red' }}>{error}</p> : null}
     </div>

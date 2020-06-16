@@ -20,6 +20,7 @@ const ListPage = () => {
     <div className={styles.ListPage}>
       <SideBar />
       <MainContent />
+      {/* <ProfilePage /> */}
     </div>
   );
 };

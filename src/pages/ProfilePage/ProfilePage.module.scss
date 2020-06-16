@@ -1,0 +1,80 @@
+@import '../../styles/abstracts/variables.scss';
+.ProfilePage {
+  width: calc(100% - 310px);
+  margin-left: 300px;
+  padding: 30px;
+}
+
+.content {
+  width: 50%;
+  margin: auto;
+}
+
+.title {
+  text-transform: capitalize;
+  padding: 0;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.item {
+  display: flex;
+  min-width: 400px;
+  justify-content: space-between;
+  margin: 5px 0;
+  & .labelItem {
+    flex: 1 1 30%;
+    width: 30%;
+  }
+  & .contentItem {
+    flex: 1 1 70%;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-weight: bold;
+    & .editBtn {
+      cursor: pointer;
+      color: $color-secondary2;
+      text-decoration: underline;
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
+}
+
+.btnGroup {
+  display: flex;
+  justify-content: flex-end;
+  & .btn {
+    margin: 3px 5px;
+    padding: 5px;
+    &.changingUserProfile {
+      padding: 5px 30px 5px 5px;
+      position: relative;
+      &:before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid $color-secondary2;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        position: absolute;
+        right: 5px;
+        animation: rotate 2s infinite;
+      }
+    }
+  }
+}
+
+:local {
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
