@@ -12,7 +12,7 @@ const thunkGetDataSideBar = (): ThunkGetDataSideBar => async (dispatch, getState
     try {
       dispatch(getDataSideBar.success(data));
     } catch (err) {
-      dispatch(getDataSideBar.failure(JSON.stringify(err)));
+      dispatch(getDataSideBar.failure(err.message));
     }
   } else {
     dispatch(getDataSideBar.failure('Firebase not exist'));

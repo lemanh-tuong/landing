@@ -10,7 +10,7 @@ const thunkGetDataNav = (): ThunkGetDataNav => async (dispatch, getState) => {
     const data = await firebaseReducer.readDatabase('nav');
     dispatch(actionGetDataNav.success(data));
   } catch (err) {
-    dispatch(actionGetDataNav.failure(err.msg));
+    dispatch(actionGetDataNav.failure(err.message));
   }
 };
 

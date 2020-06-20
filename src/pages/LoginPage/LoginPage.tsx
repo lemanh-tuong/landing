@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import styles from './LoginPage.module.scss';
-import { messageLogin, statusLogin, tokenLogin } from './selectors';
+import { messageLogin, statusLogin } from './selectors';
 import thunkContinueLog from './thunks/thunkContinueLog';
 import thunkLogin from './thunks/thunkLogin';
 
@@ -20,7 +20,6 @@ const LoginPage = () => {
   // Selector
   const msg = useSelector(messageLogin);
   const status = useSelector(statusLogin);
-  const token = useSelector(tokenLogin);
 
   const handleSignIn = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
@@ -56,11 +55,15 @@ const LoginPage = () => {
   };
 
   useMount(() => {
-    loginContinue(token);
+    loginContinue();
   });
 
   if (status === 'loged') {
-    return history.location.state ? <Redirect to={{ pathname: history.location.state as string }} /> : <Redirect to="/admin/list" />;
+    return history.location.state ? (
+      <Redirect to={{ pathname: history.location.state as string }} />
+    ) : (
+      <Redirect to="/admin/list" />
+    );
   }
 
   return (
@@ -73,8 +76,22 @@ const LoginPage = () => {
           <form className={styles.form}>
             <div className={styles.formTop}></div>
             <div className={styles.formContent}>
-              <input onChange={handleChangeEmail} required type="email" className={styles.input} name="login" placeholder="Email" />
-              <input onChange={handleChangePassword} required type="password" className={styles.input} name="login" placeholder="password" />
+              <input
+                onChange={handleChangeEmail}
+                required
+                type="email"
+                className={styles.input}
+                name="login"
+                placeholder="Email"
+              />
+              <input
+                onChange={handleChangePassword}
+                required
+                type="password"
+                className={styles.input}
+                name="login"
+                placeholder="password"
+              />
               <button type="submit" className={`${styles.submitBtn}`} onClick={handleSignIn}>
                 Log in
                 {submit && <div className={styles.logging} />}

@@ -19,6 +19,7 @@ export type Section10Props = {
   colorTextButton?: ButtonProps['color'];
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
+  targetButton?: ButtonProps['target'];
   sizeButton?: ButtonProps['size'];
 } & SectionPatternBase &
   Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>> &
@@ -61,6 +62,7 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
   backgroundButton,
   hrefButton,
   colorTextButton,
+  targetButton,
   textButton,
   styleButton,
   typeButton,
@@ -96,14 +98,26 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
       return (
         <>
           {hasDivider ? (
-            <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} align={alignDivider} />
+            <Divide
+              dividerColor={dividerColor}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider}
+              align={alignDivider}
+            />
           ) : (
             <Divide
               dividerColor="transparent"
               align={alignDivider}
               isBuilder={isBuilder}
               onEditable={onShowPopupEditDivider}
-              style={{ border: '1px dashed', marginBottom: 0, marginRight: 'auto', marginLeft: 'auto', zIndex: 123, cursor: 'pointer' }}
+              style={{
+                border: '1px dashed',
+                marginBottom: 0,
+                marginRight: 'auto',
+                marginLeft: 'auto',
+                zIndex: 123,
+                cursor: 'pointer',
+              }}
             />
           )}
         </>
@@ -167,6 +181,7 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
         <Button
           size={sizeButton}
           type={typeButton}
+          target={targetButton}
           style={{ marginTop: 30, ...styleButton }}
           color={colorTextButton}
           backgroundColor={backgroundButton}

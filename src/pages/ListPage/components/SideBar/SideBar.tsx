@@ -1,7 +1,7 @@
 import InputFile from 'components/Form/InputFile/InputFile';
 import { OnChangeFileFunc } from 'components/FormBase/InputFileBase/InputFileBase';
 import PopUp from 'components/PopUp/PopUp';
-import { statusChangeAvatar, userProfile } from 'pages/ListPage/selectors';
+import { messageErrProfile, statusChangeAvatar, userProfile } from 'pages/ListPage/selectors';
 import thunkChangeAvatar from 'pages/ListPage/thunks/thunkUser/thunkChangeAvatar';
 import thunkConfigApp from 'pages/LoginPage/thunks/thunkConfigApp';
 import thunkLogout from 'pages/LoginPage/thunks/thunkLogout';
@@ -15,6 +15,7 @@ const SideBar = () => {
 
   const statusChangeUserAvatar = useSelector(statusChangeAvatar);
   const nowUserProfile = useSelector(userProfile);
+  const errorRequest = useSelector(messageErrProfile);
   const { displayName, email, uid, photoURL } = nowUserProfile;
 
   const signOut = thunkLogout();
@@ -53,7 +54,9 @@ const SideBar = () => {
         <InputFile hasProcessUpload={false} onChange={handleChange} />
         <div className={`${styles.progressBar} ${styles[statusChangeUserAvatar]}`} />
         {statusChangeUserAvatar === 'changedAvatar' && PopUp.hide('form-change-avatar')()}
-        {statusChangeUserAvatar === 'changeAvatarFailure' && <div className={styles.failure}>Failure</div>}
+        {statusChangeUserAvatar === 'changeAvatarFailure' && (
+          <div className={styles.failure}>Failure: {errorRequest}</div>
+        )}
       </div>
     );
   };
@@ -92,7 +95,10 @@ const SideBar = () => {
               <i className={`${styles.icon} fas fa-home`} />
               Home
             </Link>
-            <Link className={`${styles.button} ${location.pathname === '/admin/list/profile'}`} to="/admin/list/profile">
+            <Link
+              className={`${styles.button} ${location.pathname === '/admin/list/profile'}`}
+              to="/admin/list/profile"
+            >
               <i className={`${styles.icon} fas fa-user`} />
               Profile
             </Link>

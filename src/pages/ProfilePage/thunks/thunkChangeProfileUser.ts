@@ -8,7 +8,10 @@ const thunkChangeProfileUser = ({
   email,
   photoURL,
   password,
-}: Partial<ActionChangeProfileUserPayload & { password: string }>): ThunkChangeProfileUser => async (dispatch, getState) => {
+}: Partial<ActionChangeProfileUserPayload & { password: string }>): ThunkChangeProfileUser => async (
+  dispatch,
+  getState,
+) => {
   const { firebaseReducer, authReducer } = getState();
   const user = firebaseReducer.authentication.currentUser;
   dispatch(actionChangeProfileUser.request());
@@ -33,7 +36,7 @@ const thunkChangeProfileUser = ({
       );
     })
     .catch(err => {
-      dispatch(actionChangeProfileUser.failure(err));
+      dispatch(actionChangeProfileUser.failure(err.message));
     });
 };
 

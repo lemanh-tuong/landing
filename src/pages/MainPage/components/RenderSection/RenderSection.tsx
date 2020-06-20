@@ -61,6 +61,7 @@ const RenderSection = (option: Option) => {
     textButton,
     styleButton,
     hrefButton,
+    targetButton,
     backgroundButton,
     colorTextButton,
     typeButton,
@@ -120,6 +121,7 @@ const RenderSection = (option: Option) => {
             backgroundButton={backgroundButton}
             colorTextButton={colorTextButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             sizeButton={sizeButton}
             sectionId={sectionId}
           />
@@ -234,6 +236,7 @@ const RenderSection = (option: Option) => {
             fontSizeMainTitle={fontSizeMainTitle}
             textButton={textButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             sizeButton={sizeButton}
             hrefButton={hrefButton}
             colorTextButton={colorTextButton}
@@ -269,6 +272,7 @@ const RenderSection = (option: Option) => {
             colorTextButton={colorTextButton}
             hrefButton={hrefButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             textButton={textButton}
             styleButton={styleButton}
             sizeButton={sizeButton}
@@ -302,6 +306,7 @@ const RenderSection = (option: Option) => {
             fontSizeText={fontSizeText}
             textButton={textButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             sizeButton={sizeButton}
             colorTextButton={colorTextButton}
             backgroundButton={backgroundButton}
@@ -366,6 +371,7 @@ const RenderSection = (option: Option) => {
             fontSizeText={fontSizeText}
             textButton={textButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             sizeButton={sizeButton}
             colorTextButton={colorTextButton}
             backgroundButton={backgroundButton}

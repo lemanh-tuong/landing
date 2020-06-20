@@ -24,7 +24,7 @@ const thunkChangeAvatar = ({ uid, file }: ThunkChangeAvatarArg): ThunkChangeAvat
       }),
     );
   } catch (err) {
-    dispatch(actionChangeAvatar.failure(err));
+    dispatch(actionChangeAvatar.failure(err.message));
   }
 };
 

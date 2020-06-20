@@ -121,14 +121,28 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       );
     case 'radio':
       return (
-        <Radio label={arg.label} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />
+        <Radio
+          label={arg.label}
+          data={arg.data ?? []}
+          onClick={onChange}
+          key={arg.fieldId}
+          defaultCheckedValue={arg.defaultCheckedValue ?? ''}
+        />
       );
     case 'radio2':
       return (
-        <Radio2 label={arg.label} data={arg.data ?? []} onClick={onChange} key={arg.fieldId} defaultCheckedValue={arg.defaultCheckedValue ?? ''} />
+        <Radio2
+          label={arg.label}
+          data={arg.data ?? []}
+          onClick={onChange}
+          key={arg.fieldId}
+          defaultCheckedValue={arg.defaultCheckedValue ?? ''}
+        />
       );
     case 'radio3':
-      return <Radio3 label={arg.label} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />;
+      return (
+        <Radio3 label={arg.label} key={arg.fieldId} onClick={onChange} defaultCheckedValue={arg.defaultCheckedValue} />
+      );
     case 'checkbox':
       return <CheckBox label={arg.label} defaultChecked={arg.defaultChecked} onChange={onChange} key={arg.fieldId} />;
     case 'file':
@@ -149,11 +163,23 @@ const renderField1 = (arg: FieldType, onChange: (result: any) => void, onAnother
       return <ColorPicker label={arg.label} defaultColor={arg.defaultColor} onChange={onChange} key={arg.fieldId} />;
     case 'select':
       return arg.optionsGroup ? (
-        <Select key={arg.fieldId} defaultSelect={arg.defaultSelect} label={arg.label} optionsGroup={arg.optionsGroup} onChange={onChange} />
+        <Select
+          key={arg.fieldId}
+          defaultSelect={arg.defaultSelect}
+          label={arg.label}
+          optionsGroup={arg.optionsGroup}
+          onChange={onChange}
+        />
       ) : null;
     case 'select-button':
       return arg.options ? (
-        <SelectButtonType key={arg.fieldId} label={arg.label} options={arg.options} onChange={onChange} defaultSelect={arg.defaultSelect} />
+        <SelectButtonType
+          key={arg.fieldId}
+          label={arg.label}
+          options={arg.options}
+          onChange={onChange}
+          defaultSelect={arg.defaultSelect}
+        />
       ) : null;
     case 'select-icon':
       return arg.listIcon ? (
@@ -205,11 +231,25 @@ const Form: FC<FormProps> = ({ fields, onChange, onAnotherEvent, children, class
     };
   };
 
+  const _renderFieldItem = (
+    arg: FieldType,
+    onChange: (result: any) => void,
+    onAnotherEvent?: (result: any) => void,
+  ) => {
+    return (
+      <div key={arg.fieldId} className={styles.formItem}>
+        {renderField1(arg, onChange, onAnotherEvent)}
+      </div>
+    );
+  };
+
   return (
     <div className={`${styles.form} ${className}`} style={style}>
       <FormBase
         fields={fields}
-        renderField={arg => renderField1(arg as any, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))}
+        renderField={arg =>
+          _renderFieldItem(arg as any, handleChange(arg.fieldType, arg.fieldName), handleAnotherEvent(arg.fieldName))
+        }
       >
         {children}
       </FormBase>

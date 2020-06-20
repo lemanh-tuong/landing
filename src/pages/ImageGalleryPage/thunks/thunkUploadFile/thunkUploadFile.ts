@@ -1,4 +1,7 @@
-import { actionUploadFile, ActionUploadFilePayload } from 'pages/ImageGalleryPage/actions/actionUploadFile/actionUploadFile';
+import {
+  actionUploadFile,
+  ActionUploadFilePayload,
+} from 'pages/ImageGalleryPage/actions/actionUploadFile/actionUploadFile';
 import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkUpLoadFile = ThunkAction<typeof actionUploadFile>;
@@ -16,7 +19,7 @@ const thunkUploadFile = ({ files, path }: ThunkUpLoadFileArg): ThunkUpLoadFile =
       dispatch(actionUploadFile.success({ imgs: newImgs, type: path }));
     }
   } catch (err) {
-    dispatch(actionUploadFile.failure(JSON.stringify(err)));
+    dispatch(actionUploadFile.failure(err.message));
   }
 };
 

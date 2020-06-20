@@ -94,17 +94,37 @@ const Step6 = () => {
     return (
       <form onSubmit={handleSubmitConfig}>
         <InputText2 defaultValue={configApp.apiKey} label="Api Key" onChange={handleChangeConfigFirebase('apiKey')} />
-        <InputText2 defaultValue={configApp.appId} label="App Id" onChange={handleChangeConfigFirebase('appId')} />
-        <InputText2 defaultValue={configApp.authDomain} label="Auth Domain" onChange={handleChangeConfigFirebase('authDomain')} />
-        <InputText2 defaultValue={configApp.databaseURL} label="Database URL" onChange={handleChangeConfigFirebase('databaseURL')} />
-        <InputText2 defaultValue={configApp.measurementId} label="Measurement Id" onChange={handleChangeConfigFirebase('measurementId')} />
+        <InputText2
+          defaultValue={configApp.authDomain}
+          label="Auth Domain"
+          onChange={handleChangeConfigFirebase('authDomain')}
+        />
+        <InputText2
+          defaultValue={configApp.databaseURL}
+          label="Database URL"
+          onChange={handleChangeConfigFirebase('databaseURL')}
+        />
+        <InputText2
+          defaultValue={configApp.projectId}
+          label="ProjectId"
+          onChange={handleChangeConfigFirebase('projectId')}
+        />
+        <InputText2
+          defaultValue={configApp.storageBucket}
+          label="Storage Bucket"
+          onChange={handleChangeConfigFirebase('storageBucket')}
+        />
         <InputText2
           defaultValue={configApp.messagingSenderId}
           label="Messaging Sender Id"
           onChange={handleChangeConfigFirebase('messagingSenderId')}
         />
-        <InputText2 defaultValue={configApp.projectId} label="ProjectId" onChange={handleChangeConfigFirebase('projectId')} />
-        <InputText2 defaultValue={configApp.storageBucket} label="Storage Bucket" onChange={handleChangeConfigFirebase('storageBucket')} />
+        <InputText2 defaultValue={configApp.appId} label="App Id" onChange={handleChangeConfigFirebase('appId')} />
+        <InputText2
+          defaultValue={configApp.measurementId}
+          label="Measurement Id"
+          onChange={handleChangeConfigFirebase('measurementId')}
+        />
         <div className={styles.errorNotifycation} style={{ color: 'red' }}>
           {error}
         </div>

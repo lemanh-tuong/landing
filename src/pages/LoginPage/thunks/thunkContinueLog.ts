@@ -3,7 +3,7 @@ import { actionContinueLog } from '../actions/actionContinueLog';
 
 type ThunkContinueLog = ThunkAction<typeof actionContinueLog>;
 
-const thunkContinueLog = (token: string): ThunkContinueLog => async (dispatch, getState) => {
+const thunkContinueLog = (): ThunkContinueLog => async (dispatch, getState) => {
   const { firebaseReducer } = getState();
   if (Object.keys(firebaseReducer.authentication).length > 0) {
     await firebaseReducer.getAuthentication().onAuthStateChanged(async user => {

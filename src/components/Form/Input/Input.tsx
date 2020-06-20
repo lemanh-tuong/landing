@@ -68,7 +68,6 @@ const Input: FC<InputProps> = ({
         name={label}
         defaultValue={defaultValue}
         onChange={handleChange}
-        onFocus={handleChange}
         placeholder={placeholder}
         autoSize={autoSize ?? { maxRows: 10, minRows: 3 }}
         style={style}

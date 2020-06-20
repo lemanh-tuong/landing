@@ -5,3 +5,9 @@
   position: relative;
   background-color: inherit;
 }
+
+.formItem {
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}

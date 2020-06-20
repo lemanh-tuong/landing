@@ -21,6 +21,7 @@ export type Section8Props = {
   styleButton?: ButtonProps['style'];
   sizeButton?: ButtonProps['size'];
   typeButton?: ButtonProps['type'];
+  targetButton?: ButtonProps['target'];
   card2s: [CardProps, CardProps, CardProps];
   alignDivider?: DividerProps['align'];
   hasDivider?: boolean;
@@ -70,6 +71,7 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
   backgroundButton,
   colorTextButton,
   hrefButton,
+  targetButton,
   styleButton,
   textButton,
   typeButton,
@@ -80,16 +82,29 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
   };
 
   return (
-    <Section animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage}>
+    <Section
+      animation={animation}
+      positionAnimation={positionAnimation}
+      backgroundColor={backgroundColor}
+      backgroundImage={backgroundImage}
+    >
       <Row>
         <Col cols={[12, 12, 7]} className={`${reverse ? 'order-last' : ''}`}>
           <Row>
             <Col cols={[12, 6, 6]} className={styles.contentCenter}>
-              {card2s && <Card hasIcon={true} {...card2s[0]} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(0)} />}
+              {card2s && (
+                <Card hasIcon={true} {...card2s[0]} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(0)} />
+              )}
             </Col>
             <Col cols={[12, 6, 6]}>
               {card2s?.slice(1, card2s.length).map((cardProperty, index) => (
-                <Card key={uuidv4()} hasIcon={true} {...cardProperty} isBuilder={isBuilder} onEditable={handleShowPopupEditCard(index + 1)} />
+                <Card
+                  key={uuidv4()}
+                  hasIcon={true}
+                  {...cardProperty}
+                  isBuilder={isBuilder}
+                  onEditable={handleShowPopupEditCard(index + 1)}
+                />
               ))}
             </Col>
           </Row>
@@ -110,7 +125,12 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
               />
             }
             {hasDivider ? (
-              <Divide dividerColor={dividerColor} align={alignDivider} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />
+              <Divide
+                dividerColor={dividerColor}
+                align={alignDivider}
+                isBuilder={isBuilder}
+                onEditable={onShowPopupEditDivider}
+              />
             ) : (
               <Divide
                 align={alignDivider}
@@ -139,6 +159,7 @@ const Section8: FC<Section8Props & Section8PropsBuilder> = ({
                 type={typeButton}
                 text={textButton}
                 href={hrefButton}
+                target={targetButton}
                 backgroundColor={backgroundButton}
                 isBuilder={isBuilder}
                 onEditable={onShowPopupEditButton}

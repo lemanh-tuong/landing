@@ -7,8 +7,11 @@
   background: #f1f1f1;
   height: 100vh;
   overflow-x: hidden;
-  width: calc(100% - 315px);
+  width: calc(100% - 300px);
   margin-left: 300px;
+  & a {
+    display: block;
+  }
 }
 
 .content {
@@ -22,7 +25,8 @@
 }
 
 .page {
-  height: 100%;
+  height: calc(100% - 10px);
+  margin: 5px 0;
   padding: 30px;
   border-radius: 10px;
   background-color: #fff;

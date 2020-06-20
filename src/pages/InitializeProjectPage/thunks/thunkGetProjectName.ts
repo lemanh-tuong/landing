@@ -10,7 +10,7 @@ const thunkGetProjectName = (): ThunkGetProjectName => async (dispatch, getState
     const res = await firebaseReducer.readDatabase('/projectName');
     dispatch(actionGetProjectName.success(res));
   } catch (err) {
-    dispatch(actionGetProjectName.failure(JSON.stringify(err.message)));
+    dispatch(actionGetProjectName.failure(err.message));
   }
 };
 

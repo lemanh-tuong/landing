@@ -32,7 +32,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
   const element = useSelector(sections)[nowIndex];
   const listPageName = useSelector(listPage);
   // Destructoring
-  const { sectionId, textButton, hrefButton, backgroundButton, typeButton, sizeButton } = element;
+  const { sectionId, textButton, hrefButton, targetButton, backgroundButton, typeButton, sizeButton } = element;
 
   // Dispatch
   const changeInput = thunkChangeInput();
@@ -131,6 +131,20 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               },
               defaultSelect: '/',
               hidden: !(typeHref === 'internal'),
+            },
+            {
+              fieldId: 'button-select-target',
+              fieldName: 'targetButton',
+              label: 'Target',
+              fieldType: 'select',
+              optionsGroup: {
+                groupName: '',
+                options: [
+                  { value: 'blank', label: 'blank' },
+                  { label: 'self', value: 'self' },
+                ],
+              },
+              defaultSelect: targetButton || 'self',
             },
             {
               fieldType: 'color-picker',

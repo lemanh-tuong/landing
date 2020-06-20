@@ -28,7 +28,10 @@ const CreateNewProjectPage = () => {
     <div className={styles.CreateNewProjectPage} style={{ padding: 30 }}>
       <Container>
         <form onSubmit={handleSubmit}>
-          <h3 className={styles.title}>Your Project Is New. Please Fill The Project Name</h3>
+          <div className={styles.header}>
+            <h3 className={styles.title}>Your Project Is New. Please Fill The Project Name</h3>
+            <p className={styles.desc}>It will be app's title</p>
+          </div>
           <InputText2 defaultValue={value} label="Project Name" onChange={handleChange} />
           <button disabled={value.length === 0} className={styles.submitBtn} type="submit" onSubmit={handleSubmit}>
             Create New Project

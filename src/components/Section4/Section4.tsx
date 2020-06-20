@@ -17,6 +17,7 @@ export type Section4Props = {
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
+  targetButton?: ButtonProps['target'];
   sectionId: string;
 } & SectionPatternBase &
   Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>> &
@@ -46,6 +47,7 @@ const Section4: FC<Section4Props & Section4PropsBuilder> = ({
   classMainTitle,
   backgroundButton,
   hrefButton,
+  targetButton,
   colorTextButton,
   textButton,
   styleButton,
@@ -131,6 +133,7 @@ const Section4: FC<Section4Props & Section4PropsBuilder> = ({
             backgroundColor={backgroundButton}
             text={textButton}
             href={hrefButton}
+            target={targetButton}
             isBuilder={isBuilder}
             dark={darkMode}
             onEditable={onShowPopupEditButton}

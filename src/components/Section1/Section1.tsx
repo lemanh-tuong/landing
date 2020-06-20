@@ -26,6 +26,7 @@ export type Section1Props = {
   colorTextButton?: ButtonProps['color'];
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
+  targetButton?: ButtonProps['target'];
   sectionId: string;
   alignDivider?: DividerProps['align'];
 } & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>> &
@@ -85,6 +86,7 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   delayTime,
   textButton = 'Try demo',
   hrefButton,
+  targetButton,
   styleButton,
   backgroundButton,
   colorTextButton,
@@ -116,10 +118,26 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   const _renderDivider = () => {
     if (isBuilder) {
       return (
-        <>{hasDivider && <Divide dividerColor={dividerColor} align={alignDivider} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />}</>
+        <>
+          {hasDivider && (
+            <Divide
+              dividerColor={dividerColor}
+              align={alignDivider}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider}
+            />
+          )}
+        </>
       );
     } else if (hasDivider) {
-      return <Divide align={alignDivider} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+      return (
+        <Divide
+          align={alignDivider}
+          dividerColor={dividerColor}
+          isBuilder={isBuilder}
+          onEditable={onShowPopupEditDivider}
+        />
+      );
     }
     return null;
   };
@@ -162,6 +180,7 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
         href={hrefButton ?? ''}
         style={{ ...styleButton, margin: '30px 0' }}
         text={textButton}
+        target={targetButton}
         size={sizeButton}
         isBuilder={isBuilder}
         onEditable={onShowPopupEditButton}
@@ -184,7 +203,11 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
               <ButtonGroup align="left">{_renderButton()}</ButtonGroup>
             </div>
           </Col>
-          <Col style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }} cols={[12, 6, 6]} className={reverse ? 'order-1' : ''}>
+          <Col
+            style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }}
+            cols={[12, 6, 6]}
+            className={reverse ? 'order-1' : ''}
+          >
             <>{_renderMockUp()}</>
           </Col>
         </Row>

@@ -12,7 +12,8 @@ const ProfilePage = () => {
   const statusChangerProfile = useSelector(statusChangeUserProfile);
 
   const [newProfile, setNewProfile] = useState({});
-  const handleSetNewProfile = (profileProperty: string) => (result: string) => setNewProfile({ [profileProperty]: result });
+  const handleSetNewProfile = (profileProperty: string) => (result: string) =>
+    setNewProfile({ [profileProperty]: result });
 
   const [nowFormEdit, setNowFormEdit] = useState('');
   const handleSetFormEdit = (label: string) => () => setNowFormEdit(label);
@@ -44,7 +45,17 @@ const ProfilePage = () => {
     );
   };
 
-  const _renderItem = ({ label, content, fieldName, canEdit }: { label: string; content: string; fieldName: string; canEdit: boolean }) => {
+  const _renderItem = ({
+    label,
+    content,
+    fieldName,
+    canEdit,
+  }: {
+    label: string;
+    content: string;
+    fieldName: string;
+    canEdit: boolean;
+  }) => {
     return (
       <div className={styles.item}>
         <div className={styles.labelItem}>{label}</div>
@@ -75,12 +86,17 @@ const ProfilePage = () => {
   return (
     <div className={styles.ProfilePage}>
       <div className={styles.content}>
-        <h3 className={styles.title}>Title</h3>
+        <h3 className={styles.title}>Profile</h3>
         <div className={styles.userProfile}>
           {_renderItem({ label: 'User Name', content: displayName || '', fieldName: 'displayName', canEdit: true })}
           {_renderItem({ label: 'Email', content: email || '', fieldName: 'email', canEdit: true })}
           {_renderItem({ label: 'Password', content: '******************', fieldName: 'password', canEdit: true })}
-          {_renderItem({ label: 'Phone number', content: phoneNumber || 'Phone number', fieldName: 'phoneNumber', canEdit: false })}
+          {_renderItem({
+            label: 'Phone number',
+            content: phoneNumber || 'Phone number',
+            fieldName: 'phoneNumber',
+            canEdit: false,
+          })}
         </div>
       </div>
     </div>

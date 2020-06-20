@@ -9,7 +9,10 @@ export interface ThunkRegisterNewUserArg {
   userName: string;
 }
 
-const thunkRegisterNewUser = ({ email, password, userName }: ThunkRegisterNewUserArg): ThunkRegisterNewUser => async (dispatch, getState) => {
+const thunkRegisterNewUser = ({ email, password, userName }: ThunkRegisterNewUserArg): ThunkRegisterNewUser => async (
+  dispatch,
+  getState,
+) => {
   const { firebaseReducer } = getState();
   dispatch(actionRegisterNewUser.request());
   firebaseReducer.authentication
@@ -18,12 +21,13 @@ const thunkRegisterNewUser = ({ email, password, userName }: ThunkRegisterNewUse
       const user = firebaseReducer.authentication.currentUser;
       await user?.updateProfile({
         displayName: userName,
-        photoURL: 'https://images.pexels.com/photos/4316738/pexels-photo-4316738.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+        photoURL:
+          'https://images.pexels.com/photos/4316738/pexels-photo-4316738.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       });
       dispatch(actionRegisterNewUser.success(null));
     })
     .catch(err => {
-      dispatch(actionRegisterNewUser.failure(err));
+      dispatch(actionRegisterNewUser.failure(err.message));
     });
 };
 

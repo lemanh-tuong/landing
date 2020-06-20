@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useRef, useState } from 'react';
 
 export interface CheckBoxBase {
   defaultChecked?: boolean;
@@ -11,12 +11,9 @@ const CheckBoxBase: FC<CheckBoxBase> = ({ defaultChecked = false, renderItem, on
   const [checked, setChecked] = useState(defaultChecked);
 
   const handleChange = () => {
+    onChangeRef.current?.(!checked);
     setChecked(!checked);
   };
-
-  useEffect(() => {
-    onChangeRef.current?.(checked);
-  }, [onChangeRef, checked]);
 
   return <>{renderItem(checked, handleChange)}</>;
 };

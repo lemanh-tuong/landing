@@ -37,7 +37,12 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
       }
       if (fieldType === 'input' || fieldType === 'select') {
         // Value of input
-        changeInput({ fieldName: fieldName, value: result, nowIndexSection: nowIndexSection, nowIndexButton: nowIndexButton });
+        changeInput({
+          fieldName: fieldName,
+          value: result,
+          nowIndexSection: nowIndexSection,
+          nowIndexButton: nowIndexButton,
+        });
       }
     };
   };
@@ -95,16 +100,17 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
               groupName: '',
               options: [
                 { value: 'blank', label: 'blank' },
-                { value: 'default', label: 'default' },
                 { label: 'self', value: 'self' },
               ],
             },
-            defaultSelect: nowButton?.target || 'default',
+            defaultSelect: nowButton?.target || 'self',
           },
         ]}
         onChange={handleChangeForm}
       >
-        <Link to={`/admin/gallery?type=imageButton&nowIndexSection=${nowIndexSection}&nowIndexButton=${nowIndexButton}&multiple=false`}>
+        <Link
+          to={`/admin/gallery?type=imageButton&nowIndexSection=${nowIndexSection}&nowIndexButton=${nowIndexButton}&multiple=false`}
+        >
           <img src={nowButton?.imgSrc || ''} alt="button" />
         </Link>
       </Form>

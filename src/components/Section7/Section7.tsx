@@ -20,6 +20,7 @@ export type Section7Props = {
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
+  targetButton?: ButtonProps['target'];
   rateList: RateProps[];
   onAddRate?: (nowIndexRate: number) => void;
   onDeleteRate?: (nowIndexRate: number) => void;
@@ -66,6 +67,7 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
   backgroundButton,
   colorTextButton,
   hrefButton,
+  targetButton,
   styleButton,
   textButton,
   typeButton,
@@ -184,6 +186,7 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
           onEditable={onShowPopUpEditButton}
           style={{ ...styleButton, marginTop: 30 }}
           className={styles.btn}
+          target={targetButton}
         />
       </ButtonGroup>
     </Section>

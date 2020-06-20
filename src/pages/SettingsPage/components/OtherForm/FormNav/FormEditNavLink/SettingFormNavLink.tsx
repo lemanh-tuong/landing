@@ -64,7 +64,13 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
       if (fieldType === 'radio' && fieldName === 'Type Href') {
         handleTypeHref(result);
       }
-      if (fieldType === 'input' || fieldType === 'select' || fieldType === 'radio' || fieldType === 'radio2' || fieldType === 'select-button') {
+      if (
+        fieldType === 'input' ||
+        fieldType === 'select' ||
+        fieldType === 'radio' ||
+        fieldType === 'radio2' ||
+        fieldType === 'select-button'
+      ) {
         changeInput({ fieldName: fieldName, value: result, nowIndex: nowIndex });
       }
       if (fieldType === 'select-icon') {
@@ -159,11 +165,10 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
               groupName: '',
               options: [
                 { value: 'blank', label: 'blank' },
-                { value: 'default', label: 'default' },
                 { label: 'self', value: 'self' },
               ],
             },
-            defaultSelect: target || 'default',
+            defaultSelect: target || 'self',
           },
           {
             fieldId: 'type-button-nav',

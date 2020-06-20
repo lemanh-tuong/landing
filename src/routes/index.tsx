@@ -1,4 +1,5 @@
 import { useMount } from 'hooks/useMount';
+import thunkContinueLog from 'pages/LoginPage/thunks/thunkContinueLog';
 import thunkInitialize from 'pages/LoginPage/thunks/thunkInitialize';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -11,9 +12,11 @@ const Routes = () => {
 
   // Dispatch
   const initializeApp = thunkInitialize();
+  const loginContinue = thunkContinueLog();
 
   useMount(() => {
     initializeApp();
+    loginContinue();
   });
 
   const _renderSwitch = () => {

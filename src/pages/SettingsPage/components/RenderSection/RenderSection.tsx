@@ -67,6 +67,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
     textButton,
     styleButton,
     hrefButton,
+    targetButton,
     backgroundButton,
     colorTextButton,
     typeButton,
@@ -88,6 +89,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
             sizeButton={sizeButton}
             nowIndexSection={nowIndexSection}
             typeButton={typeButton}
+            targetButton={targetButton}
             darkMode={darkMode}
             animation={animation}
             positionAnimation={positionAnimation}
@@ -211,6 +213,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
             styleButton={styleButton}
             sizeButton={sizeButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             text={text ?? ''}
             alignText={alignText}
             colorText={colorText}
@@ -273,6 +276,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
             backgroundButton={backgroundButton}
             colorTextButton={colorTextButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             hrefButton={hrefButton}
             textButton={textButton}
             styleButton={styleButton}
@@ -308,6 +312,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
             hrefButton={hrefButton}
             textButton={textButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             sizeButton={sizeButton}
             nowIndexSection={nowIndexSection}
             sectionId={sectionId}
@@ -343,6 +348,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
             classText={classText}
             backgroundButton={backgroundButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             textButton={textButton}
             hrefButton={hrefButton}
             styleButton={styleButton}
@@ -409,6 +415,7 @@ const RenderSection = ({ option, nowIndexSection }: RenderSectionArg) => {
             backgroundButton={backgroundButton}
             sizeButton={sizeButton}
             typeButton={typeButton}
+            targetButton={targetButton}
             textButton={textButton}
             hrefButton={hrefButton}
             styleButton={styleButton}

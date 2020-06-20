@@ -12,7 +12,7 @@ const thunkGetComponent = (type: 'section'): ThunkGetComponent => async (dispatc
     try {
       dispatch(getDataComponent.success(data));
     } catch (err) {
-      dispatch(getDataComponent.failure(JSON.stringify(err)));
+      dispatch(getDataComponent.failure(err.message));
     }
   }
 };
