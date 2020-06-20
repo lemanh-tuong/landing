@@ -10,19 +10,38 @@ import { FormMockUp } from '../OtherForm/FormMockup/FormMockup';
 import FormSection from '../OtherForm/FormSection/FormSection';
 import FormText from '../OtherForm/FormText/FormText';
 
-export interface Section1EditableProps extends Section1Props {
-}
+export interface Section1EditableProps extends Section1Props {}
 
 const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> = ({
-  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse, delayTime,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
-  hasDivider, dividerColor, alignDivider,
-  text, alignText, colorText, fontSizeText,
+  nowIndexSection,
+  sectionId,
+  backgroundColor,
+  backgroundImage,
+  animation,
+  positionAnimation,
+  reverse,
+  delayTime,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  hasDivider,
+  dividerColor,
+  alignDivider,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
   sliderImgs,
-  textButton, styleButton, hrefButton, backgroundButton, colorTextButton, typeButton, sizeButton,
-  typeMockUp
+  textButton,
+  styleButton,
+  hrefButton,
+  backgroundButton,
+  colorTextButton,
+  typeButton,
+  sizeButton,
+  typeMockUp,
 }) => {
-
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   };
@@ -46,7 +65,8 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
   return (
     <>
       <Section1
-        animation={animation} reverse={reverse}
+        animation={animation}
+        reverse={reverse}
         positionAnimation={positionAnimation}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
@@ -61,26 +81,30 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
         fontSizeText={fontSizeText}
         backgroundColor={backgroundColor}
         backgroundImage={backgroundImage}
-        typeMockUp={typeMockUp} delayTime={delayTime}
-        sliderImgs={sliderImgs || [
-          {
-            imgSrc: mockUpMacContent1,
-            hasVideo: true,
-            videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
-          },
-          {
-            imgSrc: mockUpMacContent2,
-            hasVideo: true,
-            videoUrl: 'https://www.youtube.com/'
-          }
-        ]}
+        typeMockUp={typeMockUp}
+        delayTime={delayTime}
+        sliderImgs={
+          sliderImgs || [
+            {
+              imgSrc: mockUpMacContent1,
+              hasVideo: true,
+              videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13',
+            },
+            {
+              imgSrc: mockUpMacContent2,
+              hasVideo: true,
+              videoUrl: 'https://www.youtube.com/',
+            },
+          ]
+        }
         margin={0}
         textButton={textButton}
         styleButton={styleButton}
         hrefButton={hrefButton}
         backgroundButton={backgroundButton}
         colorTextButton={colorTextButton}
-        typeButton={typeButton} sizeButton={sizeButton}
+        typeButton={typeButton}
+        sizeButton={sizeButton}
         isBuilder={true}
         sectionId={sectionId}
         isBuider={true}
@@ -94,7 +118,7 @@ const Section1Editable: FC<Section1EditableProps & { nowIndexSection: number }> 
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormButton nowIndex={nowIndexSection} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`mockup-${sectionId}`} type='antd' title={<h3>Form Mock Up</h3>}>
+      <PopUp id={`mockup-${sectionId}`} type="antd" title={<h3>Form Mock Up</h3>}>
         <FormMockUp draggableField={false} nowIndexSection={nowIndexSection} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />

@@ -16,7 +16,6 @@ export interface NavItemType extends ButtonNav {
   variance?: 'nav' | 'button';
 }
 
-
 export interface NavProps {
   logo: {
     imgSrc: string;
@@ -85,7 +84,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, style, isBuilder,
     return (
       <div className={styles.logo}>
         <Link to="/">
-          <Image imgSrc={logo.imgSrc} type='tagImg' isBuilder={isBuilder} onEditable={onShowPopupEditLogo} />
+          <Image imgSrc={logo.imgSrc} type="tagImg" isBuilder={isBuilder} onEditable={onShowPopupEditLogo} />
         </Link>
       </div>
     );
@@ -116,15 +115,14 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, style, isBuilder,
 
   if (isBuilder) {
     return (
-      <PopOverText onEdit={onShowpopupEditNav}
+      <PopOverText
+        onEdit={onShowpopupEditNav}
         component={
           <div style={style} className={`${styles.isBuilder} ${styles.navHeader} ${active ? styles.active : ''}`}>
             {_renderLogo()}
             <div className={styles.navigation}>
               <nav className={styles.nav}>
-                <ul className={styles.menu}>
-                  {navItems.map(item => _renderNavItem(item))}
-                </ul>
+                <ul className={styles.menu}>{navItems.map(item => _renderNavItem(item))}</ul>
                 <button className={`${styles.collapseBtn}`} onClick={handleShow}>
                   <i className={`fas fa-bars `}></i>
                 </button>
@@ -146,9 +144,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, style, isBuilder,
         {_renderLogo()}
         <div className={styles.navigation}>
           <nav className={styles.nav}>
-            <ul className={styles.menu}>
-              {navItems.map(item => _renderNavItem(item))}
-            </ul>
+            <ul className={styles.menu}>{navItems.map(item => _renderNavItem(item))}</ul>
             <button className={`${styles.collapseBtn}`} onClick={handleShow}>
               <i className={`fas fa-bars `}></i>
             </button>
@@ -156,9 +152,7 @@ const Nav: FC<NavProps & NavPropsBuilder> = ({ logo, navItems, style, isBuilder,
         </div>
       </div>
       <div className={styles.navMobile} style={{ transform: `translateX(${show ? '0px' : '-100%'})` }}>
-        <ul className={styles.navMenu}>
-          {navItems.map(item => _renderNavItem(item, true))}
-        </ul>
+        <ul className={styles.navMenu}>{navItems.map(item => _renderNavItem(item, true))}</ul>
       </div>
       {show ? _renderOverlay() : null}
     </>

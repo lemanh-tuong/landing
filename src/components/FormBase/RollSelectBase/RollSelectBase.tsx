@@ -10,7 +10,6 @@ type Data<T> = ItemT<T>[];
 
 type RenderItemRollSelect<T> = (item: ItemT<T>, index: number, onChoose?: OnChooseFunc<T>) => ReactNode;
 
-
 export interface RollSelectBaseProps<T> {
   data: Data<T>;
   defaultSelected?: Data<T> | ItemT<T>;
@@ -21,21 +20,21 @@ export interface RollSelectBaseProps<T> {
 }
 
 const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = false, onChoose, onResult, renderItem }: RollSelectBaseProps<T>) => {
-
   const onResultRef = useRef(onResult);
 
   const [choosing, setChoosing] = useState(() => {
-    return defaultSelected ? (defaultSelected instanceof Array ? [...defaultSelected] : [{ ...defaultSelected }]) : [] as Data<T>;
+    return defaultSelected ? (defaultSelected instanceof Array ? [...defaultSelected] : [{ ...defaultSelected }]) : ([] as Data<T>);
   });
 
   const handleChoose = (item: ItemT<T>) => () => {
     onChoose?.(item);
     if (multiple) {
-      choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1 ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc)) : setChoosing(choosing.concat(item));
+      choosing.findIndex(chose => chose.imgSrc === item.imgSrc) !== -1
+        ? setChoosing(choosing.filter(chose => chose.imgSrc !== item.imgSrc))
+        : setChoosing(choosing.concat(item));
     } else {
       setChoosing([].concat(item as any));
     }
-
   };
 
   useEffect(() => {
@@ -53,8 +52,7 @@ const RollSelectBase = <T extends object>({ data, defaultSelected, multiple = fa
       {data?.map(item => {
         const index = choosing?.findIndex(chose => chose.imgSrc === item.imgSrc);
         return <Fragment key={uuidv4()}>{renderItem(item, index, handleChoose(item))}</Fragment>;
-      })
-      }
+      })}
     </>
   );
 };

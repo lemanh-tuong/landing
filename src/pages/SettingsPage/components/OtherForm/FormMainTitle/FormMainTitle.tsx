@@ -53,7 +53,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
   };
 
   return (
-    <PopUp id={`mainTitle-${sectionId}`} type='antd' title={<h3>Form Main Title</h3>}>
+    <PopUp id={`mainTitle-${sectionId}`} type="antd" title={<h3>Form Main Title</h3>}>
       <div>
         <Form
           fields={[
@@ -63,7 +63,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
               label: 'Main Title',
               fieldId: 'section-1-field-1',
               horizontal: true,
-              defaultValue: mainTitle
+              defaultValue: mainTitle,
             },
             {
               fieldType: 'radio',
@@ -74,15 +74,15 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
               data: [
                 {
                   value: 'left',
-                  name: 'align title'
+                  name: 'align title',
                 },
                 {
                   value: 'center',
-                  name: 'align title'
+                  name: 'align title',
                 },
                 {
                   value: 'right',
-                  name: 'align title'
+                  name: 'align title',
                 },
               ],
             },
@@ -105,7 +105,7 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
               fieldName: 'hasDivider',
               label: 'Has Divider',
               fieldId: 'section-3-field-7',
-              defaultChecked: !!hasDivider
+              defaultChecked: !!hasDivider,
             },
             {
               fieldType: 'color-picker',
@@ -134,14 +134,13 @@ export const FormMainTitle: FC<FormMainTitleProps> = ({ nowIndexSection, section
                 {
                   name: 'alignDivider',
                   value: 'right',
-                }
-              ]
-            }
+                },
+              ],
+            },
           ]}
           onChange={handleChangeForm}
         />
       </div>
-
     </PopUp>
   );
 };

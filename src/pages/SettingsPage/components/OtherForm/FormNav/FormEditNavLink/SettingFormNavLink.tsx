@@ -8,33 +8,33 @@ import { useSelector } from 'react-redux';
 const data: SelectItemType[] = [
   {
     classIcon: 'fas fa-shopping-cart',
-    nameIcon: 'cart'
+    nameIcon: 'cart',
   },
   {
     classIcon: 'fas fa-search',
-    nameIcon: 'search'
+    nameIcon: 'search',
   },
   {
     classIcon: 'fas fa-edit',
-    nameIcon: 'save'
+    nameIcon: 'save',
   },
   {
     classIcon: 'fas fa-angle-double-left',
-    nameIcon: 'angle-double-left'
+    nameIcon: 'angle-double-left',
   },
   {
     classIcon: 'fas fa-angle-double-right',
-    nameIcon: 'angle-double-right'
+    nameIcon: 'angle-double-right',
   },
   {
     classIcon: 'fas fa-angle-left',
-    nameIcon: 'angle-left'
+    nameIcon: 'angle-left',
   },
   {
     classIcon: 'fas fa-angle-right',
-    nameIcon: 'angle-right'
+    nameIcon: 'angle-right',
   },
-]
+];
 
 export interface SettingsFormProps {
   nowIndex: number;
@@ -69,7 +69,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
       }
       if (fieldType === 'select-icon') {
         // {classIcon: string, nameIcon: string}
-        changeInput({ fieldName: fieldName, value: result.classIcon, nowIndex: nowIndex })
+        changeInput({ fieldName: fieldName, value: result.classIcon, nowIndex: nowIndex });
       }
     };
   };
@@ -101,7 +101,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             fieldName: 'text',
             label: 'Text',
             defaultValue: text,
-            fieldId: 'nav-link-1'
+            fieldId: 'nav-link-1',
           },
           {
             fieldName: 'iconClass',
@@ -133,7 +133,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             fieldName: 'href',
             label: 'External Href',
             fieldId: 'nav-link-2',
-            hidden: typeHref === 'internal'
+            hidden: typeHref === 'internal',
           },
           {
             fieldType: 'select',
@@ -144,9 +144,9 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             optionsGroup: {
               groupName: 'Link',
               options: listPageName.map(page => {
-                if (page.isHome) return { value: '/', label: `${page.pageName}` }
-                return { value: `${page.pathName}`, label: `${page.pageName}` }
-              })
+                if (page.isHome) return { value: '/', label: `${page.pageName}` };
+                return { value: `${page.pathName}`, label: `${page.pageName}` };
+              }),
             },
             hidden: !(typeHref === 'internal'),
           },
@@ -157,7 +157,11 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             fieldType: 'select',
             optionsGroup: {
               groupName: '',
-              options: [{ value: 'blank', label: 'blank' }, { value: 'default', label: 'default' }, { label: 'self', value: 'self' }]
+              options: [
+                { value: 'blank', label: 'blank' },
+                { value: 'default', label: 'default' },
+                { label: 'self', value: 'self' },
+              ],
             },
             defaultSelect: target || 'default',
           },
@@ -171,23 +175,23 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             options: [
               {
                 label: 'border',
-                value: 'border'
+                value: 'border',
               },
               {
                 label: 'gradient',
-                value: 'gradient'
+                value: 'gradient',
               },
               {
                 label: 'primary',
-                value: 'primary'
+                value: 'primary',
               },
               {
                 label: 'white',
-                value: 'white'
+                value: 'white',
               },
               {
                 label: 'transparent',
-                value: 'transparent'
+                value: 'transparent',
               },
             ],
           },
@@ -200,22 +204,22 @@ const SettingsForm: FC<SettingsFormProps> = ({ nowIndex }) => {
             data: [
               {
                 name: 'size button',
-                value: 'default'
+                value: 'default',
               },
               {
                 name: 'size button',
-                value: 'small'
+                value: 'small',
               },
               {
                 name: 'size button',
-                value: 'middle'
+                value: 'middle',
               },
               {
                 name: 'size button',
-                value: 'large'
-              }
+                value: 'large',
+              },
             ],
-            defaultCheckedValue: size || 'default'
+            defaultCheckedValue: size || 'default',
           },
         ]}
         onChange={handleChangeTextButtonForm}

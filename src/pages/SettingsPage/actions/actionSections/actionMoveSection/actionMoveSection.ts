@@ -6,12 +6,10 @@ export interface ActionMove {
   payload: PageProps;
 }
 
-
 const moveSection = createAction('MOVE_SECTION', (payload: PageProps['elements']) => {
   return {
-    elements: payload
+    elements: payload,
   };
 });
 
 export { moveSection };
-

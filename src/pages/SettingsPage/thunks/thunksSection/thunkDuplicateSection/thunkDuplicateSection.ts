@@ -9,8 +9,8 @@ export interface ThunkDuplicateSectionArg {
   nowIndexSection: number;
 }
 
-const thunkDuplicateSection = ({data, nowIndexSection}: ThunkDuplicateSectionArg): ThunkDuplicateSection => dispatch => {
-  dispatch(actionDuplicateSection({data: data, nowIndexSection: nowIndexSection}));
+const thunkDuplicateSection = ({ data, nowIndexSection }: ThunkDuplicateSectionArg): ThunkDuplicateSection => dispatch => {
+  dispatch(actionDuplicateSection({ data: data, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkDuplicateSection);

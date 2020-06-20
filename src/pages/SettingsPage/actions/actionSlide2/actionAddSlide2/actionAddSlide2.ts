@@ -7,7 +7,6 @@ export interface ActionAddSlide2Payload {
   nowIndexSlide: number;
 }
 
-const actionAddSlide2 = createAction('ADD_SLIDE_2', (payload: ActionAddSlide2Payload) => ({...payload}));
+const actionAddSlide2 = createAction('ADD_SLIDE_2', (payload: ActionAddSlide2Payload) => ({ ...payload }));
 
 export { actionAddSlide2 };
-

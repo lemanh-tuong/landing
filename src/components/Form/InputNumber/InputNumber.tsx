@@ -12,12 +12,14 @@ export interface InputNumberProps {
 }
 
 const InputNumber: FC<InputNumberProps> = ({ label, step = 1, defaultNumber, max, min, onChange }) => {
-  return <div className={styles.inputNumberComponent}>
-    <div className={styles.content}>
-      <div className={styles.label}>{label}</div>
-      <InputNumberAntd step={step} min={min} max={max} defaultValue={defaultNumber ?? 1} onChange={onChange} />
+  return (
+    <div className={styles.inputNumberComponent}>
+      <div className={styles.content}>
+        <div className={styles.label}>{label}</div>
+        <InputNumberAntd step={step} min={min} max={max} defaultValue={defaultNumber ?? 1} onChange={onChange} />
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default InputNumber;

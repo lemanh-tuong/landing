@@ -11,4 +11,3 @@ const deleteSection = createAction('DELETE_SECTION', (payload: Option) => ({
 }));
 
 export { deleteSection };
-

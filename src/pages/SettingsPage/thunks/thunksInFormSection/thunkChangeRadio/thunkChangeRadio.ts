@@ -7,8 +7,8 @@ export interface ThunkChangeRadioArg {
   value: string;
   nowIndexSection: number;
 }
-const thunkChangeRadio = ({fieldName, value, nowIndexSection}: ThunkChangeRadioArg): ThunkChangeRadio => dispatch => {
-    dispatch(changeRadio({fieldName: fieldName, value: value, nowIndexSection: nowIndexSection}));
+const thunkChangeRadio = ({ fieldName, value, nowIndexSection }: ThunkChangeRadioArg): ThunkChangeRadio => dispatch => {
+  dispatch(changeRadio({ fieldName: fieldName, value: value, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChangeRadio);

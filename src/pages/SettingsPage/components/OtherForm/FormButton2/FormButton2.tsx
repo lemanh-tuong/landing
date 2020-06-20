@@ -23,7 +23,7 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
 
   // Selector
   const element = useSelector(sections)[nowIndexSection];
-  const listPageName = useSelector(listPage)
+  const listPageName = useSelector(listPage);
   // Destructoring
   const nowButton = element.buttons?.[nowIndexButton];
 
@@ -68,7 +68,7 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
             label: 'href',
             defaultValue: nowButton?.href,
             fieldId: 2,
-            hidden: typeHref === 'internal'
+            hidden: typeHref === 'internal',
           },
           {
             fieldType: 'select',
@@ -79,12 +79,12 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
             optionsGroup: {
               groupName: 'Link',
               options: listPageName.map(page => {
-                if (page.isHome) return { value: '/', label: `${page.pageName}` }
-                return { value: `${page.pathName}`, label: `${page.pageName}` }
-              })
+                if (page.isHome) return { value: '/', label: `${page.pageName}` };
+                return { value: `${page.pathName}`, label: `${page.pageName}` };
+              }),
             },
             defaultSelect: '/',
-            hidden: !(typeHref === 'internal')
+            hidden: !(typeHref === 'internal'),
           },
           {
             fieldId: 'button-select-target',
@@ -93,7 +93,11 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
             fieldType: 'select',
             optionsGroup: {
               groupName: '',
-              options: [{ value: 'blank', label: 'blank' }, { value: 'default', label: 'default' }, { label: 'self', value: 'self' }]
+              options: [
+                { value: 'blank', label: 'blank' },
+                { value: 'default', label: 'default' },
+                { label: 'self', value: 'self' },
+              ],
             },
             defaultSelect: nowButton?.target || 'default',
           },
@@ -101,7 +105,7 @@ const FormButton2: FC<FormButton2Props> = ({ nowIndexSection, nowIndexButton }) 
         onChange={handleChangeForm}
       >
         <Link to={`/admin/gallery?type=imageButton&nowIndexSection=${nowIndexSection}&nowIndexButton=${nowIndexButton}&multiple=false`}>
-          <img src={nowButton?.imgSrc || ''} alt='button' />
+          <img src={nowButton?.imgSrc || ''} alt="button" />
         </Link>
       </Form>
     </div>

@@ -7,7 +7,6 @@ import styles from './LoginPage.module.scss';
 import { messageLogin, statusLogin, tokenLogin } from './selectors';
 import thunkContinueLog from './thunks/thunkContinueLog';
 import thunkLogin from './thunks/thunkLogin';
-import thunkRegisterNewUser from './thunks/thunkRegisterNewUser';
 
 const LoginPage = () => {
   const [SignIn_Info, setSignInInfo] = useState<{ email: string; password: string }>({ email: '', password: '' });
@@ -17,7 +16,7 @@ const LoginPage = () => {
   // Dispatch
   const loginAction = thunkLogin();
   const loginContinue = thunkContinueLog();
-  const register = thunkRegisterNewUser();
+
   // Selector
   const msg = useSelector(messageLogin);
   const status = useSelector(statusLogin);
@@ -32,20 +31,16 @@ const LoginPage = () => {
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setSignInInfo({
       ...SignIn_Info,
-      email: e.target.value
+      email: e.target.value,
     });
   };
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setSignInInfo({
       ...SignIn_Info,
-      password: e.target.value
+      password: e.target.value,
     });
   };
-
-  const handleRegister = () => {
-    register({ email: 'test@gmail.com', password: 'tuong1', userName: 'Test' })
-  }
 
   const _renderError = () => {
     return (
@@ -60,47 +55,38 @@ const LoginPage = () => {
     );
   };
 
-  // const _renderFormRegister = () => {
-  //   return (
-  //     <form>
-  //       <input onChange={handleChangeEmail} required type="email" className={styles.input} name="login" placeholder="Email" />
-  //       <input onChange={handleChangePassword} required type="password" className={styles.input} name="login" placeholder="password" />
-  //     </form>
-  //   )
-  // }
-
   useMount(() => {
     loginContinue(token);
-  })
+  });
 
   if (status === 'loged') {
-    return history.location.state ? <Redirect to={{ pathname: history.location.state as string }} /> : <Redirect to='/admin/list' />;
+    return history.location.state ? <Redirect to={{ pathname: history.location.state as string }} /> : <Redirect to="/admin/list" />;
   }
 
   return (
     <>
       <Helmet>
-        <title>
-          Login
-      </title>
+        <title>Login</title>
       </Helmet>
-      <div onClick={handleRegister}>Test</div>
       <div className={styles.LoginPage}>
         <div className={styles.contentLoginPage}>
           <form className={styles.form}>
-            <div className={styles.formTop}>
-            </div>
+            <div className={styles.formTop}></div>
             <div className={styles.formContent}>
               <input onChange={handleChangeEmail} required type="email" className={styles.input} name="login" placeholder="Email" />
               <input onChange={handleChangePassword} required type="password" className={styles.input} name="login" placeholder="password" />
-              <button type='submit' className={`${styles.submitBtn}`} onClick={handleSignIn}>
+              <button type="submit" className={`${styles.submitBtn}`} onClick={handleSignIn}>
                 Log in
-              {submit && <div className={styles.logging} />}
+                {submit && <div className={styles.logging} />}
               </button>
             </div>
             <div className={styles.formBottom}>
-              <a href="##" onClick={(e) => e.preventDefault()} className={styles.forgotPasswordBtn}>Forgot password</a>
-              <div style={{ cursor: 'pointer' }} className={styles.forgotPasswordBtn}>Forgot Password</div>
+              <a href="##" onClick={e => e.preventDefault()} className={styles.forgotPasswordBtn}>
+                Forgot password
+              </a>
+              <div style={{ cursor: 'pointer' }} className={styles.forgotPasswordBtn}>
+                Forgot Password
+              </div>
             </div>
           </form>
           {msg ? _renderError() : null}

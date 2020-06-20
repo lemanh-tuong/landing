@@ -36,26 +36,35 @@ const ButtonFunc: FC<ButtonFuncProps> = ({ id, pageName, pathName, nowIndexPage 
   };
 
   const _renderAlertConfirm = (pageName: string, indexDelete: number) => {
-    return <PopUp id={`alert-confirm-${pageName}`} type='antd' onOk={handleDeletePage(indexDelete)}>
-      <p style={{ textAlign: 'center' }}>Delete
-        <span style={{ fontSize: 20, fontWeight: 800, marginLeft: 10 }}>{pageName}?</span>
-      </p>
-    </PopUp>;
+    return (
+      <PopUp id={`alert-confirm-${pageName}`} type="antd" onOk={handleDeletePage(indexDelete)}>
+        <p style={{ textAlign: 'center' }}>
+          Delete
+          <span style={{ fontSize: 20, fontWeight: 800, marginLeft: 10 }}>{pageName}?</span>
+        </p>
+      </PopUp>
+    );
   };
 
   const _renderPopOverSetting = () => {
     return (
       <>
-        <Button className={`${styles.btn}`} size='middle' onClick={PopUp.show(`alert-confirm-${pageName}`)}>
-          <div className={styles.icon}><i className="fas fa-trash"></i></div>
+        <Button className={`${styles.btn}`} size="middle" onClick={PopUp.show(`alert-confirm-${pageName}`)}>
+          <div className={styles.icon}>
+            <i className="fas fa-trash"></i>
+          </div>
           <div className={styles.desc}>Delete Page</div>
         </Button>
-        <Button className={`${styles.btn}`} size='middle' onClick={PopUp.show(`change-general-data-page-${id}-form`)}>
-          <div className={styles.icon}><i className="far fa-edit"></i></div>
+        <Button className={`${styles.btn}`} size="middle" onClick={PopUp.show(`change-general-data-page-${id}-form`)}>
+          <div className={styles.icon}>
+            <i className="far fa-edit"></i>
+          </div>
           <div className={styles.desc}>Change Infomation Of Page</div>
         </Button>
-        <Button className={`${styles.btn}`} size='middle' onClick={PopUp.show(`duplicate-page-${id}-form`)}>
-          <div className={styles.icon}><i className="far fa-copy"></i></div>
+        <Button className={`${styles.btn}`} size="middle" onClick={PopUp.show(`duplicate-page-${id}-form`)}>
+          <div className={styles.icon}>
+            <i className="far fa-copy"></i>
+          </div>
           <div className={styles.desc}>Duplicate This Page</div>
         </Button>
         {_renderAlertConfirm(pageName, nowIndexPage)}

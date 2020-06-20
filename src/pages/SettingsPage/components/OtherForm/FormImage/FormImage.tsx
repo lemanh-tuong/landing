@@ -12,14 +12,13 @@ export interface FormImageProps {
 }
 
 const FormImage: FC<FormImageProps> = ({ nowIndexSection, sectionId }) => {
-
   //Selector
   const element = useSelector(sections)[nowIndexSection];
   // Destructoring
   const { imageSectionCol } = element;
 
   return (
-    <PopUp title={<h3>Form Image</h3>} type='antd' id={`image-${sectionId}`} >
+    <PopUp title={<h3>Form Image</h3>} type="antd" id={`image-${sectionId}`}>
       <div className={styles.formContent}>
         <Link className={styles.btn} to={`/admin/gallery?type=imageSectionCol&nowIndexSection=${nowIndexSection}&multiple=false`}>
           <div className={styles.img} style={{ backgroundImage: `url('${imageSectionCol?.imgSrc}')` }}></div>

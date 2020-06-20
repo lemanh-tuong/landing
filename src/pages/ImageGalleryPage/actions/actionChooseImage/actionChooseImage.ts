@@ -12,8 +12,7 @@ export interface ActionChooseImagePayload {
 }
 
 const actionChooseImage = createAction('CHOOSE_IMAGE', (payload: ActionChooseImagePayload) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChooseImage };
-

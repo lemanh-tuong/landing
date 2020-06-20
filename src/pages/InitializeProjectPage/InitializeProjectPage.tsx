@@ -8,16 +8,15 @@ import Step5 from './components/Step5/Step5';
 import Step6 from './components/Step6/Step6';
 import styles from './InitializeProjectPage.module.scss';
 
-
 const InitializeProjectPage = () => {
   const [step, setStep] = useState(1);
 
   const handleNextStep = () => {
     setStep(step + 1);
-  }
+  };
   const handleBackStep = () => {
     setStep(step - 1);
-  }
+  };
 
   const _renderSwitch = () => {
     switch (step) {
@@ -36,7 +35,7 @@ const InitializeProjectPage = () => {
       default:
         return null;
     }
-  }
+  };
   // Dispatch
   return (
     <div className={styles.InitializeProjectPage} style={{ padding: 30 }}>
@@ -44,18 +43,26 @@ const InitializeProjectPage = () => {
         <div className={styles.header}>
           Your Completed: <span className={styles.highlightText}>{step - 1}</span> / 6 Steps
         </div>
-        <div className={styles.body}>
-          {_renderSwitch()}
-        </div>
+        <div className={styles.body}>{_renderSwitch()}</div>
         <div className={styles.footter}>
-          <ButtonGroup align='right' scroll>
-            {step > 1 && <button className={`${styles.button} ${styles.backButton}`} onClick={handleBackStep}> Back </button>}
-            {step < 6 && <button className={`${styles.button} ${styles.nextButton}`} onClick={handleNextStep}> Next </button>}
+          <ButtonGroup align="right" scroll>
+            {step > 1 && (
+              <button className={`${styles.button} ${styles.backButton}`} onClick={handleBackStep}>
+                {' '}
+                Back{' '}
+              </button>
+            )}
+            {step < 6 && (
+              <button className={`${styles.button} ${styles.nextButton}`} onClick={handleNextStep}>
+                {' '}
+                Next{' '}
+              </button>
+            )}
           </ButtonGroup>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default InitializeProjectPage;

@@ -18,7 +18,6 @@ import ButtonFunc from '../ButtonFunc/ButtonFunc';
 import styles from './MainContent.module.scss';
 
 const MainContent = () => {
-
   //Selectors
   const status = useSelector(statusRequest);
   const statusCreate = useSelector(statusCreatePage);
@@ -30,7 +29,7 @@ const MainContent = () => {
     return (
       <Col cols={[12, 4, 3]} key={uuidv4()}>
         <Popover content={<ButtonFunc id={id} pageName={pageName} pathName={pathName} nowIndexPage={index} />} id={id}>
-          <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} >
+          <Link className={styles.link} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`}>
             <div className={`${styles.page}`}>
               {isHome ? <i className={`${styles.homeIcon} fas fa-home`} /> : null}
               {pageName}
@@ -66,26 +65,26 @@ const MainContent = () => {
   };
 
   const _renderFormSetting = (suggestHomePage: boolean) => {
-    return <FormAddNewPage suggestHomePage={suggestHomePage} />
-  }
+    return <FormAddNewPage suggestHomePage={suggestHomePage} />;
+  };
 
   const _renderWarning = () => {
     if (pages.findIndex(page => page.isHome) < 0) {
-      return <div className={styles.warningText}>You Need HomePage</div>
+      return <div className={styles.warningText}>You Need HomePage</div>;
     }
     return null;
-  }
+  };
 
   const _renderProject = () => {
     return (
       <>
         <h3 className={styles.title}>Project Name: {nowProjectName}</h3>
-        <Link to='/admin/projectName' className={styles.link}>
+        <Link to="/admin/projectName" className={styles.link}>
           Change Project Name
         </Link>
       </>
-    )
-  }
+    );
+  };
 
   const _renderSuccess = () => {
     return (
@@ -95,7 +94,7 @@ const MainContent = () => {
         {_renderCreateSwitch()}
         {_renderFormSetting(pages.findIndex(page => page.isHome) < 0)}
       </div>
-    )
+    );
   };
 
   const _renderSwitch = () => {
@@ -112,6 +111,6 @@ const MainContent = () => {
   };
 
   return _renderSwitch();
-}
+};
 
 export default MainContent;

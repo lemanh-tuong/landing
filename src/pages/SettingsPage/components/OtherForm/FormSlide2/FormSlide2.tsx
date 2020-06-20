@@ -20,23 +20,35 @@ export interface FormSlide2Props {
   nowIndexSlide: number;
 }
 
-const slidePropertyDefault = (sectionId: string) => ({
-  imageSectionCol: { imgSrc: img1 },
-  sectionId: sectionId,
-  mainTitle: 'App Term Boxes Settings',
-  alignMainTitle: 'left',
-  hasDivider: true,
-  dividerColor: '#000',
-  reverse: true,
-  text: 'Insert Listing Locations and Listing Categories block to your app by using App Term Boxes shortcode.',
-} as Omit<Section3Props, 'sectionid'>);
+const slidePropertyDefault = (sectionId: string) =>
+  ({
+    imageSectionCol: { imgSrc: img1 },
+    sectionId: sectionId,
+    mainTitle: 'App Term Boxes Settings',
+    alignMainTitle: 'left',
+    hasDivider: true,
+    dividerColor: '#000',
+    reverse: true,
+    text: 'Insert Listing Locations and Listing Categories block to your app by using App Term Boxes shortcode.',
+  } as Omit<Section3Props, 'sectionid'>);
 
 const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => {
-
   const elements = useSelector(sections);
   const { sliderSection } = elements[nowIndexSection];
 
-  const { reverse, mainTitle, alignMainTitle, colorMainTitle, text, alignText, colorText, hasDivider, dividerColor, alignDivider, imageSectionCol } = sliderSection?.[nowIndexSlide] as Section3Props;;
+  const {
+    reverse,
+    mainTitle,
+    alignMainTitle,
+    colorMainTitle,
+    text,
+    alignText,
+    colorText,
+    hasDivider,
+    dividerColor,
+    alignDivider,
+    imageSectionCol,
+  } = sliderSection?.[nowIndexSlide] as Section3Props;
   //Dispatch
   const changeInput = thunkChangeInputSlide2();
   const changeCheckBox = thunkChangeCheckBoxSlide2();
@@ -66,7 +78,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
   };
 
   const handleAddSlide = () => {
-    const id = uuidv4()
+    const id = uuidv4();
     addSlide({ slideProperty: slidePropertyDefault(id), nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide });
   };
 
@@ -137,17 +149,17 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
             data: [
               {
                 name: 'align-text-slide-2',
-                value: 'left'
+                value: 'left',
               },
               {
                 name: 'align-text-slide-2',
-                value: 'center'
+                value: 'center',
               },
               {
                 name: 'align-text-slide-2',
-                value: 'right'
+                value: 'right',
               },
-            ]
+            ],
           },
           {
             fieldId: 'color-text-slide-2',
@@ -169,7 +181,7 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
             label: 'Divider Color',
             fieldType: 'color-picker',
             defaultColor: dividerColor,
-            hidden: !hasDivider
+            hidden: !hasDivider,
           },
           {
             fieldId: 'align-divider-slide-2',
@@ -191,18 +203,21 @@ const FormSlide2: FC<FormSlide2Props> = ({ nowIndexSection, nowIndexSlide }) => 
                 name: 'alignDividerSlide2',
                 value: 'right',
               },
-            ]
-          }
+            ],
+          },
         ]}
       >
-        <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle-outline' size='large' onClick={handleDelete} />
-        <Link className={styles.btn} to={`/admin/gallery?type=sliderSectionImg&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
+        <Button className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape="circle-outline" size="large" onClick={handleDelete} />
+        <Link
+          className={styles.btn}
+          to={`/admin/gallery?type=sliderSectionImg&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}
+        >
           <div className={styles.image} style={{ backgroundImage: `url('${imageSectionCol.imgSrc}')` }}></div>
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
-        <Button shape='round' size='large' type='default' style={{ margin: '10px 0' }} onClick={handleAddSlide}>
+        <Button shape="round" size="large" type="default" style={{ margin: '10px 0' }} onClick={handleAddSlide}>
           Add Slide
-       </Button>
+        </Button>
       </Form>
     </div>
   );

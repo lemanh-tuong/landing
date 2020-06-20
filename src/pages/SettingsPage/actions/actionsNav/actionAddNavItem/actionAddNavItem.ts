@@ -7,7 +7,6 @@ export interface ActionAddNavItemPayload {
   indexInsert: number;
 }
 
-const actionAddNavItem = createAction('ADD_NAV_ITEM', (payload: ActionAddNavItemPayload) => ({...payload}));
+const actionAddNavItem = createAction('ADD_NAV_ITEM', (payload: ActionAddNavItemPayload) => ({ ...payload }));
 
 export { actionAddNavItem };
-

@@ -12,13 +12,29 @@ export interface Section4EditableProps extends Section4Props {
   nowIndexSection: number;
 }
 
-const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
-  backgroundButton, colorTextButton, textButton, hrefButton, typeButton, sizeButton,
+const Section4Editable: FC<Section4EditableProps> = ({
+  nowIndexSection,
+  sectionId,
+  animation,
+  positionAnimation,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  backgroundButton,
+  colorTextButton,
+  textButton,
+  hrefButton,
+  typeButton,
+  sizeButton,
   imageSectionCol,
-  text, alignText, colorText, fontSizeText,
-  backgroundImage, backgroundColor }) => {
-
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  backgroundImage,
+  backgroundColor,
+}) => {
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   };
@@ -49,11 +65,13 @@ const Section4Editable: FC<Section4EditableProps> = ({ nowIndexSection, sectionI
         backgroundButton={backgroundButton}
         hrefButton={hrefButton}
         colorTextButton={colorTextButton}
-        typeButton={typeButton} sizeButton={sizeButton}
+        typeButton={typeButton}
+        sizeButton={sizeButton}
         textButton={textButton}
         text={text ?? ''}
         alignText={alignText}
-        colorText={colorText} fontSizeText={fontSizeText}
+        colorText={colorText}
+        fontSizeText={fontSizeText}
         imageSectionCol={!!imageSectionCol ? imageSectionCol : { imgSrc: sectionImg1 }}
         isBuilder={true}
         sectionId={sectionId}

@@ -6,6 +6,6 @@ export interface ActionDuplicateSectionPayload {
   nowIndexSection: number;
 }
 
-const actionDuplicateSection = createAction('DUPLICATE_SECTION', (payload: ActionDuplicateSectionPayload) => ({...payload}));
+const actionDuplicateSection = createAction('DUPLICATE_SECTION', (payload: ActionDuplicateSectionPayload) => ({ ...payload }));
 
 export default actionDuplicateSection;

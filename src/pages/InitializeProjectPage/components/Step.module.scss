@@ -1,3 +1,4 @@
+@import '../../../styles/abstracts/variables.scss';
 .title {
   font-size: 24px;
   margin-bottom: 25px;
@@ -54,4 +55,8 @@
   &:hover .icon {
     opacity: 1;
   }
+}
+
+a[target='blank'] {
+  color: $color-secondary2;
 }

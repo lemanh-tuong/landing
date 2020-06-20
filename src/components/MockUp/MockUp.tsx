@@ -27,16 +27,27 @@ export interface MockUpProps extends MockUpOption, Omit<CarouselProps<SlideType>
 }
 
 const MockUp: FC<MockUpProps> = ({
-  onEditable, isBuider,
-  sliderImgs, typeMockUp = 'Mac', classMockUp, styleMockUp, draggable, delayTime,
-  dotClass, navClass, hasDots, hasNav, margin, fluid, classActive }
-) => {
-
+  onEditable,
+  isBuider,
+  sliderImgs,
+  typeMockUp = 'Mac',
+  classMockUp,
+  styleMockUp,
+  draggable,
+  delayTime,
+  dotClass,
+  navClass,
+  hasDots,
+  hasNav,
+  margin,
+  fluid,
+  classActive,
+}) => {
   const _renderPlayBtn = (videoUrl: string) => {
     return (
       <div className={styles.playBtn}>
         <div className="pos-a-center">
-          <Icon bgColorIcon='gradient-pink-orange' animationIcon='scale' onClick={PopUp.show(videoUrl)} styleIcon={{ zIndex: 100000 }}>
+          <Icon bgColorIcon="gradient-pink-orange" animationIcon="scale" onClick={PopUp.show(videoUrl)} styleIcon={{ zIndex: 100000 }}>
             <i className="fas fa-play" style={{ color: 'white' }}></i>
           </Icon>
           <PopUp id={videoUrl}>
@@ -49,33 +60,34 @@ const MockUp: FC<MockUpProps> = ({
 
   const _renderMockUpContent = () => {
     if (sliderImgs instanceof Array) {
-      return <Carousel
-        margin={margin}
-        dotClass={dotClass}
-        navClass={navClass}
-        hasDots={hasDots}
-        hasNav={hasNav}
-        sliderImgs={sliderImgs}
-        itemShow={1}
-        classActive={classActive}
-        fluid={fluid} delayTime={delayTime}
-        draggable={draggable}
-        renderItem={({ imgSrc, videoUrl, hasVideo }) => {
-          return (
-            <Fragment>
-              <div className={styles.video} style={{ backgroundImage: `url(${imgSrc})` }}>
-              </div>
-              {hasVideo && _renderPlayBtn(videoUrl ? videoUrl : '')}
-            </Fragment>
-          );
-        }}
-      />;
+      return (
+        <Carousel
+          margin={margin}
+          dotClass={dotClass}
+          navClass={navClass}
+          hasDots={hasDots}
+          hasNav={hasNav}
+          sliderImgs={sliderImgs}
+          itemShow={1}
+          classActive={classActive}
+          fluid={fluid}
+          delayTime={delayTime}
+          draggable={draggable}
+          renderItem={({ imgSrc, videoUrl, hasVideo }) => {
+            return (
+              <Fragment>
+                <div className={styles.video} style={{ backgroundImage: `url(${imgSrc})` }}></div>
+                {hasVideo && _renderPlayBtn(videoUrl ? videoUrl : '')}
+              </Fragment>
+            );
+          }}
+        />
+      );
     }
 
     return (
       <Fragment>
-        <div className={styles.video} style={{ backgroundImage: `url(${sliderImgs})` }}>
-        </div>
+        <div className={styles.video} style={{ backgroundImage: `url(${sliderImgs})` }}></div>
         {_renderPlayBtn(sliderImgs ? sliderImgs : '')}
       </Fragment>
     );
@@ -87,24 +99,23 @@ const MockUp: FC<MockUpProps> = ({
 
   if (isBuider) {
     return (
-      <PopOverText onEdit={onEditable} component={
-        <div onClick={onEditable} className={`${styles.isBuilder} ${styles.mockUp} ${classMockup}`} style={style}>
-          <img src={device} alt="" draggable='false' onDrag={(e) => e.preventDefault()} />
-          <div className={`${styles.mockUpContent} ${fluid ? styles.fluid : ''} ${styles[typeMockUp]}`}>
-            {_renderMockUpContent()}
+      <PopOverText
+        onEdit={onEditable}
+        component={
+          <div onClick={onEditable} className={`${styles.isBuilder} ${styles.mockUp} ${classMockup}`} style={style}>
+            <img src={device} alt="" draggable="false" onDrag={e => e.preventDefault()} />
+            <div className={`${styles.mockUpContent} ${fluid ? styles.fluid : ''} ${styles[typeMockUp]}`}>{_renderMockUpContent()}</div>
           </div>
-        </div >
-      } />
+        }
+      />
     );
   }
 
   return (
     <div className={`${styles.mockUp} ${classMockup}`} style={style}>
-      <img src={device} alt="" draggable='false' onDrag={(e) => e.preventDefault()} />
-      <div className={`${styles.mockUpContent} ${fluid ? styles.fluid : ''} ${styles[typeMockUp]}`}>
-        {_renderMockUpContent()}
-      </div>
-    </div >
+      <img src={device} alt="" draggable="false" onDrag={e => e.preventDefault()} />
+      <div className={`${styles.mockUpContent} ${fluid ? styles.fluid : ''} ${styles[typeMockUp]}`}>{_renderMockUpContent()}</div>
+    </div>
   );
 };
 

@@ -28,7 +28,16 @@ export interface FormSlidesProps {
   draggableField: boolean;
 }
 
-export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, hasDotField, hasFluidField, hasItemShowField, hasMarginField, responsiveField, draggableField }) => {
+export const FormSlides: FC<FormSlidesProps> = ({
+  nowIndexSection,
+  hasNavField,
+  hasDotField,
+  hasFluidField,
+  hasItemShowField,
+  hasMarginField,
+  responsiveField,
+  draggableField,
+}) => {
   const [canResponsive, setCanResponsive] = useState(false);
   const _handleChangeCanResponsive = (result: boolean) => {
     setCanResponsive(result);
@@ -77,17 +86,13 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
     if (!result.destination) {
       return;
     }
-    const newData = reorder(
-      sliderImgs || [],
-      result.source.index,
-      result.destination.index
-    );
+    const newData = reorder(sliderImgs || [], result.source.index, result.destination.index);
     moveSlide({ nowIndexSection: nowIndexSection, sliderImgs: newData });
   };
 
   // Render
   const _renderSettingsBox = (index: number) => {
-    return <FormSlide key={`slide-${index}`} nowIndexSection={nowIndexSection} nowIndexSlide={index} />
+    return <FormSlide key={`slide-${index}`} nowIndexSection={nowIndexSection} nowIndexSlide={index} />;
   };
 
   const _renderGeneralSettings = () => {
@@ -102,7 +107,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Has Nav',
               fieldType: 'checkbox',
               defaultChecked: hasNav,
-              hidden: !hasNavField
+              hidden: !hasNavField,
             },
             {
               fieldId: 2,
@@ -110,7 +115,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Nav Class',
               fieldType: 'input-text-2',
               defaultValue: navClass,
-              hidden: !hasNav
+              hidden: !hasNav,
             },
             {
               fieldId: 3,
@@ -118,7 +123,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Has Dots',
               fieldType: 'checkbox',
               defaultChecked: hasDots,
-              hidden: !hasDotField
+              hidden: !hasDotField,
             },
             {
               fieldId: 4,
@@ -126,7 +131,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Dot Class',
               fieldType: 'input-text-2',
               defaultValue: dotClass,
-              hidden: !hasDots
+              hidden: !hasDots,
             },
             {
               fieldId: 5,
@@ -134,7 +139,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Fluid',
               fieldName: 'fluid',
               defaultChecked: fluid,
-              hidden: !hasFluidField
+              hidden: !hasFluidField,
             },
             {
               fieldId: 'draggable-slides',
@@ -152,7 +157,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               fieldName: 'itemShow',
               min: 1,
               max: 4,
-              hidden: !hasItemShowField
+              hidden: !hasItemShowField,
             },
             {
               fieldId: 7,
@@ -162,7 +167,7 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               defaultNumber: margin,
               min: 10,
               max: 50,
-              hidden: !hasMarginField
+              hidden: !hasMarginField,
             },
             {
               fieldId: 8,
@@ -179,12 +184,12 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
               label: 'Can Responsive',
               fieldType: 'checkbox',
               defaultChecked: canResponsive,
-              hidden: !responsiveField
+              hidden: !responsiveField,
             },
           ]}
           onChange={handleChangeFormGeneral}
         >
-          {canResponsive ?
+          {canResponsive ? (
             <>
               <h1>Responsive</h1>
               <Form
@@ -195,35 +200,34 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
                     fieldName: '576px',
                     label: '576px',
                     fieldType: 'number',
-                    defaultNumber: responsive?.['576px'] ?? 0
+                    defaultNumber: responsive?.['576px'] ?? 0,
                   },
                   {
                     fieldId: '768px',
                     fieldName: '768px',
                     label: '768px',
                     fieldType: 'number',
-                    defaultNumber: responsive?.['768px'] ?? 0
+                    defaultNumber: responsive?.['768px'] ?? 0,
                   },
                   {
                     fieldId: '992px',
                     fieldName: '992px',
                     label: '992px',
                     fieldType: 'number',
-                    defaultNumber: responsive?.['992px'] ?? 0
+                    defaultNumber: responsive?.['992px'] ?? 0,
                   },
                   {
                     fieldId: '1200px',
                     fieldName: '1200px',
                     label: '1200px',
                     fieldType: 'number',
-                    defaultNumber: responsive?.['1200px'] ?? 0
+                    defaultNumber: responsive?.['1200px'] ?? 0,
                   },
                 ]}
                 onChange={handleResponsiveSlides}
-              >
-              </Form>
-            </> : null
-          }
+              ></Form>
+            </>
+          ) : null}
         </Form>
       </>
     );
@@ -233,9 +237,9 @@ export const FormSlides: FC<FormSlidesProps> = ({ nowIndexSection, hasNavField, 
     <div className={styles.formSlides}>
       <FormDropDown
         draggableId={'slide-1'}
-        droppableId='slide-1'
+        droppableId="slide-1"
         label={sliderImgs?.map(item => item.imgSrc) as string[]}
-        renderLabel={(arg) => <img src={arg} alt="Slide" />}
+        renderLabel={arg => <img src={arg} alt="Slide" />}
         onAdd={handleAddSlide}
         onDelete={handleDelete}
         onMoveEnd={handleMove}

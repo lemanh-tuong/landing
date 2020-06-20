@@ -18,19 +18,33 @@ export interface DividerProps extends DividerOption {
 
 const defaultDividerOption: DividerOption = {
   darkMode: false,
-  dividerColor: 'white'
+  dividerColor: 'white',
 };
 
-
-const Divide: FC<DividerProps> = ({ dividerColor, isBuilder = false, onEditable, align = 'left', style, className } = { ...defaultDividerOption }) => {
-  const color = !!dividerColor ? styles[dividerColor] : '';
+const Divide: FC<DividerProps> = (
+  { dividerColor = '', isBuilder = false, onEditable, align = 'left', style, className } = { ...defaultDividerOption },
+) => {
   if (isBuilder) {
     return (
-      <PopOverText onEdit={onEditable} component={<div onClick={onEditable} className={`${styles.isBuilder} ${className} ${styles[align]} ${styles.divide} ${color}`} style={{ backgroundColor: dividerColor, ...style }} />} />
+      <PopOverText
+        onEdit={onEditable}
+        component={
+          <div
+            onClick={onEditable}
+            className={`${styles.isBuilder} ${className} ${styles[align]} ${styles.divide} ${dividerColor ? styles[dividerColor] : ''}`}
+            style={{ backgroundColor: dividerColor, ...style }}
+          />
+        }
+      />
     );
   }
 
-  return <div className={`${styles.divide} ${styles[align]} ${className} ${color}`} style={{ ...style, backgroundColor: dividerColor }} />;
+  return (
+    <div
+      className={`${styles.divide} ${styles[align]} ${className} ${dividerColor ? styles[dividerColor] : ''}`}
+      style={{ ...style, backgroundColor: dividerColor }}
+    />
+  );
 };
 
 export default memo(Divide);

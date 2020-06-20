@@ -7,13 +7,13 @@ export interface ThunkUpLoadFileArg {
   files: File[];
 }
 
-const thunkUploadFile = ({files, path}: ThunkUpLoadFileArg): ThunkUpLoadFile => async (dispatch, getState) => {
+const thunkUploadFile = ({ files, path }: ThunkUpLoadFileArg): ThunkUpLoadFile => async (dispatch, getState) => {
   const { firebaseReducer } = getState();
   dispatch(actionUploadFile.request(null));
   try {
-    const newImgs = await firebaseReducer.uploadFiles({path: path, files: files});
-    if(newImgs) {
-      dispatch(actionUploadFile.success({imgs: newImgs, type: path}));
+    const newImgs = await firebaseReducer.uploadFiles({ path: path, files: files });
+    if (newImgs) {
+      dispatch(actionUploadFile.success({ imgs: newImgs, type: path }));
     }
   } catch (err) {
     dispatch(actionUploadFile.failure(JSON.stringify(err)));
@@ -21,5 +21,3 @@ const thunkUploadFile = ({files, path}: ThunkUpLoadFileArg): ThunkUpLoadFile => 
 };
 
 export default createDispatchAction(thunkUploadFile);
-
-

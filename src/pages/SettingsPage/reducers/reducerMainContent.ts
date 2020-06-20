@@ -49,7 +49,6 @@ export interface SettingMainContentReducers extends PageGeneralData {
   readonly messageRequestElements: string;
 }
 
-
 const initialState: SettingMainContentReducers = {
   pageName: '',
   pathName: '',
@@ -60,45 +59,45 @@ const initialState: SettingMainContentReducers = {
 };
 
 const settingMainContentReducers = createReducer<SettingMainContentReducers, ActionTypes<typeof getDataSection> & any>(initialState, [
-  handleAction('@getDataSectionRequest', (state) => ({
+  handleAction('@getDataSectionRequest', state => ({
     ...state,
-    statusRequestElements: 'loading'
+    statusRequestElements: 'loading',
   })),
   handleAction('@getDataSectionSuccess', (state, action) => {
     return {
       ...state,
       statusRequestElements: 'success',
-      elements: action.payload && action.payload.elements ? [...action.payload.elements]: [],
+      elements: action.payload && action.payload.elements ? [...action.payload.elements] : [],
       pageName: action.payload && action.payload.pageName ? action.payload.pageName : '',
       id: action.payload && action.payload.id ? action.payload.id : [],
       pathName: action.payload && action.payload.pathName ? action.payload.pathName : '',
     };
   }),
-  handleAction('@getDataSectionFailure', (state) => ({
+  handleAction('@getDataSectionFailure', state => ({
     ...state,
     statusRequestElements: 'failure',
-    message: 'Error'
+    message: 'Error',
   })),
 
   // Handle Function In Section
   handleAction('ADD_SECTION', (state, action) => {
     const newElement: Option = Object.assign({}, action.payload);
     const { nowIndexSection } = action.payload;
-    if(nowIndexSection === undefined) {
+    if (nowIndexSection === undefined) {
       return {
         ...state,
-        elements: [...state.elements].concat(action.payload)
+        elements: [...state.elements].concat(action.payload),
       };
     }
-    if(nowIndexSection === 0) {
+    if (nowIndexSection === 0) {
       return {
         ...state,
-        elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)]
+        elements: [{ ...newElement }, ...state.elements.slice(0, state.elements.length)],
       };
     } else {
       return {
         ...state,
-        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)]
+        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection, state.elements.length)],
       };
     }
   }),
@@ -107,27 +106,32 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newElement = elements.filter(element => action.payload.sectionId !== element.sectionId);
     return {
       ...state,
-      elements: [...newElement]
+      elements: [...newElement],
     };
   }),
   handleAction('MOVE_SECTION', (state, action) => {
     return {
       ...state,
-      elements: [...action.payload.elements]
+      elements: [...action.payload.elements],
     };
   }),
   handleAction('MOVE_UP_SECTION', (state, action) => {
     const { nowIndexSection } = action.payload as ActionMoveUpSection['payload'];
-    if(nowIndexSection > 0) {
+    if (nowIndexSection > 0) {
       const nowIndex = nowIndexSection;
       const prevIndex = nowIndexSection - 1;
       const nowElement = state.elements[nowIndex];
       const prevElement = state.elements[prevIndex];
-      const newElements = [...state.elements.slice(0, prevIndex), nowElement, prevElement, ...state.elements.slice(nowIndex + 1, state.elements.length)];
+      const newElements = [
+        ...state.elements.slice(0, prevIndex),
+        nowElement,
+        prevElement,
+        ...state.elements.slice(nowIndex + 1, state.elements.length),
+      ];
 
       return {
         ...state,
-        elements: [...newElements]
+        elements: [...newElements],
       };
     }
     return {
@@ -136,16 +140,21 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
   }),
   handleAction('MOVE_DOWN_SECTION', (state, action) => {
     const { nowIndexSection } = action.payload as ActionMoveDownSection['payload'];
-    if(nowIndexSection < state.elements.length - 1) {
+    if (nowIndexSection < state.elements.length - 1) {
       const nowIndex = nowIndexSection;
       const nextIndex = nowIndexSection + 1;
       const nowElement = state.elements[nowIndex];
       const nextElement = state.elements[nextIndex];
-      const newElements = [...state.elements.slice(0, nowIndex), nextElement, nowElement, ...state.elements.slice(nextIndex + 1, state.elements.length)];
+      const newElements = [
+        ...state.elements.slice(0, nowIndex),
+        nextElement,
+        nowElement,
+        ...state.elements.slice(nextIndex + 1, state.elements.length),
+      ];
 
       return {
         ...state,
-        elements: [...newElements]
+        elements: [...newElements],
       };
     }
     return {
@@ -153,49 +162,53 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     };
   }),
   handleAction('DUPLICATE_SECTION', (state, action) => {
-    const {data, nowIndexSection} = action.payload as ActionDuplicateSectionPayload;
-    const newElements = [...state.elements.slice(0, nowIndexSection + 1), {...data}, ...state.elements.slice(nowIndexSection + 1, state.elements.length)];
+    const { data, nowIndexSection } = action.payload as ActionDuplicateSectionPayload;
+    const newElements = [
+      ...state.elements.slice(0, nowIndexSection + 1),
+      { ...data },
+      ...state.elements.slice(nowIndexSection + 1, state.elements.length),
+    ];
     return {
       ...state,
-      elements: [...newElements]
+      elements: [...newElements],
     };
   }),
 
   // Handle Form Section
   handleAction('CHANGE_INPUT', (state, action) => {
-    const { nowIndexSection, value, fieldName} = action.payload as ActionChangeInput['payload'];
+    const { nowIndexSection, value, fieldName } = action.payload as ActionChangeInput['payload'];
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      [fieldName]: value
+      [fieldName]: value,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_RADIO', (state, action) => {
-    const { nowIndexSection, value, fieldName} = action.payload as ActionChangeRadio['payload'];
+    const { nowIndexSection, value, fieldName } = action.payload as ActionChangeRadio['payload'];
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      [fieldName]: value
+      [fieldName]: value,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_CHECKBOX', (state, action) => {
-    const { nowIndexSection, checked, fieldName} = action.payload as ActionChangeCheckBox['payload'];
+    const { nowIndexSection, checked, fieldName } = action.payload as ActionChangeCheckBox['payload'];
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      [fieldName]: checked
+      [fieldName]: checked,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_COLOR', (state, action) => {
@@ -207,7 +220,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHOOSE_IMAGE', (state, action) => {
@@ -215,12 +228,12 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
-      [fieldName]: data instanceof Array ? [...data] : {...data}
+      [fieldName]: data instanceof Array ? [...data] : { ...data },
     };
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_SELECT', (state, action) => {
@@ -228,11 +241,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      [fieldName]: value
+      [fieldName]: value,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
 
@@ -248,17 +261,19 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCards = nowElement.card2s;
     const nowCard = nowCards?.[nowIndexCard];
-    const newCard = nowCard ? {
-      ...nowCard,
-      [fieldName]: value
-    } : {};
+    const newCard = nowCard
+      ? {
+          ...nowCard,
+          [fieldName]: value,
+        }
+      : {};
     const newElement = {
       ...nowElement,
-      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), {...newCard}, ...nowCards.slice(nowIndexCard+1, nowCards.length)] : undefined
+      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), { ...newCard }, ...nowCards.slice(nowIndexCard + 1, nowCards.length)] : undefined,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_RADIO_CARD_2_FORM', (state: any, action) => {
@@ -266,17 +281,19 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCards = nowElement.card2s;
     const nowCard = nowCards?.[nowIndexCard];
-    const newCard = nowCard ? {
-      ...nowCard,
-      [fieldName]: value
-    } : {};
+    const newCard = nowCard
+      ? {
+          ...nowCard,
+          [fieldName]: value,
+        }
+      : {};
     const newElement = {
       ...nowElement,
-      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), {...newCard}, ...nowCards.slice(nowIndexCard+1, nowCards.length)] : undefined
+      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), { ...newCard }, ...nowCards.slice(nowIndexCard + 1, nowCards.length)] : undefined,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_COLOR_CARD_2_TEXT', (state: any, action) => {
@@ -284,17 +301,19 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCards = nowElement.card2s;
     const nowCard = nowCards?.[nowIndexCard];
-    const newCard = nowCard ? {
-      ...nowCard,
-      [fieldName]: color
-    } : {};
+    const newCard = nowCard
+      ? {
+          ...nowCard,
+          [fieldName]: color,
+        }
+      : {};
     const newElement = {
       ...nowElement,
-      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), {...newCard}, ...nowCards.slice(nowIndexCard+1, nowCards.length)] : undefined
+      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), { ...newCard }, ...nowCards.slice(nowIndexCard + 1, nowCards.length)] : undefined,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_ICON_CARD_2', (state: any, action) => {
@@ -302,17 +321,19 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCards = nowElement.card2s;
     const nowCard = nowCards?.[nowIndexCard];
-    const newCard = nowCard ? {
-      ...nowCard,
-      iconImg: {...nowCard.iconImg, ...iconImg}
-    } : {};
+    const newCard = nowCard
+      ? {
+          ...nowCard,
+          iconImg: { ...nowCard.iconImg, ...iconImg },
+        }
+      : {};
     const newElement = {
       ...nowElement,
-      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), {...newCard}, ...nowCards.slice(nowIndexCard+1, nowCards.length)] : undefined
+      card2s: nowCards ? [...nowCards.slice(0, nowIndexCard), { ...newCard }, ...nowCards.slice(nowIndexCard + 1, nowCards.length)] : undefined,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('MOVE_CARD_2', (state: any, action) => {
@@ -320,11 +341,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
-      card2s: [...newChild]
+      card2s: [...newChild],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
 
@@ -335,16 +356,18 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
     const newCard = {
       ...nowCard,
-      [fieldName]: value
+      [fieldName]: value,
     };
     const newElement = {
       ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
+      cards: !!nowElement.cards
+        ? [...nowElement.cards.slice(0, nowIndexCard), { ...newCard }, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)]
+        : [],
     };
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_RADIO_CARD_FORM', (state, action) => {
@@ -353,16 +376,18 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowCard = Object.assign({}, nowElement.cards instanceof Array ? nowElement.cards[nowIndexCard] : nowElement.cards);
     const newCard = {
       ...nowCard,
-      [fieldName]: value
+      [fieldName]: value,
     };
     const newElement = {
       ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
+      cards: !!nowElement.cards
+        ? [...nowElement.cards.slice(0, nowIndexCard), { ...newCard }, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)]
+        : [],
     };
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_COLOR_CARD_TEXT', (state, action) => {
@@ -371,35 +396,39 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowCard = nowElement.cards?.[nowIndexCard];
     const newCard = {
       ...nowCard,
-      [fieldName]: color
+      [fieldName]: color,
     };
     const newElement = {
       ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
+      cards: !!nowElement.cards
+        ? [...nowElement.cards.slice(0, nowIndexCard), { ...newCard }, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)]
+        : [],
     };
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_ICON_CARD', (state, action) => {
-    const { fieldName, iconImg, nowIndexSection, nowIndexCard} = action.payload; // as ActionChangeIconCard['payload'];
+    const { fieldName, iconImg, nowIndexSection, nowIndexCard } = action.payload; // as ActionChangeIconCard['payload'];
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowCard = Object.assign({}, nowElement.cards?.[nowIndexCard]);
     const newCard = {
       ...nowCard,
-      [fieldName]: iconImg
+      [fieldName]: iconImg,
     };
 
     const newElement = {
       ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), {...newCard}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
+      cards: !!nowElement.cards
+        ? [...nowElement.cards.slice(0, nowIndexCard), { ...newCard }, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)]
+        : [],
     };
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('DELETE_CARD', (state, action) => {
@@ -407,28 +436,33 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard), ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : []
+      cards: !!nowElement.cards
+        ? [...nowElement.cards.slice(0, nowIndexCard), ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)]
+        : [],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('ADD_CARD', (state, action) => {
     const { data, nowIndexSection, nowIndexCard } = action.payload; //as ActionAddCardPayLoad;
     const nowElement = state.elements[nowIndexSection];
-    const newElement = nowIndexCard ? {
-      ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards.slice(0, nowIndexCard + 1), {...data}, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)] : [].concat(data)
-    }
-    : {
-      ...nowElement,
-      cards: !!nowElement.cards ? [...nowElement.cards].concat(data) : [].concat(data)
-    };
+    const newElement = nowIndexCard
+      ? {
+          ...nowElement,
+          cards: !!nowElement.cards
+            ? [...nowElement.cards.slice(0, nowIndexCard + 1), { ...data }, ...nowElement.cards.slice(nowIndexCard + 1, nowElement.cards.length)]
+            : [].concat(data),
+        }
+      : {
+          ...nowElement,
+          cards: !!nowElement.cards ? [...nowElement.cards].concat(data) : [].concat(data),
+        };
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('MOVE_CARD', (state, action) => {
@@ -436,11 +470,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
-      cards: [...newChild]
+      cards: [...newChild],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   // MockUp & Slide
@@ -449,11 +483,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const elementChange = Object.assign({}, state.elements[nowIndexSection]);
     const newElement = {
       ...elementChange,
-      typeMockUp: typeMockUp as 'Mac' | 'Iphone'
+      typeMockUp: typeMockUp as 'Mac' | 'Iphone',
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_VIDEO_URL', (state: any, action) => {
@@ -463,44 +497,52 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowSlide = nowElement.sliderImgs?.[nowIndexSlide];
     const newSlide = {
       ...nowSlide,
-      videoUrl: newUrl
+      videoUrl: newUrl,
     };
     const newElement = {
       ...nowElement,
       sliderImgs: nowElement.sliderImgs
-      ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length)]
-      : null
+        ? [
+            ...nowElement.sliderImgs?.slice(0, nowIndexSlide),
+            { ...newSlide },
+            ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length),
+          ]
+        : null,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_HAS_VIDEO', (state: any, action) => {
-    const { nowIndexSection, nowIndexSlide, hasVideo} = action.payload as ActionChangeHasVideoPayload;
+    const { nowIndexSection, nowIndexSlide, hasVideo } = action.payload as ActionChangeHasVideoPayload;
     const { elements } = state;
     const nowElement = elements[nowIndexSection];
     const nowSlide = nowElement.sliderImgs?.[nowIndexSlide];
     const newSlide = {
       ...nowSlide,
-      hasVideo: hasVideo
+      hasVideo: hasVideo,
     };
     const newElement = {
       ...nowElement,
       sliderImgs: nowElement.sliderImgs
-      ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length)]
-      : null
+        ? [
+            ...nowElement.sliderImgs?.slice(0, nowIndexSlide),
+            { ...newSlide },
+            ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length),
+          ]
+        : null,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_IMAGE_SLIDE', (state, action) => {
     const { elements } = state;
     const { data, nowIndexSection, nowIndexSlide } = action.payload; // as ActionChangeImgSlidePayload;
     const nowElement = elements[nowIndexSection];
-    if(typeof nowIndexSlide === 'number') {
+    if (typeof nowIndexSlide === 'number') {
       const nowSlide = nowElement.sliderImgs ? nowElement.sliderImgs?.[nowIndexSlide] : {};
       const newSlide = {
         ...nowSlide,
@@ -508,23 +550,32 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       };
       const newElement = {
         ...nowElement,
-        sliderImgs: nowElement.sliderImgs ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs.length)] : [{...newSlide}]
+        sliderImgs: nowElement.sliderImgs
+          ? [
+              ...nowElement.sliderImgs?.slice(0, nowIndexSlide),
+              { ...newSlide },
+              ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs.length),
+            ]
+          : [{ ...newSlide }],
       };
       return {
         ...state,
-        elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+        elements: [
+          ...state.elements.slice(0, nowIndexSection),
+          { ...newElement },
+          ...state.elements.slice(nowIndexSection + 1, state.elements.length),
+        ],
       };
     }
 
     const newElement = {
       ...nowElement,
-      sliderImgs: [...data]
+      sliderImgs: [...data],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
-
   }),
   handleAction('CHANGE_HREF', (state: any, action) => {
     const { href, nowIndexSection, nowIndexSlide } = action.payload as ActionChangeHrefPayload;
@@ -533,17 +584,21 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowSlide = nowElement.sliderImgs?.[nowIndexSlide];
     const newSlide = {
       ...nowSlide,
-      href: href
+      href: href,
     };
     const newElement = {
       ...nowElement,
       sliderImgs: nowElement.sliderImgs
-      ? [...nowElement.sliderImgs?.slice(0, nowIndexSlide), {...newSlide}, ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length)]
-      : null
+        ? [
+            ...nowElement.sliderImgs?.slice(0, nowIndexSlide),
+            { ...newSlide },
+            ...nowElement.sliderImgs?.slice(nowIndexSlide + 1, nowElement.sliderImgs?.length),
+          ]
+        : null,
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('DELETE_SLIDE', (state, action) => {
@@ -553,44 +608,48 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newSlides = nowElement.sliderImgs ? nowElement.sliderImgs.filter((_slide: any, index: any) => index !== nowIndexSlide) : [];
     const newElement = {
       ...nowElement,
-      sliderImgs: [...newSlides]
+      sliderImgs: [...newSlides],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('ADD_SLIDE', (state, action) => {
     const { nowIndexSection, nowIndexSlide, slideProperty } = action.payload as ActionAddSlidePayload;
     const nowElement = state.elements[nowIndexSection];
     const nowSlides = nowElement.sliderImgs;
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide + 1), {...slideProperty}, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)] : [{...slideProperty}];
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide + 1), { ...slideProperty }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [{ ...slideProperty }];
     const newElement = {
       ...nowElement,
       sliderImgs: [...newSlides],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('RESPONSIVE_SLIDES', (state, action) => {
-    const { value, minWidth, nowIndexSection} = action.payload as ActionResponsiveSlidesPayload;
+    const { value, minWidth, nowIndexSection } = action.payload as ActionResponsiveSlidesPayload;
     const nowElement = state.elements[nowIndexSection];
     const nowResponsiveData = nowElement.responsive;
-    const newResponsive = nowResponsiveData ? {
-      ...nowResponsiveData,
-      [minWidth]: value
-    } : {
-      [minWidth]: value
-    };
+    const newResponsive = nowResponsiveData
+      ? {
+          ...nowResponsiveData,
+          [minWidth]: value,
+        }
+      : {
+          [minWidth]: value,
+        };
     const newElement = {
       ...nowElement,
-      responsive: {...newResponsive}
+      responsive: { ...newResponsive },
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('MOVE_SLIDE', (state, action) => {
@@ -598,12 +657,12 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
-      sliderImgs: sliderImgs ? [...sliderImgs] : []
+      sliderImgs: sliderImgs ? [...sliderImgs] : [],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
+    };
   }),
 
   //Rate
@@ -613,11 +672,13 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowRateList = nowElement.rateList;
     const newElement = {
       ...nowElement,
-      rateList: nowRateList ? [...nowRateList.slice(0, nowIndexRate + 1), {...rateProperty}, ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)] : [].concat(rateProperty)
+      rateList: nowRateList
+        ? [...nowRateList.slice(0, nowIndexRate + 1), { ...rateProperty }, ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)]
+        : [].concat(rateProperty),
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('DELETE_RATE', (state, action) => {
@@ -626,33 +687,37 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowRateList = nowElement.rateList;
     const newElement = {
       ...nowElement,
-      rateList: !!nowRateList ? [...nowRateList.slice(0, nowIndexRate), ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)] : []
+      rateList: !!nowRateList ? [...nowRateList.slice(0, nowIndexRate), ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)] : [],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_INPUT_RATE_FORM', (state: any, action) => {
-    const { nowIndexSection, nowIndexRate, fieldName, value} = action.payload as ActinChangeInputRateFormPayload;
+    const { nowIndexSection, nowIndexRate, fieldName, value } = action.payload as ActinChangeInputRateFormPayload;
     const nowElement = state.elements[nowIndexSection];
     const nowRateList = nowElement.rateList;
     const nowRate = nowRateList?.[nowIndexRate];
-    const newRate = nowRate ? {
-      ...nowRate,
-      [fieldName]: value
-    } : {};
+    const newRate = nowRate
+      ? {
+          ...nowRate,
+          [fieldName]: value,
+        }
+      : {};
     const newElement = {
       ...nowElement,
-      rateList: nowRateList ? [...nowRateList.slice(0, nowIndexRate), {...newRate}, ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)] : [],
+      rateList: nowRateList
+        ? [...nowRateList.slice(0, nowIndexRate), { ...newRate }, ...nowRateList.slice(nowIndexRate + 1, nowRateList.length)]
+        : [],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_AVATAR_AUTHOR', (state: any, action) => {
-    const { avatar, nowIndexSection, nowIndexRate} = action.payload as ActionChangeAvatarAuthorPayload;
+    const { avatar, nowIndexSection, nowIndexRate } = action.payload as ActionChangeAvatarAuthorPayload;
     const nowElement = Object.assign({}, state.elements[nowIndexSection]);
     const nowListRate = nowElement.rateList;
     const nowRate = nowListRate?.[nowIndexRate];
@@ -661,18 +726,22 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
       ...nowAuthorAvatar,
       imgSrc: avatar,
     };
-    const newRate = nowRate ? {
-      ...nowRate,
-      authorAvatar: {...newAuthorAvatar}
-    } : {};
-    const newListRate = nowListRate ? [...nowListRate.slice(0, nowIndexRate), {...newRate}, ...nowListRate.slice(nowIndexRate + 1, nowListRate.length)] : [];
+    const newRate = nowRate
+      ? {
+          ...nowRate,
+          authorAvatar: { ...newAuthorAvatar },
+        }
+      : {};
+    const newListRate = nowListRate
+      ? [...nowListRate.slice(0, nowIndexRate), { ...newRate }, ...nowListRate.slice(nowIndexRate + 1, nowListRate.length)]
+      : [];
     const newElement = {
       ...nowElement,
-      rateList: [...newListRate]
+      rateList: [...newListRate],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('MOVE_RATE', (state, action) => {
@@ -680,11 +749,11 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
-      rateList: [...data]
+      rateList: [...data],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
 
@@ -694,18 +763,22 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const nowListButtons = nowElement.buttons;
     const nowButton = nowListButtons?.[nowIndexButton];
-    const newButton = nowButton ? {
-      ...nowButton,
-      [fieldName]: value
-    } : {imgSrc: '', href: ''};
-    const newListButtons = nowListButtons ? [...nowListButtons.slice(0, nowIndexButton), {...newButton}, ...nowListButtons.slice(nowIndexButton+1, nowListButtons.length)] : [];
+    const newButton = nowButton
+      ? {
+          ...nowButton,
+          [fieldName]: value,
+        }
+      : { imgSrc: '', href: '' };
+    const newListButtons = nowListButtons
+      ? [...nowListButtons.slice(0, nowIndexButton), { ...newButton }, ...nowListButtons.slice(nowIndexButton + 1, nowListButtons.length)]
+      : [];
     const newElement = {
       ...nowElement,
-      buttons: [...newListButtons]
+      buttons: [...newListButtons],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_IMAGE_BUTTON', (state, action) => {
@@ -715,33 +788,33 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowButton = nowButtons[nowIndexButton];
     const newButton = {
       ...nowButton,
-      imgSrc: imgSrc
+      imgSrc: imgSrc,
     };
-    const newButtons = [...nowButtons.slice(0, nowIndexButton), {...newButton}, ...nowButtons.slice(nowIndexButton + 1, nowButtons.length)];
+    const newButtons = [...nowButtons.slice(0, nowIndexButton), { ...newButton }, ...nowButtons.slice(nowIndexButton + 1, nowButtons.length)];
     const newElement = {
       ...nowElement,
-      buttons: newButtons
-    }
+      buttons: newButtons,
+    };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
+    };
   }),
 
   //IconImg In col
   handleAction('CHANGE_ICON_IN_COL', (state, action) => {
-    const {iconImg, nowIndexSection} = action.payload as ActionChangeIconImgInColPayload;
+    const { iconImg, nowIndexSection } = action.payload as ActionChangeIconImgInColPayload;
     const nowElement = state.elements[nowIndexSection];
     const newElement = {
       ...nowElement,
       iconImg: {
         ...nowElement.iconImg,
-        imgSrc: iconImg
-      }
+        imgSrc: iconImg,
+      },
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
 
@@ -751,11 +824,15 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const nowSlides = nowElement.sliderSection;
     const nowSlideSection = nowSlides?.[nowIndexSlide];
-    const newSlideSection = nowSlideSection ? {
-      ...nowSlideSection,
-      [fieldName]: checked,
-    } : {};
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
+    const newSlideSection = nowSlideSection
+      ? {
+          ...nowSlideSection,
+          [fieldName]: checked,
+        }
+      : {};
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide), { ...newSlideSection }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
@@ -763,7 +840,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_INPUT_SLIDE_2', (state: any, action) => {
@@ -771,18 +848,22 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const nowSlides = nowElement.sliderSection;
     const nowSlideSection = nowSlides?.[nowIndexSlide];
-    const newSlideSection = nowSlideSection ? {
-      ...nowSlideSection,
-      [fieldName]: value,
-    } : {};
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
+    const newSlideSection = nowSlideSection
+      ? {
+          ...nowSlideSection,
+          [fieldName]: value,
+        }
+      : {};
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide), { ...newSlideSection }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_COLOR_SLIDE_2', (state: any, action) => {
@@ -790,18 +871,22 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const nowSlides = nowElement.sliderSection;
     const nowSlideSection = nowSlides?.[nowIndexSlide];
-    const newSlideSection = nowSlideSection ? {
-      ...nowSlideSection,
-      [fieldName]: color,
-    } : {};
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
+    const newSlideSection = nowSlideSection
+      ? {
+          ...nowSlideSection,
+          [fieldName]: color,
+        }
+      : {};
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide), { ...newSlideSection }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_RADIO_SLIDE_2', (state: any, action) => {
@@ -809,11 +894,15 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowElement = state.elements[nowIndexSection];
     const nowSlides = nowElement.sliderSection;
     const nowSlideSection = nowSlides?.[nowIndexSlide];
-    const newSlideSection = nowSlideSection ? {
-      ...nowSlideSection,
-      [fieldName]: value,
-    } : {};
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), {...newSlideSection}, ...nowSlides.slice(nowIndexSlide+1, nowSlides.length)] : [];
+    const newSlideSection = nowSlideSection
+      ? {
+          ...nowSlideSection,
+          [fieldName]: value,
+        }
+      : {};
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide), { ...newSlideSection }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
@@ -821,7 +910,7 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
 
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('CHANGE_IMAGE_SLIDE_2', (state: any, action) => {
@@ -832,20 +921,22 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const nowImg = nowSlide ? nowSlide.imageSectionCol : {};
     const newImg = {
       ...nowImg,
-      imgSrc: imgSrc
+      imgSrc: imgSrc,
     };
     const newSlide = {
       ...nowSlide,
-      imageSectionCol: {...newImg}
+      imageSectionCol: { ...newImg },
     };
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide), { ...newSlide}, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)] : [];
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide), { ...newSlide }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('DELETE_SLIDE_2', (state, action) => {
@@ -860,21 +951,23 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('ADD_SLIDE_2', (state: any, action) => {
     const { nowIndexSection, nowIndexSlide, slideProperty } = action.payload as ActionAddSlide2Payload;
     const nowElement = state.elements[nowIndexSection];
     const nowSlides = nowElement.sliderSection;
-    const newSlides = nowSlides ? [...nowSlides.slice(0, nowIndexSlide + 1), {...slideProperty}, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)] : [{...slideProperty}];
+    const newSlides = nowSlides
+      ? [...nowSlides.slice(0, nowIndexSlide + 1), { ...slideProperty }, ...nowSlides.slice(nowIndexSlide + 1, nowSlides.length)]
+      : [{ ...slideProperty }];
     const newElement = {
       ...nowElement,
       sliderSection: [...newSlides],
     };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
     };
   }),
   handleAction('MOVE_SLIDE_2', (state, action) => {
@@ -883,15 +976,13 @@ const settingMainContentReducers = createReducer<SettingMainContentReducers, Act
     const newSliderSections = data ? [...data] : [];
     const newElement = {
       ...nowElement,
-      sliderSection: newSliderSections
-    }
+      sliderSection: newSliderSections,
+    };
     return {
       ...state,
-      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)]
-    }
-  })
+      elements: [...state.elements.slice(0, nowIndexSection), { ...newElement }, ...state.elements.slice(nowIndexSection + 1, state.elements.length)],
+    };
+  }),
 ]);
 
-
 export { settingMainContentReducers };
-

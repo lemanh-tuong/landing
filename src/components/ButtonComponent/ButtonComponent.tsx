@@ -18,7 +18,6 @@ export interface ButtonComponentProps {
 }
 
 const ButtonComponent: FC<ButtonComponentProps> = ({ icon, href, text }) => {
-
   const _renderLink = (href: string) => {
     return (
       <Link to={href}>
@@ -42,15 +41,9 @@ const ButtonComponent: FC<ButtonComponentProps> = ({ icon, href, text }) => {
       return _renderLink(href);
     }
     return _renderButton();
-
-
   };
 
-  return (
-    <>
-      {_renderSwitch}
-    </>
-  );
+  return <>{_renderSwitch}</>;
 };
 
 export default ButtonComponent;

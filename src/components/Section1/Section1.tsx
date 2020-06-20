@@ -28,11 +28,11 @@ export type Section1Props = {
   sizeButton?: ButtonProps['size'];
   sectionId: string;
   alignDivider?: DividerProps['align'];
-} & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
-  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
-  & Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'>
-  & Omit<MockUpProps, 'onEditable' | 'isBuilder'>
-  & Section1Option;
+} & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>> &
+  Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>> &
+  Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'> &
+  Omit<MockUpProps, 'onEditable' | 'isBuilder'> &
+  Section1Option;
 
 export interface Section1PropsBuilder {
   isBuilder?: boolean;
@@ -44,34 +44,79 @@ export interface Section1PropsBuilder {
 }
 
 const Section1: FC<Section1Props & Section1PropsBuilder> = ({
-  isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditButton, onShowPopupEditDivider, onShowPopupEditMockUp, darkMode, reverse, animation, positionAnimation, backgroundColor,
-  mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
-  text, colorText, fontSizeText, alignText, styleText, classText,
-  hasDivider = false, dividerColor, alignDivider,
-  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, fluid, classActive, delayTime,
-  textButton = 'Try demo', hrefButton, styleButton, backgroundButton, colorTextButton, typeButton, sizeButton
+  isBuilder,
+  onShowPopupEditMainTitle,
+  onShowPopupEditText,
+  onShowPopupEditButton,
+  onShowPopupEditDivider,
+  onShowPopupEditMockUp,
+  darkMode,
+  reverse,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  mainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  alignMainTitle,
+  styleMainTitle,
+  classMainTitle,
+  text,
+  colorText,
+  fontSizeText,
+  alignText,
+  styleText,
+  classText,
+  hasDivider = false,
+  dividerColor,
+  alignDivider,
+  typeMockUp,
+  sliderImgs,
+  slider,
+  classMockUp,
+  dotClass,
+  hasDots,
+  hasNav,
+  navClass,
+  styleMockUp,
+  margin,
+  fluid,
+  classActive,
+  delayTime,
+  textButton = 'Try demo',
+  hrefButton,
+  styleButton,
+  backgroundButton,
+  colorTextButton,
+  typeButton,
+  sizeButton,
 }) => {
-
   const _renderMockUp = () => {
-    return <MockUp
-      isBuider={isBuilder} onEditable={onShowPopupEditMockUp}
-      styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      sliderImgs={sliderImgs} slider={slider} margin={margin} delayTime={delayTime}
-      navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots} fluid={fluid} classActive={classActive}
-    />;
+    return (
+      <MockUp
+        isBuider={isBuilder}
+        onEditable={onShowPopupEditMockUp}
+        styleMockUp={styleMockUp}
+        typeMockUp={typeMockUp}
+        classMockUp={classMockUp}
+        sliderImgs={sliderImgs}
+        slider={slider}
+        margin={margin}
+        delayTime={delayTime}
+        navClass={navClass}
+        hasNav={hasNav}
+        dotClass={dotClass}
+        hasDots={hasDots}
+        fluid={fluid}
+        classActive={classActive}
+      />
+    );
   };
 
   const _renderDivider = () => {
     if (isBuilder) {
       return (
-        <>
-          {
-            hasDivider && <Divide
-              dividerColor={dividerColor} align={alignDivider}
-              isBuilder={isBuilder}
-              onEditable={onShowPopupEditDivider} />
-          }
-        </>
+        <>{hasDivider && <Divide dividerColor={dividerColor} align={alignDivider} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />}</>
       );
     } else if (hasDivider) {
       return <Divide align={alignDivider} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
@@ -80,39 +125,48 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
   };
 
   const _renderMainTitle = () => {
-    return <MainTitle
-      mainTitle={!!mainTitle ? mainTitle : ''}
-      colorMainTitle={colorMainTitle}
-      fontSizeMainTitle={fontSizeMainTitle}
-      alignMainTitle={alignMainTitle}
-      styleMainTitle={styleMainTitle}
-      classMainTitle={classMainTitle}
-      darkMode={darkMode}
-      isBuilder={isBuilder}
-      onEditable={onShowPopupEditMainTitle}
-    />;
+    return (
+      <MainTitle
+        mainTitle={!!mainTitle ? mainTitle : ''}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        alignMainTitle={alignMainTitle}
+        styleMainTitle={styleMainTitle}
+        classMainTitle={classMainTitle}
+        darkMode={darkMode}
+        isBuilder={isBuilder}
+        onEditable={onShowPopupEditMainTitle}
+      />
+    );
   };
 
   const _renderText = () => {
-    return <Text
-      text={!!text ? text : ''}
-      colorText={colorText}
-      fontSizeText={fontSizeText}
-      alignText={alignText}
-      styleText={{ ...styleText, marginBottom: 0 }}
-      classText={classText}
-      darkMode={darkMode}
-      onEditable={onShowPopupEditText}
-      isBuilder={isBuilder}
-    />;
+    return (
+      <Text
+        text={!!text ? text : ''}
+        colorText={colorText}
+        fontSizeText={fontSizeText}
+        alignText={alignText}
+        styleText={{ ...styleText, marginBottom: 0 }}
+        classText={classText}
+        darkMode={darkMode}
+        onEditable={onShowPopupEditText}
+        isBuilder={isBuilder}
+      />
+    );
   };
 
   const _renderButton = () => {
     return (
       <Button
-        href={hrefButton ?? ''} style={{ ...styleButton, margin: '30px 0' }} text={textButton} size={sizeButton}
-        isBuilder={isBuilder} onEditable={onShowPopupEditButton}
-        backgroundColor={backgroundButton} color={colorTextButton}
+        href={hrefButton ?? ''}
+        style={{ ...styleButton, margin: '30px 0' }}
+        text={textButton}
+        size={sizeButton}
+        isBuilder={isBuilder}
+        onEditable={onShowPopupEditButton}
+        backgroundColor={backgroundButton}
+        color={colorTextButton}
         type={typeButton}
       />
     );
@@ -127,15 +181,11 @@ const Section1: FC<Section1Props & Section1PropsBuilder> = ({
               {_renderMainTitle()}
               {_renderDivider()}
               {_renderText()}
-              <ButtonGroup align='left'>
-                {_renderButton()}
-              </ButtonGroup>
+              <ButtonGroup align="left">{_renderButton()}</ButtonGroup>
             </div>
           </Col>
           <Col style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }} cols={[12, 6, 6]} className={reverse ? 'order-1' : ''}>
-            <>
-              {_renderMockUp()}
-            </>
+            <>{_renderMockUp()}</>
           </Col>
         </Row>
       </Section>

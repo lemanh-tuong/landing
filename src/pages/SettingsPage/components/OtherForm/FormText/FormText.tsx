@@ -47,7 +47,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
   };
 
   return (
-    <PopUp title={<h3>Form Text</h3>} type='antd' id={`text-${sectionId}`}>
+    <PopUp title={<h3>Form Text</h3>} type="antd" id={`text-${sectionId}`}>
       <div>
         <Form
           fields={[
@@ -57,7 +57,7 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
               label: 'Text',
               fieldId: 'section-1-field-4',
               horizontal: true,
-              defaultValue: text
+              defaultValue: text,
             },
             {
               fieldType: 'radio',
@@ -68,15 +68,15 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
               data: [
                 {
                   value: 'left',
-                  name: 'align text'
+                  name: 'align text',
                 },
                 {
                   value: 'center',
-                  name: 'align text'
+                  name: 'align text',
                 },
                 {
                   value: 'right',
-                  name: 'align text'
+                  name: 'align text',
                 },
               ],
             },
@@ -85,15 +85,15 @@ export const FormText: FC<FormTextProps> = ({ nowIndexSection, sectionId }) => {
               label: 'Size Text',
               fieldType: 'radio3',
               fieldId: 'font-size-text',
-              defaultCheckedValue: fontSizeText
+              defaultCheckedValue: fontSizeText,
             },
             {
               fieldType: 'color-picker',
               fieldName: 'colorText',
               label: 'Color Text',
               fieldId: 'section-1-field-6',
-              defaultColor: colorText ?? '#000'
-            }
+              defaultColor: colorText ?? '#000',
+            },
           ]}
           onChange={handleChangeForm}
         />

@@ -7,8 +7,8 @@ export interface ThunkDeleteSlideArg {
   nowIndexSlide: number;
 }
 
-const thunkDeleteSlide = ({nowIndexSection, nowIndexSlide}: ThunkDeleteSlideArg): ThunkDeleteSlide => dispatch => {
-  dispatch(actionDeleteSlide({nowIndexSection: nowIndexSection, nowIndexSlide:nowIndexSlide}));
+const thunkDeleteSlide = ({ nowIndexSection, nowIndexSlide }: ThunkDeleteSlideArg): ThunkDeleteSlide => dispatch => {
+  dispatch(actionDeleteSlide({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide }));
 };
 
 export default createDispatchAction(thunkDeleteSlide);

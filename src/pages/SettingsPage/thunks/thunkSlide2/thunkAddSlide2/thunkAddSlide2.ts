@@ -3,8 +3,8 @@ import { createDispatchAction } from 'utils/functions/reduxActions';
 
 type ThunkAddSlide2 = ThunkAction<typeof actionAddSlide2>;
 
-const thunkAddSlide2 = ({nowIndexSlide, nowIndexSection, slideProperty}: ActionAddSlide2Payload): ThunkAddSlide2 => dispatch => {
-  dispatch(actionAddSlide2({nowIndexSlide: nowIndexSlide, nowIndexSection: nowIndexSection, slideProperty: slideProperty}));
+const thunkAddSlide2 = ({ nowIndexSlide, nowIndexSection, slideProperty }: ActionAddSlide2Payload): ThunkAddSlide2 => dispatch => {
+  dispatch(actionAddSlide2({ nowIndexSlide: nowIndexSlide, nowIndexSection: nowIndexSection, slideProperty: slideProperty }));
 };
 
 export default createDispatchAction(thunkAddSlide2);

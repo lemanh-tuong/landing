@@ -12,4 +12,3 @@ export interface ActionChangeGeneralDataPagePayload {
 const actionChangeGeneralDataPage = createAsyncAction(['@changing', '@changed', '@changeFail'])<null, PageGeneralData[], string>();
 
 export { actionChangeGeneralDataPage };
-

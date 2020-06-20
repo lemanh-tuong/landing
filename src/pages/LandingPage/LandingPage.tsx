@@ -6,11 +6,16 @@ import styles from './LandingPage.module.scss';
 
 const LandingPage = () => {
   return (
-    <Section style={{ overflow: 'initial' }} animation positionAnimation='left'>
+    <Section style={{ overflow: 'initial' }} animation positionAnimation="left">
       <div className={styles.LandingPage}>
         <div className={styles.header}>
-          <MainTitle styleMainTitle={{ fontWeight: 'bold', marginBottom: 0 }} mainTitle='Simplified website builder' alignMainTitle='center' fontSizeMainTitle='lg' />
-          <MainTitle mainTitle='in your browser' alignMainTitle='center' fontSizeMainTitle='md' />
+          <MainTitle
+            styleMainTitle={{ fontWeight: 'bold', marginBottom: 0 }}
+            mainTitle="Simplified website builder"
+            alignMainTitle="center"
+            fontSizeMainTitle="lg"
+          />
+          <MainTitle mainTitle="in your browser" alignMainTitle="center" fontSizeMainTitle="md" />
         </div>
         <div className={styles.body}>
           <div className={styles.desc}>
@@ -20,13 +25,13 @@ const LandingPage = () => {
           </div>
         </div>
         <div className={styles.footter}>
-          <Button href="/initializeApp" target='default' type='gradient'>
+          <Button href="/initializeApp" target="default" type="gradient">
             Get Started
           </Button>
         </div>
       </div>
     </Section>
-  )
-}
+  );
+};
 
 export default LandingPage;

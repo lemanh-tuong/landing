@@ -5,7 +5,7 @@ import firebaseReducer from '../reducers/firebaseReducer';
 const rootLoginPageReducers = {
   authReducer,
   configAppReducer,
-  firebaseReducer
+  firebaseReducer,
 };
 
 export default rootLoginPageReducers;

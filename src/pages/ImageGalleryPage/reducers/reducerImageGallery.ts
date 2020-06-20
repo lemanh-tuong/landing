@@ -11,13 +11,13 @@ export interface ImageGalleryReducers {
 
 const initialState: ImageGalleryReducers = {
   statusRequestImageGallery: 'loading',
-  messageRequestImageGallery: ''
+  messageRequestImageGallery: '',
 };
 
 const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof actionGetImageGallery> & any>(initialState, [
   handleAction('@getImageGalleryRequest', state => ({
     ...state,
-    statusRequestImageGallery: 'loading'
+    statusRequestImageGallery: 'loading',
   })),
   handleAction('@getImageGallerySuccess', (state, action) => {
     const { type, imgs } = action.payload;
@@ -30,7 +30,7 @@ const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof acti
   handleAction('@getImageGalleryFailure', (state, action) => ({
     ...state,
     messageRequestImageGallery: action.payload.message,
-    statusRequestImageGallery: 'failure'
+    statusRequestImageGallery: 'failure',
   })),
   handleAction('@uploadingFile', state => {
     return {
@@ -41,12 +41,12 @@ const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof acti
   handleAction('@uploadedFile', (state, action) => {
     const { type, imgs } = action.payload;
     const newIcon = imgs.map((item: string) => ({
-      imgSrc: item
+      imgSrc: item,
     }));
     return {
       ...state,
       statusUpload: 'uploaded',
-      [type]: newIcon ? [...newIcon] : [...state[type]]
+      [type]: newIcon ? [...newIcon] : [...state[type]],
     };
   }),
   handleAction('@uploadFileFalure', (state, action) => {
@@ -54,10 +54,9 @@ const imageGallery = createReducer<ImageGalleryReducers, ActionTypes<typeof acti
     return {
       ...state,
       statusUpload: 'uploadFailure',
-      messageUploadAction: message
+      messageUploadAction: message,
     };
-  })
+  }),
 ]);
 
 export { imageGallery };
-

@@ -6,7 +6,6 @@ export interface ActionChangeHrefPayload {
   href: string;
 }
 
-const actionChangeHref = createAction('CHANGE_HREF', (payload: ActionChangeHrefPayload) => ({...payload}));
+const actionChangeHref = createAction('CHANGE_HREF', (payload: ActionChangeHrefPayload) => ({ ...payload }));
 
 export { actionChangeHref };
-

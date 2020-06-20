@@ -20,7 +20,6 @@ const Error: FC<ErrorProps> = ({ message }) => {
         <h2>we are sorry, but the page you requested was not found</h2>
       </div>
     </div>
-
   );
 };
 

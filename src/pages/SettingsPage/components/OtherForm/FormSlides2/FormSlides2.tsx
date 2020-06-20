@@ -57,11 +57,7 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
     if (!result.destination) {
       return;
     }
-    const newElements = sliderSection ? reorder(
-      sliderSection,
-      result.source.index,
-      result.destination.index
-    ) : [];
+    const newElements = sliderSection ? reorder(sliderSection, result.source.index, result.destination.index) : [];
     moveSlide({ data: newElements, nowIndexSection: nowIndexSection });
   };
 
@@ -79,8 +75,8 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
   //Render
 
   const _renderSettingForm = (nowIndexSlide: number) => {
-    return <FormSlide2 nowIndexSection={nowIndexSection} nowIndexSlide={nowIndexSlide} />
-  }
+    return <FormSlide2 nowIndexSection={nowIndexSection} nowIndexSlide={nowIndexSlide} />;
+  };
 
   const _renderGeneralSettings = () => {
     return (
@@ -114,19 +110,18 @@ const FormSlides2: FC<FormSlides2Props> = ({ nowIndexSection, draggableField }) 
             label: 'Draggable',
             fieldType: 'checkbox',
             defaultChecked: draggable,
-            hidden: !draggableField
-          }
+            hidden: !draggableField,
+          },
         ]}
-      >
-      </Form>
+      ></Form>
     );
   };
 
   return (
     <div className={styles.formSlides}>
       <FormDropDown
-        draggableId='slide-2'
-        droppableId='slide-2'
+        draggableId="slide-2"
+        droppableId="slide-2"
         label={sliderSection?.map(item => item.mainTitle) as string[]}
         onAdd={handleAddSlide}
         onMoveEnd={handleMove}

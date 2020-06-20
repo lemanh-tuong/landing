@@ -9,8 +9,8 @@ export interface ThunkChangeIconCardArg {
   nowIndexCard: number;
 }
 
-const thunkChangeIconCard = ({fieldName, imgSrc, nowIndexSection, nowIndexCard}: ThunkChangeIconCardArg): ThunkChangeIconCard => dispatch => {
-  dispatch(actionChangeIconCard({ fieldName: fieldName, iconImg: imgSrc, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}));
+const thunkChangeIconCard = ({ fieldName, imgSrc, nowIndexSection, nowIndexCard }: ThunkChangeIconCardArg): ThunkChangeIconCard => dispatch => {
+  dispatch(actionChangeIconCard({ fieldName: fieldName, iconImg: imgSrc, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard }));
 };
 
 export default createDispatchAction(thunkChangeIconCard);

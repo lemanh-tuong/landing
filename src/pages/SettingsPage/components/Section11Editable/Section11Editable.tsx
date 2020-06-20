@@ -15,14 +15,30 @@ export type Section11EditableProps = {
 const Section11Editable: FC<Section11EditableProps> = ({
   nowIndexSection,
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
+  reverse,
   imageSectionCol,
   iconImg,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider = false, dividerColor, alignDivider,
-  text, alignText, colorText, fontSizeText, classText, styleText,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  classMainTitle,
+  styleMainTitle,
+  hasDivider = false,
+  dividerColor,
+  alignDivider,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  classText,
+  styleText,
 }) => {
-
   const handleShowPopUpEditImage = () => {
     PopUp.show(`image-${sectionId}`)();
   };
@@ -46,24 +62,44 @@ const Section11Editable: FC<Section11EditableProps> = ({
     <div className="Section11Editable">
       <Section11
         sectionId={sectionId}
-        isBuilder={true} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
-        onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditImage={handleShowPopUpEditImage} onShowPopupEditIcon={handleShowPopUpEditIcon}
-        animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
-        mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        hasDivider={hasDivider} alignDivider={alignDivider} dividerColor={dividerColor}
+        isBuilder={true}
+        onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        onShowPopupEditText={handleShowPopUpEditText}
+        onShowPopupEditDivider={handleShowPopUpEditDivider}
+        onShowPopupEditImage={handleShowPopUpEditImage}
+        onShowPopupEditIcon={handleShowPopUpEditIcon}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        darkMode={darkMode}
+        mainTitle={mainTitle}
+        alignMainTitle={alignMainTitle}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        classMainTitle={classMainTitle}
+        styleMainTitle={styleMainTitle}
+        hasDivider={hasDivider}
+        alignDivider={alignDivider}
+        dividerColor={dividerColor}
         imageSectionCol={imageSectionCol}
-        text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-        reverse={reverse} iconImg={iconImg}
+        text={text}
+        alignText={alignText}
+        colorText={colorText}
+        classText={classText}
+        styleText={styleText}
+        fontSizeText={fontSizeText}
+        reverse={reverse}
+        iconImg={iconImg}
       />
       <FormSection canReverseCol={true} nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormImage nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`icon-${sectionId}`} type='antd'>
+      <PopUp id={`icon-${sectionId}`} type="antd">
         <FormIcon nowIndexSection={nowIndexSection} />
       </PopUp>
-
     </div>
   );
 };

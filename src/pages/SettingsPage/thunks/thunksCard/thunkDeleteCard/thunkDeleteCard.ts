@@ -7,8 +7,8 @@ export interface ThunkDeleteCardArg {
   indexCard: number;
 }
 
-const thunkDeleteCard = ({indexCard, indexSection}: ThunkDeleteCardArg): ThunkDeleteCard => dispatch => {
-  dispatch(actionDeleteCard({nowIndexSection: indexSection, nowIndexCard: indexCard}));
+const thunkDeleteCard = ({ indexCard, indexSection }: ThunkDeleteCardArg): ThunkDeleteCard => dispatch => {
+  dispatch(actionDeleteCard({ nowIndexSection: indexSection, nowIndexCard: indexCard }));
 };
 
 export default createDispatchAction(thunkDeleteCard);

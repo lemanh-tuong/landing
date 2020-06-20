@@ -9,8 +9,13 @@ export interface ThunkChangeRadioCard2FormArg {
   nowIndexCard: number;
 }
 
-const thunkChangeRadioCard2Form = ({fieldName, value, nowIndexSection, nowIndexCard}: ThunkChangeRadioCard2FormArg): ThunkChangeRadioCard2Form => dispatch => {
-  dispatch(actionChangeRadioCard2Form({fieldName: fieldName, value: value, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}));
+const thunkChangeRadioCard2Form = ({
+  fieldName,
+  value,
+  nowIndexSection,
+  nowIndexCard,
+}: ThunkChangeRadioCard2FormArg): ThunkChangeRadioCard2Form => dispatch => {
+  dispatch(actionChangeRadioCard2Form({ fieldName: fieldName, value: value, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard }));
 };
 
 export default createDispatchAction(thunkChangeRadioCard2Form);

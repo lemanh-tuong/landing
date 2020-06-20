@@ -7,8 +7,7 @@ export interface ActionChangeHasVideoPayload {
 }
 
 const actionChangeHasVideo = createAction('CHANGE_HAS_VIDEO', (payload: ActionChangeHasVideoPayload) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChangeHasVideo };
-

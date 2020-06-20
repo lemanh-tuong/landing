@@ -7,8 +7,8 @@ export interface ThunkChangeHrefArg {
   nowIndexSlide: number;
   href: string;
 }
-const thunkChangeHref = ({href, nowIndexSection, nowIndexSlide}: ThunkChangeHrefArg): ThunkChangeHref => dispatch => {
-  dispatch(actionChangeHref({href: href, nowIndexSlide: nowIndexSlide, nowIndexSection: nowIndexSection}));
+const thunkChangeHref = ({ href, nowIndexSection, nowIndexSlide }: ThunkChangeHrefArg): ThunkChangeHref => dispatch => {
+  dispatch(actionChangeHref({ href: href, nowIndexSlide: nowIndexSlide, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChangeHref);

@@ -15,7 +15,6 @@ export interface ItemSideBar extends Omit<Option, 'sectionId'> {
 type TabsName = 'section' | 'page';
 
 const SideBar: FC<SideBarProps> = ({ className }) => {
-
   const [nowTab, setNowTab] = useState<TabsName>('section');
 
   const handleChangeTab = (tabName: TabsName) => {
@@ -45,8 +44,12 @@ const SideBar: FC<SideBarProps> = ({ className }) => {
     <div className={styles.sideBar}>
       <div className={styles.sideBarContent}>
         <div className={styles.sideBarNav}>
-          <div className={`${styles.btn} ${nowTab === 'section' ? styles.active : ''}`} onClick={handleChangeTab('section')}>Section</div>
-          <div className={`${styles.btn} ${nowTab === 'page' ? styles.active : ''}`} onClick={handleChangeTab('page')}>Page</div>
+          <div className={`${styles.btn} ${nowTab === 'section' ? styles.active : ''}`} onClick={handleChangeTab('section')}>
+            Section
+          </div>
+          <div className={`${styles.btn} ${nowTab === 'page' ? styles.active : ''}`} onClick={handleChangeTab('page')}>
+            Page
+          </div>
         </div>
         {_renderSwitch()}
       </div>

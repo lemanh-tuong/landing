@@ -15,7 +15,6 @@ export interface FormChangeGeneralDataPageProps {
 }
 
 const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId, redirectOnChange = false }) => {
-
   const history = useHistory();
 
   const generalDataPage = useSelector(listPage);
@@ -36,14 +35,18 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
   const handleError = (value: string) => {
     const regex = /\s/;
     setValidate(() => {
-      if (value.length === 0) return 'Required'
-      if (regex && value.match(regex)) return 'Pattern Error'
-      return ''
-    })
-  }
+      if (value.length === 0) return 'Required';
+      if (regex && value.match(regex)) return 'Pattern Error';
+      return '';
+    });
+  };
 
   const handleChangeNewPageName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pathName = e.target.value.trim().split(' ').map(word => word.toLowerCase()).join('-');
+    const pathName = e.target.value
+      .trim()
+      .split(' ')
+      .map(word => word.toLowerCase())
+      .join('-');
     setNewPageName(e.target.value);
     setNewPathName(pathName);
   };
@@ -56,10 +59,12 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
 
   const handleChangeIsHome = (result: boolean) => {
     setIsHome(result);
-  }
+  };
 
   const handleChangeGeneralDataPage = () => {
-    const isExisted = generalDataPage.find(item => (item.pageName === newPageName && pageId !== item.id) || (item.pathName === newPathName && pageId !== item.id));
+    const isExisted = generalDataPage.find(
+      item => (item.pageName === newPageName && pageId !== item.id) || (item.pathName === newPathName && pageId !== item.id),
+    );
     if (!isExisted && !validate) {
       changeGeneralDataPage({ nowIndexPage: nowIndexPage, newPageName, newPathName: `/${newPathName}`, id: pageId, isHome: isHome });
       const interval = setInterval(() => {
@@ -96,18 +101,27 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
 
   const _renderValidateError = () => {
     if (error) {
-      return <div onClick={handleClose}
-        style={{
-          position: 'fixed',
-          background: 'rgba(0,0,0,0.8)',
-          width: '100%', height: '100%',
-          top: 0, left: 0, display: 'flex',
-          justifyContent: 'center', alignItems: 'center',
-          fontSize: 20, color: 'white',
-          zIndex: 11111111
-        }}>
-        {error}
-      </div>;
+      return (
+        <div
+          onClick={handleClose}
+          style={{
+            position: 'fixed',
+            background: 'rgba(0,0,0,0.8)',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 20,
+            color: 'white',
+            zIndex: 11111111,
+          }}
+        >
+          {error}
+        </div>
+      );
     }
     return null;
   };
@@ -116,7 +130,13 @@ const FormChangeGeneralDataPage: FC<FormChangeGeneralDataPageProps> = ({ pageId,
     <>
       {_renderChangeSwitch()}
       {_renderValidateError()}
-      <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' title={<h3>Form Change General Data Page</h3>} onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)} onOk={handleChangeGeneralDataPage}>
+      <PopUp
+        id={`change-general-data-page-${pageId}-form`}
+        type="antd"
+        title={<h3>Form Change General Data Page</h3>}
+        onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)}
+        onOk={handleChangeGeneralDataPage}
+      >
         <div>
           <span>New Page Name</span>
           <Input style={{ margin: '10px 0' }} defaultValue={newPageName} required onChange={handleChangeNewPageName} />

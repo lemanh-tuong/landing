@@ -6,7 +6,6 @@ export interface ActionChangeSelectPayload {
   value: string;
 }
 
-const actionChangeSelect = createAction('CHANGE_SELECT', (payload: ActionChangeSelectPayload) => ({...payload}));
+const actionChangeSelect = createAction('CHANGE_SELECT', (payload: ActionChangeSelectPayload) => ({ ...payload }));
 
 export { actionChangeSelect };
-

@@ -26,24 +26,32 @@ export interface MainTitleProps extends MainTitleOption {
   onEditable?: () => void;
 }
 
-const SectionTitle: FC<MainTitleProps> = ({
-  isBuilder = false, darkMode, children, onEditable,
-  mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle
-} = { mainTitle: '', darkMode: false, ...defaultMainTitleOption }) => {
-  const color = !!colorMainTitle ? colorMainTitle : '';
-  const fontSize = !!fontSizeMainTitle ? fontSizeMainTitle : '';
-  const align = !!alignMainTitle ? alignMainTitle : '';
-  const style = !!styleMainTitle ? styleMainTitle : {};
-  const classM = !!classMainTitle ? classMainTitle : '';
-  const dark = darkMode ? styles.dark : '';
+const SectionTitle: FC<MainTitleProps> = (
+  {
+    isBuilder = false,
+    darkMode,
+    children,
+    onEditable,
+    mainTitle,
+    colorMainTitle = '',
+    fontSizeMainTitle = 'lg',
+    alignMainTitle = 'center',
+    styleMainTitle,
+    classMainTitle,
+  } = { mainTitle: '', darkMode: false, ...defaultMainTitleOption },
+) => {
   if (isBuilder) {
     return (
       <PopOverText
         onEdit={onEditable}
         component={
-          <div onClick={onEditable}
-            className={`${!!mainTitle ? null : styles.empty} ${styles.isBuilder} ${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`}
-            style={{ ...style, color: colorMainTitle }}>
+          <div
+            onClick={onEditable}
+            className={`${!!mainTitle ? null : styles.empty} ${styles.isBuilder} ${styles.sectionTitle} ${styles[fontSizeMainTitle]} ${
+              styles[alignMainTitle]
+            } ${classMainTitle} ${darkMode ? styles.dark : ''}`}
+            style={{ ...styleMainTitle, color: colorMainTitle }}
+          >
             {mainTitle}
             {children}
           </div>
@@ -51,15 +59,17 @@ const SectionTitle: FC<MainTitleProps> = ({
       />
     );
   }
-  if (!!mainTitle) {
-    return (
-      <div className={`${styles.sectionTitle} ${styles[color]} ${styles[fontSize]} ${styles[align]} ${classM} ${dark}`} style={{ ...style, color: colorMainTitle }}>
-        {mainTitle}
-        {children}
-      </div>
-    );
-  }
-  return null;
+  return (
+    <div
+      className={`${!!mainTitle ? null : styles.empty} ${styles.sectionTitle} ${styles[fontSizeMainTitle]} ${
+        styles[alignMainTitle]
+      } ${classMainTitle} ${darkMode ? styles.dark : ''}`}
+      style={{ ...styleMainTitle, color: colorMainTitle }}
+    >
+      {mainTitle}
+      {children}
+    </div>
+  );
 };
 
 export default SectionTitle;

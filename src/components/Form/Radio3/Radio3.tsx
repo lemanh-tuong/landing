@@ -20,24 +20,23 @@ interface RenderRadioItemParam {
 const radioButtons: Radio3Button[] = [
   {
     value: 'xs',
-    name: 'fontSize'
+    name: 'fontSize',
   },
   {
     value: 'sm',
-    name: 'fontSize'
+    name: 'fontSize',
   },
   {
     value: 'md',
-    name: 'fontSize'
+    name: 'fontSize',
   },
   {
     value: 'lg',
-    name: 'fontSize'
-  }
+    name: 'fontSize',
+  },
 ];
 
 type RenderRadioItem = (param: RenderRadioItemParam) => JSX.Element;
-
 
 const Radio3: FC<Omit<RadioProps, 'data'>> = ({ label, onClick, defaultCheckedValue }) => {
   const handleClick = (value: string) => {
@@ -45,7 +44,6 @@ const Radio3: FC<Omit<RadioProps, 'data'>> = ({ label, onClick, defaultCheckedVa
       onClick?.(value);
     };
   };
-
 
   const _renderSwitch = (fieldName: string, value: Radio3Button['value']) => {
     switch (fieldName) {
@@ -73,12 +71,8 @@ const Radio3: FC<Omit<RadioProps, 'data'>> = ({ label, onClick, defaultCheckedVa
 
   const _renderDefault = () => (
     <div className={styles.radioForm}>
-      <div className={styles.radioName}>
-        {label}
-      </div>
-      <div className={styles.radioGroup}>
-        {_renderRadioList()}
-      </div>
+      <div className={styles.radioName}>{label}</div>
+      <div className={styles.radioGroup}>{_renderRadioList()}</div>
     </div>
   );
 

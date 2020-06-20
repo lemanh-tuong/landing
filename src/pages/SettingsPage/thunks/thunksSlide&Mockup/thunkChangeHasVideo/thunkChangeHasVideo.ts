@@ -9,8 +9,8 @@ export interface ThunkChangeHasVideoArg {
   hasVideo: boolean;
 }
 
-const thunkChangeHasVideo = ({nowIndexSection, nowIndexSlide, hasVideo}: ThunkChangeHasVideoArg): ThunkChangeHasVideo => dispatch => {
-  dispatch(actionChangeHasVideo({nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, hasVideo: hasVideo}));
+const thunkChangeHasVideo = ({ nowIndexSection, nowIndexSlide, hasVideo }: ThunkChangeHasVideoArg): ThunkChangeHasVideo => dispatch => {
+  dispatch(actionChangeHasVideo({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, hasVideo: hasVideo }));
 };
 
 export default createDispatchAction(thunkChangeHasVideo);

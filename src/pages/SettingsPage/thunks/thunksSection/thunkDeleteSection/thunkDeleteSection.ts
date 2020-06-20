@@ -16,7 +16,7 @@ const thunkDeleteSection = ({ arg, nowIndexSection }: ThunkDeleteSectionArg): Th
     pathName,
     id,
     elements,
-    indexDelete: nowIndexSection
+    indexDelete: nowIndexSection,
   });
   dispatch(deleteSection(arg));
 };

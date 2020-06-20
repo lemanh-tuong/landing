@@ -11,11 +11,10 @@ interface AppStoreProps {
 }
 
 const AppStore: FC<AppStoreProps> = ({ typeStore, href, className, style }) => {
-
   const takeTypeStore = typeStore === 'ios' ? appStoreImg : ggStoreImg;
 
   return (
-    <a href={href || '###'} target='_blank' rel="noopener noreferrer" className={`${className} ${styles.store}`} style={style}>
+    <a href={href || '###'} target="_blank" rel="noopener noreferrer" className={`${className} ${styles.store}`} style={style}>
       <img src={takeTypeStore} alt={typeStore} className={styles.storeImg} />
     </a>
   );

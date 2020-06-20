@@ -7,7 +7,6 @@ export interface ToggableComponentProps {
 }
 
 const ToggableComponent: FC<ToggableComponentProps> = ({ renderContent, renderHideContent }) => {
-
   const [show, setShow] = useState(false);
 
   const handleShow = () => {
@@ -19,9 +18,7 @@ const ToggableComponent: FC<ToggableComponentProps> = ({ renderContent, renderHi
       <div onClick={handleShow} className={`${show ? styles.show : ''} ${styles.name}`}>
         {renderContent}
       </div>
-      <div className={styles.hideContent}>
-        {show ? renderHideContent : null}
-      </div>
+      <div className={styles.hideContent}>{show ? renderHideContent : null}</div>
     </div>
   );
 };

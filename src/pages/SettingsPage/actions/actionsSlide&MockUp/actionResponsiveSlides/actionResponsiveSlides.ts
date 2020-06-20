@@ -9,4 +9,3 @@ export interface ActionResponsiveSlidesPayload {
 const actionResponsiveSlides = createAction('RESPONSIVE_SLIDES', (payload: ActionResponsiveSlidesPayload) => ({ ...payload }));
 
 export { actionResponsiveSlides };
-

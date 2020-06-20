@@ -11,25 +11,25 @@ const NavMobile: FC<NavMobileProps> = ({ show = false }) => {
     <div className={styles.navMobile} style={{ transform: `translateX(${show ? '0px' : '-100%'})` }}>
       <ul className={styles.navMenu}>
         <li className={styles.navItem}>
-          <Link to='/' className={styles.navLink}>
+          <Link to="/" className={styles.navLink}>
             <i className="fas fa-caret-right"></i>
             About Application
           </Link>
         </li>
         <li className={styles.navItem}>
-          <Link to='/about' className={styles.navLink}>
+          <Link to="/about" className={styles.navLink}>
             <i className="fas fa-caret-right"></i>
             About Application
           </Link>
         </li>
         <li className={styles.navItem}>
-          <Link to='/' className={styles.navLink}>
+          <Link to="/" className={styles.navLink}>
             <i className="fas fa-caret-right"></i>
             About Application
           </Link>
         </li>
         <li className={styles.navItem}>
-          <Link to='/' className={styles.navLink}>
+          <Link to="/" className={styles.navLink}>
             <i className="fas fa-caret-right"></i>
             About Application
           </Link>

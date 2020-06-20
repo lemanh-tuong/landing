@@ -12,32 +12,41 @@ export interface TextOption {
   darkMode?: true | false;
 }
 
-
 export interface TextProps extends TextOption {
   text: string;
   isBuilder?: boolean;
   onEditable?: () => void;
 }
 
-const Text: FC<TextProps> = ({ isBuilder, text = '', colorText, fontSizeText, alignText, classText, styleText, darkMode, children, onEditable }) => {
-  const color = !!colorText ? colorText : '';
-  const fontSize = !!fontSizeText ? fontSizeText : '';
-  const align = !!alignText ? alignText : '';
-  const style = !!styleText ? styleText : {};
-  const classT = !!classText ? classText : '';
-  const dark = darkMode ? styles.dark : '';
-
+const Text: FC<TextProps> = ({
+  isBuilder,
+  text = '',
+  colorText,
+  fontSizeText = 'md',
+  alignText = 'center',
+  classText,
+  styleText,
+  darkMode,
+  children,
+  onEditable,
+}) => {
   if (isBuilder) {
     return (
-      <PopOverText onEdit={onEditable} component={
-        <div className={`${classText} ${!!text ? '' : styles.empty} ${styles.isBuilder} ${styles.text} ${styles[fontSize]} ${styles[color]} ${styles[align]} ${classT} ${dark} `}
-          style={{ ...style, color: color, fontSize: fontSize }}
-          onClick={onEditable}
-          dangerouslySetInnerHTML={{ __html: text }}
-        >
-          {children}
-        </div>
-      } />
+      <PopOverText
+        onEdit={onEditable}
+        component={
+          <div
+            className={`${classText} ${!!text ? '' : styles.empty} ${styles.isBuilder} ${styles.text} ${styles[fontSizeText]} ${
+              styles[alignText]
+            } ${classText} ${darkMode ? styles.dark : ''} `}
+            style={{ ...styleText, color: colorText, fontSize: fontSizeText }}
+            onClick={onEditable}
+            dangerouslySetInnerHTML={{ __html: text }}
+          >
+            {children}
+          </div>
+        }
+      />
     );
   }
   if (!!text) {
@@ -45,9 +54,9 @@ const Text: FC<TextProps> = ({ isBuilder, text = '', colorText, fontSizeText, al
       <div
         className={`${styles.text}
           ${classText}
-          ${styles[fontSize]} ${styles[color]}
-          ${styles[align]} ${classT} ${dark} `}
-        style={{ ...style, color: color, fontSize: fontSize }}
+          ${styles[fontSizeText]}
+          ${styles[alignText]} ${classText} ${darkMode ? styles.dark : ''} `}
+        style={{ ...styleText, color: colorText }}
         dangerouslySetInnerHTML={{ __html: text }}
       >
         {children}
@@ -56,6 +65,5 @@ const Text: FC<TextProps> = ({ isBuilder, text = '', colorText, fontSizeText, al
   }
   return null;
 };
-
 
 export default Text;

@@ -11,10 +11,23 @@ export type Section12EditableProps = {
 const Section12Editable: FC<Section12EditableProps> = ({
   nowIndexSection,
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, draggable, delayTime,
-  sliderSection, fluid, margin, itemShow, hasDots, hasNav, navClass, dotClass, classActive
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
+  draggable,
+  delayTime,
+  sliderSection,
+  fluid,
+  margin,
+  itemShow,
+  hasDots,
+  hasNav,
+  navClass,
+  dotClass,
+  classActive,
 }) => {
-
   const handleShowPopUpEditSlides = () => {
     PopUp.show(`slides-${sectionId}`)();
   };
@@ -24,14 +37,26 @@ const Section12Editable: FC<Section12EditableProps> = ({
       <Section12
         isBuilder={true}
         sliderSection={sliderSection}
-        fluid={fluid} itemShow={itemShow} margin={margin}
-        hasDots={hasDots} hasNav={hasNav} classActive={classActive} dotClass={dotClass} navClass={navClass} draggable={draggable} delayTime={delayTime}
+        fluid={fluid}
+        itemShow={itemShow}
+        margin={margin}
+        hasDots={hasDots}
+        hasNav={hasNav}
+        classActive={classActive}
+        dotClass={dotClass}
+        navClass={navClass}
+        draggable={draggable}
+        delayTime={delayTime}
         sectionId={sectionId}
-        animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        darkMode={darkMode}
         onShowPopUpEditSlide={handleShowPopUpEditSlides}
       />
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />
-      <PopUp id={`slides-${sectionId}`} type='antd' title={<h3>Form Slide Section</h3>}>
+      <PopUp id={`slides-${sectionId}`} type="antd" title={<h3>Form Slide Section</h3>}>
         <FormSlides2 nowIndexSection={nowIndexSection} draggableField={true} />
       </PopUp>
     </div>

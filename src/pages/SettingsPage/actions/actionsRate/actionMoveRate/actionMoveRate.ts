@@ -6,7 +6,6 @@ export interface ActionMoveRatePayload {
   data: RateProps[];
 }
 
-const actionMoveRate = createAction('MOVE_RATE', (payload: ActionMoveRatePayload) => ({...payload}));
+const actionMoveRate = createAction('MOVE_RATE', (payload: ActionMoveRatePayload) => ({ ...payload }));
 
 export { actionMoveRate };
-

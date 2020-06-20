@@ -10,8 +10,13 @@ export interface ThunkChangeInputRateFormArg {
   value: string | number;
 }
 
-const thunkChangeInputRateForm = ({fieldName, value, nowIndexRate, nowIndexSection}: ThunkChangeInputRateFormArg): ThunkChangeInputRateForm => dispatch => {
-  dispatch(actionChangeInputRateForm({value: value, fieldName: fieldName, nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate}));
+const thunkChangeInputRateForm = ({
+  fieldName,
+  value,
+  nowIndexRate,
+  nowIndexSection,
+}: ThunkChangeInputRateFormArg): ThunkChangeInputRateForm => dispatch => {
+  dispatch(actionChangeInputRateForm({ value: value, fieldName: fieldName, nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate }));
 };
 
 export default createDispatchAction(thunkChangeInputRateForm);

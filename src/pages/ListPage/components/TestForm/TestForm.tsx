@@ -7,13 +7,11 @@ import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const TestForm: FC<FormChangeGeneralDataPageProps> = ({ pageId }) => {
-
   const generalDataPage = useSelector(listPage);
   const nowPage = generalDataPage.find(item => item.id === pageId) as PageGeneralData;
 
   const [newPageName, setNewPageName] = useState(nowPage.pageName);
   const [newPathName, setNewPathName] = useState(nowPage.pathName);
-
 
   const handleChangeNewPageName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPageName(e.target.value);
@@ -24,7 +22,12 @@ const TestForm: FC<FormChangeGeneralDataPageProps> = ({ pageId }) => {
 
   return (
     <div className="TestForm">
-      <PopUp id={`change-general-data-page-${pageId}-form`} type='antd' title={<h3>Form Change General Data Page</h3>} onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)}>
+      <PopUp
+        id={`change-general-data-page-${pageId}-form`}
+        type="antd"
+        title={<h3>Form Change General Data Page</h3>}
+        onCancel={PopUp.hide(`change-general-data-page-${pageId}-form`)}
+      >
         <div>
           <span>New Path Name</span>
           <Input style={{ margin: '10px 0' }} defaultValue={nowPage.pathName} required onChange={handleChangeNewPathName} />
@@ -35,7 +38,7 @@ const TestForm: FC<FormChangeGeneralDataPageProps> = ({ pageId }) => {
         </div>
       </PopUp>
     </div>
-  )
-}
+  );
+};
 
 export default TestForm;

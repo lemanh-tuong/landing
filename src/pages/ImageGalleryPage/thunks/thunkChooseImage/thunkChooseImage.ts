@@ -8,8 +8,8 @@ export interface ThunkChooseImageArg {
   nowIndexSection: number;
 }
 
-const thunkChooseImage = ({fieldName, src, nowIndexSection}: ThunkChooseImageArg): ThunkChooseImage => dispatch => {
-  dispatch(actionChooseImage({fieldName: fieldName, data: src, nowIndexSection: nowIndexSection}));
+const thunkChooseImage = ({ fieldName, src, nowIndexSection }: ThunkChooseImageArg): ThunkChooseImage => dispatch => {
+  dispatch(actionChooseImage({ fieldName: fieldName, data: src, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChooseImage);

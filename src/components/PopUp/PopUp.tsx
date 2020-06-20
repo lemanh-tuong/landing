@@ -30,14 +30,14 @@ class Event {
     this.events[typeEvent] = this.events[typeEvent] || [];
     this.events = {
       ...this.events,
-      [typeEvent]: this.events[typeEvent].concat(event)
+      [typeEvent]: this.events[typeEvent].concat(event),
     };
   };
   remove = (typeEvent: string, event: any) => {
     const newEvents = this.events[typeEvent].filter((e: any) => e !== event);
     this.events = {
       ...this.events,
-      [typeEvent]: [...newEvents]
+      [typeEvent]: [...newEvents],
     };
   };
   emit = (typeEvent: string) => {
@@ -63,11 +63,11 @@ class PopUp extends PureComponent<PopUpProps> {
   }
 
   static defaultProps = {
-    type: 'default'
+    type: 'default',
   };
 
   state: PopUpState = {
-    visible: false
+    visible: false,
   };
 
   componentDidMount() {
@@ -84,14 +84,13 @@ class PopUp extends PureComponent<PopUpProps> {
 
   handleShow = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
-
   };
 
   handleHide = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>) => {
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
@@ -99,14 +98,14 @@ class PopUp extends PureComponent<PopUpProps> {
     const { onOk } = this.props;
     onOk?.();
     this.setState({
-      visible: false
+      visible: false,
     });
   };
   handleCancel = () => {
     const { onCancel } = this.props;
     onCancel?.();
     this.setState({
-      visible: false
+      visible: false,
     });
   };
 
@@ -118,15 +117,27 @@ class PopUp extends PureComponent<PopUpProps> {
         return (
           <>
             <div className={styles.overlay} onClick={this.handleHide} />
-            <button className={styles.closeBtn} onClick={this.handleHide} >
+            <button className={styles.closeBtn} onClick={this.handleHide}>
               <i className="fas fa-times"></i>
             </button>
-            <div className={styles.content2} style={style}>{children}</div>
+            <div className={styles.content2} style={style}>
+              {children}
+            </div>
           </>
         );
       case 'antd':
         return (
-          <Modal title={title} style={style} closeIcon={<i className="fas fa-times"></i>} bodyStyle={{ height: '50vh', overflow: 'auto', border: '1px solid #eee' }} centered visible={visible} onOk={this.handleOk} onCancel={this.handleCancel} className={styles.popUpContent}>
+          <Modal
+            title={title}
+            style={style}
+            closeIcon={<i className="fas fa-times"></i>}
+            bodyStyle={{ height: '50vh', overflow: 'auto', border: '1px solid #eee' }}
+            centered
+            visible={visible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+            className={styles.popUpContent}
+          >
             {children}
           </Modal>
         );
@@ -140,11 +151,7 @@ class PopUp extends PureComponent<PopUpProps> {
     if (!visible) {
       return null;
     }
-    return createPortal(
-      <div className={styles.popUp}>
-        {this._renderSwitch()}
-      </div>, body as Element
-    );
+    return createPortal(<div className={styles.popUp}>{this._renderSwitch()}</div>, body as Element);
   }
 }
 

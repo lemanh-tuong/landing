@@ -8,8 +8,7 @@ export interface ActionAddCardPayLoad {
 }
 
 const actionAddCard = createAction('ADD_CARD', (payload: ActionAddCardPayLoad) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionAddCard };
-

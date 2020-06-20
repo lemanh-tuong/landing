@@ -7,4 +7,3 @@ export interface ActionSaveAll {
 const actionSaveAll = createAction('SAVE', () => {});
 
 export { actionSaveAll };
-

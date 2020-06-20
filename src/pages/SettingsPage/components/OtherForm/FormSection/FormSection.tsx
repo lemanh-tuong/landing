@@ -51,7 +51,7 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
   };
 
   return (
-    <PopUp type='antd' title={<h3>Form Section</h3>} id={`section-${sectionId}`}>
+    <PopUp type="antd" title={<h3>Form Section</h3>} id={`section-${sectionId}`}>
       <Form
         fields={[
           {
@@ -73,14 +73,14 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
               options: [
                 {
                   label: 'Left',
-                  value: 'left'
+                  value: 'left',
                 },
                 {
                   label: 'right',
                   value: 'right',
-                }
-              ]
-            }
+                },
+              ],
+            },
           },
           {
             fieldId: 'reserve-section',
@@ -88,7 +88,7 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
             label: 'Reverse',
             fieldType: 'checkbox',
             defaultChecked: reverse,
-            hidden: !canReverseCol
+            hidden: !canReverseCol,
           },
           {
             fieldId: 'checkbox-toggle-color',
@@ -103,15 +103,15 @@ const FormSection: FC<FormSectionProps> = ({ nowIndexSection, sectionId, canReve
             label: 'Background Color',
             fieldType: 'color-picker',
             defaultColor: backgroundColor,
-            hidden: !!isGradient
+            hidden: !!isGradient,
           },
           {
             fieldId: 'gradient-1',
             fieldName: 'backgroundColor',
             label: 'Background Color',
             fieldType: 'color-picker-gradient',
-            hidden: !isGradient
-          }
+            hidden: !isGradient,
+          },
         ]}
         onChange={handleChangeOptionSection}
       />

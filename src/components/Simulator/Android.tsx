@@ -31,7 +31,12 @@ const Android: FC<AndroidParams> = ({ params, onEditable, isBuilder }) => {
         onEdit={onEditable}
         component={
           <div className={styles.phone}>
-            <iframe title="android-simulator" onClick={onEditable} className={`${styles.iframe} ${styles.isBuilder}`} src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}></iframe>
+            <iframe
+              title="android-simulator"
+              onClick={onEditable}
+              className={`${styles.iframe} ${styles.isBuilder}`}
+              src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}
+            ></iframe>
           </div>
         }
       />
@@ -39,7 +44,11 @@ const Android: FC<AndroidParams> = ({ params, onEditable, isBuilder }) => {
   }
   return (
     <div className={styles.phone}>
-      <iframe title="android-simulator" className={styles.iframe} src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}></iframe>
+      <iframe
+        title="android-simulator"
+        className={styles.iframe}
+        src={`https://appetize.io/embed/xc1w6f1krd589zhp22a0mgftyw?${QueryString.stringify(androidParams(params))}`}
+      ></iframe>
     </div>
   );
 };

@@ -16,7 +16,7 @@ export interface FirebaseConfig {
 }
 
 export interface AppConfig {
-  firebaseConfig: FirebaseConfig
+  firebaseConfig: FirebaseConfig;
 }
 export interface SignInFirebaseArg {
   email: string;
@@ -32,10 +32,11 @@ export type AddToNavArg = Partial<NavProps> & {
   indexInsert?: number;
 };
 
-export type AddToPageArg = PageProps & PageGeneralData & {
-  newSection?: Option;
-  indexInsert?: number;
-};
+export type AddToPageArg = PageProps &
+  PageGeneralData & {
+    newSection?: Option;
+    indexInsert?: number;
+  };
 
 export interface WriteFirebaseArg<T = object> {
   ref: string;
@@ -47,9 +48,10 @@ export interface UploadFileArg {
   files: File[];
 }
 
-export type DeleteSectionInFireBase = PageProps & PageGeneralData & {
-  indexDelete: number;
-};
+export type DeleteSectionInFireBase = PageProps &
+  PageGeneralData & {
+    indexDelete: number;
+  };
 
 class MyFirebase {
   database: firebase.database.Database = {} as firebase.database.Database;
@@ -58,7 +60,7 @@ class MyFirebase {
   firebaseConfig: FirebaseConfig;
   constructor(config: AppConfig) {
     this.firebaseConfig = config.firebaseConfig;
-    if(!firebase.apps.length) {
+    if (!firebase.apps.length) {
       firebase.initializeApp(this.firebaseConfig);
       this.database = firebase.database();
       this.storage = firebase.storage();
@@ -67,7 +69,7 @@ class MyFirebase {
   }
 
   initializeFirebase = () => {
-    if(!firebase.apps.length) {
+    if (!firebase.apps.length) {
       firebase.initializeApp(this.firebaseConfig);
       this.database = firebase.database();
       this.storage = firebase.storage();
@@ -79,89 +81,98 @@ class MyFirebase {
     //   this.storage = firebase.storage();
     //   this.authentication = app.auth();
     // }
-  }
+  };
 
   // Authentication Method
-  signInFirebase = ({email, password}: SignInFirebaseArg) => {
+  signInFirebase = ({ email, password }: SignInFirebaseArg) => {
     return this.authentication.signInWithEmailAndPassword(email, password);
   };
   signOutFirebase = () => {
     return this.authentication.signOut();
-  }
+  };
 
   // Database Method
   readDatabase = async (path: string) => {
     return (await this.database.ref(path).once('value')).val();
-  }
+  };
 
-  updateDatabase = ({ref, updateValue}: UpdateFireBaseArg) => {
+  updateDatabase = ({ ref, updateValue }: UpdateFireBaseArg) => {
     return this.database.ref(ref).update(updateValue);
   };
 
-  addToNav = ({logo, navItems}: AddToNavArg) => {
+  addToNav = ({ logo, navItems }: AddToNavArg) => {
     return this.database.ref('nav').set({
       logo: logo,
-      navItems: navItems
-    })
-  }
+      navItems: navItems,
+    });
+  };
 
-  addToPage = ({pageName, elements, newSection, id, pathName, indexInsert}: AddToPageArg) => {
-    if(!!newSection) {
-      const newElements = !!indexInsert && indexInsert > 0
-      ? [...elements.slice(0, indexInsert), {...newSection}, ...elements.slice(indexInsert, elements.length)]
-      : (indexInsert === 0) ? [{...newSection}, ...elements]
-      : elements.concat(newSection);
-      return this.database.ref(`PagesDetail/${pathName.slice(1)}`).set({
-        pageName: pageName,
-        elements: [...newElements],
-        id: id,
-        pathName: pathName,
-      }).then(() => 'Added')
-      .catch(err => err);
+  addToPage = ({ pageName, elements, newSection, id, pathName, indexInsert }: AddToPageArg) => {
+    if (!!newSection) {
+      const newElements =
+        !!indexInsert && indexInsert > 0
+          ? [...elements.slice(0, indexInsert), { ...newSection }, ...elements.slice(indexInsert, elements.length)]
+          : indexInsert === 0
+          ? [{ ...newSection }, ...elements]
+          : elements.concat(newSection);
+      return this.database
+        .ref(`PagesDetail/${pathName.slice(1)}`)
+        .set({
+          pageName: pageName,
+          elements: [...newElements],
+          id: id,
+          pathName: pathName,
+        })
+        .then(() => 'Added')
+        .catch(err => err);
     }
     return this.database.ref(`PagesDetail/${pathName.slice(1)}`).set({
       pageName: pageName,
       elements: [...elements],
       id: id,
       pathName: pathName,
-    })
-  }
+    });
+  };
 
-  writeDatabase = <T extends any>({ref, value}: WriteFirebaseArg<T>) => {
+  writeDatabase = <T extends any>({ ref, value }: WriteFirebaseArg<T>) => {
     return this.database.ref(ref).set(value);
   };
 
-  removeDatabase = ({ref}: {ref: string}) => {
+  removeDatabase = ({ ref }: { ref: string }) => {
     return this.database.ref(ref).remove();
   };
 
-  deleteSectionInFirebase = ({pageName, id, pathName,  elements,  indexDelete}: DeleteSectionInFireBase) => {
+  deleteSectionInFirebase = ({ pageName, id, pathName, elements, indexDelete }: DeleteSectionInFireBase) => {
     const newElements = [...elements.slice(0, indexDelete), ...elements.slice(indexDelete + 1, elements.length)];
     return this.database.ref(`PagesDetail/${pathName.slice(1)}`).set({
       pageName,
       id,
       pathName,
-      elements: [...newElements]
-    })
-  }
-
+      elements: [...newElements],
+    });
+  };
 
   // Storage Method
 
   readStorage = async (path: string) => {
-    const images = this.storage.ref().child(`images/${path}`).listAll();
+    const images = this.storage
+      .ref()
+      .child(`images/${path}`)
+      .listAll();
     const data = (await images).items;
     const imgSrc = await Promise.all(data.map(item => item.getDownloadURL()));
     return imgSrc;
   };
 
-  uploadFiles = async ({path, files}: UploadFileArg) => {
+  uploadFiles = async ({ path, files }: UploadFileArg) => {
     let newImgs;
-    const storageRef  = this.storage.ref();
-    await Promise.all(files.map(async file => {
-      const ref = storageRef.child(`images/${path}/${file.name}`);
-      await ref.put(file);
-    })).then(async () => {
+    const storageRef = this.storage.ref();
+    await Promise.all(
+      files.map(async file => {
+        const ref = storageRef.child(`images/${path}/${file.name}`);
+        await ref.put(file);
+      }),
+    ).then(async () => {
       const imgs: any[] = await this.readStorage(path);
       newImgs = [...imgs];
     });
@@ -169,32 +180,31 @@ class MyFirebase {
     return newImgs;
   };
 
-  uploadFile = async ({path, file}: {path: string, file: File}) => {
+  uploadFile = async ({ path, file }: { path: string; file: File }) => {
     let newImg;
-    const storageRef  = this.storage.ref();
+    const storageRef = this.storage.ref();
     const ref = storageRef.child(`images/${path}/${file.name}`);
-    await
-    Promise.all([ref.put(file).then(async () => {
-      const data = await this.readStorage(path);
-      const index = data.findIndex(item => item.includes(file.name));
-      newImg = data[index];
-    })]);
-    return newImg
+    await Promise.all([
+      ref.put(file).then(async () => {
+        const data = await this.readStorage(path);
+        const index = data.findIndex(item => item.includes(file.name));
+        newImg = data[index];
+      }),
+    ]);
+    return newImg;
   };
 
   getAuthentication = () => {
     return this.authentication;
-  }
+  };
 
   getDatabase = () => {
     return this.database;
-  }
+  };
 
   getStorage = () => {
     return this.storage;
-  }
-
+  };
 }
-
 
 export default MyFirebase;

@@ -8,8 +8,8 @@ export interface ThunkChangeVideoUrlArg {
   newUrl: string;
 }
 
-const thunkChangeVideoUrl = ({nowIndexSection, nowIndexSlide, newUrl}: ThunkChangeVideoUrlArg): ThunkChangeVideoUrl => dispatch => {
-  dispatch(actionChangeVideoUrl({nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, newUrl: newUrl}));
+const thunkChangeVideoUrl = ({ nowIndexSection, nowIndexSlide, newUrl }: ThunkChangeVideoUrlArg): ThunkChangeVideoUrl => dispatch => {
+  dispatch(actionChangeVideoUrl({ nowIndexSection: nowIndexSection, nowIndexSlide: nowIndexSlide, newUrl: newUrl }));
 };
 
 export default createDispatchAction(thunkChangeVideoUrl);

@@ -19,7 +19,6 @@ export interface FormSlideProps {
   nowIndexSlide: number;
 }
 
-
 export const defaultSlide = {
   imgSrc: mockUpMacContent1,
 };
@@ -64,7 +63,7 @@ const FormSlide: FC<FormSlideProps> = ({ nowIndexSection, nowIndexSlide }) => {
             fieldName: 'hasVideo',
             label: 'Has Video',
             fieldId: 'section-3-field-7',
-            defaultChecked: !!hasVideo
+            defaultChecked: !!hasVideo,
           },
           {
             fieldType: 'input',
@@ -86,11 +85,14 @@ const FormSlide: FC<FormSlideProps> = ({ nowIndexSection, nowIndexSlide }) => {
         ]}
         onChange={handleChangeForm}
       >
-        <Link className={styles.btn} to={`/admin/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}>
-          <img className={styles.img} src={imgSrc} alt='Slide' style={{ width: 200, height: 200 }} />
+        <Link
+          className={styles.btn}
+          to={`/admin/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&nowIndexSlide=${nowIndexSlide}&multiple=false`}
+        >
+          <img className={styles.img} src={imgSrc} alt="Slide" style={{ width: 200, height: 200 }} />
           <i className={`far fa-image ${styles.icon}`}></i>
         </Link>
-        <Button shape='round' size='large' type='dashed' onClick={handleAddSlide} style={{ margin: '10px 0' }}>
+        <Button shape="round" size="large" type="dashed" onClick={handleAddSlide} style={{ margin: '10px 0' }}>
           Add Slide
         </Button>
       </Form>

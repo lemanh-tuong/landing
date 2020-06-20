@@ -25,7 +25,7 @@ export function useRouter() {
       // access to extra React Router functionality if needed.
       match,
       location,
-      history
+      history,
     };
   }, [match, location, history]);
 }

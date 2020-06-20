@@ -51,31 +51,38 @@ export interface ComponentPageReducers {
 const defaultTitle = 'Title is here';
 const defaultText = 'Text is here';
 const defaultButton = 'Button';
-const defaultRate:RateProps ={
+const defaultRate: RateProps = {
   authorAvatar: {
     imgSrc: authorAvatar,
-    href: '##'
+    href: '##',
   },
   authorName: 'Author Name',
   purpose: 'Purpose',
   rateContent: 'Rate Content',
   stars: 5,
 };
-const defaultCard: CardProps = { titleCard: defaultTitle, textCard: defaultText, iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange' };
+const defaultCard: CardProps = {
+  titleCard: defaultTitle,
+  textCard: defaultText,
+  iconImg: { imgSrc: icon1 },
+  hasIcon: true,
+  bgColorIcon: 'gradient-pink-orange',
+};
 const defaultCard2: CardProps = {
   iconImg: {
-    imgSrc: icon1Card2
+    imgSrc: icon1Card2,
   },
   alignIcon: 'left',
   bgColorIcon: 'transparent',
   sizeIcon: 'xs',
   titleCard: 'Mobile application performance',
   alignTitleCard: 'left',
-  textCard: 'Making your mobile app work means that you try to provide as soon as possible, the same users can experience whatever the condition of the network.',
+  textCard:
+    'Making your mobile app work means that you try to provide as soon as possible, the same users can experience whatever the condition of the network.',
   alignText: 'left',
 };
 
-const initialState: ComponentPageReducers =  {
+const initialState: ComponentPageReducers = {
   statusRequestComponentPage: 'loading',
   messageRequestComponentPage: '',
   patternComponent: [
@@ -105,14 +112,14 @@ const initialState: ComponentPageReducers =  {
         {
           imgSrc: mockUpMacContent1,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13',
         },
         {
           imgSrc: mockUpMacContent2,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/'
-        }
-      ]
+          videoUrl: 'https://www.youtube.com/',
+        },
+      ],
     },
     {
       previewImg: previewSection2,
@@ -145,7 +152,7 @@ const initialState: ComponentPageReducers =  {
       classText: '',
       styleText: {},
       imageSectionCol: {
-        imgSrc: sectionImg1
+        imgSrc: sectionImg1,
       },
       darkMode: false,
       hasDivider: true,
@@ -167,7 +174,7 @@ const initialState: ComponentPageReducers =  {
       classText: '',
       styleText: {},
       imageSectionCol: {
-        imgSrc: sectionImg1
+        imgSrc: sectionImg1,
       },
       textButton: defaultButton,
       hrefButton: '##',
@@ -194,20 +201,20 @@ const initialState: ComponentPageReducers =  {
       sliderImgs: [
         {
           imgSrc: client,
-          href: ''
+          href: '',
         },
         {
           imgSrc: client2,
-          href: ''
+          href: '',
         },
         {
           imgSrc: client3,
-          href: ''
+          href: '',
         },
         {
           imgSrc: client4,
-          href: ''
-        }
+          href: '',
+        },
       ] as TypeSlideSection5[],
       darkMode: false,
     },
@@ -253,7 +260,7 @@ const initialState: ComponentPageReducers =  {
     {
       previewImg: previewSection8,
       sectionName: 'Section 8',
-      card2s:[defaultCard2, defaultCard2, defaultCard2 ],
+      card2s: [defaultCard2, defaultCard2, defaultCard2],
       animation: true,
       backgroundColor: 'rgba(245, 245, 245)',
       mainTitle: defaultTitle,
@@ -298,16 +305,16 @@ const initialState: ComponentPageReducers =  {
         {
           href: '##',
           imgSrc: appstore,
-          target: 'blank'
+          target: 'blank',
         },
         {
           href: '##',
           imgSrc: chplay,
-          target: 'blank'
-        }
+          target: 'blank',
+        },
       ],
-      androidParams:'exp://expo.io/@wiloke/wilcity',
-      iphoneParams:'exp://expo.io/@wiloke/wilcity',
+      androidParams: 'exp://expo.io/@wiloke/wilcity',
+      iphoneParams: 'exp://expo.io/@wiloke/wilcity',
       darkMode: false,
     },
     {
@@ -322,7 +329,7 @@ const initialState: ComponentPageReducers =  {
       hasDivider: true,
       dividerColor: 'rgb(240, 98, 146)',
       alignDivider: 'center',
-      imageSectionCol: {imgSrc: sectionImg1},
+      imageSectionCol: { imgSrc: sectionImg1 },
       text: defaultText,
       alignText: 'center',
       classText: '',
@@ -345,13 +352,13 @@ const initialState: ComponentPageReducers =  {
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: 'rgb(240, 98, 146)',
-      imageSectionCol: {imgSrc: sectionImg1},
+      imageSectionCol: { imgSrc: sectionImg1 },
       text: defaultText,
       alignText: 'left',
       classText: '',
       styleText: {},
       iconImg: {
-        imgSrc: iconNotifycation
+        imgSrc: iconNotifycation,
       },
       darkMode: false,
     },
@@ -392,15 +399,15 @@ const initialState: ComponentPageReducers =  {
       backgroundColor: 'linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)',
       typeMockUp: 'Iphone',
       sliderImgs: [
-        {imgSrc: screen1},
-        {imgSrc: screen2},
-        {imgSrc: screen3},
-        {imgSrc: screen4},
-        {imgSrc: screen5},
-        {imgSrc: screen6},
-        {imgSrc: screen7},
-        {imgSrc: screen8},
-        {imgSrc: screen9},
+        { imgSrc: screen1 },
+        { imgSrc: screen2 },
+        { imgSrc: screen3 },
+        { imgSrc: screen4 },
+        { imgSrc: screen5 },
+        { imgSrc: screen6 },
+        { imgSrc: screen7 },
+        { imgSrc: screen8 },
+        { imgSrc: screen9 },
       ],
       draggable: true,
       mainTitle: defaultTitle,
@@ -434,28 +441,28 @@ const initialState: ComponentPageReducers =  {
         {
           href: '###',
           imgSrc: appstore,
-           target: 'blank',
+          target: 'blank',
         },
         {
           href: '##',
           imgSrc: chplay,
-           target: 'blank'
-        }
+          target: 'blank',
+        },
       ],
       darkMode: false,
       sliderImgs: [
         {
           imgSrc: mockUpMacContent1,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13',
         },
         {
           imgSrc: mockUpMacContent2,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/'
-        }
+          videoUrl: 'https://www.youtube.com/',
+        },
       ],
-      typeMockUp: 'Mac'
+      typeMockUp: 'Mac',
     },
   ],
 };
@@ -463,30 +470,28 @@ const initialState: ComponentPageReducers =  {
 const componentPageReducers = createReducer<ComponentPageReducers, ActionTypes<typeof getDataComponent>>(initialState, [
   handleAction('@getDataComponentFailure', state => ({
     ...state,
-    statusRequestComponentPage: 'loading'
+    statusRequestComponentPage: 'loading',
   })),
   handleAction('@getDataComponentSuccess', (state, action) => {
-    if(action.payload) {
+    if (action.payload) {
       return {
         ...state,
         statusRequestComponentPage: 'success',
-        patternComponent: state.patternComponent.concat(action.payload)
+        patternComponent: state.patternComponent.concat(action.payload),
       };
     }
     return {
       ...state,
-      statusRequestComponentPage: 'success'
+      statusRequestComponentPage: 'success',
     };
-
   }),
   handleAction('@getDataComponentFailure', (state, action) => {
     return {
       ...state,
       statusRequestComponentPage: 'failure',
-      messageRequestComponentPage: action.payload
+      messageRequestComponentPage: action.payload,
     };
-  })
+  }),
 ]);
 
 export { componentPageReducers };
-

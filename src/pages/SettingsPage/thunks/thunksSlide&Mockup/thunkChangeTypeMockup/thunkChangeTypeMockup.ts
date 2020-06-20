@@ -8,8 +8,8 @@ export interface ThunkChangeTypeMockupArg {
   nowIndexSection: number;
 }
 
-const thunkChangeTypeMockup = ({typeMockUp, nowIndexSection}: ThunkChangeTypeMockupArg): ThunkChangeTypeMockup => dispatch => {
-  dispatch(actionChangeTypeMockup({typeMockUp: typeMockUp, nowIndexSection: nowIndexSection}));
+const thunkChangeTypeMockup = ({ typeMockUp, nowIndexSection }: ThunkChangeTypeMockupArg): ThunkChangeTypeMockup => dispatch => {
+  dispatch(actionChangeTypeMockup({ typeMockUp: typeMockUp, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChangeTypeMockup);

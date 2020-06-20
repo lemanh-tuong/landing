@@ -1,4 +1,4 @@
-import { createAction } from "utils/functions/reduxActions";
+import { createAction } from 'utils/functions/reduxActions';
 
 export interface ActionChangeImageButtonPayload {
   nowIndexSection: number;
@@ -6,7 +6,6 @@ export interface ActionChangeImageButtonPayload {
   imgSrc: string;
 }
 
-const actionChangeImageButton = createAction('CHANGE_IMAGE_BUTTON', (payload: ActionChangeImageButtonPayload) => ({...payload}));
+const actionChangeImageButton = createAction('CHANGE_IMAGE_BUTTON', (payload: ActionChangeImageButtonPayload) => ({ ...payload }));
 
 export { actionChangeImageButton };
-

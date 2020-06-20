@@ -5,7 +5,6 @@ export interface ActionDeleteRatePayload {
   nowIndexRate: number;
 }
 
-const actionDeleteRate = createAction('DELETE_RATE', (payload: ActionDeleteRatePayload) => ({...payload}));
+const actionDeleteRate = createAction('DELETE_RATE', (payload: ActionDeleteRatePayload) => ({ ...payload }));
 
 export { actionDeleteRate };
-

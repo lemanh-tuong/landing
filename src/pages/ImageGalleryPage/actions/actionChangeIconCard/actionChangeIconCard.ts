@@ -11,8 +11,7 @@ export interface ActionChangeIconCard {
 }
 
 const actionChangeIconCard = createAction('CHANGE_ICON_CARD', (payload: ActionChangeIconCard['payload']) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChangeIconCard };
-

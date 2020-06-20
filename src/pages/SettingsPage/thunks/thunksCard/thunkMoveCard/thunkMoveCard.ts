@@ -8,9 +8,8 @@ export interface ThunkMoveCardArg {
   nowIndexSection: number;
 }
 
-const thunkMoveCard = ({data, nowIndexSection}: ThunkMoveCardArg): ThunkMoveCard => dispatch => {
-    dispatch(actionMoveCard({newChild: data, nowIndexSection: nowIndexSection}));
-
+const thunkMoveCard = ({ data, nowIndexSection }: ThunkMoveCardArg): ThunkMoveCard => dispatch => {
+  dispatch(actionMoveCard({ newChild: data, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkMoveCard);

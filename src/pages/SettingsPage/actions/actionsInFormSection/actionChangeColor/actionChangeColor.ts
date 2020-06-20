@@ -10,8 +10,7 @@ export interface ActionChangeColor {
 }
 
 const actionChangeColor = createAction('CHANGE_COLOR', (payload: ActionChangeColor['payload']) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChangeColor };
-

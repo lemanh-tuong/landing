@@ -34,16 +34,16 @@ const mainPageReducers = createReducer<MainPageReducer, ActionTypes<typeof getDa
       sections: action.payload.elements ? [...action.payload.elements] : [],
       pathName: action.payload.pathName ? action.payload.pathName : '',
       id: action.payload.id ? action.payload.id : '',
-      pageName: action.payload.pageName ? action.payload.pageName : ''
+      pageName: action.payload.pageName ? action.payload.pageName : '',
     };
   }),
   handleAction('@getDataSectionsFailure', (state, action) => {
     return {
       ...state,
       messageRequestaSections: action.payload,
-      statusRequestSections: 'failure'
+      statusRequestSections: 'failure',
     };
-  })
+  }),
 ]);
 
 export default mainPageReducers;

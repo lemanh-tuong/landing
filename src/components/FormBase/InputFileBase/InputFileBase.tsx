@@ -9,7 +9,12 @@ export interface InputFileBaseProps {
   statusUploadFile?: 'uploading' | 'uploaded' | 'uploadFailure';
   onChange?: OnChangeFileFunc;
   renderInput: (onChangeFunc: OnChangeFileFunc, onDropFunc: OnDropFileFunc, ref: MutableRefObject<HTMLInputElement | null>) => ReactNode;
-  renderProcessUpload?: (statusUploadFile: InputFileBaseProps['statusUploadFile'], fileName: string, onClose: () => void, fileUrlLocal?: string) => ReactNode;
+  renderProcessUpload?: (
+    statusUploadFile: InputFileBaseProps['statusUploadFile'],
+    fileName: string,
+    onClose: () => void,
+    fileUrlLocal?: string,
+  ) => ReactNode;
 }
 
 export interface FileState extends File {
@@ -43,7 +48,7 @@ const InputFileBase = ({ statusUploadFile, onChange, renderInput, renderProcessU
     onChange?.(files);
   };
 
-  const _handleDropImage: OnDropFileFunc = (e) => {
+  const _handleDropImage: OnDropFileFunc = e => {
     e.stopPropagation();
     e.preventDefault();
     const dt = e.dataTransfer;
@@ -63,14 +68,17 @@ const InputFileBase = ({ statusUploadFile, onChange, renderInput, renderProcessU
   };
 
   const _renderListFileUpload = () => {
-    return filesUpload.map(file => <Fragment key={uuidv4()}>{renderProcessUpload?.(statusUploadFile, file.name, _handleCloseNotifycation(file.name), file?.urlLocal)}</Fragment>);
+    return filesUpload.map(file => (
+      <Fragment key={uuidv4()}>{renderProcessUpload?.(statusUploadFile, file.name, _handleCloseNotifycation(file.name), file?.urlLocal)}</Fragment>
+    ));
   };
 
-  return <>
-    {renderInput(_handleUpload, _handleDropImage, inputUpload)}
-    {_renderListFileUpload()}
-  </>;
-
+  return (
+    <>
+      {renderInput(_handleUpload, _handleDropImage, inputUpload)}
+      {_renderListFileUpload()}
+    </>
+  );
 };
 
 export default InputFileBase;

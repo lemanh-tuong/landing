@@ -8,4 +8,3 @@ export interface ActionAddNewPagePayload {
 const actionAddNewPage = createAsyncAction(['@creatingPage', '@createdPage', '@createFail'])<null, PageGeneralData, string>();
 
 export { actionAddNewPage };
-

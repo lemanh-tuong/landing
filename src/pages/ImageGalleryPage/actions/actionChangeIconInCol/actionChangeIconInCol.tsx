@@ -8,4 +8,3 @@ export interface ActionChangeIconImgInColPayload {
 const actionChangeIconImgInCol = createAction('CHANGE_ICON_IN_COL', (payload: ActionChangeIconImgInColPayload) => ({ ...payload }));
 
 export { actionChangeIconImgInCol };
-

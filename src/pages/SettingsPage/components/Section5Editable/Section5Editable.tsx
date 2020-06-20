@@ -10,12 +10,33 @@ export interface Section5EditableProps extends Section5Props {
   nowIndexSection: number;
 }
 
-const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
-  text, alignText, colorText, fontSizeText,
-  sliderImgs, hasNav, navClass, hasDots, dotClass, fluid, margin, itemShow, responsive, draggable, delayTime,
-  backgroundImage, backgroundColor }) => {
-
+const Section5Editable: FC<Section5EditableProps> = ({
+  nowIndexSection,
+  sectionId,
+  animation,
+  positionAnimation,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  sliderImgs,
+  hasNav,
+  navClass,
+  hasDots,
+  dotClass,
+  fluid,
+  margin,
+  itemShow,
+  responsive,
+  draggable,
+  delayTime,
+  backgroundImage,
+  backgroundColor,
+}) => {
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   };
@@ -37,18 +58,23 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
         backgroundColor={backgroundColor}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
-        colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
         text={text ?? ''}
-        colorText={colorText} fontSizeText={fontSizeText}
-        alignText={alignText} delayTime={delayTime}
+        colorText={colorText}
+        fontSizeText={fontSizeText}
+        alignText={alignText}
+        delayTime={delayTime}
         sliderImgs={sliderImgs}
         hasNav={hasNav}
         hasDots={hasDots}
         navClass={navClass}
         dotClass={dotClass}
         fluid={fluid}
-        margin={margin} responsive={responsive}
-        itemShow={itemShow} draggable={draggable}
+        margin={margin}
+        responsive={responsive}
+        itemShow={itemShow}
+        draggable={draggable}
         isBuilder={true}
         sectionId={sectionId}
         onShowPopupEditText={handleShowPopupEditText}
@@ -57,8 +83,17 @@ const Section5Editable: FC<Section5EditableProps> = ({ nowIndexSection, sectionI
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`slides-${sectionId}`} type='antd' title={<h3>Form Slides</h3>}>
-        <FormSlides hasFluidField={true} hasMarginField={true} hasItemShowField={true} nowIndexSection={nowIndexSection} draggableField={true} hasNavField={true} hasDotField={true} responsiveField={true} />
+      <PopUp id={`slides-${sectionId}`} type="antd" title={<h3>Form Slides</h3>}>
+        <FormSlides
+          hasFluidField={true}
+          hasMarginField={true}
+          hasItemShowField={true}
+          nowIndexSection={nowIndexSection}
+          draggableField={true}
+          hasNavField={true}
+          hasDotField={true}
+          responsiveField={true}
+        />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
     </>

@@ -12,8 +12,8 @@ export interface ThunkAddSlideArg {
   };
 }
 
-const thunkAddSlide = ({nowIndexSlide, nowIndexSection, sliderProperty}: ThunkAddSlideArg): ThunkAddSlide => dispatch => {
-  dispatch(actionAddSlide({nowIndexSlide: nowIndexSlide, nowIndexSection: nowIndexSection, slideProperty: sliderProperty}));
+const thunkAddSlide = ({ nowIndexSlide, nowIndexSection, sliderProperty }: ThunkAddSlideArg): ThunkAddSlide => dispatch => {
+  dispatch(actionAddSlide({ nowIndexSlide: nowIndexSlide, nowIndexSection: nowIndexSection, slideProperty: sliderProperty }));
 };
 
 export default createDispatchAction(thunkAddSlide);

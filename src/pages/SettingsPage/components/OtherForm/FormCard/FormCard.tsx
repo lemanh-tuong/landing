@@ -29,9 +29,11 @@ export interface FormChangeCardProps {
 
 const cardDefault: CardProps = {
   titleCard: 'Paid listings',
-  textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
+  textCard:
+    'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
   iconImg: { imgSrc: icon1 },
-  hasIcon: true, bgColorIcon: 'gradient-pink-orange'
+  hasIcon: true,
+  bgColorIcon: 'gradient-pink-orange',
 };
 
 const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard }) => {
@@ -83,21 +85,20 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
     if (!result.destination) {
       return;
     }
-    const newElements = cards ? reorder(
-      cards,
-      result.source.index,
-      result.destination.index
-    ) : [];
+    const newElements = cards ? reorder(cards, result.source.index, result.destination.index) : [];
     moveChild({ data: newElements, nowIndexSection: nowIndexSection });
   };
 
   const handleChangeBgIcon = (nowIndexCard: number) => {
-    return (result: string) => changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result });
+    return (result: string) =>
+      changeInputCardForm({ fieldName: 'bgColorIcon', nowIndexCard: nowIndexCard, nowIndexSection: nowIndexSection, value: result });
   };
 
   // Render
   const _renderSettingsBox = (nowIndexCard: number) => {
-    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon, bgColorIcon } = element.cards?.[nowIndexCard] as CardProps;
+    const { textCard, titleCard, colorText, colorTitleCard, alignTitleCard, alignText, iconImg, alignIcon, bgColorIcon } = element.cards?.[
+      nowIndexCard
+    ] as CardProps;
     return (
       <Form
         style={{ border: '1px solid', borderRadius: 5, padding: '20px' }}
@@ -118,32 +119,32 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             data: [
               {
                 value: 'left',
-                name: 'align card title'
+                name: 'align card title',
               },
               {
                 value: 'center',
-                name: 'align card title'
+                name: 'align card title',
               },
               {
                 value: 'right',
-                name: 'align card title'
+                name: 'align card title',
               },
             ],
-            defaultCheckedValue: alignTitleCard
+            defaultCheckedValue: alignTitleCard,
           },
           {
             fieldType: 'color-picker',
             fieldName: 'colorTitleCard',
             label: 'Color Title Card',
             fieldId: 'change-card-field-3',
-            defaultColor: colorTitleCard
+            defaultColor: colorTitleCard,
           },
           {
             fieldType: 'input',
             fieldName: 'textCard',
             label: 'Text Card',
             fieldId: 'change-card-field-4',
-            defaultValue: textCard
+            defaultValue: textCard,
           },
           {
             fieldType: 'radio',
@@ -154,15 +155,15 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             data: [
               {
                 value: 'left',
-                name: 'align card text'
+                name: 'align card text',
               },
               {
                 value: 'center',
-                name: 'align card text'
+                name: 'align card text',
               },
               {
                 value: 'right',
-                name: 'align card text'
+                name: 'align card text',
               },
             ],
           },
@@ -182,34 +183,33 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
             data: [
               {
                 name: 'align icon card2',
-                value: 'left'
+                value: 'left',
               },
               {
                 name: 'align icon card2',
-                value: 'center'
+                value: 'center',
               },
               {
                 name: 'align icon card2',
-                value: 'right'
+                value: 'right',
               },
-            ]
+            ],
           },
         ]}
         onChange={handleChangeCardForm(nowIndexCard)}
       >
         <div className="bgIcon">
           <p>Background Icon</p>
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            defaultValue={bgColorIcon}
-            onChange={handleChangeBgIcon(nowIndexCard)}
-          >
+          <Select showSearch style={{ width: 200 }} defaultValue={bgColorIcon} onChange={handleChangeBgIcon(nowIndexCard)}>
             <Select.Option value="transparent">Transparent</Select.Option>
             <Select.Option value="gradient-pink-orange">Gradient</Select.Option>
-          </Select>,
+          </Select>
+          ,
         </div>
-        <Link className={styles.link} to={`/admin/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}>
+        <Link
+          className={styles.link}
+          to={`/admin/gallery?type=iconImg&nowIndexSection=${nowIndexSection}&nowIndexCard=${nowIndexCard}&multiple=false`}
+        >
           <Icon iconImg={iconImg} bgColorIcon={bgColorIcon} />
           <i className={`far fa-images ${styles.icon}`}></i>
         </Link>
@@ -218,18 +218,19 @@ const FormChangeCard: FC<FormChangeCardProps> = ({ nowIndexSection, indexCard })
   };
 
   return (
-    <PopUp id={`card-${sectionId}`} type='antd' title={<h3>Form Card</h3>}>
+    <PopUp id={`card-${sectionId}`} type="antd" title={<h3>Form Card</h3>}>
       <FormDropDown
         onAdd={handleAdd}
         onDelete={handleDelete}
         onMoveEnd={handleMove}
-        droppableId={sectionId} draggableId='card'
+        droppableId={sectionId}
+        draggableId="card"
         label={cards?.map(item => item.titleCard) as CardProps[]}
         defaultFormShown={indexCard}
         renderForm={_renderSettingsBox}
       />
     </PopUp>
-  )
+  );
 };
 
 export default memo(FormChangeCard);

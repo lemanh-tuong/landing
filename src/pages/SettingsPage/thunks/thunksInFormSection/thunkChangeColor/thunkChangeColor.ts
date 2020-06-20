@@ -8,8 +8,8 @@ export interface ThunkChangeColorArg {
   nowIndexSection: number;
 }
 
-const thunkChangeColor = ({fieldName, color, nowIndexSection}: ThunkChangeColorArg): ThunkChangeColor => dispatch => {
-    dispatch(actionChangeColor({fieldName: fieldName, color: color, nowIndexSection: nowIndexSection}));
+const thunkChangeColor = ({ fieldName, color, nowIndexSection }: ThunkChangeColorArg): ThunkChangeColor => dispatch => {
+  dispatch(actionChangeColor({ fieldName: fieldName, color: color, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChangeColor);

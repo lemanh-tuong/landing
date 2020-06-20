@@ -20,10 +20,10 @@ export type Section10Props = {
   styleButton?: ButtonProps['style'];
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>;
+} & SectionPatternBase &
+  Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>> &
+  Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>> &
+  Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>;
 
 export interface Section10PropsBuilder {
   isBuilder?: boolean;
@@ -35,27 +35,58 @@ export interface Section10PropsBuilder {
 }
 
 const Section10: FC<Section10Props & Section10PropsBuilder> = ({
-  animation, positionAnimation, backgroundColor, backgroundImage, style, className, darkMode,
-  isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditImage, onShowPopupEditButton, onShowPopupEditDivider,
-  mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  hasDivider, dividerColor, alignDivider,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  style,
+  className,
+  darkMode,
+  isBuilder,
+  onShowPopupEditMainTitle,
+  onShowPopupEditText,
+  onShowPopupEditImage,
+  onShowPopupEditButton,
+  onShowPopupEditDivider,
+  mainTitle,
+  colorMainTitle,
+  alignMainTitle,
+  fontSizeMainTitle,
+  styleMainTitle,
+  classMainTitle,
+  hasDivider,
+  dividerColor,
+  alignDivider,
   imageSectionCol,
-  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
-  text, colorText, alignText, fontSizeText, styleText, classText,
+  backgroundButton,
+  hrefButton,
+  colorTextButton,
+  textButton,
+  styleButton,
+  typeButton,
+  sizeButton,
+  text,
+  colorText,
+  alignText,
+  fontSizeText,
+  styleText,
+  classText,
 }) => {
-
   const _renderImage = () => {
     return (
       <Col cols={[12]}>
-        {imageSectionCol && <Image
-          type='tagImg' isBuilder={isBuilder}
-          onEditable={onShowPopupEditImage}
-          imgSrc={imageSectionCol.imgSrc}
-          aspectRatio={imageSectionCol.aspectRatio}
-          zoom={imageSectionCol.zoom}
-          parallax={imageSectionCol.parallax}
-          style={{ marginBottom: 30 }}
-        />}
+        {imageSectionCol && (
+          <Image
+            type="tagImg"
+            isBuilder={isBuilder}
+            onEditable={onShowPopupEditImage}
+            imgSrc={imageSectionCol.imgSrc}
+            aspectRatio={imageSectionCol.aspectRatio}
+            zoom={imageSectionCol.zoom}
+            parallax={imageSectionCol.parallax}
+            style={{ marginBottom: 30 }}
+          />
+        )}
       </Col>
     );
   };
@@ -64,44 +95,87 @@ const Section10: FC<Section10Props & Section10PropsBuilder> = ({
     if (isBuilder) {
       return (
         <>
-          {hasDivider ? <Divide
-            dividerColor={dividerColor}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditDivider} align={alignDivider} />
-            : <Divide
-              dividerColor='transparent' align={alignDivider}
-              isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', marginBottom: 0, marginRight: 'auto', marginLeft: 'auto', zIndex: 123, cursor: 'pointer' }}
-            />}
+          {hasDivider ? (
+            <Divide dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} align={alignDivider} />
+          ) : (
+            <Divide
+              dividerColor="transparent"
+              align={alignDivider}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider}
+              style={{ border: '1px dashed', marginBottom: 0, marginRight: 'auto', marginLeft: 'auto', zIndex: 123, cursor: 'pointer' }}
+            />
+          )}
         </>
       );
     } else if (hasDivider) {
-      return <Divide align={alignDivider} style={{ marginRight: 'auto', marginLeft: 'auto' }} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />;
+      return (
+        <Divide
+          align={alignDivider}
+          style={{ marginRight: 'auto', marginLeft: 'auto' }}
+          dividerColor={dividerColor}
+          isBuilder={isBuilder}
+          onEditable={onShowPopupEditDivider}
+        />
+      );
     }
     return null;
   };
 
   const _renderMainTitle = () => {
-    return <MainTitle
-      isBuilder={isBuilder}
-      onEditable={onShowPopupEditMainTitle}
-      darkMode={darkMode}
-      mainTitle={mainTitle ?? ''}
-      colorMainTitle={colorMainTitle}
-      alignMainTitle={alignMainTitle}
-      fontSizeMainTitle={fontSizeMainTitle}
-      styleMainTitle={styleMainTitle}
-      classMainTitle={classMainTitle}
-    />;
+    return (
+      <MainTitle
+        isBuilder={isBuilder}
+        onEditable={onShowPopupEditMainTitle}
+        darkMode={darkMode}
+        mainTitle={mainTitle ?? ''}
+        colorMainTitle={colorMainTitle}
+        alignMainTitle={alignMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        styleMainTitle={styleMainTitle}
+        classMainTitle={classMainTitle}
+      />
+    );
   };
 
   return (
-    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
+    <Section
+      backgroundColor={backgroundColor}
+      backgroundImage={backgroundImage}
+      className={className}
+      style={style}
+      animation={animation}
+      positionAnimation={positionAnimation}
+    >
       {_renderMainTitle()}
       {_renderDivider()}
       {_renderImage()}
-      {<Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={{ ...styleText, marginTop: 45 }} classText={classText} />}
-      <ButtonGroup align='center'>
-        <Button size={sizeButton} type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
+      {
+        <Text
+          isBuilder={isBuilder}
+          onEditable={onShowPopupEditText}
+          darkMode={darkMode}
+          text={text ?? ''}
+          colorText={colorText}
+          alignText={alignText}
+          fontSizeText={fontSizeText}
+          styleText={{ ...styleText, marginTop: 45 }}
+          classText={classText}
+        />
+      }
+      <ButtonGroup align="center">
+        <Button
+          size={sizeButton}
+          type={typeButton}
+          style={{ marginTop: 30, ...styleButton }}
+          color={colorTextButton}
+          backgroundColor={backgroundButton}
+          text={textButton}
+          href={hrefButton}
+          isBuilder={isBuilder}
+          dark={darkMode}
+          onEditable={onShowPopupEditButton}
+        />
       </ButtonGroup>
     </Section>
   );

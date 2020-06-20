@@ -1,7 +1,7 @@
-import { createDispatchAction } from "utils/functions/reduxActions";
-import { actionGetProjectName } from "../actions/actionGetProjectName";
+import { createDispatchAction } from 'utils/functions/reduxActions';
+import { actionGetProjectName } from '../actions/actionGetProjectName';
 
-type ThunkGetProjectName = ThunkAction<typeof actionGetProjectName>
+type ThunkGetProjectName = ThunkAction<typeof actionGetProjectName>;
 
 const thunkGetProjectName = (): ThunkGetProjectName => async (dispatch, getState) => {
   const { firebaseReducer } = getState();
@@ -12,6 +12,6 @@ const thunkGetProjectName = (): ThunkGetProjectName => async (dispatch, getState
   } catch (err) {
     dispatch(actionGetProjectName.failure(JSON.stringify(err.message)));
   }
-}
+};
 
 export default createDispatchAction(thunkGetProjectName);

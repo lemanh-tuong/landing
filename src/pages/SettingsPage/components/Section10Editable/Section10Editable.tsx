@@ -14,15 +14,36 @@ export type Section10EditableProps = {
 
 const Section10Editable: FC<Section10EditableProps> = ({
   nowIndexSection,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
   sectionId,
-  mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  hasDivider, alignDivider, dividerColor,
+  mainTitle,
+  colorMainTitle,
+  alignMainTitle,
+  fontSizeMainTitle,
+  styleMainTitle,
+  classMainTitle,
+  hasDivider,
+  alignDivider,
+  dividerColor,
   imageSectionCol,
-  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
-  text, colorText, alignText, fontSizeText, styleText, classText,
+  backgroundButton,
+  hrefButton,
+  colorTextButton,
+  textButton,
+  styleButton,
+  typeButton,
+  sizeButton,
+  text,
+  colorText,
+  alignText,
+  fontSizeText,
+  styleText,
+  classText,
 }) => {
-
   const handleShowPopUpEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   };
@@ -44,17 +65,43 @@ const Section10Editable: FC<Section10EditableProps> = ({
   };
 
   return (
-    <div className='Section10Editable'>
+    <div className="Section10Editable">
       <Section10
         sectionId={sectionId}
-        isBuilder={true} onShowPopupEditButton={handleShowPopUpEditButton} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
-        onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditImage={handleShowPopUpEditImage}
-        animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
-        mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
+        isBuilder={true}
+        onShowPopupEditButton={handleShowPopUpEditButton}
+        onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        onShowPopupEditText={handleShowPopUpEditText}
+        onShowPopupEditDivider={handleShowPopUpEditDivider}
+        onShowPopupEditImage={handleShowPopUpEditImage}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        darkMode={darkMode}
+        mainTitle={mainTitle}
+        alignMainTitle={alignMainTitle}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        classMainTitle={classMainTitle}
+        styleMainTitle={styleMainTitle}
+        hasDivider={hasDivider}
+        dividerColor={dividerColor}
+        alignDivider={alignDivider}
         imageSectionCol={imageSectionCol}
-        text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-        sizeButton={sizeButton} textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
+        text={text}
+        alignText={alignText}
+        colorText={colorText}
+        classText={classText}
+        styleText={styleText}
+        fontSizeText={fontSizeText}
+        sizeButton={sizeButton}
+        textButton={textButton}
+        typeButton={typeButton}
+        colorTextButton={colorTextButton}
+        backgroundButton={backgroundButton}
+        hrefButton={hrefButton}
+        styleButton={styleButton}
       />
       <FormSection sectionId={sectionId} nowIndexSection={nowIndexSection} canReverseCol={false} />
       <FormMainTitle sectionId={sectionId} nowIndexSection={nowIndexSection} />

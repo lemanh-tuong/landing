@@ -7,7 +7,6 @@ export interface ActinChangeInputRateFormPayload {
   value: string | number;
 }
 
-const actionChangeInputRateForm = createAction('CHANGE_INPUT_RATE_FORM', (payload: ActinChangeInputRateFormPayload) => ({...payload}));
+const actionChangeInputRateForm = createAction('CHANGE_INPUT_RATE_FORM', (payload: ActinChangeInputRateFormPayload) => ({ ...payload }));
 
 export { actionChangeInputRateForm };
-

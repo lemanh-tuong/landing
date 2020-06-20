@@ -7,7 +7,6 @@ export interface ActionChangeInputButton2Payload {
   value: string;
 }
 
-const actionChangeInputButton2 = createAction('CHANGE_INPUT_BUTTON_2', (payload: ActionChangeInputButton2Payload) => ({...payload}));
+const actionChangeInputButton2 = createAction('CHANGE_INPUT_BUTTON_2', (payload: ActionChangeInputButton2Payload) => ({ ...payload }));
 
 export { actionChangeInputButton2 };
-

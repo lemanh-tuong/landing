@@ -18,13 +18,13 @@ const initialState: ListPageReducers = {
   statusCreatePage: 'created',
   statusDeletePage: 'deleted',
   statusDuplicatePage: 'duplicated',
-  messageRequestErr: ''
+  messageRequestErr: '',
 };
 
 const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
   handleAction('@getListPageNameRequest', state => ({
     ...state,
-    statusRequest: 'loading'
+    statusRequest: 'loading',
   })),
   handleAction('@getListPageNameSuccess', (state, action) => ({
     ...state,
@@ -34,25 +34,25 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
   handleAction('@getListPageNameFailure', (state, action) => ({
     ...state,
     statusRequest: 'failure',
-    messageRequestErr: action.payload
+    messageRequestErr: action.payload,
   })),
   handleAction('@creatingPage', state => ({
     ...state,
-    statusCreatePage: 'creating'
+    statusCreatePage: 'creating',
   })),
   handleAction('@createdPage', (state, action) => ({
     ...state,
     data: action.payload || [],
-    statusCreatePage: 'created'
+    statusCreatePage: 'created',
   })),
   handleAction('@createFail', (state, action) => ({
     ...state,
     messageRequestErr: action.payload,
-    statusCreatePage: 'createFail'
+    statusCreatePage: 'createFail',
   })),
   handleAction('@deleting', state => ({
     ...state,
-    statusDeletePage: 'deleting'
+    statusDeletePage: 'deleting',
   })),
   handleAction('@deleted', (state, action) => {
     const { data } = state;
@@ -60,45 +60,45 @@ const listPageReducers = createReducer<ListPageReducers, any>(initialState, [
     return {
       ...state,
       data: [...newData],
-      statusDeletePage: 'deleted'
+      statusDeletePage: 'deleted',
     };
   }),
   handleAction('@deleteFail', state => ({
     ...state,
-    statusDeletePage: 'deleteFail'
+    statusDeletePage: 'deleteFail',
   })),
   handleAction('@dulicating', state => ({
     ...state,
-    statusDuplicatePage: 'duplicating'
+    statusDuplicatePage: 'duplicating',
   })),
   handleAction('@duplicated', (state, action) => {
     return {
       ...state,
       data: [...action.payload] || [],
-      statusDuplicatePage: 'duplicated'
+      statusDuplicatePage: 'duplicated',
     };
   }),
   handleAction('@duplicateFail', (state, action) => ({
     ...state,
     statusDuplicatePage: 'duplicateFail',
-    messageRequestErr: action.payload
+    messageRequestErr: action.payload,
   })),
   handleAction('@changing', state => ({
     ...state,
-    statusChangeGeneralDataPage: 'changing'
+    statusChangeGeneralDataPage: 'changing',
   })),
   handleAction('@changed', (state, action) => {
     return {
       ...state,
       statusChangeGeneralDataPage: 'changed',
-      data: [...action.payload]
+      data: [...action.payload],
     };
   }),
   handleAction('@changeFail', (state, action) => ({
     ...state,
     statusChangeGeneralDataPage: 'changeFail',
-    messageRequestErr: action.payload
-  }))
+    messageRequestErr: action.payload,
+  })),
 ]);
 
 export default listPageReducers;

@@ -1,4 +1,3 @@
-
 import avatar from 'assets/img/web_icons/envato.svg';
 import PopUp from 'components/PopUp/PopUp';
 import { RateProps } from 'components/Rate/Rate';
@@ -23,17 +22,39 @@ const rateDefault: RateProps = {
   },
   authorName: 'SergeyX',
   purpose: 'Feature availability',
-  rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
+  rateContent:
+    'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
   stars: 5,
 };
 
 const Section7Editable: FC<Section7EditableProps> = ({
-  nowIndexSection, sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
-  mainTitle, alignMainTitle, colorMainTitle, styleMainTitle, classMainTitle, fontSizeMainTitle,
-  text, alignText, colorText, styleText, classText, fontSizeText,
+  nowIndexSection,
+  sectionId,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  styleMainTitle,
+  classMainTitle,
+  fontSizeMainTitle,
+  text,
+  alignText,
+  colorText,
+  styleText,
+  classText,
+  fontSizeText,
   rateList,
-  textButton, hrefButton, backgroundButton, colorTextButton, styleButton, typeButton, sizeButton
+  textButton,
+  hrefButton,
+  backgroundButton,
+  colorTextButton,
+  styleButton,
+  typeButton,
+  sizeButton,
 }) => {
   const [indexRate, setIndexRate] = useState(-1);
   const addRate = thunkAddRate();
@@ -67,8 +88,10 @@ const Section7Editable: FC<Section7EditableProps> = ({
     <div className="Section7Editable">
       <Section7
         darkMode={darkMode}
-        typeButton={typeButton} sizeButton={sizeButton}
-        isBuilder={true} sectionId={sectionId}
+        typeButton={typeButton}
+        sizeButton={sizeButton}
+        isBuilder={true}
+        sectionId={sectionId}
         onShowPopupEditTitle={handleShowPopupEditTitle}
         onShowPopUpEditText={handleShowPopUpEditText}
         onShowPopUpEditRate={handleShowPopUpEditRate}
@@ -100,7 +123,7 @@ const Section7Editable: FC<Section7EditableProps> = ({
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`rate-${sectionId}`} type='antd' title={<h3>Form Rate</h3>}>
+      <PopUp id={`rate-${sectionId}`} type="antd" title={<h3>Form Rate</h3>}>
         <FormRate nowIndexSection={nowIndexSection} nowIndexRate={indexRate} />
       </PopUp>
       <FormButton nowIndex={nowIndexSection} />

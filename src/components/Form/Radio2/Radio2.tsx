@@ -5,7 +5,6 @@ import { RadioProps } from '../Radio/Radio';
 import styles from './Radio2.module.scss';
 
 const Radio2: FC<RadioProps> = ({ label, data, onClick, defaultCheckedValue }) => {
-
   const handleClick = (value: string) => {
     return () => {
       onClick?.(value);
@@ -16,7 +15,9 @@ const Radio2: FC<RadioProps> = ({ label, data, onClick, defaultCheckedValue }) =
     return (
       <label htmlFor={`${value} ${name}`} className={styles.radioBtn} key={uuidv4()} onClick={handleClick(value)}>
         <input type="radio" className={styles.btn} id={`${value} ${name}`} name={name} tabIndex={index} defaultChecked={defaultChecked} />
-        <Button type='primary' size={value as any}>{value}</Button>
+        <Button type="primary" size={value as any}>
+          {value}
+        </Button>
       </label>
     );
   };
@@ -27,12 +28,8 @@ const Radio2: FC<RadioProps> = ({ label, data, onClick, defaultCheckedValue }) =
 
   const _renderDefault = () => (
     <div className={styles.radioForm}>
-      <div className={styles.radioName}>
-        {label}
-      </div>
-      <div className={styles.radioGroup}>
-        {_renderRadioList()}
-      </div>
+      <div className={styles.radioName}>{label}</div>
+      <div className={styles.radioGroup}>{_renderRadioList()}</div>
     </div>
   );
 

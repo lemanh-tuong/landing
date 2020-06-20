@@ -8,23 +8,22 @@ import SideBar from './components/SideBar/SideBar';
 import styles from './ListPage.module.scss';
 
 const ListPage = () => {
-
   //Selectors
   const statusRequestNowProjectName = useSelector(statusRequestProject);
   const nowProjectName = useSelector(projectName);
 
   if (statusRequestNowProjectName === 'success' && !nowProjectName) {
-    return <Redirect to={'/admin/projectName'} />
+    return <Redirect to={'/admin/projectName'} />;
   }
 
   return (
     <div className={styles.ListPage}>
       <SideBar />
       <Switch>
-        <Route exact path='/admin/list'>
+        <Route exact path="/admin/list">
           <MainContent />
         </Route>
-        <Route exact path='/admin/list/profile'>
+        <Route exact path="/admin/list/profile">
           <ProfilePage />
         </Route>
       </Switch>

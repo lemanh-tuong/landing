@@ -6,7 +6,6 @@ export interface ActionChangeInputNavPayload {
   nowIndex: number;
 }
 
-const actionChangeInputNav = createAction('CHANGE_INPUT_NAV', (payload: ActionChangeInputNavPayload) => ({...payload}));
+const actionChangeInputNav = createAction('CHANGE_INPUT_NAV', (payload: ActionChangeInputNavPayload) => ({ ...payload }));
 
 export { actionChangeInputNav };
-

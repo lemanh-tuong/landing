@@ -9,7 +9,6 @@ export interface FormIphoneSimulatorProps {
 }
 
 const FormIphoneSimulator: FC<FormIphoneSimulatorProps> = ({ nowIndexSection }) => {
-
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -40,7 +39,7 @@ const FormIphoneSimulator: FC<FormIphoneSimulatorProps> = ({ nowIndexSection }) 
             fieldType: 'input-text-2',
             addonBefore: 'exp://expo.io/',
             defaultValue: iphoneParams?.replace('exp://expo.io/', ''),
-          }
+          },
         ]}
         onChange={handleChangeForm}
       />

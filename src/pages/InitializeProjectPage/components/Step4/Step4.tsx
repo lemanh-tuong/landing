@@ -7,10 +7,10 @@ const Step4 = () => {
     <div className={styles.Step4}>
       <h2 className={styles.title}>
         Create Account Admin
-       <p>
+        <p>
           <a className={styles.link} href="https://www.youtube.com/watch?v=6juww5Lmvgo">
             Watch Video Below
-              <i style={{ marginLeft: 5 }} className="fas fa-arrow-down" />
+            <i style={{ marginLeft: 5 }} className="fas fa-arrow-down" />
           </a>
         </p>
       </h2>
@@ -22,7 +22,7 @@ const Step4 = () => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Step4;

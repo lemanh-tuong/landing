@@ -15,7 +15,7 @@ import styles from './Section9.module.scss';
 export interface ButtonType {
   imgSrc: string;
   href: string;
-  target: 'default' | 'blank' | 'self'
+  target: 'default' | 'blank' | 'self';
 }
 
 export type Secction9Props = {
@@ -26,10 +26,10 @@ export type Secction9Props = {
   buttons: ButtonType[];
   iphoneParams: string;
   androidParams: string;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
-  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
-  & Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'>;
+} & SectionPatternBase &
+  Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>> &
+  Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>> &
+  Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'>;
 
 export interface Section9PropsBuilder {
   isBuilder?: boolean;
@@ -42,15 +42,38 @@ export interface Section9PropsBuilder {
 }
 
 const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
-  isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditMainTitle, onShowPopupEditButton, onShowPopupEditIphoneSimulator, onShowPopupEditAndroidSimulator,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider, dividerColor, alignDivider,
-  text, alignText, colorText, fontSizeText, classText, styleText,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
+  reverse,
+  isBuilder,
+  onShowPopupEditDivider,
+  onShowPopupEditText,
+  onShowPopupEditMainTitle,
+  onShowPopupEditButton,
+  onShowPopupEditIphoneSimulator,
+  onShowPopupEditAndroidSimulator,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  classMainTitle,
+  styleMainTitle,
+  hasDivider,
+  dividerColor,
+  alignDivider,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  classText,
+  styleText,
   buttons,
-  iphoneParams, androidParams,
+  iphoneParams,
+  androidParams,
 }) => {
-
   const handleShowPopupEditButton = (indexButton: number) => {
     return (e?: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       e?.preventDefault();
@@ -62,14 +85,17 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
     if (isBuilder) {
       return (
         <>
-          {hasDivider ? <Divide align={alignDivider}
-            dividerColor={dividerColor}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditDivider} />
-            : <Divide align={alignDivider}
-              dividerColor='transparent'
-              isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
-            />}
+          {hasDivider ? (
+            <Divide align={alignDivider} dividerColor={dividerColor} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />
+          ) : (
+            <Divide
+              align={alignDivider}
+              dividerColor="transparent"
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider}
+              style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
+            />
+          )}
         </>
       );
     } else if (hasDivider) {
@@ -84,9 +110,11 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
         <PopOverText
           key={uuidv4()}
           onEdit={handleShowPopupEditButton(index)}
-          component={<a href="###" onClick={handleShowPopupEditButton(index)} className={`${styles.storeBtn} ${styles.isBuilder}`}>
-            <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
-          </a>}
+          component={
+            <a href="###" onClick={handleShowPopupEditButton(index)} className={`${styles.storeBtn} ${styles.isBuilder}`}>
+              <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
+            </a>
+          }
         />
       );
     }
@@ -102,30 +130,34 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
       <Row>
         <Col cols={[12, 12, 5]} className={`${reverse ? 'order-last' : ''}`}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-            {<MainTitle
-              mainTitle={mainTitle ?? ''}
-              alignMainTitle={alignMainTitle}
-              colorMainTitle={colorMainTitle}
-              fontSizeMainTitle={fontSizeMainTitle}
-              classMainTitle={classMainTitle}
-              styleMainTitle={styleMainTitle}
-              isBuilder={isBuilder}
-              onEditable={onShowPopupEditMainTitle}
-              darkMode={darkMode}
-            />}
+            {
+              <MainTitle
+                mainTitle={mainTitle ?? ''}
+                alignMainTitle={alignMainTitle}
+                colorMainTitle={colorMainTitle}
+                fontSizeMainTitle={fontSizeMainTitle}
+                classMainTitle={classMainTitle}
+                styleMainTitle={styleMainTitle}
+                isBuilder={isBuilder}
+                onEditable={onShowPopupEditMainTitle}
+                darkMode={darkMode}
+              />
+            }
             {_renderDivider()}
-            {<Text
-              text={text ?? ''}
-              alignText={alignText}
-              fontSizeText={fontSizeText}
-              classText={classText}
-              colorText={colorText}
-              styleText={styleText}
-              darkMode={darkMode}
-              isBuilder={isBuilder}
-              onEditable={onShowPopupEditText}
-            />}
-            <ButtonGroup style={{ marginTop: 30 }} align='left'>
+            {
+              <Text
+                text={text ?? ''}
+                alignText={alignText}
+                fontSizeText={fontSizeText}
+                classText={classText}
+                colorText={colorText}
+                styleText={styleText}
+                darkMode={darkMode}
+                isBuilder={isBuilder}
+                onEditable={onShowPopupEditText}
+              />
+            }
+            <ButtonGroup style={{ marginTop: 30 }} align="left">
               {buttons.map((button, index) => _renderButton(button, index))}
             </ButtonGroup>
           </div>
@@ -142,7 +174,6 @@ const Section9: FC<Secction9Props & Section9PropsBuilder> = ({
         </Col>
       </Row>
     </Section>
-
   );
 };
 

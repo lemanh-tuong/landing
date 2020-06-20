@@ -19,10 +19,10 @@ export type Section11Props = {
   hasDivider?: boolean;
   alignDivider?: DividerProps['align'];
   sectionId: string;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>;
+} & SectionPatternBase &
+  Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>> &
+  Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>> &
+  Partial<Omit<DividerProps, 'isBuilder' | 'onEditable' | 'align'>>;
 
 export interface Section11PropsBuilder {
   isBuilder?: boolean;
@@ -34,27 +34,51 @@ export interface Section11PropsBuilder {
 }
 
 const Section11: FC<Section11Props & Section11PropsBuilder> = ({
-  isBuilder, onShowPopupEditDivider, onShowPopupEditText, onShowPopupEditMainTitle, onShowPopupEditImage, onShowPopupEditIcon,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode, reverse,
+  isBuilder,
+  onShowPopupEditDivider,
+  onShowPopupEditText,
+  onShowPopupEditMainTitle,
+  onShowPopupEditImage,
+  onShowPopupEditIcon,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
+  reverse,
   imageSectionCol,
   iconImg,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider = false, dividerColor, alignDivider,
-  text, alignText, colorText, fontSizeText, classText, styleText,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  classMainTitle,
+  styleMainTitle,
+  hasDivider = false,
+  dividerColor,
+  alignDivider,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  classText,
+  styleText,
 }) => {
-
   const _renderImage = () => {
     return (
       <Col cols={[12]}>
-        {imageSectionCol && <Image
-          type='tagImg' isBuilder={isBuilder}
-          onEditable={onShowPopupEditImage}
-          imgSrc={imageSectionCol.imgSrc}
-          aspectRatio={imageSectionCol.aspectRatio}
-          zoom={imageSectionCol.zoom}
-          parallax={imageSectionCol.parallax}
-          style={{ marginBottom: 45 }}
-        />}
+        {imageSectionCol && (
+          <Image
+            type="tagImg"
+            isBuilder={isBuilder}
+            onEditable={onShowPopupEditImage}
+            imgSrc={imageSectionCol.imgSrc}
+            aspectRatio={imageSectionCol.aspectRatio}
+            zoom={imageSectionCol.zoom}
+            parallax={imageSectionCol.parallax}
+            style={{ marginBottom: 45 }}
+          />
+        )}
       </Col>
     );
   };
@@ -63,14 +87,17 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
     if (isBuilder) {
       return (
         <>
-          {hasDivider ? <Divide
-            dividerColor={dividerColor}
-            isBuilder={isBuilder} align={alignDivider}
-            onEditable={onShowPopupEditDivider} />
-            : <Divide
-              dividerColor='transparent' align={alignDivider}
-              isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', marginBottom: 0, zIndex: 123, cursor: 'pointer' }}
-            />}
+          {hasDivider ? (
+            <Divide dividerColor={dividerColor} isBuilder={isBuilder} align={alignDivider} onEditable={onShowPopupEditDivider} />
+          ) : (
+            <Divide
+              dividerColor="transparent"
+              align={alignDivider}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider}
+              style={{ border: '1px dashed', marginBottom: 0, zIndex: 123, cursor: 'pointer' }}
+            />
+          )}
         </>
       );
     } else if (hasDivider) {
@@ -111,7 +138,8 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
           alignMainTitle={alignMainTitle}
           fontSizeMainTitle={fontSizeMainTitle}
           styleMainTitle={styleMainTitle}
-          classMainTitle={classMainTitle} />
+          classMainTitle={classMainTitle}
+        />
       );
     }
   };
@@ -119,18 +147,34 @@ const Section11: FC<Section11Props & Section11PropsBuilder> = ({
   const _renderText = () => {
     if (text) {
       return (
-        <Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={styleText} classText={classText} />
+        <Text
+          isBuilder={isBuilder}
+          onEditable={onShowPopupEditText}
+          darkMode={darkMode}
+          text={text}
+          colorText={colorText}
+          alignText={alignText}
+          fontSizeText={fontSizeText}
+          styleText={styleText}
+          classText={classText}
+        />
       );
     }
   };
 
   return (
-    <Section className={`section11`} backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}>
+    <Section
+      className={`section11`}
+      backgroundColor={backgroundColor}
+      backgroundImage={backgroundImage}
+      animation={animation}
+      positionAnimation={positionAnimation}
+    >
       <Row>
         <Col cols={[12, 12, 7]} className={`${reverse ? 'order-last' : ''}`}>
           {_renderImage()}
         </Col>
-        <Col cols={[12, 12, 5]} className={`${reverse ? 'order-first' : ''} ${styles.contentCenter}`} >
+        <Col cols={[12, 12, 5]} className={`${reverse ? 'order-first' : ''} ${styles.contentCenter}`}>
           <div className={styles.content}>
             {_renderIcon()}
             {_renderMainTitle()}

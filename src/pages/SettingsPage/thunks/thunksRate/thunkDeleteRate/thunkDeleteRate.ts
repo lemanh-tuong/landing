@@ -8,8 +8,8 @@ export interface ThunkDeleteRateArg {
   nowIndexRate: number;
 }
 
-const thunkDeleteRate = ({nowIndexSection, nowIndexRate}: ThunkDeleteRateArg): ThunkDeleteRate => dispatch => {
-  dispatch(actionDeleteRate({nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate}));
+const thunkDeleteRate = ({ nowIndexSection, nowIndexRate }: ThunkDeleteRateArg): ThunkDeleteRate => dispatch => {
+  dispatch(actionDeleteRate({ nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate }));
 };
 
 export default createDispatchAction(thunkDeleteRate);

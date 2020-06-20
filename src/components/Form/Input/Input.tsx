@@ -19,12 +19,22 @@ export interface InputOption {
   regex?: RegExp;
 }
 
-export interface InputProps extends InputOption {
-}
+export interface InputProps extends InputOption {}
 
 const Input: FC<InputProps> = ({
-  type, label, placeholder, defaultValue, horizontal, required, maxLength, minLength, regex,
-  autoSize, style, onChange }) => {
+  type,
+  label,
+  placeholder,
+  defaultValue,
+  horizontal,
+  required,
+  maxLength,
+  minLength,
+  regex,
+  autoSize,
+  style,
+  onChange,
+}) => {
   const onChangeRef = useRef(onChange);
   const [error, setError] = useState('');
 
@@ -32,13 +42,13 @@ const Input: FC<InputProps> = ({
 
   const handleError = (value: string) => {
     setError(() => {
-      if (required && value.length === 0) return 'Required'
-      if (minLength && value.length < minLength) return 'Not enough length'
-      if (maxLength && value.length > maxLength) return 'Too long'
-      if (regex && value.match(regex)) return 'Pattern Error'
-      return ''
-    })
-  }
+      if (required && value.length === 0) return 'Required';
+      if (minLength && value.length < minLength) return 'Not enough length';
+      if (maxLength && value.length > maxLength) return 'Too long';
+      if (regex && value.match(regex)) return 'Pattern Error';
+      return '';
+    });
+  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -52,25 +62,42 @@ const Input: FC<InputProps> = ({
   };
 
   const _renderTextArea = () => {
-    return <InputAntd.TextArea
-      className={styles.input}
-      name={label}
-      defaultValue={defaultValue}
-      onChange={handleChange} onFocus={handleChange}
-      placeholder={placeholder}
-      autoSize={autoSize ?? { maxRows: 10, minRows: 3 }}
-      style={style} minLength={minLength} maxLength={maxLength}
-      required={required}
-    />;
+    return (
+      <InputAntd.TextArea
+        className={styles.input}
+        name={label}
+        defaultValue={defaultValue}
+        onChange={handleChange}
+        onFocus={handleChange}
+        placeholder={placeholder}
+        autoSize={autoSize ?? { maxRows: 10, minRows: 3 }}
+        style={style}
+        minLength={minLength}
+        maxLength={maxLength}
+        required={required}
+      />
+    );
   };
 
   const _renderPassWordArea = () => {
-    return <InputAntd.Password minLength={minLength} maxLength={maxLength} className={`${styles.input} ${styles.flex}`} style={style} visibilityToggle={true} onFocus={handleChange} onChange={handleChange} />;
+    return (
+      <InputAntd.Password
+        minLength={minLength}
+        maxLength={maxLength}
+        className={`${styles.input} ${styles.flex}`}
+        style={style}
+        visibilityToggle={true}
+        onFocus={handleChange}
+        onChange={handleChange}
+      />
+    );
   };
 
   return (
     <div className={`${styles.inputBox} ${horizontal ? styles.horizontal : null}`}>
-      <label htmlFor={label} className={styles.inputName}>{label}</label>
+      <label htmlFor={label} className={styles.inputName}>
+        {label}
+      </label>
       {type === 'input' ? _renderTextArea() : _renderPassWordArea()}
       {error ? <p className={styles.errorMsg}>{error}</p> : null}
     </div>

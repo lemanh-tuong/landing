@@ -30,7 +30,12 @@ const Image: FC<ImageProps> = ({ isBuilder, onEditable, imgSrc, type, aspectRati
   const _renderBackground = (classNameBuilder?: string) => {
     return (
       <div className={`${className} ${classNameBuilder} ${styles.imageWrap} ${aspectRatioStyle}`}>
-        <div className={`${styles.image}`} style={{ ...style, backgroundImage: `url(${imgSrc})`, backgroundAttachment: `${parallax ? 'fixed' : ''}` }}>{children}</div>
+        <div
+          className={`${styles.image}`}
+          style={{ ...style, backgroundImage: `url(${imgSrc})`, backgroundAttachment: `${parallax ? 'fixed' : ''}` }}
+        >
+          {children}
+        </div>
       </div>
     );
   };
@@ -38,24 +43,24 @@ const Image: FC<ImageProps> = ({ isBuilder, onEditable, imgSrc, type, aspectRati
   const _renderImgTag = (classNameBuilder?: string) => {
     return (
       <div className={`${className} ${classNameBuilder} ${styles.image} ${className}`} style={{ ...style }}>
-        <img src={imgSrc} alt="ALT" onDragStart={(e) => e.preventDefault()} />
+        <img src={imgSrc} alt="ALT" onDragStart={e => e.preventDefault()} />
         {children}
       </div>
     );
   };
 
   if (isBuilder) {
-    if (type === 'tagImg') return (
-      <div className={`${className} ${styles.image} ${className}`} onClick={onEditable} >
-        <PopOverText component={<img src={imgSrc} alt="ALT" onDragStart={(e) => e.preventDefault()} />} onEdit={onEditable} />
-      </div>
-    );
+    if (type === 'tagImg')
+      return (
+        <div className={`${className} ${styles.image} ${className}`} onClick={onEditable}>
+          <PopOverText component={<img src={imgSrc} alt="ALT" onDragStart={e => e.preventDefault()} />} onEdit={onEditable} />
+        </div>
+      );
     return <PopOverText component={_renderBackground(styles.isBuilder)} onEdit={onEditable} />;
   }
 
   if (type === 'tagImg') return _renderImgTag();
   return _renderBackground();
-
 };
 
 export default memo(Image);

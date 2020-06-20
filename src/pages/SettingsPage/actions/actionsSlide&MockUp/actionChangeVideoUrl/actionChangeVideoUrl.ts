@@ -8,9 +8,8 @@ export interface ActionChangeVideoUrlPayload {
 
 const actionChangeVideoUrl = createAction('CHANGE_VIDEO_URL', (payload: ActionChangeVideoUrlPayload) => {
   return {
-    ...payload
+    ...payload,
   };
 });
 
 export { actionChangeVideoUrl };
-

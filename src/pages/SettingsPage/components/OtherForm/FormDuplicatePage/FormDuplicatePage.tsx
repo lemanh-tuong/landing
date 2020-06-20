@@ -33,14 +33,18 @@ const FormDuplicatePage: FC<FormDuplicatePageProps> = ({ pageId, pageNameSourceP
   const handleError = (value: string) => {
     const regex = /\s/;
     setValidate(() => {
-      if (value.length === 0) return 'Required'
-      if (regex && value.match(regex)) return 'Pattern Error'
-      return ''
-    })
-  }
+      if (value.length === 0) return 'Required';
+      if (regex && value.match(regex)) return 'Pattern Error';
+      return '';
+    });
+  };
 
   const handleChangePageName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pathName = e.target.value.trim().split(' ').map(word => word.toLowerCase()).join('-');
+    const pathName = e.target.value
+      .trim()
+      .split(' ')
+      .map(word => word.toLowerCase())
+      .join('-');
     setPageName(e.target.value);
     setPathName(pathName);
   };
@@ -52,7 +56,7 @@ const FormDuplicatePage: FC<FormDuplicatePageProps> = ({ pageId, pageNameSourceP
   };
   const handleIsHome = (result: boolean) => {
     setIsHome(result);
-  }
+  };
 
   const handleDuplicatePage = () => {
     const id = uuidv4();
@@ -90,28 +94,36 @@ const FormDuplicatePage: FC<FormDuplicatePageProps> = ({ pageId, pageNameSourceP
 
   const _renderValidateError = () => {
     if (error) {
-      return <div onClick={handleClose}
-        style={{
-          position: 'fixed',
-          background: 'rgba(0,0,0,0.8)',
-          width: '100%', height: '100%',
-          top: 0, left: 0, display: 'flex',
-          justifyContent: 'center', alignItems: 'center',
-          fontSize: 20, color: 'white',
-          zIndex: 1111111
-        }}>
-        {error}
-      </div>;
+      return (
+        <div
+          onClick={handleClose}
+          style={{
+            position: 'fixed',
+            background: 'rgba(0,0,0,0.8)',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 20,
+            color: 'white',
+            zIndex: 1111111,
+          }}
+        >
+          {error}
+        </div>
+      );
     }
     return null;
   };
-
 
   return (
     <>
       {_renderValidateError()}
       {_renderDuplicateSwitch()}
-      <PopUp id={`duplicate-page-${pageId}-form`} type='antd' title={<h3>Form Duplicate Page</h3>} onOk={handleDuplicatePage}>
+      <PopUp id={`duplicate-page-${pageId}-form`} type="antd" title={<h3>Form Duplicate Page</h3>} onOk={handleDuplicatePage}>
         <div>
           <span>Page Name</span>
           <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} />

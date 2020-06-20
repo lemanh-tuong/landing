@@ -28,7 +28,6 @@ export interface RateProps {
   onEditable?: () => void;
   className?: string;
   style?: CSSProperties;
-
 }
 
 const defaultProps: RateProps = {
@@ -42,13 +41,16 @@ const defaultProps: RateProps = {
   stars: 5,
 };
 
-const Rate: FC<RateProps> = ({ authorName, authorAvatar, purpose, rateContent, stars, className, style, isBuilder, onEditable } = { ...defaultProps }) => {
-
+const Rate: FC<RateProps> = (
+  { authorName, authorAvatar, purpose, rateContent, stars, className, style, isBuilder, onEditable } = { ...defaultProps },
+) => {
   const _renderStar = () => {
     const arrStar = initArray(stars);
     return (
       <div className={styles.stars} data-src={stars}>
-        {arrStar.map(_star => <i key={uuidv4()} className="fa fa-star"></i>)}
+        {arrStar.map(_star => (
+          <i key={uuidv4()} className="fa fa-star"></i>
+        ))}
       </div>
     );
   };
@@ -57,9 +59,7 @@ const Rate: FC<RateProps> = ({ authorName, authorAvatar, purpose, rateContent, s
     return (
       <div className={styles.contentTitle}>
         for&nbsp;
-        <span>
-          {purpose}
-        </span>
+        <span>{purpose}</span>
       </div>
     );
   };
@@ -76,35 +76,38 @@ const Rate: FC<RateProps> = ({ authorName, authorAvatar, purpose, rateContent, s
     return (
       <div className={styles.author}>
         by&nbsp;
-        <span>
-          {authorName}
-        </span>
+        <span>{authorName}</span>
       </div>
     );
   };
 
   if (isBuilder) {
-    return <PopOverText
-      onEdit={onEditable}
-      component={<div className={`${styles.rate} ${className} ${styles.isBuilder}`} style={style} onClick={onEditable}>
-        <Icon bgColorIcon='gradient-pink-orange' sizeIcon="xs" iconImg={{ imgSrc: authorAvatar.imgSrc }} classNameIcon={styles.rateIcon} />
-        <div className={styles.content}>
-          <div className={styles.contentHeader}>
-            {_renderStar()}
-            {_renderRateTitle()}
+    return (
+      <PopOverText
+        onEdit={onEditable}
+        component={
+          <div className={`${styles.rate} ${className} ${styles.isBuilder}`} style={style} onClick={onEditable}>
+            <Icon bgColorIcon="gradient-pink-orange" sizeIcon="xs" iconImg={{ imgSrc: authorAvatar.imgSrc }} classNameIcon={styles.rateIcon} />
+            <div className={styles.content}>
+              <div className={styles.contentHeader}>
+                {_renderStar()}
+                {_renderRateTitle()}
+              </div>
+              <div className={styles.contentBody}>
+                {_renderRateContent()}
+                {_renderAuthor()}
+              </div>
+            </div>
           </div>
-          <div className={styles.contentBody}>
-            {_renderRateContent()}
-            {_renderAuthor()}
-          </div>
-        </div>
-      </div>} />;
+        }
+      />
+    );
   }
 
   return (
     <div className={`${styles.rate} ${className}`} style={style}>
       <a href={authorAvatar.href}>
-        <Icon bgColorIcon='gradient-pink-orange' sizeIcon="xs" iconImg={{ imgSrc: authorAvatar.imgSrc }} classNameIcon={styles.rateIcon} />
+        <Icon bgColorIcon="gradient-pink-orange" sizeIcon="xs" iconImg={{ imgSrc: authorAvatar.imgSrc }} classNameIcon={styles.rateIcon} />
       </a>
       <div className={styles.content}>
         <div className={styles.contentHeader}>

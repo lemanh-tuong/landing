@@ -41,7 +41,7 @@ const ComponentPage = () => {
       <Col cols={[6, 4, 3]} key={uuidv4()}>
         <div className={styles.component}>
           <div className={styles.componentPreview}>
-            <Image type='tagImg' imgSrc={property.previewImg} />
+            <Image type="tagImg" imgSrc={property.previewImg} />
           </div>
           <div className={styles.addBtn}>
             <button className={styles.btn} onClick={handleAdd({ ...property, sectionName: property.sectionName, sectionId: uuidv4() })}>
@@ -62,9 +62,7 @@ const ComponentPage = () => {
           </div>
           <div className={styles.pageBody}>
             <div className={styles.listComponent}>
-              <Row>
-                {pattern.map(item => _renderItem(item))}
-              </Row>
+              <Row>{pattern.map(item => _renderItem(item))}</Row>
             </div>
           </div>
         </div>

@@ -6,7 +6,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 const RenderBeforeInitializeApp = () => {
-
   return (
     <Switch>
       <Route path="/initializeApp">
@@ -15,14 +14,14 @@ const RenderBeforeInitializeApp = () => {
       <Route exact path="/createNewProjectName">
         <CreateNewProjectPage />
       </Route>
-      <Route path='/test'>
+      <Route path="/test">
         <TestPage />
       </Route>
-      <Route path='/'>
+      <Route path="/">
         <LandingPage />
       </Route>
     </Switch>
   );
-}
+};
 
 export default RenderBeforeInitializeApp;

@@ -22,14 +22,13 @@ const Routes = () => {
       case 'initializing':
         return <RenderBeforeInitializeApp />;
       case 'initialized':
-        return <RenderAfterInitializeApp />
+        return <RenderAfterInitializeApp />;
       default:
         return null;
     }
-  }
+  };
 
   return _renderSwitch();
-
 };
 
 export default Routes;

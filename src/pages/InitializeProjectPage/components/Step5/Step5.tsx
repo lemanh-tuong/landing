@@ -7,10 +7,10 @@ const Step5 = () => {
     <div className={styles.Step5}>
       <h2 className={styles.title}>
         Take your firebase config
-       <p>
+        <p>
           <a className={styles.link} href="https://www.youtube.com/watch?v=6juww5Lmvgo">
             Watch Video Below
-              <i style={{ marginLeft: 5 }} className="fas fa-arrow-down" />
+            <i style={{ marginLeft: 5 }} className="fas fa-arrow-down" />
           </a>
         </p>
       </h2>
@@ -22,7 +22,7 @@ const Step5 = () => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Step5;

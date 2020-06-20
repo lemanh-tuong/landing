@@ -1,7 +1,7 @@
 import listPageReducers from '../reducers/reducers';
 
 const rootListPageReducers = {
-  listPageReducers
+  listPageReducers,
 };
 
 export default rootListPageReducers;

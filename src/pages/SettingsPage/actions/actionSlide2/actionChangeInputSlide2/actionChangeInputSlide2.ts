@@ -7,7 +7,6 @@ export interface ActionChangeInputSlide2Payload {
   fieldName: string;
 }
 
-const actionChangeInputSlide2 = createAction('CHANGE_INPUT_SLIDE_2', (payload: ActionChangeInputSlide2Payload) => ({...payload}));
+const actionChangeInputSlide2 = createAction('CHANGE_INPUT_SLIDE_2', (payload: ActionChangeInputSlide2Payload) => ({ ...payload }));
 
 export { actionChangeInputSlide2 };
-

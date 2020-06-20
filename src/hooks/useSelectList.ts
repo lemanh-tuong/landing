@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { includes, equals } from 'ramda';
+import { equals, includes } from 'ramda';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export type OnResultSelectList<ItemT> = (outputResult: ItemT[]) => void;
 

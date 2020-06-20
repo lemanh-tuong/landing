@@ -6,7 +6,7 @@ import FormEditNavLink from './FormEditNavLink/FormEditNavLink';
 const FormNav = () => {
   return (
     <div className="FormNav">
-      <PopUp id="form-nav" type='antd' title={<h3>Form Nav</h3>}>
+      <PopUp id="form-nav" type="antd" title={<h3>Form Nav</h3>}>
         <FormEditLogo />
         <FormEditNavLink />
       </PopUp>

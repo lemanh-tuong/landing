@@ -6,7 +6,6 @@ export interface ActionChangeImgSlide2Payload {
   imgSrc: string;
 }
 
-const actionChangeImgSlide2 = createAction('CHANGE_IMAGE_SLIDE_2', (payload: ActionChangeImgSlide2Payload) => ({...payload}));
+const actionChangeImgSlide2 = createAction('CHANGE_IMAGE_SLIDE_2', (payload: ActionChangeImgSlide2Payload) => ({ ...payload }));
 
 export { actionChangeImgSlide2 };
-

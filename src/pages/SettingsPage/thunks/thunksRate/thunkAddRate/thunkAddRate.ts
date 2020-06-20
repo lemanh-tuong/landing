@@ -10,8 +10,8 @@ export interface ThunkAddRateArg {
   rateProperty: RateProps;
 }
 
-const thunkAddRate = ({nowIndexSection, nowIndexRate, rateProperty}: ThunkAddRateArg): ThunkAddRate => dispatch => {
-  dispatch(actionAddRate({nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate, rateProperty: rateProperty}));
+const thunkAddRate = ({ nowIndexSection, nowIndexRate, rateProperty }: ThunkAddRateArg): ThunkAddRate => dispatch => {
+  dispatch(actionAddRate({ nowIndexSection: nowIndexSection, nowIndexRate: nowIndexRate, rateProperty: rateProperty }));
 };
 
 export default createDispatchAction(thunkAddRate);

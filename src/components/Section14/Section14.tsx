@@ -24,11 +24,11 @@ export type Section14Props = {
   sectionId: string;
   buttons: ButtonType[];
   alignDivider?: DividerProps['align'];
-} & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
-  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>
-  & Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'>
-  & Omit<MockUpProps, 'onEditable' | 'isBuilder'>
-  & Section14Option;
+} & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>> &
+  Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>> &
+  Omit<DividerProps, 'onEditable' | 'isBuilder' | 'align'> &
+  Omit<MockUpProps, 'onEditable' | 'isBuilder'> &
+  Section14Option;
 
 export interface Section14PropsBuilder {
   isBuilder?: boolean;
@@ -40,14 +40,48 @@ export interface Section14PropsBuilder {
 }
 
 const Section14: FC<Section14Props & Section14PropsBuilder> = ({
-  isBuilder, onShowPopupEditMainTitle, onShowPopupEditText, onShowPopupEditButton, onShowPopupEditDivider, onShowPopupEditMockUp, darkMode, reverse, animation, positionAnimation, backgroundColor,
-  mainTitle, colorMainTitle, fontSizeMainTitle, alignMainTitle, styleMainTitle, classMainTitle,
-  text, colorText, fontSizeText, alignText, styleText, classText,
-  hasDivider = false, dividerColor, alignDivider,
-  typeMockUp, sliderImgs, slider, classMockUp, dotClass, hasDots, hasNav, navClass, styleMockUp, margin, fluid, classActive, delayTime,
-  buttons, backgroundImage
+  isBuilder,
+  onShowPopupEditMainTitle,
+  onShowPopupEditText,
+  onShowPopupEditButton,
+  onShowPopupEditDivider,
+  onShowPopupEditMockUp,
+  darkMode,
+  reverse,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  mainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  alignMainTitle,
+  styleMainTitle,
+  classMainTitle,
+  text,
+  colorText,
+  fontSizeText,
+  alignText,
+  styleText,
+  classText,
+  hasDivider = false,
+  dividerColor,
+  alignDivider,
+  typeMockUp,
+  sliderImgs,
+  slider,
+  classMockUp,
+  dotClass,
+  hasDots,
+  hasNav,
+  navClass,
+  styleMockUp,
+  margin,
+  fluid,
+  classActive,
+  delayTime,
+  buttons,
+  backgroundImage,
 }) => {
-
   const handleShowPopupEditButton = (indexButton: number) => {
     return (e?: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
       e?.preventDefault();
@@ -56,26 +90,42 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
   };
 
   const _renderMockUp = () => {
-    return <MockUp
-      isBuider={isBuilder} onEditable={onShowPopupEditMockUp}
-      styleMockUp={styleMockUp} typeMockUp={typeMockUp} classMockUp={classMockUp}
-      sliderImgs={sliderImgs} slider={slider} margin={margin} delayTime={delayTime}
-      navClass={navClass} hasNav={hasNav} dotClass={dotClass} hasDots={hasDots} fluid={fluid} classActive={classActive}
-    />;
+    return (
+      <MockUp
+        isBuider={isBuilder}
+        onEditable={onShowPopupEditMockUp}
+        styleMockUp={styleMockUp}
+        typeMockUp={typeMockUp}
+        classMockUp={classMockUp}
+        sliderImgs={sliderImgs}
+        slider={slider}
+        margin={margin}
+        delayTime={delayTime}
+        navClass={navClass}
+        hasNav={hasNav}
+        dotClass={dotClass}
+        hasDots={hasDots}
+        fluid={fluid}
+        classActive={classActive}
+      />
+    );
   };
 
   const _renderDivider = () => {
     if (isBuilder) {
       return (
         <>
-          {hasDivider ? <Divide
-            dividerColor={dividerColor} align={alignDivider}
-            isBuilder={isBuilder}
-            onEditable={onShowPopupEditDivider} />
-            : <Divide
-              dividerColor='transparent' align={alignDivider}
-              isBuilder={isBuilder} onEditable={onShowPopupEditDivider} style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
-            />}
+          {hasDivider ? (
+            <Divide dividerColor={dividerColor} align={alignDivider} isBuilder={isBuilder} onEditable={onShowPopupEditDivider} />
+          ) : (
+            <Divide
+              dividerColor="transparent"
+              align={alignDivider}
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditDivider}
+              style={{ border: '1px dashed', margin: 0, zIndex: 123, cursor: 'pointer' }}
+            />
+          )}
         </>
       );
     } else if (hasDivider) {
@@ -85,31 +135,35 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
   };
 
   const _renderMainTitle = () => {
-    return <MainTitle
-      mainTitle={!!mainTitle ? mainTitle : ''}
-      colorMainTitle={colorMainTitle}
-      fontSizeMainTitle={fontSizeMainTitle}
-      alignMainTitle={alignMainTitle}
-      styleMainTitle={styleMainTitle}
-      classMainTitle={classMainTitle}
-      darkMode={darkMode}
-      isBuilder={isBuilder}
-      onEditable={onShowPopupEditMainTitle}
-    />;
+    return (
+      <MainTitle
+        mainTitle={!!mainTitle ? mainTitle : ''}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        alignMainTitle={alignMainTitle}
+        styleMainTitle={styleMainTitle}
+        classMainTitle={classMainTitle}
+        darkMode={darkMode}
+        isBuilder={isBuilder}
+        onEditable={onShowPopupEditMainTitle}
+      />
+    );
   };
 
   const _renderText = () => {
-    return <Text
-      text={!!text ? text : ''}
-      colorText={colorText}
-      fontSizeText={fontSizeText}
-      alignText={alignText}
-      styleText={{ ...styleText, marginBottom: 0 }}
-      classText={classText}
-      darkMode={darkMode}
-      onEditable={onShowPopupEditText}
-      isBuilder={isBuilder}
-    />;
+    return (
+      <Text
+        text={!!text ? text : ''}
+        colorText={colorText}
+        fontSizeText={fontSizeText}
+        alignText={alignText}
+        styleText={{ ...styleText, marginBottom: 0 }}
+        classText={classText}
+        darkMode={darkMode}
+        onEditable={onShowPopupEditText}
+        isBuilder={isBuilder}
+      />
+    );
   };
 
   const _renderButton = ({ href, imgSrc, target }: ButtonType, index: number) => {
@@ -118,9 +172,11 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
         <PopOverText
           key={uuidv4()}
           onEdit={handleShowPopupEditButton(index)}
-          component={<a href="###" onClick={handleShowPopupEditButton(index)} className={`${styles.storeBtn} ${styles.isBuilder}`}>
-            <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
-          </a>}
+          component={
+            <a href="###" onClick={handleShowPopupEditButton(index)} className={`${styles.storeBtn} ${styles.isBuilder}`}>
+              <img src={imgSrc} className={styles.storeIcon} alt="App Store" />
+            </a>
+          }
         />
       );
     }
@@ -144,15 +200,13 @@ const Section14: FC<Section14Props & Section14PropsBuilder> = ({
               {_renderMainTitle()}
               {_renderDivider()}
               {_renderText()}
-              <ButtonGroup align='left' style={{ margin: '30px 0' }}>
+              <ButtonGroup align="left" style={{ margin: '30px 0' }}>
                 {_renderButtons()}
               </ButtonGroup>
             </div>
           </Col>
           <Col style={{ display: 'flex', justifyContent: ' center', alignItems: 'center' }} cols={[12, 6, 6]} className={reverse ? 'order-1' : ''}>
-            <>
-              {_renderMockUp()}
-            </>
+            <>{_renderMockUp()}</>
           </Col>
         </Row>
       </Section>

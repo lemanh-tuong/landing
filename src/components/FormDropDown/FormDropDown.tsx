@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import { FormProps } from 'components/Form/Form';
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, ReactNode, useState } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import styles from './FormDropDown.module.scss';
 
@@ -13,7 +13,7 @@ export interface FormDropDownProps<T> extends Omit<FormProps, 'onChange' | 'fiel
   label: T[];
   renderForm: (indexFormShown: number) => JSX.Element;
   defaultFormShown?: number;
-  renderLabel?: (arg: T, index?: number) => JSX.Element;
+  renderLabel?: (arg: T, index?: number) => ReactNode;
   renderDeleteIcon?: () => JSX.Element;
   renderAddIcon?: () => JSX.Element;
   styleDeleteIcon?: CSSProperties;
@@ -21,9 +21,22 @@ export interface FormDropDownProps<T> extends Omit<FormProps, 'onChange' | 'fiel
 }
 
 const FormDropDown = <T extends any>({
-  droppableId, onAdd, onDelete, onMoveEnd, label, draggableId,
-  defaultFormShown, styleAddIcon, styleDeleteIcon,
-  children, style, className, renderForm, renderLabel, renderAddIcon, renderDeleteIcon
+  droppableId,
+  onAdd,
+  onDelete,
+  onMoveEnd,
+  label,
+  draggableId,
+  defaultFormShown,
+  styleAddIcon,
+  styleDeleteIcon,
+  children,
+  style,
+  className,
+  renderForm,
+  renderLabel,
+  renderAddIcon,
+  renderDeleteIcon,
 }: FormDropDownProps<T>) => {
   const [formShown, setFormShown] = useState(typeof defaultFormShown === 'number' ? defaultFormShown : -1);
 
@@ -39,7 +52,7 @@ const FormDropDown = <T extends any>({
 
   const handleCloseAll = () => {
     setFormShown(-1);
-  }
+  };
 
   const handleDelete = (nowIndexCard: number) => {
     return () => {
@@ -54,12 +67,12 @@ const FormDropDown = <T extends any>({
     return (
       <Draggable index={index} draggableId={`${draggableId}-${index}`} key={`${draggableId}-${index}`}>
         {provided => (
-          <div className={styles.item} ref={provided.innerRef}  {...provided.dragHandleProps} {...provided.draggableProps}>
+          <div className={styles.item} ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
             <div className={`${styles.formDesc} ${index === formShown ? styles.active : null}`}>
-              <div className={styles.formName} onClick={handleFormShown(index)} >
+              <div className={styles.formName} onClick={handleFormShown(index)}>
                 <div className={styles.label}>{renderLabel ? renderLabel(label, index) : label}</div>
               </div>
-              <Button shape='circle' type='default' style={styleDeleteIcon} size='large' onClick={handleDelete(index)} >
+              <Button shape="circle" type="default" style={styleDeleteIcon} size="large" onClick={handleDelete(index)}>
                 {renderDeleteIcon ? renderDeleteIcon() : <i className="fas fa-trash" />}
               </Button>
             </div>
@@ -67,9 +80,8 @@ const FormDropDown = <T extends any>({
           </div>
         )}
       </Draggable>
-    )
-  }
-
+    );
+  };
 
   return (
     <div className={styles.formDropDownComponent}>
@@ -79,7 +91,7 @@ const FormDropDown = <T extends any>({
             <div ref={provided.innerRef} {...provided.droppableProps} className={styles.inner}>
               <div className={styles.listItems}>
                 {label.map((item: T, index: number) => _renderLabel(item, index))}
-                <Button onClick={onAdd} shape='circle' size='large' style={{ marginTop: 10, ...styleAddIcon }}>
+                <Button onClick={onAdd} shape="circle" size="large" style={{ marginTop: 10, ...styleAddIcon }}>
                   {renderAddIcon ? renderAddIcon() : <i className="fas fa-plus" />}
                 </Button>
               </div>
@@ -88,7 +100,7 @@ const FormDropDown = <T extends any>({
         </Droppable>
       </DragDropContext>
     </div>
-  )
-}
+  );
+};
 
 export default FormDropDown;

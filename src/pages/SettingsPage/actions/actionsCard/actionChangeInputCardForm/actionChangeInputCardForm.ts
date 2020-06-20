@@ -11,8 +11,7 @@ export interface ActionChangeInputCardForm {
 }
 
 const actionChangeInputCardForm = createAction('CHANGE_INPUT_CARD_FORM', (payload: ActionChangeInputCardForm['payload']) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChangeInputCardForm };
-

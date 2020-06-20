@@ -2,7 +2,7 @@
 
 .section {
   position: relative;
-  cursor: initial!important;
+  cursor: initial !important;
   &:hover .sectionBottom {
     display: block;
   }
@@ -37,8 +37,8 @@
   align-items: center;
   background: rgb(54, 63, 90);
   color: white;
-  width: 52px!important;
-  height: 52px!important;
+  width: 52px !important;
+  height: 52px !important;
   border-radius: 5px;
 }
 

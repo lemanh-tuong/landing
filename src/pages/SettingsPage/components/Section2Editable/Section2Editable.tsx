@@ -15,14 +15,25 @@ export interface Section2EditableProps extends Section2Props {
 
 const cardDefault: CardProps = {
   titleCard: 'Paid listings',
-  textCard: 'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
+  textCard:
+    'Listing owners will pay to get theirs places listed on your site. In Wilcity, you can create unlimited Pricing Plans, each of which includes different benefits.',
   iconImg: { imgSrc: icon1 },
-  hasIcon: true, bgColorIcon: 'gradient-pink-orange'
+  hasIcon: true,
+  bgColorIcon: 'gradient-pink-orange',
 };
 const Section2Editable: FC<Section2EditableProps> = ({
-  nowIndexSection, sectionId, animation, positionAnimation,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
-  cards, backgroundImage, backgroundColor }) => {
+  nowIndexSection,
+  sectionId,
+  animation,
+  positionAnimation,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  cards,
+  backgroundImage,
+  backgroundColor,
+}) => {
   const [indexCard, setIndexCard] = useState(-1);
   //Dispatch
   const addCard = thunkAddCard();

@@ -5,7 +5,6 @@ export interface ActionDeleteSlidePayload {
   nowIndexSlide: number;
 }
 
-const actionDeleteSlide = createAction('DELETE_SLIDE', (payload: ActionDeleteSlidePayload) => ({...payload}));
+const actionDeleteSlide = createAction('DELETE_SLIDE', (payload: ActionDeleteSlidePayload) => ({ ...payload }));
 
 export { actionDeleteSlide };
-

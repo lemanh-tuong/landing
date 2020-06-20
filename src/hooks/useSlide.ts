@@ -11,7 +11,7 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
   const [nowPosition, setMousePosition] = useState(0);
   const [reseting, setResetting] = useState(false);
   const nextSlide = useCallback(() => {
-    if(imgsLength === 1) {
+    if (imgsLength === 1) {
       return false;
     }
     setAnimated(true);
@@ -29,7 +29,7 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
   }, [currentSlide, imgsLength]);
 
   const prevSlide = () => {
-    if(imgsLength === 1) {
+    if (imgsLength === 1) {
       return false;
     }
     setAnimated(true);
@@ -51,7 +51,7 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
   };
 
   const dragStart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if(!reseting) {
+    if (!reseting) {
       setAnimated(false);
       setIsDragging(true);
       setStartMousePosition(e.clientX);
@@ -59,7 +59,7 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
     }
   };
   const touchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if(!reseting) {
+    if (!reseting) {
       setAnimated(false);
       setIsDragging(true);
       setStartMousePosition(e.touches[0].clientX);
@@ -107,15 +107,15 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
 
   const handleResize = useCallback(() => {
     if (responsive) {
-      if(responsive['1200px'] && window.innerWidth >= 1200) {
+      if (responsive['1200px'] && window.innerWidth >= 1200) {
         setItems(responsive?.['1200px']);
-      } else if(responsive['992px'] && window.innerWidth >= 992) {
+      } else if (responsive['992px'] && window.innerWidth >= 992) {
         setItems(responsive?.['992px']);
-      } else if(responsive['768px'] && window.innerWidth >= 768) {
+      } else if (responsive['768px'] && window.innerWidth >= 768) {
         setItems(responsive?.['768px']);
-      } else if(responsive['576px'] && window.innerWidth >= 576) {
+      } else if (responsive['576px'] && window.innerWidth >= 576) {
         setItems(responsive?.['576px']);
-      } else if(window.innerWidth <= 576) {
+      } else if (window.innerWidth <= 576) {
         setItems(1);
       }
     }
@@ -127,11 +127,11 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
 
   useEffect(() => {
     setCurrentSlide(0);
-  }, [imgsLength])
+  }, [imgsLength]);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, delayTime);
-    if(responsive) {
+    if (responsive) {
       window.addEventListener('resize', handleResize);
     }
     return () => {
@@ -144,6 +144,21 @@ const useSlide = (imgsLength: number, itemShow: number, delayTime?: number, resp
     handleResize();
   });
 
-  return { items, nowPosition, startPosition, animated, currentSlide, nextSlide, prevSlide, pickSlide, dragStart, dragEnd, dragging, touchStart, touchMove, touchEnd };
+  return {
+    items,
+    nowPosition,
+    startPosition,
+    animated,
+    currentSlide,
+    nextSlide,
+    prevSlide,
+    pickSlide,
+    dragStart,
+    dragEnd,
+    dragging,
+    touchStart,
+    touchMove,
+    touchEnd,
+  };
 };
 export default useSlide;

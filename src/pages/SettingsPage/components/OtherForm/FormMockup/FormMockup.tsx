@@ -17,7 +17,6 @@ export interface FormMockUpProps {
 }
 
 export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableField }) => {
-
   // State;
   const [nowTab, setTab] = useState<'mockup' | 'slides'>('mockup');
 
@@ -55,22 +54,20 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableFiel
             data: [
               {
                 name: 'type mock up',
-                value: 'Iphone'
+                value: 'Iphone',
               },
               {
                 name: 'type mock up',
-                value: 'Mac'
+                value: 'Mac',
               },
             ],
-            defaultCheckedValue: typeMockUp
-          }
+            defaultCheckedValue: typeMockUp,
+          },
         ]}
         onChange={handleChangeFormGeneral}
       >
-        <Button shape='round' size='large' danger>
-          <Link to={`/admin/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>
-            Change Image
-        </Link>
+        <Button shape="round" size="large" danger>
+          <Link to={`/admin/gallery?type=sliderImgs&nowIndexSection=${nowIndexSection}&multiple=true`}>Change Image</Link>
         </Button>
       </Form>
     );
@@ -78,7 +75,16 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableFiel
 
   const _renderDetailSettings = () => {
     return (
-      <FormSlides hasFluidField={false} hasItemShowField={false} hasMarginField={false} nowIndexSection={nowIndexSection} draggableField={draggableField} hasDotField={false} hasNavField={false} responsiveField={false} />
+      <FormSlides
+        hasFluidField={false}
+        hasItemShowField={false}
+        hasMarginField={false}
+        nowIndexSection={nowIndexSection}
+        draggableField={draggableField}
+        hasDotField={false}
+        hasNavField={false}
+        responsiveField={false}
+      />
     );
   };
 
@@ -94,9 +100,7 @@ export const FormMockUp: FC<FormMockUpProps> = ({ nowIndexSection, draggableFiel
           </div>
         </div>
       </div>
-      <div className={styles.formMockUpContent}>
-        {nowTab === 'mockup' ? _renderGeneralSettings() : _renderDetailSettings()}
-      </div>
+      <div className={styles.formMockUpContent}>{nowTab === 'mockup' ? _renderGeneralSettings() : _renderDetailSettings()}</div>
     </div>
   );
 };

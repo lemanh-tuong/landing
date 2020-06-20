@@ -15,11 +15,29 @@ export type Section9EditableProps = {
 
 const Section9Editable: FC<Section9EditableProps> = ({
   nowIndexSection,
-  animation, positionAnimation, backgroundColor, backgroundImage, sectionId, reverse,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  hasDivider, dividerColor, alignDivider,
-  text, alignText, colorText, fontSizeText, classText, styleText,
-  iphoneParams, androidParams,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  sectionId,
+  reverse,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  classMainTitle,
+  styleMainTitle,
+  hasDivider,
+  dividerColor,
+  alignDivider,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  classText,
+  styleText,
+  iphoneParams,
+  androidParams,
   buttons,
 }) => {
   const [indexButton, setIndexButton] = useState(-1);
@@ -48,28 +66,49 @@ const Section9Editable: FC<Section9EditableProps> = ({
   return (
     <div className="Section9Editable">
       <Section9
-        animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage}
-        sectionId={sectionId} reverse={reverse}
-        isBuilder={true} onShowPopupEditButton={handleShowPopupEditButton}
-        onShowPopupEditMainTitle={handleShowPopUpEditMainTitle} onShowPopupEditText={handleShowPopUpEditText}
-        onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditIphoneSimulator={handleShowPopUpEditIphoneSimulator} onShowPopupEditAndroidSimulator={handleShowPopUpEditAndroidSimulator}
-        mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
-        text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        sectionId={sectionId}
+        reverse={reverse}
+        isBuilder={true}
+        onShowPopupEditButton={handleShowPopupEditButton}
+        onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        onShowPopupEditText={handleShowPopUpEditText}
+        onShowPopupEditDivider={handleShowPopUpEditDivider}
+        onShowPopupEditIphoneSimulator={handleShowPopUpEditIphoneSimulator}
+        onShowPopupEditAndroidSimulator={handleShowPopUpEditAndroidSimulator}
+        mainTitle={mainTitle}
+        alignMainTitle={alignMainTitle}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        classMainTitle={classMainTitle}
+        styleMainTitle={styleMainTitle}
+        hasDivider={hasDivider}
+        dividerColor={dividerColor}
+        alignDivider={alignDivider}
+        text={text}
+        alignText={alignText}
+        colorText={colorText}
+        classText={classText}
+        styleText={styleText}
+        fontSizeText={fontSizeText}
         buttons={buttons}
-        iphoneParams={iphoneParams} androidParams={androidParams}
+        iphoneParams={iphoneParams}
+        androidParams={androidParams}
       />
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button2-${sectionId}`} type='antd' title={<h3>Form Button 2</h3>}>
+      <PopUp id={`button2-${sectionId}`} type="antd" title={<h3>Form Button 2</h3>}>
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`simulator-iphone-${sectionId}`} type='antd' title={<h3>Iphone Simulator</h3>}>
+      <PopUp id={`simulator-iphone-${sectionId}`} type="antd" title={<h3>Iphone Simulator</h3>}>
         <FormIphoneSimulator nowIndexSection={nowIndexSection} />
       </PopUp>
-      <PopUp id={`simulator-android-${sectionId}`} type='antd' title={<h3>Android Simulator</h3>}>
+      <PopUp id={`simulator-android-${sectionId}`} type="antd" title={<h3>Android Simulator</h3>}>
         <FormAndroidSimulator nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>

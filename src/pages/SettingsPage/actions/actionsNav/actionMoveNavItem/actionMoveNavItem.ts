@@ -6,7 +6,6 @@ export interface ActionMoveNavItemPayload {
   type: 'navItems' | 'buttons';
 }
 
-const actionMoveNavItem = createAction('MOVE_NAV_ITEM', (payload: ActionMoveNavItemPayload) => ({...payload}));
+const actionMoveNavItem = createAction('MOVE_NAV_ITEM', (payload: ActionMoveNavItemPayload) => ({ ...payload }));
 
 export { actionMoveNavItem };
-

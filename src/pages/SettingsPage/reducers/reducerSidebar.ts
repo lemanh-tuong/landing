@@ -46,14 +46,14 @@ import { ItemSideBar } from '../components/SideBar/SideBar';
 export interface SideBarReducers {
   readonly statusRequestSideBar: 'loading' | 'success' | 'failure';
   readonly messageRequestSideBar: string;
-  readonly patternSection: (ItemSideBar & {previewImg: string})[];
+  readonly patternSection: (ItemSideBar & { previewImg: string })[];
 }
 
 const defaultTitle = 'Title is here';
 const defaultText = 'Text is here';
 const defaultButton = 'Button';
 
-const initialState: SideBarReducers =  {
+const initialState: SideBarReducers = {
   statusRequestSideBar: 'loading',
   messageRequestSideBar: '',
   patternSection: [
@@ -81,15 +81,15 @@ const initialState: SideBarReducers =  {
         {
           imgSrc: mockUpMacContent1,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13',
         },
         {
           imgSrc: mockUpMacContent2,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/'
-        }
+          videoUrl: 'https://www.youtube.com/',
+        },
       ],
-      typeMockUp: 'Mac'
+      typeMockUp: 'Mac',
     },
     {
       previewImg: previewSection2,
@@ -106,9 +106,36 @@ const initialState: SideBarReducers =  {
       darkMode: false,
       id: 'Btn Section 2',
       cards: [
-        { titleCard: defaultTitle, textCard: defaultText, iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange', alignIcon: 'center', alignText: 'center', alignTitleCard: 'center' },
-        { titleCard: defaultTitle, textCard: defaultText, iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange', alignIcon: 'center', alignText: 'center', alignTitleCard: 'center' },
-        { titleCard: defaultTitle, textCard: defaultText, iconImg: { imgSrc: icon1 }, hasIcon: true, bgColorIcon: 'gradient-pink-orange', alignIcon: 'center', alignText: 'center', alignTitleCard: 'center' },
+        {
+          titleCard: defaultTitle,
+          textCard: defaultText,
+          iconImg: { imgSrc: icon1 },
+          hasIcon: true,
+          bgColorIcon: 'gradient-pink-orange',
+          alignIcon: 'center',
+          alignText: 'center',
+          alignTitleCard: 'center',
+        },
+        {
+          titleCard: defaultTitle,
+          textCard: defaultText,
+          iconImg: { imgSrc: icon1 },
+          hasIcon: true,
+          bgColorIcon: 'gradient-pink-orange',
+          alignIcon: 'center',
+          alignText: 'center',
+          alignTitleCard: 'center',
+        },
+        {
+          titleCard: defaultTitle,
+          textCard: defaultText,
+          iconImg: { imgSrc: icon1 },
+          hasIcon: true,
+          bgColorIcon: 'gradient-pink-orange',
+          alignIcon: 'center',
+          alignText: 'center',
+          alignTitleCard: 'center',
+        },
       ],
     },
     {
@@ -127,7 +154,7 @@ const initialState: SideBarReducers =  {
       classText: '',
       styleText: {},
       imageSectionCol: {
-        imgSrc: sectionImg1
+        imgSrc: sectionImg1,
       },
       darkMode: false,
       id: 'Btn Section 3',
@@ -151,14 +178,14 @@ const initialState: SideBarReducers =  {
       classText: '',
       styleText: {},
       imageSectionCol: {
-        imgSrc: sectionImg1
+        imgSrc: sectionImg1,
       },
       textButton: defaultButton,
       hrefButton: '##',
       typeButton: 'gradient',
       colorTextButton: '#fff',
       darkMode: false,
-      id: 'Btn Section 4'
+      id: 'Btn Section 4',
     },
     {
       previewImg: previewSection5,
@@ -178,24 +205,24 @@ const initialState: SideBarReducers =  {
       sliderImgs: [
         {
           imgSrc: client,
-          href: ''
+          href: '',
         },
         {
           imgSrc: client2,
-          href: ''
+          href: '',
         },
         {
           imgSrc: client3,
-          href: ''
+          href: '',
         },
         {
           imgSrc: client4,
-          href: ''
-        }
+          href: '',
+        },
       ] as TypeSlideSection5[],
       draggable: true,
       darkMode: false,
-      id: 'Btn Section 5'
+      id: 'Btn Section 5',
     },
     {
       previewImg: previewSection6,
@@ -213,7 +240,7 @@ const initialState: SideBarReducers =  {
       backgroundButton: `linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)`,
       colorTextButton: '#fff',
       darkMode: false,
-      id: 'Btn Section 6'
+      id: 'Btn Section 6',
     },
     {
       previewImg: previewSection7,
@@ -236,17 +263,18 @@ const initialState: SideBarReducers =  {
         {
           authorAvatar: {
             imgSrc: authorAvatar,
-            href: '##'
+            href: '##',
           },
           authorName: 'SergeyX',
           purpose: 'Feature availability',
-          rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
+          rateContent:
+            'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
           stars: 5,
         },
         {
           authorAvatar: {
             imgSrc: authorAvatar,
-            href: '##'
+            href: '##',
           },
           authorName: 'Kalitegroup',
           purpose: 'Flexibility',
@@ -256,26 +284,26 @@ const initialState: SideBarReducers =  {
         {
           authorAvatar: {
             imgSrc: authorAvatar,
-            href: '##'
+            href: '##',
           },
           authorName: 'Dodghz',
           purpose: 'Customer support',
           rateContent: `I am very happy not only with the theme, but also with the customer support received from the Wilcity team. Support tickets are responded to quickly and the team work hard to answer questions or fix small problems.`,
           stars: 5,
-        }
+        },
       ],
       hrefButton: '##',
       textButton: defaultButton,
       darkMode: false,
-      id: 'Btn Section 7'
+      id: 'Btn Section 7',
     },
     {
       previewImg: previewSection8,
       sectionName: 'Section 8',
-      card2s:[
+      card2s: [
         {
           iconImg: {
-            imgSrc: icon1Card2
+            imgSrc: icon1Card2,
           },
           alignIcon: 'left',
           bgColorIcon: 'transparent',
@@ -287,7 +315,7 @@ const initialState: SideBarReducers =  {
         },
         {
           iconImg: {
-            imgSrc: icon2Card2
+            imgSrc: icon2Card2,
           },
           alignIcon: 'left',
           bgColorIcon: 'transparent',
@@ -299,7 +327,7 @@ const initialState: SideBarReducers =  {
         },
         {
           iconImg: {
-            imgSrc: icon3Card2
+            imgSrc: icon3Card2,
           },
           alignIcon: 'left',
           bgColorIcon: 'transparent',
@@ -308,7 +336,7 @@ const initialState: SideBarReducers =  {
           alignTitleCard: 'left',
           textCard: defaultText,
           alignText: 'left',
-        }
+        },
       ],
       animation: true,
       backgroundColor: 'rgba(245, 245, 245)',
@@ -329,7 +357,7 @@ const initialState: SideBarReducers =  {
       textButton: defaultButton,
       darkMode: false,
       typeButton: 'gradient',
-      id: 'Btn Section 8'
+      id: 'Btn Section 8',
     },
     {
       previewImg: previewSection9,
@@ -354,16 +382,16 @@ const initialState: SideBarReducers =  {
         {
           href: '##',
           imgSrc: appstore,
-           target: 'blank'
+          target: 'blank',
         },
         {
           href: '##',
           imgSrc: chplay,
-          target: 'blank'
-        }
+          target: 'blank',
+        },
       ],
-      androidParams:'exp://expo.io/@wiloke/wilcity',
-      iphoneParams:'exp://expo.io/@wiloke/wilcity',
+      androidParams: 'exp://expo.io/@wiloke/wilcity',
+      iphoneParams: 'exp://expo.io/@wiloke/wilcity',
       darkMode: false,
       id: 'Btn Section 9',
     },
@@ -379,7 +407,7 @@ const initialState: SideBarReducers =  {
       hasDivider: true,
       alignDivider: 'center',
       dividerColor: 'rgb(240, 98, 146)',
-      imageSectionCol: {imgSrc: sectionImg1},
+      imageSectionCol: { imgSrc: sectionImg1 },
       text: defaultText,
       alignText: 'center',
       classText: '',
@@ -403,13 +431,13 @@ const initialState: SideBarReducers =  {
       styleMainTitle: {},
       hasDivider: true,
       dividerColor: 'rgb(240, 98, 146)',
-      imageSectionCol: {imgSrc: sectionImg1},
+      imageSectionCol: { imgSrc: sectionImg1 },
       text: defaultText,
       alignText: 'left',
       classText: '',
       styleText: {},
       iconImg: {
-        imgSrc: iconNotifycation
+        imgSrc: iconNotifycation,
       },
       darkMode: false,
       id: 'Btn Section 11',
@@ -452,15 +480,15 @@ const initialState: SideBarReducers =  {
       sectionName: 'Section 13',
       backgroundColor: 'linear-gradient(90deg, rgb(240, 98, 146) 0%, rgb(249, 120, 95) 100%)',
       sliderImgs: [
-        {imgSrc: screen1},
-        {imgSrc: screen2},
-        {imgSrc: screen3},
-        {imgSrc: screen4},
-        {imgSrc: screen5},
-        {imgSrc: screen6},
-        {imgSrc: screen7},
-        {imgSrc: screen8},
-        {imgSrc: screen9},
+        { imgSrc: screen1 },
+        { imgSrc: screen2 },
+        { imgSrc: screen3 },
+        { imgSrc: screen4 },
+        { imgSrc: screen5 },
+        { imgSrc: screen6 },
+        { imgSrc: screen7 },
+        { imgSrc: screen8 },
+        { imgSrc: screen9 },
       ],
       draggable: true,
       mainTitle: defaultTitle,
@@ -496,13 +524,13 @@ const initialState: SideBarReducers =  {
         {
           href: '###',
           imgSrc: appstore,
-           target: 'blank'
+          target: 'blank',
         },
         {
           href: '##',
           imgSrc: chplay,
-           target: 'blank'
-        }
+          target: 'blank',
+        },
       ],
       darkMode: false,
       id: 'Btn Section 14',
@@ -510,15 +538,15 @@ const initialState: SideBarReducers =  {
         {
           imgSrc: mockUpMacContent1,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
+          videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13',
         },
         {
           imgSrc: mockUpMacContent2,
           hasVideo: true,
-          videoUrl: 'https://www.youtube.com/'
-        }
+          videoUrl: 'https://www.youtube.com/',
+        },
       ],
-      typeMockUp: 'Mac'
+      typeMockUp: 'Mac',
     },
   ],
 };
@@ -526,30 +554,28 @@ const initialState: SideBarReducers =  {
 const sidebarReducers = createReducer<SideBarReducers, ActionTypes<typeof getDataSideBar>>(initialState, [
   handleAction('@getDataSidebarRequest', state => ({
     ...state,
-    statusRequestSideBar: 'loading'
+    statusRequestSideBar: 'loading',
   })),
   handleAction('@getDataSidebarSuccess', (state, action) => {
-    if(action.payload) {
+    if (action.payload) {
       return {
         ...state,
         statusRequestSideBar: 'success',
-        patternSection: state.patternSection.concat(action.payload)
+        patternSection: state.patternSection.concat(action.payload),
       };
     }
     return {
       ...state,
-      statusRequestSideBar: 'success'
+      statusRequestSideBar: 'success',
     };
-
   }),
   handleAction('@getDataSidebarFailure', (state, action) => {
     return {
       ...state,
       statusRequestSideBar: 'failure',
-      messageRequestSideBar: action.payload
+      messageRequestSideBar: action.payload,
     };
-  })
+  }),
 ]);
 
 export { sidebarReducers };
-

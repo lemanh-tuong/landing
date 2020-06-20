@@ -40,24 +40,48 @@ const PageTab = () => {
   };
 
   const _renderAlertConfirm = (pageName: string, indexDelete: number) => {
-    return <PopUp id={`alert-confirm-${pageName}`} style={{ height: 400 }} type='antd' onOk={handleDeletePage(indexDelete)}>
-      <p style={{ textAlign: 'center' }}>Delete
-        <span style={{ fontSize: 20, fontWeight: 800, marginLeft: 10 }}>{pageName}?</span>
-      </p>
-    </PopUp>;
+    return (
+      <PopUp id={`alert-confirm-${pageName}`} style={{ height: 400 }} type="antd" onOk={handleDeletePage(indexDelete)}>
+        <p style={{ textAlign: 'center' }}>
+          Delete
+          <span style={{ fontSize: 20, fontWeight: 800, marginLeft: 10 }}>{pageName}?</span>
+        </p>
+      </PopUp>
+    );
   };
 
   const _renderPopOverSetting = (pageName: string, id: string, index: number) => {
     return (
       <>
-        <Popover content="Duplicate Page" >
-          <Button className={`${styles.btn}`} icon={<i className="far fa-copy"></i>} size='middle' shape='round' danger onClick={PopUp.show(`duplicate-page-${id}-form`)} />
+        <Popover content="Duplicate Page">
+          <Button
+            className={`${styles.btn}`}
+            icon={<i className="far fa-copy"></i>}
+            size="middle"
+            shape="round"
+            danger
+            onClick={PopUp.show(`duplicate-page-${id}-form`)}
+          />
         </Popover>
-        <Popover content="Delete Page" >
-          <Button className={`${styles.btn}`} icon={<i className="fas fa-trash"></i>} size='middle' shape='round' danger onClick={PopUp.show(`alert-confirm-${pageName}`)} />
+        <Popover content="Delete Page">
+          <Button
+            className={`${styles.btn}`}
+            icon={<i className="fas fa-trash"></i>}
+            size="middle"
+            shape="round"
+            danger
+            onClick={PopUp.show(`alert-confirm-${pageName}`)}
+          />
         </Popover>
-        <Popover content="Information of Page" >
-          <Button className={`${styles.btn}`} icon={<i className="fas fa-cog"></i>} size='middle' shape='round' danger onClick={PopUp.show(`change-general-data-page-${id}-form`)} />
+        <Popover content="Information of Page">
+          <Button
+            className={`${styles.btn}`}
+            icon={<i className="fas fa-cog"></i>}
+            size="middle"
+            shape="round"
+            danger
+            onClick={PopUp.show(`change-general-data-page-${id}-form`)}
+          />
         </Popover>
         {_renderAlertConfirm(pageName, index)}
       </>
@@ -67,26 +91,24 @@ const PageTab = () => {
   const _renderExtend = ({ id, pageName, pathName, isHome }: PageGeneralData, index: number) => {
     return (
       <>
-        <PopOver id={id} content={_renderPopOverSetting(pageName, id, index)} trigger='click'>
-          <Button
-            className={`${styles.extendBtn}`}
-            icon={<i className="fas fa-ellipsis-h"></i>}
-            size='middle'
-          />
+        <PopOver id={id} content={_renderPopOverSetting(pageName, id, index)} trigger="click">
+          <Button className={`${styles.extendBtn}`} icon={<i className="fas fa-ellipsis-h"></i>} size="middle" />
         </PopOver>
         <FormChangeGeneralDataPage redirectOnChange pageId={id} />
       </>
-    )
-  }
+    );
+  };
 
   const _renderPage = ({ id, pageName, pathName, isHome }: PageGeneralData, index: number) => {
     return (
       <div className={`${styles.page} ${nowPage.pathName === pathName ? styles.active : ''}`}>
         <Link className={`${styles.link}`} to={`/admin/builder?pageName=${pageName}&pathName=${pathName}&id=${id}`} key={id}>
           <div className={styles.pageName}>
-            {isHome && <span className={styles.homeIcon} style={{ marginRight: 10 }}>
-              <i className="fas fa-home" />
-            </span>}
+            {isHome && (
+              <span className={styles.homeIcon} style={{ marginRight: 10 }}>
+                <i className="fas fa-home" />
+              </span>
+            )}
             {pageName}
           </div>
         </Link>
@@ -101,15 +123,17 @@ const PageTab = () => {
   };
 
   const _renderSuccess = () => {
-    return <>
-      {_renderPages()}
-      <ButtonGroup>
-        <Button className={`${styles.addBtn} ${styles.page}`} onClick={PopUp.show('add-page-form')}>
-          Add New Page
-        </Button>
-      </ButtonGroup>
-      <FormAddNewPage suggestHomePage={false} />
-    </>;
+    return (
+      <>
+        {_renderPages()}
+        <ButtonGroup>
+          <Button className={`${styles.addBtn} ${styles.page}`} onClick={PopUp.show('add-page-form')}>
+            Add New Page
+          </Button>
+        </ButtonGroup>
+        <FormAddNewPage suggestHomePage={false} />
+      </>
+    );
   };
 
   const _renderSwitch = () => {
@@ -119,7 +143,11 @@ const PageTab = () => {
       case 'failure':
         return <Redirect to={{ pathname: '/error', state: messageErr }} />;
       case 'success':
-        return <div className={'PageTab'} style={{ marginTop: 15 }}>{_renderSuccess()}</div>;
+        return (
+          <div className={'PageTab'} style={{ marginTop: 15 }}>
+            {_renderSuccess()}
+          </div>
+        );
       default:
         return null;
     }

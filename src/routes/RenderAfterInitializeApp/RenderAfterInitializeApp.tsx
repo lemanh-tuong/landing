@@ -34,7 +34,7 @@ const RenderAfterInitializeApp = () => {
   const generalDataPage = useSelector(listPage);
   const paths = generalDataPage.map(item => {
     if (item.isHome) return '/';
-    return item.pathName
+    return item.pathName;
   });
 
   const getDataNav = thunkGetDataNav();
@@ -49,17 +49,19 @@ const RenderAfterInitializeApp = () => {
           <Route exact path={`(${paths.join('|')})`}>
             <MainPage />
           </Route>
-          <Route exact path='/admin/login'>
+          <Route exact path="/admin/login">
             <LoginPage />
           </Route>
-          <Route exact path="/test" >
+          <Route exact path="/test">
             <TestPage />
           </Route>
-          <Route exact path='/error'>
+          <Route exact path="/error">
             <ErrorPage />
           </Route>
-          <Route path='/admin'>
-            <PrivateRoute condition={isLogged === 'loged'} pathRedirect='/admin/login'
+          <Route path="/admin">
+            <PrivateRoute
+              condition={isLogged === 'loged'}
+              pathRedirect="/admin/login"
               component={
                 <>
                   <Route exact path="/admin/builder">
@@ -104,7 +106,6 @@ const RenderAfterInitializeApp = () => {
     }
   };
 
-
   const _renderContentSwitch = () => {
     switch (statusRequestPageName) {
       case 'loading':
@@ -122,13 +123,13 @@ const RenderAfterInitializeApp = () => {
     getListPageName();
     getDataNav();
     getProjectName();
-  })
+  });
 
   if (statusRequestPageName === 'failure') {
     return <Redirect to={{ pathname: '/error', state: 'Error Request Pagename' }} />;
   }
 
   return _renderContentSwitch();
-}
+};
 
 export default RenderAfterInitializeApp;

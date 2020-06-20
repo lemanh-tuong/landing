@@ -7,7 +7,6 @@ export interface ActionChangeCheckBoxSlide2Payload {
   fieldName: string;
 }
 
-const actionChangeCheckBoxSlide2 = createAction('CHANGE_CHECKBOX_SLIDE_2', (payload: ActionChangeCheckBoxSlide2Payload) => ({...payload}));
+const actionChangeCheckBoxSlide2 = createAction('CHANGE_CHECKBOX_SLIDE_2', (payload: ActionChangeCheckBoxSlide2Payload) => ({ ...payload }));
 
 export { actionChangeCheckBoxSlide2 };
-

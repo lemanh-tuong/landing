@@ -23,9 +23,9 @@ export type Section7Props = {
   rateList: RateProps[];
   onAddRate?: (nowIndexRate: number) => void;
   onDeleteRate?: (nowIndexRate: number) => void;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>>
-  & Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>;
+} & SectionPatternBase &
+  Partial<Omit<MainTitleProps, 'onEditable' | 'isBuilder'>> &
+  Partial<Omit<TextProps, 'onEditable' | 'isBuilder'>>;
 
 export interface Section7PropsBuilder {
   isBuilder?: boolean;
@@ -36,15 +36,41 @@ export interface Section7PropsBuilder {
 }
 
 const Section7: FC<Section7Props & Section7PropsBuilder> = ({
-  animation, positionAnimation, backgroundImage, backgroundColor, className, style, darkMode,
-  isBuilder, onShowPopupEditTitle, onShowPopUpEditRate, onShowPopUpEditText, onShowPopUpEditButton, onAddRate, onDeleteRate,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  text, colorText, alignText, fontSizeText, classText, styleText,
+  animation,
+  positionAnimation,
+  backgroundImage,
+  backgroundColor,
+  className,
+  style,
+  darkMode,
+  isBuilder,
+  onShowPopupEditTitle,
+  onShowPopUpEditRate,
+  onShowPopUpEditText,
+  onShowPopUpEditButton,
+  onAddRate,
+  onDeleteRate,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  classMainTitle,
+  styleMainTitle,
+  text,
+  colorText,
+  alignText,
+  fontSizeText,
+  classText,
+  styleText,
   rateList,
-  backgroundButton, colorTextButton, hrefButton, styleButton, textButton, typeButton, sizeButton
-
+  backgroundButton,
+  colorTextButton,
+  hrefButton,
+  styleButton,
+  textButton,
+  typeButton,
+  sizeButton,
 }) => {
-
   const _handleAddRate = (nowIndexRate: number) => {
     return () => onAddRate?.(nowIndexRate + 1);
   };
@@ -65,25 +91,31 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
     if (isBuilder) {
       return (
         <>
-          {rateList.length > 0 ? rateList.map((rateProperty, index) => (
-            <Col key={index} cols={[12, 6, 12 / rateList.length >= 4 ? Math.floor(12 / rateList.length) : 4]}>
-              <div className={styles.rateEdit}>
-                {_renderRate(rateProperty, index)}
-                <div className={styles.btnGroup}>
-                  {/* <ButtonAntd className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddRate(index)} /> */}
-                  <ButtonAntd className={styles.deleteBtn} icon={<i className="fas fa-trash"></i>} shape='circle' size='large' onClick={_handleDeleteRate(index)} />
+          {rateList.length > 0 ? (
+            rateList.map((rateProperty, index) => (
+              <Col key={index} cols={[12, 6, 12 / rateList.length >= 4 ? Math.floor(12 / rateList.length) : 4]}>
+                <div className={styles.rateEdit}>
+                  {_renderRate(rateProperty, index)}
+                  <div className={styles.btnGroup}>
+                    {/* <ButtonAntd className={styles.addBtn} icon={<i className="fas fa-plus"></i>} shape='circle' size='large' onClick={_handleAddRate(index)} /> */}
+                    <ButtonAntd
+                      className={styles.deleteBtn}
+                      icon={<i className="fas fa-trash"></i>}
+                      shape="circle"
+                      size="large"
+                      onClick={_handleDeleteRate(index)}
+                    />
+                  </div>
                 </div>
-              </div>
-            </Col>
-          )) :
+              </Col>
+            ))
+          ) : (
             <Col cols={[12, 12, 12]}>
               <div className={`${styles.rateEdit} ${styles.rateAdd}`} onClick={_handleAddRate(rateList.length + 1)}>
-                <p>
-                  Add Item
-                </p>
+                <p>Add Item</p>
               </div>
             </Col>
-          }
+          )}
         </>
       );
     }
@@ -99,40 +131,50 @@ const Section7: FC<Section7Props & Section7PropsBuilder> = ({
   };
 
   return (
-    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
+    <Section
+      backgroundColor={backgroundColor}
+      backgroundImage={backgroundImage}
+      className={className}
+      style={style}
+      animation={animation}
+      positionAnimation={positionAnimation}
+    >
       <div className="section7Header" style={{ marginBottom: 50 }}>
         <Row>
           <Col cols={[10]} offsets={[1]}>
-            {<MainTitle
-              isBuilder={isBuilder}
-              onEditable={onShowPopupEditTitle}
-              darkMode={darkMode}
-              mainTitle={mainTitle ?? ''}
-              colorMainTitle={colorMainTitle}
-              alignMainTitle={alignMainTitle}
-              fontSizeMainTitle={fontSizeMainTitle}
-              styleMainTitle={{ ...styleMainTitle, marginBottom: 20 }}
-              classMainTitle={classMainTitle}
-            />}
-            {<Text
-              isBuilder={isBuilder}
-              onEditable={onShowPopUpEditText}
-              text={text ?? ''}
-              alignText={alignText}
-              colorText={colorText}
-              fontSizeText={fontSizeText}
-              classText={classText}
-              styleText={styleText}
-            />}
+            {
+              <MainTitle
+                isBuilder={isBuilder}
+                onEditable={onShowPopupEditTitle}
+                darkMode={darkMode}
+                mainTitle={mainTitle ?? ''}
+                colorMainTitle={colorMainTitle}
+                alignMainTitle={alignMainTitle}
+                fontSizeMainTitle={fontSizeMainTitle}
+                styleMainTitle={{ ...styleMainTitle, marginBottom: 20 }}
+                classMainTitle={classMainTitle}
+              />
+            }
+            {
+              <Text
+                isBuilder={isBuilder}
+                onEditable={onShowPopUpEditText}
+                text={text ?? ''}
+                alignText={alignText}
+                colorText={colorText}
+                fontSizeText={fontSizeText}
+                classText={classText}
+                styleText={styleText}
+              />
+            }
           </Col>
         </Row>
       </div>
-      <Row>
-        {_renderRateList()}
-      </Row>
+      <Row>{_renderRateList()}</Row>
       <ButtonGroup>
         <Button
-          type={typeButton} size={sizeButton}
+          type={typeButton}
+          size={sizeButton}
           text={textButton}
           backgroundColor={backgroundButton}
           color={colorTextButton}

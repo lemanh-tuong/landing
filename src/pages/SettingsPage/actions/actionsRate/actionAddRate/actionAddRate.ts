@@ -7,7 +7,6 @@ export interface ActionAddRatePayload {
   rateProperty: RateProps;
 }
 
-const actionAddRate = createAction('ADD_RATE', (payload: ActionAddRatePayload) => ({...payload}));
+const actionAddRate = createAction('ADD_RATE', (payload: ActionAddRatePayload) => ({ ...payload }));
 
 export { actionAddRate };
-

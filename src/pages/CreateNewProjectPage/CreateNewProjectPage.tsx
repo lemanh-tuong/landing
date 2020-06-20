@@ -16,13 +16,13 @@ const CreateNewProjectPage = () => {
 
   const handleChange = (result: string) => {
     setValue(result);
-  }
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     submit(value);
     history.push('/admin/list');
-  }
+  };
 
   return (
     <div className={styles.CreateNewProjectPage} style={{ padding: 30 }}>
@@ -30,11 +30,13 @@ const CreateNewProjectPage = () => {
         <form onSubmit={handleSubmit}>
           <h3 className={styles.title}>Your Project Is New. Please Fill The Project Name</h3>
           <InputText2 defaultValue={value} label="Project Name" onChange={handleChange} />
-          <button disabled={value.length === 0} className={styles.submitBtn} type='submit' onSubmit={handleSubmit}>Create New Project</button>
+          <button disabled={value.length === 0} className={styles.submitBtn} type="submit" onSubmit={handleSubmit}>
+            Create New Project
+          </button>
         </form>
       </Container>
     </div>
-  )
-}
+  );
+};
 
 export default CreateNewProjectPage;

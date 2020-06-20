@@ -10,9 +10,9 @@ const rootElement = document.getElementById('root') as HTMLElement;
 const resources = {
   en: {
     translation: {
-      'Welcome to React': 'Welcome to React and react-i18next'
-    }
-  }
+      'Welcome to React': 'Welcome to React and react-i18next',
+    },
+  },
 };
 
 i18n
@@ -26,8 +26,8 @@ i18n
     keySeparator: false, // we do not use keys in form messages.welcome
 
     interpolation: {
-      escapeValue: false // react already safes from xss
-    }
+      escapeValue: false, // react already safes from xss
+    },
   });
 
 export default i18n;
@@ -49,7 +49,4 @@ if (isDev) {
 } else {
   serviceWorker.unregister();
 }
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));

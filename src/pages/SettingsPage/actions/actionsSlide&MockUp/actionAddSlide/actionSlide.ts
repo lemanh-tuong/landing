@@ -9,7 +9,6 @@ export interface ActionAddSlidePayload {
   nowIndexSection: number;
 }
 
-const actionAddSlide = createAction('ADD_SLIDE', (payload: ActionAddSlidePayload) => ({...payload}));
+const actionAddSlide = createAction('ADD_SLIDE', (payload: ActionAddSlidePayload) => ({ ...payload }));
 
 export { actionAddSlide };
-

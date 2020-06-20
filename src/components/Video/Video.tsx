@@ -9,10 +9,7 @@ const Video: FC<VideoProps> = ({ videoUrl }) => {
   return (
     <div className={`${styles.imageVideo}`}>
       <div className={styles.iframeVideo}>
-        <iframe
-          title="video"
-          src={videoUrl}>
-        </iframe>
+        <iframe title="video" src={videoUrl}></iframe>
       </div>
     </div>
   );

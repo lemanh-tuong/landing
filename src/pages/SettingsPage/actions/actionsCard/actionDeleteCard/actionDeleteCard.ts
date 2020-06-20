@@ -9,8 +9,7 @@ export interface ActionDeleteCard {
 }
 
 const actionDeleteCard = createAction('DELETE_CARD', (payload: ActionDeleteCard['payload']) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionDeleteCard };
-

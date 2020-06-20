@@ -7,10 +7,10 @@ export interface ActionAddSection {
 }
 
 const actionAddSection = createAction('ADD_SECTION', (payload: Option, nowIndexSection?: number) => {
-  if(!!nowIndexSection || nowIndexSection === 0) {
+  if (!!nowIndexSection || nowIndexSection === 0) {
     return {
       ...payload,
-      nowIndexSection: nowIndexSection
+      nowIndexSection: nowIndexSection,
     };
   }
   return {
@@ -19,4 +19,3 @@ const actionAddSection = createAction('ADD_SECTION', (payload: Option, nowIndexS
 });
 
 export { actionAddSection };
-

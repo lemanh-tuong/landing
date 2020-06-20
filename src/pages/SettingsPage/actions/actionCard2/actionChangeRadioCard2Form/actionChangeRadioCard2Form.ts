@@ -11,8 +11,7 @@ export interface ActionChangeRadioCard2Form {
 }
 
 const actionChangeRadioCard2Form = createAction('CHANGE_RADIO_CARD_2_FORM', (payload: ActionChangeRadioCard2Form['payload']) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChangeRadioCard2Form };
-

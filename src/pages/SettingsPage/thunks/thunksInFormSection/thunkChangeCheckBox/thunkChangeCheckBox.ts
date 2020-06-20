@@ -8,8 +8,8 @@ export interface ThunkChangeCheckBoxArg {
   nowIndexSection: number;
 }
 
-const thunkChangeCheckBox = ({fieldName, checked, nowIndexSection}: ThunkChangeCheckBoxArg): ThunkChangeCheckBox => dispatch => {
-    dispatch(changeCheckBox({fieldName: fieldName, checked: checked, nowIndexSection: nowIndexSection}));
+const thunkChangeCheckBox = ({ fieldName, checked, nowIndexSection }: ThunkChangeCheckBoxArg): ThunkChangeCheckBox => dispatch => {
+  dispatch(changeCheckBox({ fieldName: fieldName, checked: checked, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChangeCheckBox);

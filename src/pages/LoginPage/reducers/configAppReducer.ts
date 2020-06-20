@@ -1,9 +1,7 @@
-import { AppConfig } from "firebase/myFirebase";
-import { createReducer, handleAction } from "utils/functions/reduxActions";
+import { AppConfig } from 'firebase/myFirebase';
+import { createReducer, handleAction } from 'utils/functions/reduxActions';
 
-export interface ConfigAppReducer extends AppConfig {
-
-}
+export interface ConfigAppReducer extends AppConfig {}
 
 const initialState: ConfigAppReducer = {
   firebaseConfig: {
@@ -14,17 +12,17 @@ const initialState: ConfigAppReducer = {
     measurementId: '',
     messagingSenderId: '',
     projectId: '',
-    storageBucket: ''
-  }
-}
+    storageBucket: '',
+  },
+};
 
 const configAppReducer = createReducer<ConfigAppReducer, any>(initialState, [
   handleAction('CONFIG_APP', (state, action) => {
     return {
       ...state,
-      ...action.payload
-    }
-  })
-])
+      ...action.payload,
+    };
+  }),
+]);
 
 export default configAppReducer;

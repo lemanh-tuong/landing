@@ -8,8 +8,7 @@ export interface ActionChangeColorCard2TextPayload {
 }
 
 const actionChangeColorCard2Text = createAction('CHANGE_COLOR_CARD_2_TEXT', (payload: ActionChangeColorCard2TextPayload) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionChangeColorCard2Text };
-

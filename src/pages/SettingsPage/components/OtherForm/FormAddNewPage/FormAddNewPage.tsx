@@ -10,7 +10,7 @@ import { Redirect, useHistory } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface FormAddNewPageProps {
-  suggestHomePage: boolean
+  suggestHomePage: boolean;
 }
 
 const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
@@ -30,14 +30,18 @@ const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
   const handleError = (value: string) => {
     const regex = /\s/;
     setValidate(() => {
-      if (value.length === 0) return 'Required'
-      if (regex && value.match(regex)) return 'Pattern Error'
-      return ''
-    })
-  }
+      if (value.length === 0) return 'Required';
+      if (regex && value.match(regex)) return 'Pattern Error';
+      return '';
+    });
+  };
 
   const handleChangePageName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pathName = e.target.value.trim().split(' ').map(word => word.toLowerCase()).join('-');
+    const pathName = e.target.value
+      .trim()
+      .split(' ')
+      .map(word => word.toLowerCase())
+      .join('-');
     setPathName(pathName);
     setPageName(e.target.value);
   };
@@ -48,8 +52,8 @@ const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
     }
   };
   const handleIsHome = (result: boolean) => {
-    setIsHome(result)
-  }
+    setIsHome(result);
+  };
 
   const handleAddNewPage = () => {
     const id = uuidv4();
@@ -87,18 +91,27 @@ const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
 
   const _renderValidateError = () => {
     if (error) {
-      return <div onClick={handleClose}
-        style={{
-          position: 'fixed',
-          background: 'rgba(0,0,0,0.8)',
-          width: '100%', height: '100%',
-          top: 0, left: 0, display: 'flex',
-          justifyContent: 'center', alignItems: 'center',
-          fontSize: 20, color: 'white',
-          zIndex: 11111111
-        }}>
-        {error}
-      </div>;
+      return (
+        <div
+          onClick={handleClose}
+          style={{
+            position: 'fixed',
+            background: 'rgba(0,0,0,0.8)',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 20,
+            color: 'white',
+            zIndex: 11111111,
+          }}
+        >
+          {error}
+        </div>
+      );
     }
     return null;
   };
@@ -107,7 +120,7 @@ const FormAddNewPage: FC<FormAddNewPageProps> = ({ suggestHomePage }) => {
     <>
       {_renderValidateError()}
       {_renderCreateSwitch()}
-      <PopUp id="add-page-form" type='antd' title={<h3>Form Add New Page</h3>} onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
+      <PopUp id="add-page-form" type="antd" title={<h3>Form Add New Page</h3>} onCancel={PopUp.hide('add-page-form')} onOk={handleAddNewPage}>
         <div>
           <span>Page Name</span>
           <Input style={{ margin: '10px 0' }} required onChange={handleChangePageName} onFocus={handleChangePageName} />

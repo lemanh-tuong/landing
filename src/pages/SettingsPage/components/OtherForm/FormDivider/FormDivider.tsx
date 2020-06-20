@@ -47,7 +47,7 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection, sectionId }
   };
 
   return (
-    <PopUp id={`divider-${sectionId}`} type='antd' title={<h3>Form Divider</h3>}>
+    <PopUp id={`divider-${sectionId}`} type="antd" title={<h3>Form Divider</h3>}>
       <div>
         <Form
           fields={[
@@ -56,7 +56,7 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection, sectionId }
               fieldName: 'hasDivider',
               label: 'Has Divider',
               fieldId: 'section-3-field-7',
-              defaultChecked: !!hasDivider
+              defaultChecked: !!hasDivider,
             },
             {
               fieldType: 'color-picker',
@@ -85,15 +85,14 @@ export const FormDivider: FC<FormDividerProps> = ({ nowIndexSection, sectionId }
                 {
                   name: 'alignDivider',
                   value: 'right',
-                }
-              ]
-            }
+                },
+              ],
+            },
           ]}
           onChange={handleChangeForm}
         />
       </div>
     </PopUp>
-
   );
 };
 

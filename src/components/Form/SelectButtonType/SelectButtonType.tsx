@@ -19,7 +19,6 @@ export interface SelectButtonTypeProps {
 }
 
 const SelectButtonType: FC<SelectButtonTypeProps> = ({ label, options, defaultSelect = '', onChange }) => {
-
   const _renderOption = ({ value, label }: OptionSelect) => {
     if (value) {
       return (
@@ -37,11 +36,18 @@ const SelectButtonType: FC<SelectButtonTypeProps> = ({ label, options, defaultSe
     <div className={styles.selectComponent}>
       <div className={styles.content}>
         <div className={styles.name}>{label}</div>
-        <SelectAntd maxTagTextLength={520} size='large' className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
+        <SelectAntd
+          maxTagTextLength={520}
+          size="large"
+          className={styles.selectList}
+          defaultValue={defaultSelect}
+          onChange={onChange}
+          showArrow={false}
+        >
           {options.map(option => _renderOption(option))}
         </SelectAntd>
       </div>
-    </div >
+    </div>
   );
 };
 

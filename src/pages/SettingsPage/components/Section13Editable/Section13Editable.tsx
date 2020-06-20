@@ -13,12 +13,35 @@ export type Section13EditableProps = {
 const Section13Editable: FC<Section13EditableProps> = ({
   nowIndexSection,
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, darkMode,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle, classMainTitle, styleMainTitle,
-  text, alignText, colorText, fontSizeText, classText, styleText,
-  sliderImgs, typeMockUp, fluid, margin, hasDots, dotClass, classActive, navClass, hasNav, draggable, delayTime
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  darkMode,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  classMainTitle,
+  styleMainTitle,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  classText,
+  styleText,
+  sliderImgs,
+  typeMockUp,
+  fluid,
+  margin,
+  hasDots,
+  dotClass,
+  classActive,
+  navClass,
+  hasNav,
+  draggable,
+  delayTime,
 }) => {
-
   const handleShowPopUpEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   };
@@ -32,18 +55,44 @@ const Section13Editable: FC<Section13EditableProps> = ({
   return (
     <div className="Section13Editable">
       <Section13
-        isBuilder={true} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle} onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditMockUp={handleShowPopUpEditMockUp}
+        isBuilder={true}
+        onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        onShowPopupEditText={handleShowPopUpEditText}
+        onShowPopupEditMockUp={handleShowPopUpEditMockUp}
         sectionId={sectionId}
-        animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        darkMode={darkMode}
         typeMockUp={typeMockUp}
-        sliderImgs={sliderImgs} delayTime={delayTime} draggable={draggable} fluid={fluid} margin={margin} classActive={classActive} navClass={navClass} hasNav={hasNav} hasDots={hasDots} dotClass={dotClass}
-        mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} fontSizeMainTitle={fontSizeMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle}
-        text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
+        sliderImgs={sliderImgs}
+        delayTime={delayTime}
+        draggable={draggable}
+        fluid={fluid}
+        margin={margin}
+        classActive={classActive}
+        navClass={navClass}
+        hasNav={hasNav}
+        hasDots={hasDots}
+        dotClass={dotClass}
+        mainTitle={mainTitle}
+        alignMainTitle={alignMainTitle}
+        colorMainTitle={colorMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        classMainTitle={classMainTitle}
+        styleMainTitle={styleMainTitle}
+        text={text}
+        alignText={alignText}
+        colorText={colorText}
+        classText={classText}
+        styleText={styleText}
+        fontSizeText={fontSizeText}
       />
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={false} sectionId={sectionId} />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`mockup-${sectionId}`} type='antd' title={<h3>Form Mock Up</h3>}>
+      <PopUp id={`mockup-${sectionId}`} type="antd" title={<h3>Form Mock Up</h3>}>
         <FormMockUp draggableField={true} nowIndexSection={nowIndexSection} />
       </PopUp>
     </div>

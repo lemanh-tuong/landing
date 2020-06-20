@@ -23,7 +23,6 @@ export interface SelectProps {
 }
 
 const Select: FC<SelectProps> = ({ label, optionsGroup, defaultSelect = '', onChange }) => {
-
   const _renderOption = ({ value, label }: OptionSelect) => {
     return (
       <Option className={styles.option} key={uuidv4()} value={value}>
@@ -39,13 +38,11 @@ const Select: FC<SelectProps> = ({ label, optionsGroup, defaultSelect = '', onCh
           <div className={styles.name}>{label}</div>
           <SelectAntd className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
             {optionsGroup.map(group => (
-              <OptGroup label={group.groupName}>
-                {group.options.map(option => _renderOption({ ...option }))}
-              </OptGroup>
+              <OptGroup label={group.groupName}>{group.options.map(option => _renderOption({ ...option }))}</OptGroup>
             ))}
           </SelectAntd>
         </div>
-      </div >
+      </div>
     );
   }
   return (
@@ -54,14 +51,15 @@ const Select: FC<SelectProps> = ({ label, optionsGroup, defaultSelect = '', onCh
         <div className={styles.name}>{label}</div>
         <SelectAntd className={styles.selectList} defaultValue={defaultSelect} onChange={onChange} showArrow={false}>
           <OptGroup label={optionsGroup.groupName}>
-            {optionsGroup.options.map(option => <Option className={styles.option} key={uuidv4()} value={option.value}>
-              <div className={`${styles.label}`}>{option.label}</div>
-            </Option>)
-            }
+            {optionsGroup.options.map(option => (
+              <Option className={styles.option} key={uuidv4()} value={option.value}>
+                <div className={`${styles.label}`}>{option.label}</div>
+              </Option>
+            ))}
           </OptGroup>
         </SelectAntd>
       </div>
-    </div >
+    </div>
   );
 };
 

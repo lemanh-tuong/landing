@@ -7,7 +7,6 @@ export interface ActionChangeRadioSlide2Payload {
   fieldName: string;
 }
 
-const actionChangeRadioSlide2 = createAction('CHANGE_RADIO_SLIDE_2', (payload: ActionChangeRadioSlide2Payload) => ({...payload}));
+const actionChangeRadioSlide2 = createAction('CHANGE_RADIO_SLIDE_2', (payload: ActionChangeRadioSlide2Payload) => ({ ...payload }));
 
 export { actionChangeRadioSlide2 };
-

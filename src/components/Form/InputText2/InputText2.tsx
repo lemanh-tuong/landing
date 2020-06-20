@@ -17,10 +17,19 @@ export interface InputText2Props {
 }
 
 const InputText2: FC<InputText2Props> = ({
-  label, addonBefore, addonAfter, disabled, placeholder, defaultValue, maxLength, minLength, regex, required,
-  style, onChange
+  label,
+  addonBefore,
+  addonAfter,
+  disabled,
+  placeholder,
+  defaultValue,
+  maxLength,
+  minLength,
+  regex,
+  required,
+  style,
+  onChange,
 }) => {
-
   const onChangeRef = useRef(onChange);
   let timeOut: Timeout;
 
@@ -28,13 +37,13 @@ const InputText2: FC<InputText2Props> = ({
 
   const handleError = (value: string) => {
     setError(() => {
-      if (required && value.length === 0) return 'Required'
-      if (minLength && value.length < minLength) return 'Not enough length'
-      if (maxLength && value.length > maxLength) return 'Too long'
-      if (regex && value.match(regex)) return 'Pattern Error'
-      return ''
-    })
-  }
+      if (required && value.length === 0) return 'Required';
+      if (minLength && value.length < minLength) return 'Not enough length';
+      if (maxLength && value.length > maxLength) return 'Too long';
+      if (regex && value.match(regex)) return 'Pattern Error';
+      return '';
+    });
+  };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -43,18 +52,27 @@ const InputText2: FC<InputText2Props> = ({
     if (!error) {
       timeOut = setTimeout(() => {
         onChangeRef.current?.(value);
-      }, 100)
+      }, 100);
     }
   };
 
-
   return (
     <div style={{ ...style, marginBottom: 16 }}>
-      {label && <label htmlFor={label} style={{ marginRight: 10 }}>{label}</label>}
-      <Input placeholder={placeholder} disabled={disabled} addonBefore={addonBefore} addonAfter={addonAfter} defaultValue={defaultValue} onChange={handleChange} />
+      {label && (
+        <label htmlFor={label} style={{ marginRight: 10 }}>
+          {label}
+        </label>
+      )}
+      <Input
+        placeholder={placeholder}
+        disabled={disabled}
+        addonBefore={addonBefore}
+        addonAfter={addonAfter}
+        defaultValue={defaultValue}
+        onChange={handleChange}
+      />
       {!!error ? <p style={{ fontSize: 'inherit', color: 'red' }}>{error}</p> : null}
     </div>
-
   );
 };
 

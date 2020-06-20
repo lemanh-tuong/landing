@@ -19,49 +19,58 @@ const ProfilePage = () => {
   const handleCloseAll = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setNowFormEdit('');
-  }
-
+  };
 
   const changeProfile = thunkChangeProfileUser();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault();
     changeProfile(newProfile);
-  }
+  };
 
   const _renderFormChangeProfile = (label: string, content: string, fieldName: string) => {
     return (
       <form onSubmit={handleSubmit}>
         <InputText2 onChange={handleSetNewProfile(fieldName)} placeholder={label} defaultValue={content} />
         <div className={styles.btnGroup}>
-          <button className={`${styles.btn}`} onClick={handleCloseAll}>Cancel</button>
-          <button className={`${styles.btn} ${styles[statusChangerProfile]}`} onSubmit={handleSubmit}>OK</button>
+          <button className={`${styles.btn}`} onClick={handleCloseAll}>
+            Cancel
+          </button>
+          <button className={`${styles.btn} ${styles[statusChangerProfile]}`} onSubmit={handleSubmit}>
+            OK
+          </button>
         </div>
       </form>
-    )
-  }
+    );
+  };
 
-  const _renderItem = ({ label, content, fieldName, canEdit }: { label: string, content: string, fieldName: string, canEdit: boolean }) => {
+  const _renderItem = ({ label, content, fieldName, canEdit }: { label: string; content: string; fieldName: string; canEdit: boolean }) => {
     return (
       <div className={styles.item}>
         <div className={styles.labelItem}>{label}</div>
         <div className={styles.contentItem}>
-          {label === nowFormEdit ? _renderFormChangeProfile(label, content, fieldName) :
+          {label === nowFormEdit ? (
+            _renderFormChangeProfile(label, content, fieldName)
+          ) : (
             <>
               <span>{content}</span>
-              {canEdit ? <span className={styles.editBtn} onClick={handleSetFormEdit(label)}>Edit</span> : null}
+              {canEdit ? (
+                <span className={styles.editBtn} onClick={handleSetFormEdit(label)}>
+                  Edit
+                </span>
+              ) : null}
             </>
-          }
+          )}
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     if (statusChangerProfile === 'changedUserProfile') {
       setNowFormEdit('');
     }
-  }, [statusChangerProfile])
+  }, [statusChangerProfile]);
 
   return (
     <div className={styles.ProfilePage}>
@@ -71,11 +80,11 @@ const ProfilePage = () => {
           {_renderItem({ label: 'User Name', content: displayName || '', fieldName: 'displayName', canEdit: true })}
           {_renderItem({ label: 'Email', content: email || '', fieldName: 'email', canEdit: true })}
           {_renderItem({ label: 'Password', content: '******************', fieldName: 'password', canEdit: true })}
-          {_renderItem({ label: "Phone number", content: phoneNumber || 'Phone number', fieldName: 'phoneNumber', canEdit: false })}
+          {_renderItem({ label: 'Phone number', content: phoneNumber || 'Phone number', fieldName: 'phoneNumber', canEdit: false })}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ProfilePage;

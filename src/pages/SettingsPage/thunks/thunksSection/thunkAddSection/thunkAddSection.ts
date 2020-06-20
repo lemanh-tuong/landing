@@ -12,11 +12,11 @@ export interface ThunkAddSectionArg {
 const thunkAddSection = ({ newSection, index }: ThunkAddSectionArg): ThunkAddSection => (dispatch, getState) => {
   const { settingMainContentReducers, firebaseReducer } = getState();
   const { id, elements, pathName, pageName } = settingMainContentReducers;
-  if(typeof index === 'number') {
-    firebaseReducer.addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection, indexInsert: index });
-    dispatch(actionAddSection({...newSection}, index));
+  if (typeof index === 'number') {
+    firebaseReducer.addToPage({ pageName: pageName, pathName: pathName, id: id, elements: elements, newSection: newSection, indexInsert: index });
+    dispatch(actionAddSection({ ...newSection }, index));
   } else {
-    firebaseReducer.addToPage({pageName: pageName, pathName: pathName, id:id, elements: elements, newSection: newSection });
+    firebaseReducer.addToPage({ pageName: pageName, pathName: pathName, id: id, elements: elements, newSection: newSection });
     dispatch(actionAddSection(newSection));
   }
 };

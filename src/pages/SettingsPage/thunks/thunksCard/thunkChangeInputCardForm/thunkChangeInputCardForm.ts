@@ -8,8 +8,13 @@ export interface ThunkChangeInputCardFormArg {
   nowIndexSection: number;
   nowIndexCard: number;
 }
-const thunkChangeInputCardForm = ({fieldName, value, nowIndexSection, nowIndexCard}: ThunkChangeInputCardFormArg): ThunkChangeInputCardForm => dispatch => {
-    dispatch(actionChangeInputCardForm({fieldName, value, nowIndexSection, nowIndexCard}));
+const thunkChangeInputCardForm = ({
+  fieldName,
+  value,
+  nowIndexSection,
+  nowIndexCard,
+}: ThunkChangeInputCardFormArg): ThunkChangeInputCardForm => dispatch => {
+  dispatch(actionChangeInputCardForm({ fieldName, value, nowIndexSection, nowIndexCard }));
 };
 
 export default createDispatchAction(thunkChangeInputCardForm);

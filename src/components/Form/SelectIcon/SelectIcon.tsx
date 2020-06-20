@@ -14,20 +14,19 @@ export interface SelectIconProps {
 }
 
 const SelectIcon: FC<SelectIconProps> = ({ listIcon, defaultClassIconSelected, label, onChoose }) => {
-
   const [selected, setSelected] = useState<string>(defaultClassIconSelected || '');
   const [show, setShow] = useState(false);
 
   const handleShow = () => {
     setShow(!show);
-  }
+  };
 
   const handleChoose = (iconProperty: SelectItemType) => {
     return () => {
-      onChoose?.(iconProperty)
-      setSelected(iconProperty.classIcon)
-    }
-  }
+      onChoose?.(iconProperty);
+      setSelected(iconProperty.classIcon);
+    };
+  };
 
   const _renderItem = ({ classIcon, nameIcon }: SelectItemType) => {
     const isSelected = selected === classIcon;
@@ -40,30 +39,24 @@ const SelectIcon: FC<SelectIconProps> = ({ listIcon, defaultClassIconSelected, l
           <p>{nameIcon}</p>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const _renderListSelects = () => {
-    return listIcon.map(({ nameIcon, classIcon }) => _renderItem({ classIcon, nameIcon }))
-  }
+    return listIcon.map(({ nameIcon, classIcon }) => _renderItem({ classIcon, nameIcon }));
+  };
 
   const _renderLabel = () => {
     return (
       <div className={styles.label} onClick={handleShow}>
         <span>{label}</span>
         <i className={selected} />
-        {show && <div className={styles.selectList}>
-          {_renderListSelects()}
-        </div>}
+        {show && <div className={styles.selectList}>{_renderListSelects()}</div>}
       </div>
-    )
-  }
+    );
+  };
 
-  return (
-    <div className={styles.selectIcon}>
-      {_renderLabel()}
-    </div>
-  )
-}
+  return <div className={styles.selectIcon}>{_renderLabel()}</div>;
+};
 
 export default SelectIcon;

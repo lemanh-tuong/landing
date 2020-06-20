@@ -15,12 +15,36 @@ export type Section8EditableProps = {
 
 const Section8Editable: FC<Section8EditableProps> = ({
   sectionId,
-  animation, positionAnimation, backgroundColor, backgroundImage, reverse,
+  animation,
+  positionAnimation,
+  backgroundColor,
+  backgroundImage,
+  reverse,
   card2s,
-  mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
-  hasDivider, dividerColor, alignDivider,
-  text, colorText, fontSizeText, alignText, classText, styleText,
-  hrefButton, backgroundButton, colorTextButton, textButton, styleButton, typeButton, sizeButton, darkMode, nowIndexSection
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  classMainTitle,
+  fontSizeMainTitle,
+  styleMainTitle,
+  hasDivider,
+  dividerColor,
+  alignDivider,
+  text,
+  colorText,
+  fontSizeText,
+  alignText,
+  classText,
+  styleText,
+  hrefButton,
+  backgroundButton,
+  colorTextButton,
+  textButton,
+  styleButton,
+  typeButton,
+  sizeButton,
+  darkMode,
+  nowIndexSection,
 }) => {
   const [indexCard, setIndexCard] = useState(-1);
 
@@ -42,24 +66,50 @@ const Section8Editable: FC<Section8EditableProps> = ({
   };
 
   return (
-    <div className='Section8Editable'>
+    <div className="Section8Editable">
       <Section8
-        sectionId={sectionId} sizeButton={sizeButton}
-        animation={animation} positionAnimation={positionAnimation} backgroundColor={backgroundColor} backgroundImage={backgroundImage} darkMode={darkMode}
+        sectionId={sectionId}
+        sizeButton={sizeButton}
+        animation={animation}
+        positionAnimation={positionAnimation}
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+        darkMode={darkMode}
         reverse={reverse}
-        isBuilder={true} onShowPopupEditButton={handleShowPopUpEditButton} onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
-        onShowPopupEditText={handleShowPopUpEditText} onShowPopupEditDivider={handleShowPopUpEditDivider} onShowPopupEditCard={handleShowPopupEditCard}
+        isBuilder={true}
+        onShowPopupEditButton={handleShowPopUpEditButton}
+        onShowPopupEditMainTitle={handleShowPopUpEditMainTitle}
+        onShowPopupEditText={handleShowPopUpEditText}
+        onShowPopupEditDivider={handleShowPopUpEditDivider}
+        onShowPopupEditCard={handleShowPopupEditCard}
         card2s={card2s}
-        mainTitle={mainTitle} alignMainTitle={alignMainTitle} colorMainTitle={colorMainTitle} classMainTitle={classMainTitle} styleMainTitle={styleMainTitle} fontSizeMainTitle={fontSizeMainTitle}
-        hasDivider={hasDivider} dividerColor={dividerColor} alignDivider={alignDivider}
-        text={text} alignText={alignText} colorText={colorText} classText={classText} styleText={styleText} fontSizeText={fontSizeText}
-        textButton={textButton} typeButton={typeButton} colorTextButton={colorTextButton} backgroundButton={backgroundButton} hrefButton={hrefButton} styleButton={styleButton}
+        mainTitle={mainTitle}
+        alignMainTitle={alignMainTitle}
+        colorMainTitle={colorMainTitle}
+        classMainTitle={classMainTitle}
+        styleMainTitle={styleMainTitle}
+        fontSizeMainTitle={fontSizeMainTitle}
+        hasDivider={hasDivider}
+        dividerColor={dividerColor}
+        alignDivider={alignDivider}
+        text={text}
+        alignText={alignText}
+        colorText={colorText}
+        classText={classText}
+        styleText={styleText}
+        fontSizeText={fontSizeText}
+        textButton={textButton}
+        typeButton={typeButton}
+        colorTextButton={colorTextButton}
+        backgroundButton={backgroundButton}
+        hrefButton={hrefButton}
+        styleButton={styleButton}
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormButton nowIndex={nowIndexSection} />
-      <PopUp id={`card-${sectionId}`} type='antd' title={<h3>Form Card 2</h3>}>
+      <PopUp id={`card-${sectionId}`} type="antd" title={<h3>Form Card 2</h3>}>
         <FormCard2 nowIndexSection={nowIndexSection} indexCard={indexCard} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />

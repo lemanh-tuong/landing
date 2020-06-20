@@ -9,7 +9,6 @@ export interface FormAndroidSimulatorProps {
 }
 
 const FormAndroidSimulator: FC<FormAndroidSimulatorProps> = ({ nowIndexSection }) => {
-
   // Selector
   const element = useSelector(sections)[nowIndexSection];
 
@@ -40,7 +39,7 @@ const FormAndroidSimulator: FC<FormAndroidSimulatorProps> = ({ nowIndexSection }
             fieldType: 'input-text-2',
             addonBefore: 'exp://expo.io/',
             defaultValue: androidParams?.replace('exp://expo.io/', ''),
-          }
+          },
         ]}
         onChange={handleChangeForm}
       />

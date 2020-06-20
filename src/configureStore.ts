@@ -38,4 +38,3 @@ const persistor = persistStore(store as any);
 export type Reducers = ReturnType<typeof _combineReducers>;
 
 export { store, persistor };
-

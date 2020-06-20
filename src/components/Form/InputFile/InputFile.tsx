@@ -12,10 +12,7 @@ const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUplo
   const _render = (onChange: any, onDrop: any, ref: any) => {
     return (
       <div className={styles.uploadBtn}>
-        <input type="file" className={styles.inputFile} ref={ref} onChange={onChange}
-          onDrop={onDrop}
-          multiple
-        />
+        <input type="file" className={styles.inputFile} ref={ref} onChange={onChange} onDrop={onDrop} multiple />
         <div className={styles.inputUI}>
           <i className={`fas fa-cloud-upload-alt ${styles.icon}`}></i>
           <div className={styles.text}>
@@ -31,10 +28,19 @@ const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUplo
     return (
       <div className={`${styles.upload}`}>
         <div className={styles.uploadContent}>
-          <div className={`${styles.uploadIcon} ${statusUpload === 'uploadFailure' ? styles.uploadFailure : statusUpload === 'uploaded' ? styles.uploaded : styles.uploading}`}>
-            {statusUpload === 'uploadFailure' ? <i className="fas fa-times"></i> : statusUpload === 'uploaded' ? <i className="fas fa-check"></i> : null}
+          <div
+            className={`${styles.uploadIcon} ${
+              statusUpload === 'uploadFailure' ? styles.uploadFailure : statusUpload === 'uploaded' ? styles.uploaded : styles.uploading
+            }`}
+          >
+            {statusUpload === 'uploadFailure' ? (
+              <i className="fas fa-times"></i>
+            ) : statusUpload === 'uploaded' ? (
+              <i className="fas fa-check"></i>
+            ) : null}
           </div>
-          <div className={styles.fileName}>{fileName}
+          <div className={styles.fileName}>
+            {fileName}
             {messageUpload ? <p className={styles.errorMsg}>{messageUpload}</p> : null}
           </div>
         </div>
@@ -47,7 +53,7 @@ const InputFile: FC<InputFileProps> = ({ onChange, statusUploadFile, messageUplo
 
   return (
     <InputFileBase
-      type='file'
+      type="file"
       statusUploadFile={statusUploadFile}
       renderInput={(onChange, onDrop, ref) => _render(onChange, onDrop, ref)}
       renderProcessUpload={hasProcessUpload ? (statusUploadFile, fileName, onClose) => _renderUpload(statusUploadFile, fileName, onClose) : undefined}

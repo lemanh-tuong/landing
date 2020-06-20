@@ -10,9 +10,7 @@ export interface ActionMoveCard {
 }
 
 const actionMoveCard = createAction('MOVE_CARD', (payload: ActionMoveCard['payload']) => ({
-  ...payload
+  ...payload,
 }));
 
 export { actionMoveCard };
-
-

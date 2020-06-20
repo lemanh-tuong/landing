@@ -25,7 +25,6 @@ const getListStyle = (isDraggingOver: boolean) => ({
 });
 
 const SectionTab: FC<SectionTab> = ({ className }) => {
-
   //Selector
   const pattern = useSelector(patternSection);
   const status = useSelector(statusRequestPatternSection);
@@ -38,12 +37,8 @@ const SectionTab: FC<SectionTab> = ({ className }) => {
     return (
       <Draggable draggableId={property.id} index={key} key={uuidv4()}>
         {provided => (
-          <div className={styles.sidebarItem}
-            ref={provided.innerRef}
-            key={key}
-            {...provided.dragHandleProps}
-            {...provided.draggableProps}>
-            <Image type='tagImg' imgSrc={property.previewImg} />
+          <div className={styles.sidebarItem} ref={provided.innerRef} key={key} {...provided.dragHandleProps} {...provided.draggableProps}>
+            <Image type="tagImg" imgSrc={property.previewImg} />
           </div>
         )}
       </Draggable>
@@ -54,14 +49,13 @@ const SectionTab: FC<SectionTab> = ({ className }) => {
     return (
       <Droppable droppableId="1">
         {(provided, snapshot) => (
-          <div className={`${styles.sectionTab} ${className}`}
+          <div
+            className={`${styles.sectionTab} ${className}`}
             ref={provided.innerRef}
             {...provided.droppableProps}
             style={getListStyle(snapshot.isDraggingOver)}
           >
-            <ul className={styles.nav}>
-              {pattern.map((item, index) => _renderItem(item, index))}
-            </ul>
+            <ul className={styles.nav}>{pattern.map((item, index) => _renderItem(item, index))}</ul>
             {provided.placeholder}
           </div>
         )}

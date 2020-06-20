@@ -6,7 +6,6 @@ export interface ActionChangeTypeMockupPayload {
   nowIndexSection: number;
 }
 
-const actionChangeTypeMockup = createAction('CHANGE_TYPE_MOCKUP', (payload: ActionChangeTypeMockupPayload) => ({...payload}));
+const actionChangeTypeMockup = createAction('CHANGE_TYPE_MOCKUP', (payload: ActionChangeTypeMockupPayload) => ({ ...payload }));
 
 export { actionChangeTypeMockup };
-

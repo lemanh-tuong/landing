@@ -15,15 +15,29 @@ export interface Section14EditableProps extends Section14Props {
 }
 
 const Section14Editable: FC<Section14EditableProps> = ({
-  nowIndexSection, sectionId, backgroundColor, backgroundImage, animation, positionAnimation, reverse,
-  mainTitle, alignMainTitle, colorMainTitle, fontSizeMainTitle,
-  hasDivider, dividerColor, alignDivider,
-  text, alignText, colorText, fontSizeText,
-  sliderImgs, delayTime,
+  nowIndexSection,
+  sectionId,
+  backgroundColor,
+  backgroundImage,
+  animation,
+  positionAnimation,
+  reverse,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  fontSizeMainTitle,
+  hasDivider,
+  dividerColor,
+  alignDivider,
+  text,
+  alignText,
+  colorText,
+  fontSizeText,
+  sliderImgs,
+  delayTime,
   buttons,
-  typeMockUp
+  typeMockUp,
 }) => {
-
   const [indexButton, setIndexButton] = useState(-1);
 
   const handleShowPopupEditMainTitle = () => {
@@ -50,7 +64,8 @@ const Section14Editable: FC<Section14EditableProps> = ({
   return (
     <>
       <Section14
-        animation={animation} reverse={reverse}
+        animation={animation}
+        reverse={reverse}
         positionAnimation={positionAnimation}
         mainTitle={mainTitle}
         alignMainTitle={alignMainTitle}
@@ -67,18 +82,20 @@ const Section14Editable: FC<Section14EditableProps> = ({
         backgroundImage={backgroundImage}
         typeMockUp={typeMockUp}
         delayTime={delayTime}
-        sliderImgs={sliderImgs || [
-          {
-            imgSrc: mockUpMacContent1,
-            hasVideo: true,
-            videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13'
-          },
-          {
-            imgSrc: mockUpMacContent2,
-            hasVideo: true,
-            videoUrl: 'https://www.youtube.com/'
-          }
-        ]}
+        sliderImgs={
+          sliderImgs || [
+            {
+              imgSrc: mockUpMacContent1,
+              hasVideo: true,
+              videoUrl: 'https://www.youtube.com/watch?v=IG8Naq7Q2Q8&list=RDwfqHeahpNSY&index=13',
+            },
+            {
+              imgSrc: mockUpMacContent2,
+              hasVideo: true,
+              videoUrl: 'https://www.youtube.com/',
+            },
+          ]
+        }
         margin={0}
         isBuilder={true}
         sectionId={sectionId}
@@ -92,11 +109,11 @@ const Section14Editable: FC<Section14EditableProps> = ({
       />
       <FormMainTitle nowIndexSection={nowIndexSection} sectionId={sectionId} />
       <FormText nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`button2-${sectionId}`} type='antd' title={<h3>Form Button 2</h3>}>
+      <PopUp id={`button2-${sectionId}`} type="antd" title={<h3>Form Button 2</h3>}>
         <FormButton2 nowIndexButton={indexButton} nowIndexSection={nowIndexSection} />
       </PopUp>
       <FormDivider nowIndexSection={nowIndexSection} sectionId={sectionId} />
-      <PopUp id={`mockup-${sectionId}`} type='antd' title={<h3>Form Mock Up</h3>}>
+      <PopUp id={`mockup-${sectionId}`} type="antd" title={<h3>Form Mock Up</h3>}>
         <FormMockUp draggableField={false} nowIndexSection={nowIndexSection} />
       </PopUp>
       <FormSection nowIndexSection={nowIndexSection} canReverseCol={true} sectionId={sectionId} />

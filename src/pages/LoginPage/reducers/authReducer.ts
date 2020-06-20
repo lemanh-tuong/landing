@@ -4,11 +4,11 @@ import { ActionTypes, createReducer, handleAction } from 'utils/functions/reduxA
 export interface AuthReducer {
   readonly statusLogin: 'loging' | 'loged' | 'failure';
   readonly statusChangeAvatar: '' | 'changingAvatar' | 'changedAvatar' | 'changeAvatarFailure';
-  readonly statusChangeUserProfile: '' | 'changingUserProfile' | 'changedUserProfile' | 'changeUserProfileFailure'
+  readonly statusChangeUserProfile: '' | 'changingUserProfile' | 'changedUserProfile' | 'changeUserProfileFailure';
   readonly token: string;
   readonly refreshToken: string;
   readonly message: string;
-  readonly profile: firebase.UserInfo
+  readonly profile: firebase.UserInfo;
 }
 
 const initialState: AuthReducer = {
@@ -24,15 +24,15 @@ const initialState: AuthReducer = {
     phoneNumber: '',
     photoURL: '',
     providerId: '',
-    uid: ''
-  }
+    uid: '',
+  },
 };
 
 const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangeProfileUser> & any>(initialState, [
   handleAction('@loging', state => {
     return {
       ...state,
-      statusLogin: 'loging'
+      statusLogin: 'loging',
     };
   }),
   handleAction('@loged', (state, action) => {
@@ -42,7 +42,7 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangePr
       statusLogin: 'loged',
       token: token,
       refreshToken: refreshToken,
-      profile: profile
+      profile: profile,
     };
   }),
   handleAction('@failure', (state, action) => {
@@ -51,7 +51,7 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangePr
       statusLogin: 'failure',
       token: '',
       refreshToken: '',
-      message: action.payload
+      message: action.payload,
     };
   }),
   handleAction('CONTINUE_LOG', (state, action) => {
@@ -65,8 +65,8 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangePr
   }),
   handleAction('@signedOut', (state, action) => {
     return {
-      ...initialState
-    }
+      ...initialState,
+    };
   }),
   handleAction('@changingAvatar', (state, action) => ({
     ...state,
@@ -77,13 +77,13 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangePr
     statusChangeAvatar: 'changedAvatar',
     profile: {
       ...state.profile,
-      photoURL: action.payload.url
-    }
+      photoURL: action.payload.url,
+    },
   })),
   handleAction('@changeAvatarFailure', (state, action) => ({
     ...state,
     statusChangeAvatar: 'changeAvatarFailure',
-    message: action.payload
+    message: action.payload,
   })),
   handleAction('@changingProfileUser', state => ({
     ...state,
@@ -92,12 +92,12 @@ const authReducer = createReducer<AuthReducer, ActionTypes<typeof actionChangePr
   handleAction('@changedProfileUser', (state, action) => ({
     ...state,
     profile: action.payload,
-    statusChangeUserProfile: 'changedUserProfile'
+    statusChangeUserProfile: 'changedUserProfile',
   })),
-  handleAction('@changeProfileUserFailure', (state,action) => ({
+  handleAction('@changeProfileUserFailure', (state, action) => ({
     ...state,
-    statusChangeUserProfile: 'changeUserProfileFailure'
-  }))
+    statusChangeUserProfile: 'changeUserProfileFailure',
+  })),
 ]);
 
 export default authReducer;

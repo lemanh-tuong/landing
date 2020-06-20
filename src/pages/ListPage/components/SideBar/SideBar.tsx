@@ -23,7 +23,7 @@ const SideBar = () => {
 
   const handleSignOut = () => {
     signOut();
-  }
+  };
 
   const handleChangeProject = () => {
     changeProject({
@@ -35,17 +35,17 @@ const SideBar = () => {
         measurementId: '',
         messagingSenderId: '',
         projectId: '',
-        storageBucket: ''
-      }
-    })
-  }
+        storageBucket: '',
+      },
+    });
+  };
 
-  const handleChange: OnChangeFileFunc = (files) => {
+  const handleChange: OnChangeFileFunc = files => {
     changeAvatar({
       file: files[0],
       uid: uid,
-    })
-  }
+    });
+  };
 
   const _renderInput = () => {
     return (
@@ -55,16 +55,16 @@ const SideBar = () => {
         {statusChangeUserAvatar === 'changedAvatar' && PopUp.hide('form-change-avatar')()}
         {statusChangeUserAvatar === 'changeAvatarFailure' && <div className={styles.failure}>Failure</div>}
       </div>
-    )
-  }
+    );
+  };
 
   const _renderChangeAvatarForm = () => {
     return (
-      <PopUp id="form-change-avatar" type='antd' title="Select profile photo">
+      <PopUp id="form-change-avatar" type="antd" title="Select profile photo">
         {_renderInput()}
       </PopUp>
-    )
-  }
+    );
+  };
 
   const _renderAvatar = () => {
     return (
@@ -74,8 +74,8 @@ const SideBar = () => {
           <i className="fas fa-camera" />
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const _renderUserBox = () => {
     return (
@@ -88,40 +88,38 @@ const SideBar = () => {
             <p className={styles.userId}>{uid}</p>
           </div>
           <div className={styles.boxBody}>
-            <Link to='/admin/list' className={`${styles.button} ${location.pathname === '/admin/list'}`}>
+            <Link to="/admin/list" className={`${styles.button} ${location.pathname === '/admin/list'}`}>
               <i className={`${styles.icon} fas fa-home`} />
               Home
             </Link>
-            <Link className={`${styles.button} ${location.pathname === '/admin/list/profile'}`} to='/admin/list/profile'>
+            <Link className={`${styles.button} ${location.pathname === '/admin/list/profile'}`} to="/admin/list/profile">
               <i className={`${styles.icon} fas fa-user`} />
               Profile
             </Link>
           </div>
           <div className={styles.boxFootter}>
-            <Link to='/admin/login' onClick={handleSignOut} className={styles.button}>
+            <Link to="/admin/login" onClick={handleSignOut} className={styles.button}>
               <i className={`${styles.icon} fas fa-sign-out-alt`} />
-                Sign Out
+              Sign Out
             </Link>
-            <Link to='/initializeApp' onClick={handleChangeProject} className={styles.button}>
+            <Link to="/initializeApp" onClick={handleChangeProject} className={styles.button}>
               <i className={`${styles.icon} fas fa-exchange-alt`} />
               Change Project
             </Link>
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>
       <div className={styles.SideBar}>
-        <div className={styles.SideBarContent}>
-          {_renderUserBox()}
-        </div>
+        <div className={styles.SideBarContent}>{_renderUserBox()}</div>
       </div>
       {_renderChangeAvatarForm()}
     </>
-  )
-}
+  );
+};
 
 export default SideBar;

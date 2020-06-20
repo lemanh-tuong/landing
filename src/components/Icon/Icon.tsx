@@ -20,7 +20,18 @@ export interface IconProps extends IconOption {
   darkMode?: boolean;
 }
 
-const Icon: FC<IconProps> = ({ iconImg, fontAwesomeClass, bgColorIcon, sizeIcon, onClick, animationIcon, darkMode, classNameIcon, styleIcon, children }) => {
+const Icon: FC<IconProps> = ({
+  iconImg,
+  fontAwesomeClass,
+  bgColorIcon,
+  sizeIcon,
+  onClick,
+  animationIcon,
+  darkMode,
+  classNameIcon,
+  styleIcon,
+  children,
+}) => {
   const dark = darkMode ? styles.dark : '';
   const hasEventClick: CSSProperties = onClick ? { cursor: 'pointer' } : {};
   const size = !!sizeIcon ? sizeIcon : '';
@@ -28,7 +39,11 @@ const Icon: FC<IconProps> = ({ iconImg, fontAwesomeClass, bgColorIcon, sizeIcon,
   const animated = !!animationIcon ? animationIcon : '';
 
   return (
-    <div className={`${styles.icon} ${styles[size]} ${styles[bgC]} ${classNameIcon} ${darkMode} ${styles[animated]} ${dark}`} onClick={onClick} style={{ ...hasEventClick, ...styleIcon }}>
+    <div
+      className={`${styles.icon} ${styles[size]} ${styles[bgC]} ${classNameIcon} ${darkMode} ${styles[animated]} ${dark}`}
+      onClick={onClick}
+      style={{ ...hasEventClick, ...styleIcon }}
+    >
       {iconImg && <img src={iconImg.imgSrc} alt="" />}
       {fontAwesomeClass && <i className={fontAwesomeClass}></i>}
       {children}

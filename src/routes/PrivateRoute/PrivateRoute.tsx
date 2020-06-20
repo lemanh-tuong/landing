@@ -10,11 +10,7 @@ export interface PrivateRouteProps {
 const PrivateRoute: FC<PrivateRouteProps> = ({ condition, component, pathRedirect }) => {
   const history = useHistory();
 
-  return (
-    <>
-      {condition ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}
-    </>
-  );
+  return <>{condition ? component : <Redirect to={{ pathname: pathRedirect, state: history.location.pathname }} />}</>;
 };
 
 export default PrivateRoute;

@@ -18,9 +18,9 @@ export type Section4Props = {
   typeButton?: ButtonProps['type'];
   sizeButton?: ButtonProps['size'];
   sectionId: string;
-} & SectionPatternBase
-  & Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>>
-  & Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>;
+} & SectionPatternBase &
+  Partial<Omit<MainTitleProps, 'isBuilder' | 'onEditable'>> &
+  Partial<Omit<TextProps, 'isBuilder' | 'onEditable'>>;
 
 export interface Section4PropsBuilder {
   isBuilder?: boolean;
@@ -31,40 +31,110 @@ export interface Section4PropsBuilder {
 }
 
 const Section4: FC<Section4Props & Section4PropsBuilder> = ({
-  isBuilder, onShowPopupEditTitle, onShowPopupEditText, onShowPopupEditImage, onShowPopupEditButton, animation, positionAnimation,
-  mainTitle, colorMainTitle, alignMainTitle, fontSizeMainTitle, styleMainTitle, classMainTitle,
-  backgroundButton, hrefButton, colorTextButton, textButton, styleButton, typeButton, sizeButton,
-  text, colorText, alignText, fontSizeText, styleText, classText,
+  isBuilder,
+  onShowPopupEditTitle,
+  onShowPopupEditText,
+  onShowPopupEditImage,
+  onShowPopupEditButton,
+  animation,
+  positionAnimation,
+  mainTitle,
+  colorMainTitle,
+  alignMainTitle,
+  fontSizeMainTitle,
+  styleMainTitle,
+  classMainTitle,
+  backgroundButton,
+  hrefButton,
+  colorTextButton,
+  textButton,
+  styleButton,
+  typeButton,
+  sizeButton,
+  text,
+  colorText,
+  alignText,
+  fontSizeText,
+  styleText,
+  classText,
   imageSectionCol,
-  backgroundColor, backgroundImage, style, className, darkMode
+  backgroundColor,
+  backgroundImage,
+  style,
+  className,
+  darkMode,
 }) => {
-
   const _renderImage = () => {
     return (
       <Col cols={[12]}>
-        {imageSectionCol && <Image
-          type='tagImg' isBuilder={isBuilder}
-          onEditable={onShowPopupEditImage}
-          imgSrc={imageSectionCol.imgSrc}
-          aspectRatio={imageSectionCol.aspectRatio}
-          zoom={imageSectionCol.zoom}
-          parallax={imageSectionCol.parallax}
-          style={{ marginBottom: 30 }}
-        />}
+        {imageSectionCol && (
+          <Image
+            type="tagImg"
+            isBuilder={isBuilder}
+            onEditable={onShowPopupEditImage}
+            imgSrc={imageSectionCol.imgSrc}
+            aspectRatio={imageSectionCol.aspectRatio}
+            zoom={imageSectionCol.zoom}
+            parallax={imageSectionCol.parallax}
+            style={{ marginBottom: 30 }}
+          />
+        )}
       </Col>
     );
   };
 
   return (
-    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} className={className} style={style} animation={animation} positionAnimation={positionAnimation}>
+    <Section
+      backgroundColor={backgroundColor}
+      backgroundImage={backgroundImage}
+      className={className}
+      style={style}
+      animation={animation}
+      positionAnimation={positionAnimation}
+    >
       <Row>
         <Col cols={[10]} offsets={[1]}>
-          {<MainTitle isBuilder={isBuilder} onEditable={onShowPopupEditTitle} darkMode={darkMode} mainTitle={mainTitle ?? ''} colorMainTitle={colorMainTitle} alignMainTitle={alignMainTitle} fontSizeMainTitle={fontSizeMainTitle} styleMainTitle={styleMainTitle} classMainTitle={classMainTitle} />}
-          {<Text isBuilder={isBuilder} onEditable={onShowPopupEditText} darkMode={darkMode} text={text ?? ''} colorText={colorText} alignText={alignText} fontSizeText={fontSizeText} styleText={{ marginBottom: 50, ...styleText }} classText={classText} />}
+          {
+            <MainTitle
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditTitle}
+              darkMode={darkMode}
+              mainTitle={mainTitle ?? ''}
+              colorMainTitle={colorMainTitle}
+              alignMainTitle={alignMainTitle}
+              fontSizeMainTitle={fontSizeMainTitle}
+              styleMainTitle={styleMainTitle}
+              classMainTitle={classMainTitle}
+            />
+          }
+          {
+            <Text
+              isBuilder={isBuilder}
+              onEditable={onShowPopupEditText}
+              darkMode={darkMode}
+              text={text ?? ''}
+              colorText={colorText}
+              alignText={alignText}
+              fontSizeText={fontSizeText}
+              styleText={{ marginBottom: 50, ...styleText }}
+              classText={classText}
+            />
+          }
         </Col>
         {_renderImage()}
-        <ButtonGroup align='center'>
-          <Button size={sizeButton} type={typeButton} style={{ marginTop: 30, ...styleButton }} color={colorTextButton} backgroundColor={backgroundButton} text={textButton} href={hrefButton} isBuilder={isBuilder} dark={darkMode} onEditable={onShowPopupEditButton} />
+        <ButtonGroup align="center">
+          <Button
+            size={sizeButton}
+            type={typeButton}
+            style={{ marginTop: 30, ...styleButton }}
+            color={colorTextButton}
+            backgroundColor={backgroundButton}
+            text={textButton}
+            href={hrefButton}
+            isBuilder={isBuilder}
+            dark={darkMode}
+            onEditable={onShowPopupEditButton}
+          />
         </ButtonGroup>
       </Row>
     </Section>

@@ -27,7 +27,8 @@ const rateDefault: RateProps = {
   },
   authorName: 'SergeyX',
   purpose: 'Feature availability',
-  rateContent: 'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
+  rateContent:
+    'Only five stars! and this despite the fact that the topic is still under improvement. I hope future updates will help her become even better. A great team with a great idea of the catalog.',
   stars: 5,
 };
 
@@ -67,13 +68,9 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
     if (!result.destination) {
       return;
     }
-    const newElements = rateList ? reorder(
-      rateList,
-      result.source.index,
-      result.destination.index
-    ) : [];
+    const newElements = rateList ? reorder(rateList, result.source.index, result.destination.index) : [];
     moveRate({ data: newElements, nowIndexSection: nowIndexSection });
-  }
+  };
 
   const _renderSettingsBox = (nowIndexRate: number) => {
     const { authorAvatar, rateContent, authorName, purpose, stars } = rateList?.[nowIndexRate] as RateProps;
@@ -108,11 +105,14 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
             fieldName: 'stars',
             label: 'Stars',
             defaultNumber: stars,
-          }
+          },
         ]}
         onChange={handleChangeForm(nowIndexRate)}
       >
-        <Link className={styles.link} to={`/admin/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}>
+        <Link
+          className={styles.link}
+          to={`/admin/gallery?type=avatarAuthor&nowIndexSection=${nowIndexSection}&nowIndexRate=${nowIndexRate}&multiple=false`}
+        >
           <Icon iconImg={authorAvatar} bgColorIcon={'gradient-pink-orange'} />
           <i className={`far fa-images ${styles.icon}`}></i>
         </Link>
@@ -123,8 +123,8 @@ const FormRate: FC<FormRateProps> = ({ nowIndexSection, nowIndexRate }) => {
   return (
     <div className={styles.editRateComponent}>
       <FormDropDown
-        draggableId='rate'
-        droppableId='rate'
+        draggableId="rate"
+        droppableId="rate"
         onDelete={handleDelete}
         onAdd={handleAdd}
         onMoveEnd={handleMoveRate}

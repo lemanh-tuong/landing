@@ -7,8 +7,8 @@ export interface ThunkChangeSelectArg {
   fieldName: string;
   value: string;
 }
-const thunkChangeSelect = ({nowIndexSection, fieldName, value}: ThunkChangeSelectArg): ThunkChangeSelect => dispatch => {
-  dispatch(actionChangeSelect({value: value, fieldName: fieldName, nowIndexSection: nowIndexSection}));
+const thunkChangeSelect = ({ nowIndexSection, fieldName, value }: ThunkChangeSelectArg): ThunkChangeSelect => dispatch => {
+  dispatch(actionChangeSelect({ value: value, fieldName: fieldName, nowIndexSection: nowIndexSection }));
 };
 
 export default createDispatchAction(thunkChangeSelect);

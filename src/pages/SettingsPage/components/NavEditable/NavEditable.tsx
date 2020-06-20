@@ -26,13 +26,7 @@ const NavEditable: FC = () => {
   const _renderSuccess = () => {
     return (
       <div className="NavEditable">
-        <Nav
-          style={{ zIndex: 99 }}
-          logo={logo}
-          navItems={navList}
-          isBuilder={true}
-          onShowpopupEditNav={handleShowPopupEditNav}
-        />
+        <Nav style={{ zIndex: 99 }} logo={logo} navItems={navList} isBuilder={true} onShowpopupEditNav={handleShowPopupEditNav} />
         <FormNav />
       </div>
     );

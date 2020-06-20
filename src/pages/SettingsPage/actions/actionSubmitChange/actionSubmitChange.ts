@@ -13,12 +13,10 @@ export interface SubmitSettings {
   payload: PageProps;
 }
 
-
 const submit = createAction('SUBMIT_SETTINGS', (payload: PageProps) => {
   return {
-    payload
+    payload,
   };
 });
 
 export { submit };
-

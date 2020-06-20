@@ -8,9 +8,8 @@ interface PopOverState {
 }
 
 class PopOver extends PureComponent<PopoverProps & { id: string }, PopOverState> {
-
   state = {
-    visible: false
+    visible: false,
   };
 
   handleVisibleChange = (visible: boolean) => {
@@ -22,10 +21,7 @@ class PopOver extends PureComponent<PopoverProps & { id: string }, PopOverState>
   render() {
     const { children } = this.props;
     return (
-      <Popover
-        onVisibleChange={this.handleVisibleChange}
-        {...this.props}
-      >
+      <Popover onVisibleChange={this.handleVisibleChange} {...this.props}>
         {children}
       </Popover>
     );

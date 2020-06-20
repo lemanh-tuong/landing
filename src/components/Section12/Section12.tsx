@@ -8,8 +8,8 @@ export type Section12Props = {
   sliderSection: Section3Props[];
   sectionId: string;
   darkMode?: boolean;
-} & SectionPatternBase
-  & Omit<CarouselProps<Section3Props>, 'isBuilder' | 'onEditable' | 'sliderImgs'>;
+} & SectionPatternBase &
+  Omit<CarouselProps<Section3Props>, 'isBuilder' | 'onEditable' | 'sliderImgs'>;
 
 export interface Section12PropsBuilder {
   isBuilder?: boolean;
@@ -17,30 +17,42 @@ export interface Section12PropsBuilder {
 }
 
 const Section12: FC<Section12Props & Section12PropsBuilder> = ({
-  animation, backgroundColor, positionAnimation, backgroundImage, delayTime,
-  sliderSection, itemShow = 1, fluid, margin = 0, hasNav, dotClass, navClass, draggable, isBuilder, onShowPopUpEditSlide
+  animation,
+  backgroundColor,
+  positionAnimation,
+  backgroundImage,
+  delayTime,
+  sliderSection,
+  itemShow = 1,
+  fluid,
+  margin = 0,
+  hasNav,
+  dotClass,
+  navClass,
+  draggable,
+  isBuilder,
+  onShowPopUpEditSlide,
 }) => {
   const _renderSlide = (slideProperty: Section3Props) => {
-    return (
-      <Section3 backgroundColor={'transparent'} fontSizeMainTitle="lg" {...slideProperty} />
-    );
+    return <Section3 backgroundColor={'transparent'} fontSizeMainTitle="lg" {...slideProperty} />;
   };
 
   return (
-    <Section
-      backgroundColor={backgroundColor}
-      backgroundImage={backgroundImage}
-      animation={animation}
-      positionAnimation={positionAnimation}
-    >
+    <Section backgroundColor={backgroundColor} backgroundImage={backgroundImage} animation={animation} positionAnimation={positionAnimation}>
       <Carousel
-        sliderImgs={sliderSection} delayTime={delayTime}
+        sliderImgs={sliderSection}
+        delayTime={delayTime}
         renderItem={slideProperty => _renderSlide(slideProperty)}
-        itemShow={itemShow} fluid={fluid}
-        dotClass={`${dotClass} ${styles.dot}`} hasDots={true}
+        itemShow={itemShow}
+        fluid={fluid}
+        dotClass={`${dotClass} ${styles.dot}`}
+        hasDots={true}
         classActive={styles.active}
-        navClass={navClass} hasNav={hasNav} margin={margin}
-        isBuilder={isBuilder} draggable={draggable}
+        navClass={navClass}
+        hasNav={hasNav}
+        margin={margin}
+        isBuilder={isBuilder}
+        draggable={draggable}
         onEditable={onShowPopUpEditSlide}
       />
     </Section>

@@ -89,7 +89,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               fieldName: 'textButton',
               label: 'Text Button',
               defaultValue: textButton,
-              fieldId: 1
+              fieldId: 1,
             },
             {
               fieldId: `type-href-${nowIndex}`,
@@ -114,7 +114,7 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               label: 'Href Button',
               defaultValue: hrefButton,
               fieldId: 2,
-              hidden: !(typeHref === 'external')
+              hidden: !(typeHref === 'external'),
             },
             {
               fieldType: 'select',
@@ -125,18 +125,18 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               optionsGroup: {
                 groupName: 'Link',
                 options: listPageName.map(page => {
-                  if (page.isHome) return { value: '/', label: `${page.pageName}` }
-                  return { value: `${page.pathName}`, label: `${page.pageName}` }
-                })
+                  if (page.isHome) return { value: '/', label: `${page.pageName}` };
+                  return { value: `${page.pathName}`, label: `${page.pageName}` };
+                }),
               },
               defaultSelect: '/',
-              hidden: !(typeHref === 'internal')
+              hidden: !(typeHref === 'internal'),
             },
             {
               fieldType: 'color-picker',
               fieldName: 'colorTextButton',
               label: 'Color Text Button',
-              fieldId: 4
+              fieldId: 4,
             },
             {
               fieldId: 5,
@@ -146,27 +146,27 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               options: [
                 {
                   label: 'border',
-                  value: 'border'
+                  value: 'border',
                 },
                 {
                   label: 'gradient',
-                  value: 'gradient'
+                  value: 'gradient',
                 },
                 {
                   label: 'primary',
-                  value: 'primary'
+                  value: 'primary',
                 },
                 {
                   label: 'white',
-                  value: 'white'
+                  value: 'white',
                 },
                 {
                   label: 'transparent',
-                  value: 'transparent'
+                  value: 'transparent',
                 },
               ],
               defaultSelect: typeButton,
-            }
+            },
           ]}
           onChange={handleChangeTextButtonForm}
         />
@@ -180,22 +180,22 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               data: [
                 {
                   name: 'size button',
-                  value: 'default'
+                  value: 'default',
                 },
                 {
                   name: 'size button',
-                  value: 'small'
+                  value: 'small',
                 },
                 {
                   name: 'size button',
-                  value: 'middle'
+                  value: 'middle',
                 },
                 {
                   name: 'size button',
-                  value: 'large'
-                }
+                  value: 'large',
+                },
               ],
-              defaultCheckedValue: sizeButton
+              defaultCheckedValue: sizeButton,
             },
             {
               fieldId: 'isGradient',
@@ -219,18 +219,18 @@ const FormButton: FC<FormButtonProps> = ({ nowIndex }) => {
               fieldType: 'color-picker-gradient',
               hidden: !isGradient,
               defaultColor: backgroundButton,
-            }
+            },
           ]}
           onChange={handleChangeOptionButton}
         />
       </div>
     );
-  }
+  };
   return (
-    <PopUp id={`button-${sectionId}`} title={<h3>Form Button</h3>} type='antd'>
+    <PopUp id={`button-${sectionId}`} title={<h3>Form Button</h3>} type="antd">
       {_renderForm()}
     </PopUp>
-  )
+  );
 };
 
 export default memo(FormButton);

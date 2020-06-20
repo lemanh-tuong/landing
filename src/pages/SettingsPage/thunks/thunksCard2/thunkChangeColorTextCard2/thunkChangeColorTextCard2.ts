@@ -8,8 +8,13 @@ export interface ThunkChangeColorTextCard2Arg {
   nowIndexSection: number;
   nowIndexCard: number;
 }
-const thunkChangeColorTextCard2 = ({fieldName, color, nowIndexSection, nowIndexCard}: ThunkChangeColorTextCard2Arg): ThunkChangeColorTextCard2 => dispatch => {
-  dispatch(actionChangeColorCard2Text({fieldName: fieldName, color: color, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard}));
+const thunkChangeColorTextCard2 = ({
+  fieldName,
+  color,
+  nowIndexSection,
+  nowIndexCard,
+}: ThunkChangeColorTextCard2Arg): ThunkChangeColorTextCard2 => dispatch => {
+  dispatch(actionChangeColorCard2Text({ fieldName: fieldName, color: color, nowIndexSection: nowIndexSection, nowIndexCard: nowIndexCard }));
 };
 
 export default createDispatchAction(thunkChangeColorTextCard2);

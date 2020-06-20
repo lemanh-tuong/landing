@@ -46,7 +46,6 @@ const formats = [
 ];
 
 const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, label, style, className, defaultValue, children }) => {
-
   let timeOut: Timeout;
 
   const handleChange = (html: string) => {
@@ -54,9 +53,8 @@ const RichTextEditor: FC<RichTextEditorProps> = ({ onChange, placeholder, label,
     timeOut = setTimeout(() => {
       if (html.replace(/<(.|\n)*?>/g, '').trim().length === 0) {
         onChange?.('');
-      }
-      else onChange?.(html);
-    }, 100)
+      } else onChange?.(html);
+    }, 100);
   };
 
   return (

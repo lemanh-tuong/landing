@@ -7,13 +7,15 @@ const Step1 = () => {
     <div className={styles.Step1}>
       <h2 className={styles.title}>
         Create a
-          <a style={{ margin: '0 10px' }} target="blank" href="https://firebase.google.com/" className={styles.link}>Firebase</a>
-          Project
-          <p>
+        <a style={{ margin: '0 10px' }} target="blank" href="https://firebase.google.com/" className={styles.link}>
+          Firebase
+        </a>
+        Project
+        <p>
           You need create a firebase project
-            <a style={{ marginLeft: 5 }} className={styles.link} href="https://www.youtube.com/watch?v=6juww5Lmvgo">
+          <a target="blank" style={{ marginLeft: 5 }} className={styles.link} href="https://www.youtube.com/watch?v=6juww5Lmvgo">
             Watch Video Below
-              <i style={{ marginLeft: 5 }} className="fas fa-arrow-down" />
+            <i style={{ marginLeft: 5 }} className="fas fa-arrow-down" />
           </a>
         </p>
       </h2>
@@ -25,7 +27,7 @@ const Step1 = () => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Step1;

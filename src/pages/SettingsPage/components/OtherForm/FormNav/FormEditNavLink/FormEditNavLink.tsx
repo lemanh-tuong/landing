@@ -25,11 +25,7 @@ const FormEditNavLink = () => {
     if (!result.destination) {
       return;
     }
-    const newData = reorder(
-      navData,
-      result.source.index,
-      result.destination.index
-    );
+    const newData = reorder(navData, result.source.index, result.destination.index);
     moveNavItem({ navData: newData, type: 'navItems' });
   };
 
@@ -38,8 +34,10 @@ const FormEditNavLink = () => {
       newItem: {
         id: uuidv4(),
         href: '#',
-        text: 'item'
-      }, indexInsert: navData.length, type: 'navItems'
+        text: 'item',
+      },
+      indexInsert: navData.length,
+      type: 'navItems',
     });
   };
 
@@ -48,7 +46,7 @@ const FormEditNavLink = () => {
   };
 
   const _renderSettingsBox = (nowIndex: number) => {
-    return <SettingFormNavLink nowIndex={nowIndex} />
+    return <SettingFormNavLink nowIndex={nowIndex} />;
   };
 
   return (
@@ -57,7 +55,7 @@ const FormEditNavLink = () => {
       <div className={styles.editNavItem}>
         <FormDropDown
           draggableId={'nav-link'}
-          droppableId='nav-link'
+          droppableId="nav-link"
           label={navData.map(item => item.text) as any}
           onAdd={handleAddNavItem}
           onDelete={handleDeleteNavItem}

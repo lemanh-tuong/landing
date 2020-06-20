@@ -38,16 +38,32 @@ export interface RollSelectProps extends InputFileProps {
   ammountLazyLoading?: number;
 }
 
-
-const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defaultSelected, fieldName, multiple, width, height, statusLazy = 'success', ammountLazyLoading, statusUploadFile, messageUpload }) => {
-
+const RollSelect: FC<RollSelectProps> = ({
+  onUploadFile,
+  onChoose,
+  listImg,
+  defaultSelected,
+  fieldName,
+  multiple,
+  width,
+  height,
+  statusLazy = 'success',
+  ammountLazyLoading,
+  statusUploadFile,
+  messageUpload,
+}) => {
   const _renderImg = (item: ImgType, orderSelected: number, onChange?: (result: any) => void) => {
     const { imgSrc } = item;
     const isSelected = orderSelected !== -1 ? true : false;
 
     if (fieldName.includes('icon')) {
       return (
-        <div onClick={onChange} className={`${styles.rollSelectItem} ${statusLazy === 'loading' ? styles.skeleton : ''}  ${isSelected ? styles.chose : ''}`} style={{ width: width, height: height }} key={uuidv4()}>
+        <div
+          onClick={onChange}
+          className={`${styles.rollSelectItem} ${statusLazy === 'loading' ? styles.skeleton : ''}  ${isSelected ? styles.chose : ''}`}
+          style={{ width: width, height: height }}
+          key={uuidv4()}
+        >
           {statusLazy === 'success' ? <div className={`${styles.image}`} style={{ backgroundImage: `url(${imgSrc})` }}></div> : null}
           {isSelected ? <div className={styles.number}>{multiple ? orderSelected + 1 : <i className="fas fa-check"></i>}</div> : null}
         </div>
@@ -56,7 +72,12 @@ const RollSelect: FC<RollSelectProps> = ({ onUploadFile, onChoose, listImg, defa
 
     return (
       <Col cols={[6, 4, 4]} style={{ padding: 15 }}>
-        <div onClick={onChange} className={`${styles.rollSelectItem} ${statusLazy === 'loading' ? styles.skeleton : ''}  ${isSelected ? styles.chose : ''}`} style={{ width: width, height: height }} key={uuidv4()}>
+        <div
+          onClick={onChange}
+          className={`${styles.rollSelectItem} ${statusLazy === 'loading' ? styles.skeleton : ''}  ${isSelected ? styles.chose : ''}`}
+          style={{ width: width, height: height }}
+          key={uuidv4()}
+        >
           {statusLazy === 'success' ? <div className={`${styles.image}`} style={{ backgroundImage: `url(${imgSrc})` }}></div> : null}
           {isSelected ? <div className={styles.number}>{multiple ? orderSelected : <i className="fas fa-check"></i>}</div> : null}
         </div>

@@ -36,11 +36,22 @@ export interface PageProps {
   elements: Option[];
 }
 
-export interface Option extends Partial<Section1Props
-  & Section2Props & Section3Props & Section4Props
-  & Section5Props & Section6Props & Section7Props
-  & Section8Props & Secction9Props & Section10Props
-  & Section11Props & Section12Props & Section13Props> {
+export interface Option
+  extends Partial<
+    Section1Props &
+      Section2Props &
+      Section3Props &
+      Section4Props &
+      Section5Props &
+      Section6Props &
+      Section7Props &
+      Section8Props &
+      Secction9Props &
+      Section10Props &
+      Section11Props &
+      Section12Props &
+      Section13Props
+  > {
   sectionName: string;
   sectionId: string;
 }
@@ -59,7 +70,7 @@ const SettingsPage = () => {
 
   //State
   const [sectionDragging, setSectionDragging] = useState(-1);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const [startDrag, setStartDrag] = useState(false);
 
   const handleSetStartDrag = (value: boolean) => {
@@ -85,7 +96,7 @@ const SettingsPage = () => {
   const handlePrepairAdd = (option: Omit<Option, 'sectionId'>) => {
     prepairAddProperty.current = {
       ...option,
-      sectionId: uuidv4()
+      sectionId: uuidv4(),
     };
   };
 
@@ -119,11 +130,7 @@ const SettingsPage = () => {
         if (!result.destination) {
           return;
         }
-        const newElements = reorder<Option>(
-          elements,
-          result.source.index,
-          result.destination.index
-        );
+        const newElements = reorder<Option>(elements, result.source.index, result.destination.index);
         moveSection(newElements);
       }
     }
@@ -141,7 +148,7 @@ const SettingsPage = () => {
       </Helmet>
       <Button
         onClick={handleActive}
-        shape='circle'
+        shape="circle"
         icon={<i className="fas fa-chevron-right"></i>}
         className={`${styles.openSideBar} ${active ? styles.actived : null}`}
       />
@@ -149,14 +156,14 @@ const SettingsPage = () => {
         <NavEditable />
       </div>
       <div className="body">
-        <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} >
+        <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
           <div className={`${styles.sideBar} ${active ? styles.active : null}`}>
             <SideBar />
           </div>
-          <div className={`${styles.mainContent} ${active ? styles.active : null}`} >
+          <div className={`${styles.mainContent} ${active ? styles.active : null}`}>
             <MainContent onDragStart={handleSetStartDrag} sectionDragging={sectionDragging} startDrag={startDrag} />
           </div>
-        </DragDropContext >
+        </DragDropContext>
       </div>
     </div>
   );

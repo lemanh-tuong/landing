@@ -50,26 +50,29 @@ const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, start
       <Draggable draggableId={sectionId} index={indexSection} key={sectionId}>
         {provided => {
           return (
-            <div className={`${styles.section} ${startDrag ? styles.startDrag : null}`}
+            <div
+              className={`${styles.section} ${startDrag ? styles.startDrag : null}`}
               key={sectionId}
               {...provided.dragHandleProps}
-              {...startDrag ? provided.draggableProps : {}}
+              {...(startDrag ? provided.draggableProps : {})}
               ref={provided.innerRef}
             >
               <div className={styles.sectionTop}>
-                {sectionDragging === indexSection ? null : <ButtonFunc onStartDrag={onDragStart} nowIndexSection={indexSection} elementProperty={element} />}
+                {sectionDragging === indexSection ? null : (
+                  <ButtonFunc onStartDrag={onDragStart} nowIndexSection={indexSection} elementProperty={element} />
+                )}
               </div>
               <div className={`content ${sectionDragging === indexSection ? styles.dragging : null}`}>
                 {RenderSection({ option: element, nowIndexSection: indexSection })}
               </div>
               <div className={styles.sectionBottom}>
-                {sectionDragging === indexSection ? null :
+                {sectionDragging === indexSection ? null : (
                   <Button className={styles.addComponentBtn}>
                     <Link to={`/admin/component?pageName=HomePage&nowIndexSection=${indexSection}`}>
                       <i className="fas fa-plus"></i>
                     </Link>
                   </Button>
-                }
+                )}
               </div>
             </div>
           );
@@ -83,7 +86,8 @@ const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, start
       <div className={`${styles.mainContent}`}>
         <Droppable droppableId="2">
           {(provided, snapshot) => (
-            <div ref={provided.innerRef}
+            <div
+              ref={provided.innerRef}
               {...provided.droppableProps}
               className={elements.length === 0 ? styles.empty : ''}
               style={getListStyle(snapshot.isDraggingOver)}
@@ -119,7 +123,7 @@ const MainContent: FC<MainContentProps> = ({ onDragStart, sectionDragging, start
     <>
       {_renderSwitch()}
       <Popover content="Save All">
-        <Button onClick={handleSaveAll} className={styles.saveBtn} shape='circle-outline' size='large'>
+        <Button onClick={handleSaveAll} className={styles.saveBtn} shape="circle-outline" size="large">
           <i className="fas fa-save"></i>
         </Button>
       </Popover>

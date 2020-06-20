@@ -31,15 +31,27 @@ const Iphone: FC<IphoneParams> = ({ params, isBuilder, onEditable }) => {
         onEdit={onEditable}
         component={
           <div className={styles.phone}>
-            <iframe title="iphone-simulator" onClick={onEditable} className={`${styles.iframe} ${styles.isBuilder}`} src={`https://appetize.io/embed/8bnmakzrptf1hv9dq7v7bnteem?${QueryString.stringify(iosParams(params))}`}></iframe>
+            <iframe
+              title="iphone-simulator"
+              onClick={onEditable}
+              className={`${styles.iframe} ${styles.isBuilder}`}
+              src={`https://appetize.io/embed/8bnmakzrptf1hv9dq7v7bnteem?${QueryString.stringify(iosParams(params))}`}
+            ></iframe>
           </div>
         }
       />
     );
   }
-  return <div className={styles.phone}>
-    <iframe title="iphone-simulator" className={styles.iframe} src={`https://appetize.io/embed/8bnmakzrptf1hv9dq7v7bnteem?${QueryString.stringify(iosParams(params))}`}></iframe>;
-  </div>
+  return (
+    <div className={styles.phone}>
+      <iframe
+        title="iphone-simulator"
+        className={styles.iframe}
+        src={`https://appetize.io/embed/8bnmakzrptf1hv9dq7v7bnteem?${QueryString.stringify(iosParams(params))}`}
+      ></iframe>
+      ;
+    </div>
+  );
 };
 
 export default Iphone;

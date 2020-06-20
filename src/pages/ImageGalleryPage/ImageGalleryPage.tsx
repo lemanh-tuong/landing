@@ -15,7 +15,22 @@ import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router';
 import getQuery from 'utils/functions/getQuery';
 import styles from './ImageGalleryPage.module.scss';
-import { avatarAuthorGallery, iconCard2Gallery, iconGallery, iconImgInColGallery, id, imageButtonGallery, imageSectionCol, logoImgGallery, messageRequestImageFailure, messageUploadFileFailure, sliderImgsGallery, sliderSectionImgGallery, statusRequestImage, statusUploadFile } from './selectors';
+import {
+  avatarAuthorGallery,
+  iconCard2Gallery,
+  iconGallery,
+  iconImgInColGallery,
+  id,
+  imageButtonGallery,
+  imageSectionCol,
+  logoImgGallery,
+  messageRequestImageFailure,
+  messageUploadFileFailure,
+  sliderImgsGallery,
+  sliderSectionImgGallery,
+  statusRequestImage,
+  statusUploadFile,
+} from './selectors';
 import thunkChangeAvatarAuthor from './thunks/thunkChangeAvatarAuthor/thunkChangeAvatarAuthor';
 import thunkChangeIconCard2 from './thunks/thunkChangeIconCard2/thunkChangeIconCard2';
 import thunkChangeIconInCol from './thunks/thunkChangeIconInCol/thunkChangeIconInCol';
@@ -57,7 +72,7 @@ const ImageGalleryPage = () => {
   const chooseAvatarAuthor = thunkChangeAvatarAuthor();
   const chooseSliderImgSection = thunkChangeImgSlide2();
   const chooseLogoImg = thunkChangeLogoImg();
-  const chooseImageButton = thunkChangeImageButton()
+  const chooseImageButton = thunkChangeImageButton();
   const save = thunkSaveAll();
   const upload = thunkUploadFile();
 
@@ -95,12 +110,14 @@ const ImageGalleryPage = () => {
         chooseImage({ fieldName: fieldName, src: result, nowIndexSection: parseInt(nowIndexSection) });
       }
       if (type === 'imageButton') {
-        chooseImageButton({ imgSrc: result.imgSrc, nowIndexButton: parseInt(nowIndexButton), nowIndexSection: parseInt(nowIndexSection) })
+        chooseImageButton({ imgSrc: result.imgSrc, nowIndexButton: parseInt(nowIndexButton), nowIndexSection: parseInt(nowIndexSection) });
       }
     };
   };
 
-  const handleUploadFile = (typeImage: 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg' | 'logoImg' | 'imageButton') => {
+  const handleUploadFile = (
+    typeImage: 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'sliderSectionImg' | 'logoImg' | 'imageButton',
+  ) => {
     if (!!typeImage) {
       return (result: File[]) => {
         upload({ path: typeImage, files: result });
@@ -115,12 +132,31 @@ const ImageGalleryPage = () => {
 
   useMount(() => {
     setParam(() => {
-      const res = getQuery(history.location.search, ['type', 'nowIndexSection', 'nowIndexCard', 'nowIndexSlide', 'nowIndexRate', 'nowIndexButton', 'multiple']);
+      const res = getQuery(history.location.search, [
+        'type',
+        'nowIndexSection',
+        'nowIndexCard',
+        'nowIndexSlide',
+        'nowIndexRate',
+        'nowIndexButton',
+        'multiple',
+      ]);
       if (!!res.type) {
-        getImage(res.type as 'icon' | 'iconCard2' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs' | 'avatarAuthor' | 'logoImg' | 'sliderSectionImg' | 'imageButton');
+        getImage(
+          res.type as
+            | 'icon'
+            | 'iconCard2'
+            | 'imgSrc'
+            | 'imageSectionCol'
+            | 'sliderImgs'
+            | 'avatarAuthor'
+            | 'logoImg'
+            | 'sliderSectionImg'
+            | 'imageButton',
+        );
       }
       return {
-        ...res
+        ...res,
       };
     });
   });
@@ -128,25 +164,37 @@ const ImageGalleryPage = () => {
   const _renderSwitch = () => {
     const { type, multiple } = param;
     if (!!type) {
-      const listImg = type === 'iconImg' ? icon
-        : type === 'iconCard2' ? iconCard2
-          : type === 'sliderImgs' ? sliderImgs
-            : type === 'avatarAuthor' ? avatarAuthor
-              : type === 'iconImgInCol' ? iconImgInCol
-                : type === 'sliderSectionImg' ? sliderSectionImg
-                  : type === 'logoImg' ? logoImg
-                    : type === 'imageButton' ? imageButtons
-                      : imageSection;
+      const listImg =
+        type === 'iconImg'
+          ? icon
+          : type === 'iconCard2'
+          ? iconCard2
+          : type === 'sliderImgs'
+          ? sliderImgs
+          : type === 'avatarAuthor'
+          ? avatarAuthor
+          : type === 'iconImgInCol'
+          ? iconImgInCol
+          : type === 'sliderSectionImg'
+          ? sliderSectionImg
+          : type === 'logoImg'
+          ? logoImg
+          : type === 'imageButton'
+          ? imageButtons
+          : imageSection;
       switch (statusRequestGallery) {
         case 'success':
-          return <RollSelect
-            fieldName={type}
-            listImg={listImg}
-            multiple={JSON.parse(multiple)}
-            statusUploadFile={statusUpload}
-            messageUpload={messageUpload}
-            onChoose={handleChoose(type)}
-            onUploadFile={handleUploadFile(type as 'icon' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs')} />;
+          return (
+            <RollSelect
+              fieldName={type}
+              listImg={listImg}
+              multiple={JSON.parse(multiple)}
+              statusUploadFile={statusUpload}
+              messageUpload={messageUpload}
+              onChoose={handleChoose(type)}
+              onUploadFile={handleUploadFile(type as 'icon' | 'imgSrc' | 'imageSectionCol' | 'sliderImgs')}
+            />
+          );
         case 'loading':
           return <RollSelect fieldName={type} statusLazy="loading" listImg={[]} ammountLazyLoading={10} />;
         case 'failure':
@@ -166,7 +214,7 @@ const ImageGalleryPage = () => {
       <Container>
         {_renderSwitch()}
         <Popover content="Save ">
-          <Button shape='circle' size='large' className={styles.goBackBtn} onClick={handleSaveAll}>
+          <Button shape="circle" size="large" className={styles.goBackBtn} onClick={handleSaveAll}>
             <a href="####" onClick={e => e.preventDefault()}>
               <i className="fas fa-save"></i>
             </a>
@@ -175,7 +223,6 @@ const ImageGalleryPage = () => {
       </Container>
     </div>
   );
-
 };
 
 export default ImageGalleryPage;

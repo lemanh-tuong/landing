@@ -13,10 +13,13 @@ export interface ColorPickerGradientProps {
 }
 
 const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
-  defaultColorLeft = 'rgb(240, 98, 146)', defaultColorRight = 'rgb(249, 120, 95)',
+  defaultColorLeft = 'rgb(240, 98, 146)',
+  defaultColorRight = 'rgb(249, 120, 95)',
   type = 'linear-gradient',
-  style, className,
-  onChange }) => {
+  style,
+  className,
+  onChange,
+}) => {
   const onChangeRef = useRef(onChange);
   const [displayColorBox, setDisplayColorBox] = useState({ left: false, right: false });
   const [isChanging, setIsChanging] = useState(false);
@@ -36,27 +39,27 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
       setIsChanging(true);
       setColor(state => ({
         ...state,
-        [side]: resultRGBA
+        [side]: resultRGBA,
       }));
     };
   };
 
   const handleChangeComplete = () => {
     setIsChanging(false);
-  }
+  };
 
   const handleOpen = useCallback((side: 'left' | 'right') => {
     return () => {
       setDisplayColorBox(state => ({
         ...state,
-        [side]: !state[side]
+        [side]: !state[side],
       }));
     };
   }, []);
 
   const handleClose = useCallback(() => {
-    setDisplayColorBox({ left: false, right: false })
-  }, [])
+    setDisplayColorBox({ left: false, right: false });
+  }, []);
 
   const _renderColorBox = (side: 'left' | 'right') => {
     return (
@@ -74,8 +77,8 @@ const ColorPickerGradient: FC<ColorPickerGradientProps> = ({
     }
     return () => {
       window.removeEventListener('click', handleClose);
-    }
-  }, [displayColorBox, handleClose, isChanging])
+    };
+  }, [displayColorBox, handleClose, isChanging]);
 
   return (
     <div className={`${styles.colorPickerGradientComponent} ${className}`} style={style}>

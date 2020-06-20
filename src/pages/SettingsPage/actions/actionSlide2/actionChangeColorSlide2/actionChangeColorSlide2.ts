@@ -7,7 +7,6 @@ export interface ActionChangeColorSlide2Payload {
   fieldName: string;
 }
 
-const actionChangeColorSlide2 = createAction('CHANGE_COLOR_SLIDE_2', (payload: ActionChangeColorSlide2Payload) => ({...payload}));
+const actionChangeColorSlide2 = createAction('CHANGE_COLOR_SLIDE_2', (payload: ActionChangeColorSlide2Payload) => ({ ...payload }));
 
 export { actionChangeColorSlide2 };
-

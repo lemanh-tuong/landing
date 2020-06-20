@@ -12,12 +12,31 @@ export interface Section3EditableProps extends Section3Props {
   nowIndexSection: number;
 }
 
-const Section3Editable: FC<Section3EditableProps> = ({ nowIndexSection, sectionId, animation, positionAnimation, reverse,
-  mainTitle, alignMainTitle, colorMainTitle, classMainTitle, fontSizeMainTitle, styleMainTitle,
-  text, alignText, colorText, classText, fontSizeText, styleText,
+const Section3Editable: FC<Section3EditableProps> = ({
+  nowIndexSection,
+  sectionId,
+  animation,
+  positionAnimation,
+  reverse,
+  mainTitle,
+  alignMainTitle,
+  colorMainTitle,
+  classMainTitle,
+  fontSizeMainTitle,
+  styleMainTitle,
+  text,
+  alignText,
+  colorText,
+  classText,
+  fontSizeText,
+  styleText,
   imageSectionCol,
-  hasDivider, dividerColor, alignDivider, backgroundImage, backgroundColor }) => {
-
+  hasDivider,
+  dividerColor,
+  alignDivider,
+  backgroundImage,
+  backgroundColor,
+}) => {
   const handleShowPopupEditMainTitle = () => {
     PopUp.show(`mainTitle-${sectionId}`)();
   };

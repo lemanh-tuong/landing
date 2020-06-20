@@ -13,4 +13,3 @@ const move = (source: any, destination: any, droppableSource: any, droppableDest
 };
 
 export { move };
-

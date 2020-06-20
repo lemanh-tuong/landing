@@ -4,4 +4,3 @@ import { createAsyncAction } from 'utils/functions/reduxActions';
 const getDataSection = createAsyncAction(['@getDataSectionRequest', '@getDataSectionSuccess', '@getDataSectionFailure'])<null, PageProps, string>();
 
 export { getDataSection };
-

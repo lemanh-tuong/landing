@@ -44,11 +44,38 @@ export interface CarouselProps<ItemT> extends CarouselOptions, Omit<ImageProps, 
 }
 
 const Carousel = <ItemT extends any>({
-  isBuilder, onEditable, sliderImgs, renderItem,
-  hasNav, hasDots, dotClass, navClass, classActive, delayTime = 1000,
-  margin = 30, responsive, itemShow = 2, fluid, draggable }: CarouselProps<ItemT>) => {
-
-  const { items, nowPosition, startPosition, currentSlide, animated, nextSlide, prevSlide, pickSlide, dragStart, dragging, dragEnd, touchEnd, touchMove, touchStart } = useSlide(sliderImgs.length, itemShow, delayTime, responsive);
+  isBuilder,
+  onEditable,
+  sliderImgs,
+  renderItem,
+  hasNav,
+  hasDots,
+  dotClass,
+  navClass,
+  classActive,
+  delayTime = 5000,
+  margin = 30,
+  responsive,
+  itemShow = 2,
+  fluid,
+  draggable,
+}: CarouselProps<ItemT>) => {
+  const {
+    items,
+    nowPosition,
+    startPosition,
+    currentSlide,
+    animated,
+    nextSlide,
+    prevSlide,
+    pickSlide,
+    dragStart,
+    dragging,
+    dragEnd,
+    touchEnd,
+    touchMove,
+    touchStart,
+  } = useSlide(sliderImgs.length, itemShow, delayTime, responsive);
   const _renderNavSlide = () => {
     return (
       <div className={`${styles.navCarousel} ${navClass}`}>
@@ -64,7 +91,7 @@ const Carousel = <ItemT extends any>({
 
   const _renderDot = (order: number) => {
     const nowSlide = currentSlide > sliderImgs.length - 1 ? 0 : currentSlide < 0 ? sliderImgs.length - 1 : currentSlide;
-    const actived = (order === nowSlide) ? classActive ?? styles.active : '';
+    const actived = order === nowSlide ? classActive ?? styles.active : '';
     return <div key={uuidv4()} className={`${actived} ${dotClass ?? styles.dot}`} onClick={() => pickSlide(order)}></div>;
   };
 
@@ -102,31 +129,37 @@ const Carousel = <ItemT extends any>({
 
   if (isBuilder) {
     return (
-      <PopOverText onEdit={onEditable} component={
-        <div className={`${styles.carousel} ${isBuilder ? styles.isBuilder : null}`} onClick={onEditable}>
-          <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`}>
-            <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
-              {_renderLast()}
-              {_renderSlides()}
-              {_renderFirst()}
+      <PopOverText
+        onEdit={onEditable}
+        component={
+          <div className={`${styles.carousel} ${isBuilder ? styles.isBuilder : null}`} onClick={onEditable}>
+            <div className={`${styles.slideShow} ${fluid ? styles.fluid : ''}`}>
+              <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position}>
+                {_renderLast()}
+                {_renderSlides()}
+                {_renderFirst()}
+              </div>
             </div>
+            {hasNav && _renderNavSlide()}
+            {hasDots && _renderDots()}
           </div>
-          {hasNav && _renderNavSlide()}
-          {hasDots && _renderDots()}
-        </div>
-      } />
+        }
+      />
     );
   }
   return (
     <div className={`${styles.carousel} `}>
-      <div className={`${styles.slideShow}
+      <div
+        className={`${styles.slideShow}
       ${fluid ? styles.fluid : ''}`}
         onMouseDown={draggable && sliderImgs.length > 1 ? dragStart : undefined}
-        onMouseUp={dragEnd} onMouseMove={dragging}
+        onMouseUp={dragEnd}
+        onMouseMove={dragging}
         onTouchStart={draggable ? touchStart : undefined}
-        onTouchMove={touchMove} onTouchEnd={touchEnd}
+        onTouchMove={touchMove}
+        onTouchEnd={touchEnd}
       >
-        <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position} >
+        <div className={`${styles.slides} ${animated ? styles.animated : ''}`} style={position}>
           {_renderLast()}
           {_renderSlides()}
           {_renderFirst()}
