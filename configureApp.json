@@ -1,13 +1,26 @@
 {
   "landingName": "Landing",
   "firebase": {
-    "apiKey": "AIzaSyB8Qc6a3_gd_KPSx-7w5qKqA74i0t_HDn4",
-    "appId": "1:1021575008059:web:82459d571e7b7a0964f11e",
-    "authDomain": "focal-bucksaw-265211.firebaseapp.com",
-    "databaseURL": "https://focal-bucksaw-265211.firebaseio.com",
-    "measurementId": "G-2YD1VVX730",
-    "messagingSenderId": "1021575008059",
-    "projectId": "focal-bucksaw-265211",
-    "storageBucket": "focal-bucksaw-265211.appspot.com"
-  }
+    "apiKey": "AIzaSyAXAW4ygfq7r9lfR0l_uPJYjlOVPiDYULQ",
+    "authDomain": "groovy-producer-264609.firebaseapp.com",
+    "databaseURL": "https://groovy-producer-264609.firebaseio.com",
+    "projectId": "groovy-producer-264609",
+    "storageBucket": "groovy-producer-264609.appspot.com",
+    "messagingSenderId": "110583216518",
+    "appId": "1:110583216518:web:93d07b208eae3d21f31407",
+    "measurementId": "G-WZH8B56CEL"
+  },
+  "hosting": {
+    "type": "service_account",
+    "project_id": "focal-bucksaw-265211",
+    "private_key_id": "e2196eb140aad311a58f2975498003a4aadc778b",
+    "private_key": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCSC9DyXdpVUwqn",
+    "client_email": "firebase-adminsdk-wofp6@focal-bucksaw-265211.iam.gserviceaccount.com",
+    "client_id": "116349727127535776814",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-wofp6%40focal-bucksaw-265211.iam.gserviceaccount.com"
+  },
+  "OAuth": "1021575008059-dclsc2hdgatd90t389rcj7mghd0r9vfs.apps.googleusercontent.com"
 }

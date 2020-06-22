@@ -1,7 +1,7 @@
 import { useMount } from 'hooks/useMount';
 import thunkContinueLog from 'pages/LoginPage/thunks/thunkContinueLog';
 import thunkInitialize from 'pages/LoginPage/thunks/thunkInitialize';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { statusInitialize } from 'selectors';
 import RenderAfterInitializeApp from './RenderAfterInitializeApp/RenderAfterInitializeApp';
@@ -16,8 +16,13 @@ const Routes = () => {
 
   useMount(() => {
     initializeApp();
-    loginContinue();
   });
+
+  useEffect(() => {
+    if (statusInitializeApp === 'initialized') {
+      loginContinue();
+    }
+  }, [statusInitializeApp, loginContinue]);
 
   const _renderSwitch = () => {
     switch (statusInitializeApp) {

@@ -18,10 +18,11 @@ const CreateNewProjectPage = () => {
     setValue(result);
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     submit(value);
     history.push('/admin/list');
+    window.location.reload();
+    return false;
   };
 
   return (
@@ -29,7 +30,7 @@ const CreateNewProjectPage = () => {
       <Container>
         <form onSubmit={handleSubmit}>
           <div className={styles.header}>
-            <h3 className={styles.title}>Your Project Is New. Please Fill The Project Name</h3>
+            <h3 className={styles.title}>Fill The Project Name</h3>
             <p className={styles.desc}>It will be app's title</p>
           </div>
           <InputText2 defaultValue={value} label="Project Name" onChange={handleChange} />

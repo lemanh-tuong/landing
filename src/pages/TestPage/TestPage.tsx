@@ -6,7 +6,6 @@ import Step5 from 'pages/InitializeProjectPage/components/Step5/Step5';
 import React from 'react';
 
 const TestPage = () => {
-
   return (
     <div style={{ marginTop: 80 }}>
       <Step1 />
@@ -17,6 +16,5 @@ const TestPage = () => {
     </div>
   );
 };
-
 
 export default TestPage;

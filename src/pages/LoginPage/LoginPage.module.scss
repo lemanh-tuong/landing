@@ -1,3 +1,4 @@
+@import '../../styles/abstracts/variables.scss';
 .LoginPage {
   width: 100vw;
   height: 100vh;
@@ -5,7 +6,7 @@
 
 .contentLoginPage {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -118,15 +119,18 @@
 }
 
 .modalError {
-  position: relative;
+  position: absolute;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   outline: 0;
+  & a {
+    color: $color-secondary2;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 .modalTop {
   padding: 15px;

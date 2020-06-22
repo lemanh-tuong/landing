@@ -6,12 +6,14 @@ export interface ThunkGetDataSectionArg {
   pathName: string;
 }
 
-const thunkGetDataSection = ({ pathName }: ThunkGetDataSectionArg): ThunkGetDataSection => async (dispatch, getState) => {
+const thunkGetDataSection = ({ pathName }: ThunkGetDataSectionArg): ThunkGetDataSection => async (
+  dispatch,
+  getState,
+) => {
   const { firebaseReducer } = getState();
   dispatch(getDataSection.request(null));
   try {
     const data = await firebaseReducer.readDatabase(`/PagesDetail/${pathName.slice(1)}`);
-    console.log(123, 123, pathName, data);
     dispatch(getDataSection.success(data));
   } catch (err) {
     dispatch(getDataSection.failure(err.message));

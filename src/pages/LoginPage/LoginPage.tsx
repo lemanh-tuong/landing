@@ -41,14 +41,27 @@ const LoginPage = () => {
     });
   };
 
+  const _renderMessageError = () => {
+    if (msg.includes('Enable it in the Firebase console, under the sign-in method tab of the Auth section.'))
+      return (
+        <p>
+          The given sign-in provider is disabled for this Firebase project
+          <a target="blank" style={{ marginLeft: 6 }} href="https://www.youtube.com/watch?v=mEF9WRwYDfY&t=229s">
+            Enable It
+          </a>
+        </p>
+      );
+    return <p>{msg}</p>;
+  };
+
   const _renderError = () => {
     return (
       <div className={styles.modalError}>
-        <div className={styles.modalTop}>
-          <h3>Error</h3>
-        </div>
         <div className={styles.modalContent}>
-          <p>{msg}</p>
+          <div className={styles.modalTop}>
+            <h3>Error</h3>
+          </div>
+          <div className={styles.modalContent}>{_renderMessageError()}</div>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import Loading from 'components/Loading/Loading';
 import Nav from 'components/Nav/Nav';
 import { useMount } from 'hooks/useMount';
+import NotFoundPage from 'pages/404Page/404Page';
 import ComponentPage from 'pages/ComponentPage/ComponentPage';
 import CreateNewProjectPage from 'pages/CreateNewProjectPage/CreateNewProjectPage';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
@@ -18,7 +19,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useLocation } from 'react-router';
 import PrivateRoute from 'routes/PrivateRoute/PrivateRoute';
-import { listPage, logoImg, messageRequestNav, messageRequestPageErr, navItems, statusRequestNav, statusRequestPage } from 'selectors';
+import {
+  listPage,
+  logoImg,
+  messageRequestNav,
+  messageRequestPageErr,
+  navItems,
+  statusRequestNav,
+  statusRequestPage,
+} from 'selectors';
 const RenderAfterInitializeApp = () => {
   const location = useLocation();
 
@@ -44,49 +53,43 @@ const RenderAfterInitializeApp = () => {
   const _renderContentSuccess = () => {
     return (
       <>
-        {!location.pathname.includes('/admin') && !location.pathname.includes('/error') && _renderHeader()}
-        <Switch>
-          <Route exact path={`(${paths.join('|')})`}>
-            <MainPage />
-          </Route>
-          <Route exact path="/admin/login">
-            <LoginPage />
-          </Route>
-          <Route exact path="/test">
-            <TestPage />
-          </Route>
-          <Route exact path="/error">
-            <ErrorPage />
-          </Route>
-          <Route path="/admin">
-            <PrivateRoute
-              condition={isLogged === 'loged'}
-              pathRedirect="/admin/login"
-              component={
-                <>
-                  <Route exact path="/admin/builder">
-                    <SettingsPage />
-                  </Route>
-                  <Route exact path="/admin/gallery">
-                    <ImageGalleryPage />
-                  </Route>
-                  <Route exact path="/admin/component">
-                    <ComponentPage />
-                  </Route>
-                  <Route exact path="/admin/projectName">
-                    <CreateNewProjectPage />
-                  </Route>
-                  <Route path="/admin/list">
-                    <ListPage />
-                  </Route>
-                </>
-              }
-            />
-          </Route>
-          <Route>
-            <ErrorPage />
-          </Route>
-        </Switch>
+        <Route exact path={`(${paths.join('|')})`}>
+          <MainPage />
+        </Route>
+        <Route exact path="/admin/login">
+          <LoginPage />
+        </Route>
+        <Route exact path="/test">
+          <TestPage />
+        </Route>
+        <Route path="/admin">
+          <PrivateRoute
+            condition={isLogged === 'loged'}
+            pathRedirect="/admin/login"
+            component={
+              <>
+                <Route exact path="/admin/builder">
+                  <SettingsPage />
+                </Route>
+                <Route exact path="/admin/gallery">
+                  <ImageGalleryPage />
+                </Route>
+                <Route exact path="/admin/component">
+                  <ComponentPage />
+                </Route>
+                <Route exact path="/admin/projectName">
+                  <CreateNewProjectPage />
+                </Route>
+                <Route path="/admin/list">
+                  <ListPage />
+                </Route>
+              </>
+            }
+          />
+        </Route>
+        <Route>
+          <NotFoundPage />
+        </Route>
       </>
     );
   };
@@ -125,11 +128,20 @@ const RenderAfterInitializeApp = () => {
     getProjectName();
   });
 
-  if (statusRequestPageName === 'failure') {
-    return <Redirect to={{ pathname: '/error', state: 'Error Request Pagename' }} />;
-  }
-
-  return _renderContentSwitch();
+  return (
+    <>
+      {!location.pathname.includes('/admin') && !location.pathname.includes('/error') && _renderHeader()}
+      <Switch>
+        <Route exact path="/error">
+          <ErrorPage />
+        </Route>
+        {_renderContentSwitch()}
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
+    </>
+  );
 };
 
 export default RenderAfterInitializeApp;

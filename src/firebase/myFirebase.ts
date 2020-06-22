@@ -65,6 +65,7 @@ class MyFirebase {
       this.database = firebase.database();
       this.storage = firebase.storage();
       this.authentication = app.auth();
+      this.createVersion();
     }
   }
 
@@ -75,12 +76,6 @@ class MyFirebase {
       this.storage = firebase.storage();
       this.authentication = app.auth();
     }
-    //  else {
-    //   firebase.app();
-    //   this.database = firebase.database();
-    //   this.storage = firebase.storage();
-    //   this.authentication = app.auth();
-    // }
   };
 
   // Authentication Method
@@ -153,7 +148,6 @@ class MyFirebase {
   };
 
   // Storage Method
-
   readStorage = async (path: string) => {
     const images = this.storage
       .ref()
@@ -193,6 +187,9 @@ class MyFirebase {
     ]);
     return newImg;
   };
+
+  // Hosting
+  createVersion = () => {};
 
   getAuthentication = () => {
     return this.authentication;
