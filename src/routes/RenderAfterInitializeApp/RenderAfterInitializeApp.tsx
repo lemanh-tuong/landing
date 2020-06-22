@@ -53,43 +53,45 @@ const RenderAfterInitializeApp = () => {
   const _renderContentSuccess = () => {
     return (
       <>
-        <Route exact path={`(${paths.join('|')})`}>
-          <MainPage />
-        </Route>
-        <Route exact path="/admin/login">
-          <LoginPage />
-        </Route>
-        <Route exact path="/test">
-          <TestPage />
-        </Route>
-        <Route path="/admin">
-          <PrivateRoute
-            condition={isLogged === 'loged'}
-            pathRedirect="/admin/login"
-            component={
-              <>
-                <Route exact path="/admin/builder">
-                  <SettingsPage />
-                </Route>
-                <Route exact path="/admin/gallery">
-                  <ImageGalleryPage />
-                </Route>
-                <Route exact path="/admin/component">
-                  <ComponentPage />
-                </Route>
-                <Route exact path="/admin/projectName">
-                  <CreateNewProjectPage />
-                </Route>
-                <Route path="/admin/list">
-                  <ListPage />
-                </Route>
-              </>
-            }
-          />
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
+        <Switch>
+          <Route exact path={`(${paths.join('|')})`}>
+            <MainPage />
+          </Route>
+          <Route exact path="/admin/login">
+            <LoginPage />
+          </Route>
+          <Route exact path="/test">
+            <TestPage />
+          </Route>
+          <Route path="/admin">
+            <PrivateRoute
+              condition={isLogged === 'loged'}
+              pathRedirect="/admin/login"
+              component={
+                <>
+                  <Route exact path="/admin/builder">
+                    <SettingsPage />
+                  </Route>
+                  <Route exact path="/admin/gallery">
+                    <ImageGalleryPage />
+                  </Route>
+                  <Route exact path="/admin/component">
+                    <ComponentPage />
+                  </Route>
+                  <Route exact path="/admin/projectName">
+                    <CreateNewProjectPage />
+                  </Route>
+                  <Route path="/admin/list">
+                    <ListPage />
+                  </Route>
+                </>
+              }
+            />
+          </Route>
+          <Route>
+            <NotFoundPage />
+          </Route>
+        </Switch>
       </>
     );
   };
@@ -136,9 +138,6 @@ const RenderAfterInitializeApp = () => {
           <ErrorPage />
         </Route>
         {_renderContentSwitch()}
-        <Route>
-          <NotFoundPage />
-        </Route>
       </Switch>
     </>
   );
